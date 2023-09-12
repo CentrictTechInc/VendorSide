@@ -3,9 +3,16 @@ class Drawables {
   static const logoWhite = "assets/images/logo_white.png";
   static const logoBackground = "assets/images/login_background.png";
   static const usFlag = "assets/images/us_country.png";
+  static const cards = "assets/images/cards.png";
 }
 
 class RGIcons {
+  static const route = "assets/icons/alt_route.png";
+  static const building = "assets/icons/building.png";
+  static const mailBox = "assets/icons/mailbox.png";
+  static const suitcase = "assets/icons/suit_case.png";
+  static const upload = "assets/icons/upload_icon.png";
+  // -------------vendor side
   static const email = "assets/icons/alternate_email.png";
   static const lock = "assets/icons/lock.png";
   static const settings = "assets/icons/settings.png";

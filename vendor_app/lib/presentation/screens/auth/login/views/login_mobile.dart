@@ -25,9 +25,10 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          color: AppColors.secondary,
+          color: AppColors.primary,
           image: DecorationImage(
-              image: AssetImage(Drawables.logo), fit: BoxFit.fitWidth)),
+              image: AssetImage(Drawables.logoBackground),
+              fit: BoxFit.fitWidth)),
       width: context.width,
       child: SingleChildScrollView(
         child: Form(
@@ -40,10 +41,10 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
                 child: Column(
                   children: [
                     VerticalSpacing(10.h),
-                    Image.asset(Drawables.logoWhite, height: 85),
+                    Image.asset(Drawables.logo, height: 100),
                     VerticalSpacing(7.5.h),
                     CommonText(
-                      text: "LOGIN",
+                      text: "VENDOR LOGIN",
                       color: AppColors.white,
                       fontSize: 20.sp,
                       weight: FontWeight.w600,

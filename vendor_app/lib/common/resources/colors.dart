@@ -5,7 +5,7 @@ class AppColors {
   static const Color white = Color(0xffffffff);
   static const Color black = Color(0xff000000);
   static const Color whiteGreyish = Color(0xffF5F5F5);
-  static const Color primary = Color(0xff00CC66);
+  static const Color primary = Color(0xff0D4744);
   static const Color gradientCard1 = Color(0xff00C161);
   static const Color gradientCard2 = Color(0xff01A352);
   static const Color primaryText = Color(0xff29292D);

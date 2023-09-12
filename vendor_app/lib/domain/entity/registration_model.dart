@@ -1,17 +1,19 @@
+import 'package:flutter/material.dart';
+
 class VendorRegistrationModel {
   int vid;
-  String vendortype;
-  String vendorCompanyName;
-  String vendoraddress;
-  String vendorCity;
-  String vendorRegion;
-  String vendorPostalcode;
-  String vendorMobileDetail;
-  String firstName;
-  String lastName;
-  String jobTitle;
-  String vendoremail;
-  String vendorPassword;
+  TextEditingController vendortype;
+  TextEditingController vendorCompanyName;
+  TextEditingController vendoraddress;
+  TextEditingController vendorCity;
+  TextEditingController vendorRegion;
+  TextEditingController vendorPostalcode;
+  TextEditingController vendorMobileDetail;
+  TextEditingController firstName;
+  TextEditingController lastName;
+  TextEditingController jobTitle;
+  TextEditingController vendoremail;
+  TextEditingController vendorPassword;
   bool isActive;
   int serviceTypeId;
 

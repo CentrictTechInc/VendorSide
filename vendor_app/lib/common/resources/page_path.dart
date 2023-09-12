@@ -26,6 +26,12 @@ class PagePath {
   static const String registerEmailOtp = '/registerEmailOtp';
   static const String forgotPasswrod = '/forgotPassword';
   static const String createNewPassword = '/createNewPassword';
+
+  static const String vendorCharges = '/vendorCharges';
+
+  static const String taxForm = '/taxForm';
+
+  static const String category = '/category';
 }
 
 extension ContextExtensionss on String {
