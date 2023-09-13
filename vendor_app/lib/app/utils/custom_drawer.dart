@@ -131,10 +131,10 @@ class CustomDrawer extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return drawer[index]
-              ..highlighted =
-                  GoRouterState.of(context).location == drawer[index].location
+              ..highlighted = GoRouterState.of(context).uri.toString() ==
+                  drawer[index].location
               ..onTap = () async {
-                if (GoRouterState.of(context).location !=
+                if (GoRouterState.of(context).uri.toString() !=
                     drawer[index].location) {
                   context.pop();
                   await Future.delayed(const Duration(milliseconds: 250));
