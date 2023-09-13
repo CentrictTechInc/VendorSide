@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
 import 'package:vendor_app/common/resources/colors.dart';
-import 'package:vendor_app/presentation/screens/auth/tax_forms/views/tax_forms_mobile.dart';
+import 'package:vendor_app/presentation/screens/payment/views/vendor_charges_mobile.dart';
 
-class TaxFormScreen extends StatelessWidget {
-  const TaxFormScreen({super.key});
+class VendorChargesScreen extends StatelessWidget {
+  const VendorChargesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +12,9 @@ class TaxFormScreen extends StatelessWidget {
       backgroundColor: AppColors.secondary,
       body: SafeArea(
         child: Responsive(
-            mobile: TaxFormMobile(),
-            tablet: TaxFormMobile(),
-            desktop: TaxFormMobile()),
+            mobile: VendorChargesMobile(),
+            tablet: VendorChargesMobile(),
+            desktop: VendorChargesMobile()),
       ),
     );
   }

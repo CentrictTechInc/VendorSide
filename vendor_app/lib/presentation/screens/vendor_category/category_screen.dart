@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
 import 'package:vendor_app/common/resources/colors.dart';
-import 'package:vendor_app/presentation/screens/auth/payment/views/vendor_charges_mobile.dart';
+import 'package:vendor_app/presentation/screens/vendor_category/views/category_mobile.dart';
 
-class VendorChargesScreen extends StatelessWidget {
-  const VendorChargesScreen({super.key});
+class CategoryScreen extends StatelessWidget {
+  const CategoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +12,9 @@ class VendorChargesScreen extends StatelessWidget {
       backgroundColor: AppColors.secondary,
       body: SafeArea(
         child: Responsive(
-            mobile: VendorChargesMobile(),
-            tablet: VendorChargesMobile(),
-            desktop: VendorChargesMobile()),
+            mobile: CategoryMobile(),
+            tablet: CategoryMobile(),
+            desktop: CategoryMobile()),
       ),
     );
   }

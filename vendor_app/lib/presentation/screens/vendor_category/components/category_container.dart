@@ -4,10 +4,15 @@ import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 
 class CategoryContainer extends StatelessWidget {
-  String icon;
-  String label;
+  final String icon;
+  final String label;
+  final VoidCallback onTap;
 
-  CategoryContainer({super.key, required this.label, required this.icon});
+  const CategoryContainer(
+      {super.key,
+      required this.onTap,
+      required this.label,
+      required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class CategoryContainer extends StatelessWidget {
         children: [
           const VerticalSpacing(20),
           GestureDetector(
-            onTap: () {},
+            onTap: onTap,
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: Container(

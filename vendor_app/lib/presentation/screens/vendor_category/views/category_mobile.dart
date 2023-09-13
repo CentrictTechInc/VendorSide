@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
@@ -6,8 +7,9 @@ import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
+import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/resources/strings.dart';
-import 'package:vendor_app/presentation/screens/auth/category/components/category_container.dart';
+import 'package:vendor_app/presentation/screens/vendor_category/components/category_container.dart';
 
 class CategoryMobile extends StatelessWidget with FieldsValidation {
   const CategoryMobile({super.key});
@@ -53,13 +55,19 @@ class CategoryMobile extends StatelessWidget with FieldsValidation {
               ),
               const VerticalSpacing(30),
               CategoryContainer(
-                label: "Automotive",
+                label: "Automotives",
                 icon: RGIcons.fancyCar,
+                onTap: () {
+                  context.push(PagePath.emailOtp);
+                },
               ),
-              const VerticalSpacing(30),
+              const VerticalSpacing(60),
               CategoryContainer(
                 label: "Home Improvement",
                 icon: RGIcons.homeService,
+                onTap: () {
+                  context.push(PagePath.mobileOtp);
+                },
               ),
             ],
           ),

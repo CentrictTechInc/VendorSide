@@ -100,7 +100,8 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
                           const VerticalSpacing(50),
                           CommonTextButton(
                               onPressed: () async {
-                                if (loginFormKey.currentState!.validate()) {}
+                                context.go(PagePath.homeScreen);
+                                // if (loginFormKey.currentState!.validate()) {}
                               },
                               color: AppColors.white,
                               text: "LOG IN"),
