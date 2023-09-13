@@ -11,6 +11,7 @@ import 'package:vendor_app/presentation/screens/password_screens/create_new_pass
 import 'package:vendor_app/presentation/screens/password_screens/forgot_password_screen.dart';
 import 'package:vendor_app/presentation/screens/profile_module/edit_screen.dart';
 import 'package:vendor_app/presentation/screens/profile_module/profile_screen.dart';
+import 'package:vendor_app/presentation/screens/review/review_screen.dart';
 import 'package:vendor_app/presentation/screens/vendor_category/category_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/login/login_screen.dart';
 import 'package:vendor_app/presentation/screens/payment/vendor_charges_screen.dart';
@@ -70,6 +71,11 @@ class AppRouter {
                       path: PagePath.contact,
                       builder: (context, state) {
                         return ContactUsScreen();
+                      }),
+                  GoRoute(
+                      path: PagePath.review,
+                      builder: (context, state) {
+                        return ReviewScreen();
                       }),
                 ])
           ],

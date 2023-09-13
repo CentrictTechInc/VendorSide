@@ -40,59 +40,72 @@ class ProfileItem extends StatelessWidget {
   final AutovalidateMode autoValidateMode;
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        ImageIcon(
-          AssetImage(
-            icon,
-          ),
-          color: AppColors.primary,
-          size: 25.sp,
-        ),
-        const HorizontalSpacing(15),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
           children: [
-            CommonText(
-              text: heading,
-              fontSize: 10.sp,
-              color: AppColors.grey,
+            ImageIcon(
+              AssetImage(
+                icon,
+              ),
+              color: AppColors.primary,
+              size: 25.sp,
             ),
-            if (!isTextFields) const VerticalSpacing(5),
-            SizedBox(
-              height: height,
-              width: context.width - 100,
-              child: isTextFields
-                  ? CommonTextField(
-                      validator: validator,
-                      maxLines: maxLines,
-                      readOnly: readOnly,
-                      contentPadding: const EdgeInsets.only(top: 5),
-                      prefixPadding: 0,
-                      suffixPadding: 0,
-                      minLines: minLines,
-                      autoValidateMode: autoValidateMode,
-                      hintText: hintText,
-                      controller: controller ?? TextEditingController(),
-                      hintColor: AppColors.primaryText,
-                      borderColor: AppColors.black,
-                      enableBorder: AppColors.primaryText,
-                      textColor: AppColors.primaryText,
-                      cursorColor: AppColors.primaryText,
-                    )
-                  : CommonText(
-                      text: text,
-                      fontSize: 13.sp,
-                      textOverflow: TextOverflow.clip,
-                      textAlign: TextAlign.start,
-                      weight: FontWeight.w500,
-                      color: ishighLight
-                          ? AppColors.primaryText
-                          : const Color.fromARGB(255, 144, 152, 162),
-                    ),
+            const HorizontalSpacing(15),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CommonText(
+                  text: heading,
+                  fontSize: 10.sp,
+                  color: AppColors.grey,
+                ),
+                if (!isTextFields) const VerticalSpacing(5),
+                SizedBox(
+                  height: height,
+                  width: context.width - 100,
+                  child: isTextFields
+                      ? CommonTextField(
+                          validator: validator,
+                          maxLines: maxLines,
+                          readOnly: readOnly,
+                          contentPadding: const EdgeInsets.only(top: 5),
+                          prefixPadding: 0,
+                          suffixPadding: 0,
+                          minLines: minLines,
+                          autoValidateMode: autoValidateMode,
+                          hintText: hintText,
+                          controller: controller ?? TextEditingController(),
+                          hintColor: AppColors.primaryText,
+                          borderColor: AppColors.black,
+                          enableBorder: AppColors.primaryText,
+                          textColor: AppColors.primaryText,
+                          cursorColor: AppColors.primaryText,
+                        )
+                      : CommonText(
+                          text: text,
+                          fontSize: 13.sp,
+                          textOverflow: TextOverflow.clip,
+                          textAlign: TextAlign.start,
+                          weight: FontWeight.w500,
+                          color: ishighLight
+                              ? AppColors.primaryText
+                              : const Color.fromARGB(255, 144, 152, 162),
+                        ),
+                ),
+              ],
             ),
           ],
         ),
+        if (!isTextFields) ...[
+          const VerticalSpacing(16),
+          Divider(
+            height: 1,
+            thickness: 2,
+            indent: 13.w,
+            endIndent: 5.w,
+          ),
+        ]
       ],
     );
   }

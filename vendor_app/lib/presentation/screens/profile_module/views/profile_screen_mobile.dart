@@ -65,7 +65,7 @@ class _ProfileScreenMobileState extends State<ProfileScreenMobile> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(70),
                 child: const NetWorkImageWithInitials(
-                  imageUrl: Drawables.logo,
+                  imageUrl: Drawables.personUrl,
                   name: "Shaheer",
                 ),
               ),
@@ -76,45 +76,22 @@ class _ProfileScreenMobileState extends State<ProfileScreenMobile> {
               heading: "UserName",
               text: user.userName ?? "",
               icon: RGIcons.profile),
-          const VerticalSpacing(16),
-          Divider(
-            height: 1,
-            thickness: 2,
-            indent: 13.w,
-            endIndent: 5.w,
-          ),
           const VerticalSpacing(20),
-          ProfileItem(
-              heading: "Email", text: user.email ?? "", icon: RGIcons.email),
-          const VerticalSpacing(16),
-          Divider(
-            height: 1,
-            thickness: 2,
-            indent: 13.w,
-            endIndent: 5.w,
-          ),
-          const VerticalSpacing(20),
-          ProfileItem(
-              heading: "Phone", text: user.phone ?? "", icon: RGIcons.phone),
-          const VerticalSpacing(16),
-          Divider(
-            height: 1,
-            thickness: 2,
-            indent: 13.w,
-            endIndent: 5.w,
-          ),
+          const ProfileItem(
+              heading: "Vendor Shop",
+              text: "Star Auto Service",
+              icon: RGIcons.storeIcon),
           const VerticalSpacing(20),
           ProfileItem(
               heading: "Location",
               text: user.address ?? "",
               icon: RGIcons.address),
-          const VerticalSpacing(16),
-          Divider(
-            height: 1,
-            thickness: 2,
-            indent: 13.w,
-            endIndent: 5.w,
-          ),
+          const VerticalSpacing(20),
+          ProfileItem(
+              heading: "Email", text: user.email ?? "", icon: RGIcons.email),
+          const VerticalSpacing(20),
+          ProfileItem(
+              heading: "Phone", text: user.phone ?? "", icon: RGIcons.phone),
         ],
       )),
     );

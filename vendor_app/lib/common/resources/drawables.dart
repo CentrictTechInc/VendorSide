@@ -5,6 +5,8 @@ class Drawables {
   static const usFlag = "assets/images/us_country.png";
   static const cards = "assets/images/cards.png";
   static const person = "assets/images/personPic.png";
+  static const noDataIcon = "assets/images/empty_box.gif";
+
   static const personUrl =
       "https://imgv3.fotor.com/images/gallery/AI-3D-Female-Profile-Picture.jpg";
 }

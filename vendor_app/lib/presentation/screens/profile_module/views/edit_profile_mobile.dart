@@ -70,7 +70,7 @@ class EditScreenMobile extends StatelessWidget with FieldsValidation {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(70),
                         child: const NetWorkImageWithInitials(
-                          imageUrl: Drawables.logo,
+                          imageUrl: Drawables.personUrl,
                           name: "Shaheer",
                         ),
                       ),
@@ -108,6 +108,25 @@ class EditScreenMobile extends StatelessWidget with FieldsValidation {
               ),
               const VerticalSpacing(20),
               ProfileItem(
+                heading: "Vendor Shop",
+                icon: RGIcons.storeIcon,
+                validator: emptyFieldValidation,
+                isTextFields: true,
+                hintText: "Star Autos",
+                controller: addressController,
+              ),
+              const VerticalSpacing(20),
+              ProfileItem(
+                heading: "Location",
+                icon: RGIcons.address,
+                validator: emptyFieldValidation,
+                isTextFields: true,
+                hintText:
+                    "481 Sandia Loop, Bernalillo, NM 87004, United States",
+                controller: addressController,
+              ),
+              const VerticalSpacing(20),
+              ProfileItem(
                 heading: "Email",
                 icon: RGIcons.email,
                 isTextFields: true,
@@ -124,16 +143,6 @@ class EditScreenMobile extends StatelessWidget with FieldsValidation {
                 hintText: "(055) 123 456",
                 validator: validatePhone,
                 controller: phoneController,
-              ),
-              const VerticalSpacing(20),
-              ProfileItem(
-                heading: "Location",
-                icon: RGIcons.address,
-                validator: emptyFieldValidation,
-                isTextFields: true,
-                hintText:
-                    "481 Sandia Loop, Bernalillo, NM 87004, United States",
-                controller: addressController,
               ),
               const VerticalSpacing(40),
               Center(

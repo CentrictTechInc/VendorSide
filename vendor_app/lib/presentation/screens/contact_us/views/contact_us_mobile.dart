@@ -5,8 +5,10 @@ import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text_button.dart';
+import 'package:vendor_app/app/utils/network_image_with_initials.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
+import 'package:vendor_app/data/dto/user_details_dto.dart';
 import 'package:vendor_app/presentation/screens/profile_module/components/profile_item.dart';
 import 'package:sizer/sizer.dart';
 
@@ -26,7 +28,12 @@ class _ContactUsMobileState extends State<ContactUsMobile>
 
   @override
   Widget build(BuildContext context) {
-    final user = LocalStorageService.instance.user;
+    final user = UserDetailsDto(
+        userId: 0,
+        userName: "Test",
+        email: "email",
+        phone: "090",
+        address: "USA");
     return Container(
       constraints: BoxConstraints(maxHeight: context.height),
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -48,48 +55,47 @@ class _ContactUsMobileState extends State<ContactUsMobile>
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Center(
-                      child: Image.asset(Drawables.logo, height: 85),
+                    Container(
+                      width: 115,
+                      height: 115,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: AppColors.grey.withOpacity(0.5),
+                            width: 0.25,
+                          ),
+                          borderRadius: BorderRadius.circular(70)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(70),
+                        child: const NetWorkImageWithInitials(
+                          imageUrl: Drawables.personUrl,
+                          name: "Shaheer",
+                        ),
+                      ),
                     ),
                     const VerticalSpacing(40),
                     ProfileItem(
                         ishighLight: false,
-                        heading: "UserName",
-                        text: user!.userName ?? "",
+                        heading: "Name",
+                        text: user.userName ?? "",
                         icon: RGIcons.profile),
-                    const VerticalSpacing(16),
-                    Divider(
-                      height: 1,
-                      thickness: 2,
-                      indent: 13.w,
-                      endIndent: 5.w,
-                    ),
+                    const VerticalSpacing(20),
+                    ProfileItem(
+                        ishighLight: false,
+                        heading: "Vendor Shop",
+                        text: user.email ?? "",
+                        icon: RGIcons.storeIcon),
                     const VerticalSpacing(20),
                     ProfileItem(
                         ishighLight: false,
                         heading: "Email",
                         text: user.email ?? "",
                         icon: RGIcons.email),
-                    const VerticalSpacing(16),
-                    Divider(
-                      height: 1,
-                      thickness: 2,
-                      indent: 13.w,
-                      endIndent: 5.w,
-                    ),
                     const VerticalSpacing(20),
                     ProfileItem(
                         ishighLight: false,
                         heading: "Phone",
-                        text: user.phoneNumber ?? "",
+                        text: user.phone ?? "",
                         icon: RGIcons.phone),
-                    const VerticalSpacing(16),
-                    Divider(
-                      height: 1,
-                      thickness: 2,
-                      indent: 13.w,
-                      endIndent: 5.w,
-                    ),
                     const VerticalSpacing(20),
                     ProfileItem(
                       heading: "Comments",
