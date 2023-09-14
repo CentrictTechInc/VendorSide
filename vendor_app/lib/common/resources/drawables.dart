@@ -20,6 +20,12 @@ class RGIcons {
   static const tasks = "assets/icons/tasks_icon.png";
   static const dollar = "assets/icons/dollar_icon.png";
   static const calendarMonth = "assets/icons/calendar_month.png";
+  static const serviceIcon = "assets/icons/service_icon.png";
+  static const moneyIcon = "assets/icons/money_icon.png";
+  static const bookingIcon = "assets/icons/booking_icons.png";
+  static const tipsIcon = "assets/icons/tip_icons.png";
+  static const businessCase = "assets/icons/business_center.png";
+  static const fabIcon = "assets/icons/fab_icon.png";
   // -------------vendor side
   static const email = "assets/icons/alternate_email.png";
   static const lock = "assets/icons/lock.png";
@@ -33,6 +39,7 @@ class RGIcons {
   static const account = "assets/icons/account_box.png";
   static const address = "assets/icons/address.png";
   static const location = "assets/icons/distance.png";
+  static const location1 = "assets/icons/location_2.png";
   static const heart = "assets/icons/heart.png";
   static const star = "assets/icons/star.png";
   static const search = "assets/icons/search.png";
@@ -40,7 +47,6 @@ class RGIcons {
   static const map = "assets/icons/map.png";
   static const back = "assets/icons/arrow_back.png";
   static const filter = "assets/icons/filter.png";
-  static const distance = "assets/icons/distance.png";
   static const reviews = "assets/icons/reviews.png";
   static const eyeVisibility = "assets/icons/eye_visibility.png";
   static const eyeSlash = "assets/icons/eye_slash.png";

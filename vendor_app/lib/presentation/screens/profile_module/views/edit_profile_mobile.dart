@@ -51,7 +51,6 @@ class EditScreenMobile extends StatelessWidget with FieldsValidation {
               const CommonAppBar(
                 backButton: true,
                 text: "Edit Profile",
-                isText: true,
                 hideBell: true,
               ),
               const VerticalSpacing(30),

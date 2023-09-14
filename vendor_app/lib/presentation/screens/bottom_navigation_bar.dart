@@ -10,7 +10,7 @@ class HomeBottomNavBar extends StatelessWidget {
 
   final iconList = [
     RGIcons.home,
-    RGIcons.appointment,
+    RGIcons.suitcase,
     RGIcons.messages,
     RGIcons.bell,
   ];
@@ -21,13 +21,13 @@ class HomeBottomNavBar extends StatelessWidget {
         context.go(PagePath.homeScreen);
         break;
       case 1:
-        context.push(PagePath.appointment);
+        context.go(PagePath.appointment);
         break;
       case 2:
-        context.push(PagePath.messages);
+        context.go(PagePath.messages);
         break;
       default:
-        context.push(PagePath.notification);
+        context.go(PagePath.notification);
     }
   }
 
@@ -44,7 +44,7 @@ class HomeBottomNavBar extends StatelessWidget {
       activeIndex: 1,
       gapLocation: GapLocation.center,
       height: 70,
-      notchSmoothness: NotchSmoothness.verySmoothEdge,
+      notchSmoothness: NotchSmoothness.defaultEdge,
       leftCornerRadius: 12,
       rightCornerRadius: 12,
       onTap: (index) {
@@ -60,7 +60,7 @@ class HomeBottomNavBar extends StatelessWidget {
             children: [
               ImageIcon(
                 AssetImage(iconList[index]),
-                size: 24,
+                size: 25,
                 color: index == 0 ? AppColors.secondary : AppColors.grey,
               ),
             ],

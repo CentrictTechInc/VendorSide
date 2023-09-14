@@ -18,7 +18,7 @@ class CommonAppBar extends StatelessWidget {
       this.showProfile = false,
       this.onDrawerPressed,
       this.onEdit,
-      this.isText = false,
+      // this.isText = false,
       this.hideBell = false,
       this.text = '',
       this.editButton = false,
@@ -29,7 +29,7 @@ class CommonAppBar extends StatelessWidget {
   final bool showProfile;
   final bool editButton;
   final bool hideBell;
-  final bool isText;
+  // final bool isText;
   final String text;
   final VoidCallback? onDrawerPressed;
   final VoidCallback? onEdit;
@@ -63,7 +63,7 @@ class CommonAppBar extends StatelessWidget {
                     ),
                   ))
               : const SizedBox(),
-          if (isText) ...[
+          if (text.isNotEmpty) ...[
             // const Spacer(),
             Expanded(
               flex: 4,
@@ -76,7 +76,7 @@ class CommonAppBar extends StatelessWidget {
               ),
             ),
           ],
-          if (!isText) const Spacer(),
+          if (text.isEmpty) const Spacer(),
           editButton
               ? Container(
                   height: 40,

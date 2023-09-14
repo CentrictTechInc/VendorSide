@@ -42,7 +42,6 @@ class _ProfileScreenMobileState extends State<ProfileScreenMobile> {
             backButton: false,
             onDrawerPressed: widget.onPressed,
             hamburger: true,
-            isText: true,
             text: "My Profile",
             editButton: true,
             onEdit: () {
@@ -51,7 +50,7 @@ class _ProfileScreenMobileState extends State<ProfileScreenMobile> {
                   PagePath.profileEdit.toRoute);
             },
           ),
-          const VerticalSpacing(30),
+          // const VerticalSpacing(10),
           Center(
             child: Container(
               width: 115,

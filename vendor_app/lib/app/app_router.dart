@@ -5,6 +5,9 @@ import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/email_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/phone_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/register_otp_verification_screen.dart';
+import 'package:vendor_app/presentation/screens/bottom_nav_screen.dart';
+import 'package:vendor_app/presentation/screens/business/business_screen.dart';
+import 'package:vendor_app/presentation/screens/chat/inbox_screen.dart';
 import 'package:vendor_app/presentation/screens/contact_us/contact_us_screen.dart';
 import 'package:vendor_app/presentation/screens/home/home_screen.dart';
 import 'package:vendor_app/presentation/screens/password_screens/create_new_password.dart';
@@ -31,7 +34,9 @@ class AppRouter {
         ShellRoute(
           navigatorKey: _shellNavigatorKey,
           builder: (context, state, child) {
-            return child;
+            return MainBottomNavScreen(
+              widget: child,
+            );
           },
           routes: [
             GoRoute(
@@ -47,6 +52,34 @@ class AppRouter {
                 );
               },
               routes: const [],
+            ),
+            GoRoute(
+              path: PagePath.notification,
+              parentNavigatorKey: _shellNavigatorKey,
+              builder: (context, state) {
+                return BusinessScreen();
+              },
+            ),
+            GoRoute(
+              path: PagePath.messages,
+              parentNavigatorKey: _shellNavigatorKey,
+              builder: (context, state) {
+                return InboxScreen();
+              },
+            ),
+            GoRoute(
+              path: PagePath.appointment,
+              parentNavigatorKey: _shellNavigatorKey,
+              builder: (context, state) {
+                return BusinessScreen();
+              },
+            ),
+            GoRoute(
+              path: PagePath.homeScreen,
+              parentNavigatorKey: _shellNavigatorKey,
+              builder: (context, state) {
+                return const HomeScreen();
+              },
             ),
             GoRoute(
                 path: PagePath.homeScreen,

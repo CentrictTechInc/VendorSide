@@ -46,7 +46,6 @@ class _ReviewMobileState extends State<ReviewMobile> {
             onDrawerPressed: widget.onPressed,
             hamburger: true,
             text: "Reviews",
-            isText: true,
             hideBell: true,
           ),
           Expanded(

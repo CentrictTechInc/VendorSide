@@ -47,7 +47,6 @@ class _ContactUsMobileState extends State<ContactUsMobile>
               hamburger: true,
               onDrawerPressed: widget.onPressed,
               text: "Contact Us",
-              isText: true,
               hideBell: true,
             ),
             const VerticalSpacing(30),
