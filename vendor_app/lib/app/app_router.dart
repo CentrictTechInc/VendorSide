@@ -75,13 +75,6 @@ class AppRouter {
               },
             ),
             GoRoute(
-              path: PagePath.homeScreen,
-              parentNavigatorKey: _shellNavigatorKey,
-              builder: (context, state) {
-                return const HomeScreen();
-              },
-            ),
-            GoRoute(
                 path: PagePath.homeScreen,
                 parentNavigatorKey: _shellNavigatorKey,
                 builder: (context, state) {

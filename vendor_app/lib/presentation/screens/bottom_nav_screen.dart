@@ -5,6 +5,8 @@ import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/presentation/screens/bottom_navigation_bar.dart';
 import 'package:vendor_app/presentation/screens/home/components/confirmation_dialogue.dart';
 
+final GlobalKey<ScaffoldState> globalScaffoldKey = GlobalKey<ScaffoldState>();
+
 class MainBottomNavScreen extends StatelessWidget {
   final Widget widget;
 
@@ -14,7 +16,6 @@ class MainBottomNavScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return WillPopScope(
       onWillPop: () async {
         bool closeConfirmed = await showDialog(
@@ -30,7 +31,7 @@ class MainBottomNavScreen extends StatelessWidget {
           await Future.delayed(const Duration(seconds: 2));
         },
         child: Scaffold(
-            key: scaffoldKey,
+            key: globalScaffoldKey,
             extendBody: true,
             resizeToAvoidBottomInset: false,
             drawer: CustomDrawer(),

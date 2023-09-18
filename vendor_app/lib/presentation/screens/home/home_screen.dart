@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
+import 'package:vendor_app/presentation/screens/bottom_nav_screen.dart';
 import 'package:vendor_app/presentation/screens/home/views/home_screen_mobile.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,13 +10,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return SafeArea(
         maintainBottomViewPadding: true,
         child: Responsive(
             mobile: HomeScreenMobile(
               onPressed: () {
-                scaffoldKey.currentState?.openDrawer();
+                globalScaffoldKey.currentState?.openDrawer();
               },
             ),
             tablet: HomeScreenMobile(),
