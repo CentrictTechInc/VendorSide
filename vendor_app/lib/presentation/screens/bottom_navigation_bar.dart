@@ -21,10 +21,10 @@ class HomeBottomNavBar extends StatelessWidget {
         context.go(PagePath.homeScreen);
         break;
       case 1:
-        context.go(PagePath.appointment);
+        context.go(PagePath.business);
         break;
       case 2:
-        context.go(PagePath.messages);
+        context.go(PagePath.inbox);
         break;
       default:
         context.go(PagePath.notification);

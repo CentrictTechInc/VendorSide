@@ -11,19 +11,23 @@ class VendorDetailsCard extends StatelessWidget {
     required this.icon,
     required this.subTitle,
     this.isBlue = false,
+    this.color = AppColors.white,
+    this.textColor = AppColors.primaryText,
   });
 
   final String amount;
   final String icon;
   final String subTitle;
   final bool isBlue;
+  final Color color;
+  final Color textColor;
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: isBlue ? AppColors.blue : AppColors.white),
+          color: isBlue ? AppColors.blue : color),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -32,7 +36,7 @@ class VendorDetailsCard extends StatelessWidget {
             children: [
               CommonText(
                 text: "\n$amount".toUpperCase(),
-                color: isBlue ? AppColors.white : AppColors.primaryText,
+                color: isBlue ? AppColors.white : textColor,
                 letterSpacing: .1,
                 maxLines: 2,
                 fontSize: 20,
@@ -49,7 +53,7 @@ class VendorDetailsCard extends StatelessWidget {
           const VerticalSpacing(20),
           CommonText(
             text: subTitle,
-            color: isBlue ? AppColors.white : AppColors.primaryText,
+            color: isBlue ? AppColors.white : textColor,
             fontSize: 8.5.sp,
             letterSpacing: .1,
             maxLines: 2,

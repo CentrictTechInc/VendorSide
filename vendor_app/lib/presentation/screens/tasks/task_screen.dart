@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
 import 'package:vendor_app/presentation/screens/bottom_nav_screen.dart';
-import 'package:vendor_app/presentation/screens/chat/views/inbox_mobile.dart';
+import 'package:vendor_app/presentation/screens/tasks/views/tasks_mobile.dart';
 
-class InboxScreen extends StatelessWidget {
-  InboxScreen({super.key});
+class TasksScreen extends StatelessWidget {
+  TasksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Responsive(
-            mobile: InboxMobileScreen(
+            mobile: TasksMobileScreen(
               onPressed: () {
                 globalScaffoldKey.currentState!.openDrawer();
               },
             ),
-            tablet: InboxMobileScreen(),
-            desktop: InboxMobileScreen()));
+            tablet: TasksMobileScreen(),
+            desktop: TasksMobileScreen()));
   }
 }

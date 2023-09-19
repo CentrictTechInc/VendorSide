@@ -10,11 +10,13 @@ import 'package:vendor_app/presentation/screens/business/business_screen.dart';
 import 'package:vendor_app/presentation/screens/chat/inbox_screen.dart';
 import 'package:vendor_app/presentation/screens/contact_us/contact_us_screen.dart';
 import 'package:vendor_app/presentation/screens/home/home_screen.dart';
+import 'package:vendor_app/presentation/screens/notification/notification_screen.dart';
 import 'package:vendor_app/presentation/screens/password_screens/create_new_password.dart';
 import 'package:vendor_app/presentation/screens/password_screens/forgot_password_screen.dart';
 import 'package:vendor_app/presentation/screens/profile_module/edit_screen.dart';
 import 'package:vendor_app/presentation/screens/profile_module/profile_screen.dart';
 import 'package:vendor_app/presentation/screens/review/review_screen.dart';
+import 'package:vendor_app/presentation/screens/tasks/task_screen.dart';
 import 'package:vendor_app/presentation/screens/vendor_category/category_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/login/login_screen.dart';
 import 'package:vendor_app/presentation/screens/payment/vendor_charges_screen.dart';
@@ -57,21 +59,28 @@ class AppRouter {
               path: PagePath.notification,
               parentNavigatorKey: _shellNavigatorKey,
               builder: (context, state) {
-                return BusinessScreen();
+                return NotificationScreen();
               },
             ),
             GoRoute(
-              path: PagePath.messages,
+              path: PagePath.inbox,
               parentNavigatorKey: _shellNavigatorKey,
               builder: (context, state) {
                 return InboxScreen();
               },
             ),
             GoRoute(
-              path: PagePath.appointment,
+              path: PagePath.business,
               parentNavigatorKey: _shellNavigatorKey,
               builder: (context, state) {
                 return BusinessScreen();
+              },
+            ),
+            GoRoute(
+              path: PagePath.tasks,
+              parentNavigatorKey: _shellNavigatorKey,
+              builder: (context, state) {
+                return TasksScreen();
               },
             ),
             GoRoute(

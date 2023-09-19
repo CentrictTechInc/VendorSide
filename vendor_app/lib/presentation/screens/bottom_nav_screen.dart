@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/utils/custom_drawer.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
+import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/presentation/screens/bottom_navigation_bar.dart';
 import 'package:vendor_app/presentation/screens/home/components/confirmation_dialogue.dart';
 
@@ -38,11 +40,7 @@ class MainBottomNavScreen extends StatelessWidget {
             bottomNavigationBar: HomeBottomNavBar(),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => (),
-                //     ));
+                context.go(PagePath.tasks);
               },
               backgroundColor: AppColors.primary,
               shape: const CircleBorder(eccentricity: .9),

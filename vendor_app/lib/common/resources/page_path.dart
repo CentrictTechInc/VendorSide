@@ -9,10 +9,10 @@ class PagePath {
   static const String search = '/search';
   static const String contact = 'contactUs';
 
-  static const String messages = '/messages';
+  static const String inbox = '/messages';
   static const String notification = '/notification';
 
-  static const String appointment = '/appointment';
+  static const String business = '/business';
   static const String approved = '/approved';
   static const String review = 'review';
 
@@ -32,6 +32,8 @@ class PagePath {
   static const String taxForm = '/taxForm';
 
   static const String category = '/category';
+
+  static const String tasks = '/tasks';
 }
 
 extension ContextExtensionss on String {

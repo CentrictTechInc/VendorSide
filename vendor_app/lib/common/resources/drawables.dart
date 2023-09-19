@@ -26,6 +26,7 @@ class RGIcons {
   static const tipsIcon = "assets/icons/tip_icons.png";
   static const businessCase = "assets/icons/business_center.png";
   static const fabIcon = "assets/icons/fab_icon.png";
+  static const smiley = "assets/icons/smiley_emoji.png";
   // -------------vendor side
   static const email = "assets/icons/alternate_email.png";
   static const lock = "assets/icons/lock.png";
