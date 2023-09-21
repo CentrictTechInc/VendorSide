@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
+import 'package:vendor_app/presentation/screens/auth/login/controllers/login_controller.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/email_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/phone_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/register_otp_verification_screen.dart';
@@ -118,6 +120,7 @@ class AppRouter {
         GoRoute(
             path: PagePath.login,
             builder: (context, state) {
+              Get.lazyPut<LoginController>(() => LoginController());
               return const LoginScreen();
             }),
         GoRoute(

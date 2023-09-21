@@ -20,6 +20,7 @@ class RGIcons {
   static const tasks = "assets/icons/tasks_icon.png";
   static const dollar = "assets/icons/dollar_icon.png";
   static const calendarMonth = "assets/icons/calendar_month.png";
+  static const calendarDay = "assets/icons/calendar_day.png";
   static const serviceIcon = "assets/icons/service_icon.png";
   static const moneyIcon = "assets/icons/money_icon.png";
   static const bookingIcon = "assets/icons/booking_icons.png";
@@ -27,6 +28,9 @@ class RGIcons {
   static const businessCase = "assets/icons/business_center.png";
   static const fabIcon = "assets/icons/fab_icon.png";
   static const smiley = "assets/icons/smiley_emoji.png";
+  static const tasksNextIcon = "assets/icons/event_upcoming.png";
+  static const sellIcon = "assets/icons/sell.png";
+  static const sortIcon = "assets/icons/sort.png";
   // -------------vendor side
   static const email = "assets/icons/alternate_email.png";
   static const lock = "assets/icons/lock.png";

@@ -5,10 +5,10 @@ import 'package:vendor_app/common/resources/colors.dart';
 
 class TabButton extends StatelessWidget {
   final String name;
-  final bool highlighted;
-  final VoidCallback onPressed;
+  bool highlighted;
+  VoidCallback onPressed;
 
-  const TabButton(
+  TabButton(
       {super.key,
       required this.name,
       required this.onPressed,
@@ -17,7 +17,8 @@ class TabButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(minWidth: (context.width / 4) - 10),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      constraints: BoxConstraints(minWidth: (context.width / 3.16)),
       child: TextButton(
         style: TextButton.styleFrom(
             backgroundColor:

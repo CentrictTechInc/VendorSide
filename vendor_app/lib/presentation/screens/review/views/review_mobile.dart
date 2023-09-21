@@ -50,7 +50,7 @@ class _ReviewMobileState extends State<ReviewMobile> {
           ),
           Expanded(
               child: reviewList.isEmpty
-                  ? EmptyListWidget(
+                  ? const EmptyListWidget(
                       title: 'No Reviews Yet!',
                     )
                   : SingleChildScrollView(

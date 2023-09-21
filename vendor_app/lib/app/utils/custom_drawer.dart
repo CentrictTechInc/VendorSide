@@ -14,44 +14,6 @@ class CustomDrawer extends StatelessWidget {
     super.key,
   });
 
-  final List<DrawerItem> drawer = [
-    DrawerItem(
-      location: PagePath.homeScreen,
-      text: "Home",
-      icon: RGIcons.home,
-    ),
-    DrawerItem(
-      location: PagePath.homeScreen + PagePath.profile.toRoute,
-      text: "My Profile",
-      icon: RGIcons.profile,
-    ),
-    DrawerItem(
-      location: PagePath.homeScreen + PagePath.review.toRoute,
-      text: "Customer Reviews",
-      icon: RGIcons.review,
-    ),
-    DrawerItem(
-      location: PagePath.homeScreen + PagePath.review.toRoute,
-      text: "My Tasks",
-      icon: RGIcons.tasks,
-    ),
-    DrawerItem(
-      location: PagePath.homeScreen + PagePath.contact.toRoute,
-      text: "Contact Us",
-      icon: RGIcons.callIcon,
-    ),
-    DrawerItem(
-      location: PagePath.homeScreen,
-      text: "Schedule",
-      icon: RGIcons.calendarMonth,
-    ),
-    DrawerItem(
-      location: PagePath.homeScreen,
-      text: "Manage Services",
-      icon: RGIcons.dollar,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -171,4 +133,42 @@ class CustomDrawer extends StatelessWidget {
       ]),
     );
   }
+
+  final List<DrawerItem> drawer = [
+    DrawerItem(
+      location: PagePath.homeScreen,
+      text: "Home",
+      icon: RGIcons.home,
+    ),
+    DrawerItem(
+      location: PagePath.homeScreen + PagePath.profile.toRoute,
+      text: "My Profile",
+      icon: RGIcons.profile,
+    ),
+    DrawerItem(
+      location: PagePath.homeScreen + PagePath.review.toRoute,
+      text: "Customer Reviews",
+      icon: RGIcons.review,
+    ),
+    DrawerItem(
+      location: PagePath.homeScreen + PagePath.review.toRoute,
+      text: "My Tasks",
+      icon: RGIcons.tasks,
+    ),
+    DrawerItem(
+      location: PagePath.homeScreen + PagePath.contact.toRoute,
+      text: "Contact Us",
+      icon: RGIcons.callIcon,
+    ),
+    DrawerItem(
+      location: PagePath.homeScreen,
+      text: "Schedule",
+      icon: RGIcons.calendarMonth,
+    ),
+    DrawerItem(
+      location: PagePath.homeScreen,
+      text: "Manage Services",
+      icon: RGIcons.dollar,
+    ),
+  ];
 }

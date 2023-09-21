@@ -8,7 +8,6 @@ import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/data/dto/user_details_dto.dart';
 import 'package:vendor_app/presentation/screens/profile_module/components/profile_item.dart';
-import 'package:sizer/sizer.dart';
 
 class ProfileScreenMobile extends StatefulWidget {
   const ProfileScreenMobile({super.key, required this.onPressed});
