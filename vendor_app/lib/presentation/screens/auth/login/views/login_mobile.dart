@@ -27,7 +27,7 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
   Widget build(BuildContext context) {
     return GetBuilder<LoginController>(
         init: LoginController(),
-        dispose: (state) => state.dispose(),
+        // dispose: (state) => state.dispose(),
         builder: (controller) {
           return Container(
             decoration: const BoxDecoration(
@@ -49,13 +49,15 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
                           VerticalSpacing(10.h),
                           Image.asset(Drawables.logo, height: 100),
                           VerticalSpacing(7.5.h),
-                          CommonText(
-                            text: "VENDOR LOGIN",
-                            color: AppColors.white,
-                            fontSize: 20.sp,
-                            weight: FontWeight.w600,
-                            letterSpacing: 1.1,
-                          ),
+                          Obx(() {
+                            return CommonText(
+                              text: "VENDOR LOGIN ${controller.count.value}",
+                              color: AppColors.white,
+                              fontSize: 20.sp,
+                              weight: FontWeight.w600,
+                              letterSpacing: 1.1,
+                            );
+                          }),
                           VerticalSpacing(4.5.h),
                           Container(
                             constraints: BoxConstraints(
@@ -80,21 +82,27 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
                                   ),
                                 ),
                                 const VerticalSpacing(20),
-                                CommonTextField(
-                                  controller: passController,
-                                  hintText: 'Password',
-                                  validator: passwordValidation,
-                                  pass: obscure,
-                                  suffix: InkWell(
-                                    onTap: () {},
-                                    child: ImageIcon(
-                                      AssetImage(obscure
-                                          ? RGIcons.lock
-                                          : RGIcons.unlock),
-                                      color: AppColors.grey,
+                                Obx(() {
+                                  return CommonTextField(
+                                    controller: passController,
+                                    hintText: 'Password',
+                                    validator: passwordValidation,
+                                    pass: controller.passToggle.value,
+                                    suffix: InkWell(
+                                      onTap: () {
+                                        controller.increment();
+
+                                        controller.passwordToggle();
+                                      },
+                                      child: ImageIcon(
+                                        AssetImage(controller.passToggle.value
+                                            ? RGIcons.lock
+                                            : RGIcons.unlock),
+                                        color: AppColors.grey,
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                  );
+                                }),
                                 const VerticalSpacing(40),
                                 InkWell(
                                   onTap: () =>

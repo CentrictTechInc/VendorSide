@@ -7,6 +7,7 @@ import 'package:vendor_app/presentation/screens/auth/login/controllers/login_con
 import 'package:vendor_app/presentation/screens/auth/otp/email_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/phone_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/register_otp_verification_screen.dart';
+import 'package:vendor_app/presentation/screens/auth/register/controller/register_controller.dart';
 import 'package:vendor_app/presentation/screens/bottom_nav_screen.dart';
 import 'package:vendor_app/presentation/screens/business/business_screen.dart';
 import 'package:vendor_app/presentation/screens/chat/inbox_screen.dart';
@@ -126,6 +127,7 @@ class AppRouter {
         GoRoute(
             path: PagePath.register,
             builder: (context, state) {
+              Get.lazyPut<RegisterController>(() => RegisterController());
               return const VendorRegisterScreen();
             }),
         GoRoute(
