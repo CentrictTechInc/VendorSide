@@ -146,7 +146,11 @@ class AuthAPI implements APIRequestRepresentable {
         };
       case AuthApiType.forgotEmailOtpVerification:
       case AuthApiType.registerEmailVerification:
-        return {'email': email.toString(), 'otp': otp.toString()};
+        return {
+          'email': email.toString(),
+          'otp': otp.toString(),
+          'type': 'Vendor'
+        };
       case AuthApiType.generateOtp:
       case AuthApiType.forgot:
         return {'email': email.toString()};

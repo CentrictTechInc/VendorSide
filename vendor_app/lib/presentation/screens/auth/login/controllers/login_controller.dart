@@ -7,6 +7,7 @@ import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/data/repository/auth_repository.dart';
 import 'package:vendor_app/domain/entity/user_model.dart';
 import 'package:vendor_app/domain/repository/auth_repositpory.dart';
+import 'package:vendor_app/presentation/screens/auth/otp/controllers/otp_controller.dart';
 
 class LoginController extends GetxController {
   final passToggle = false.obs;
@@ -23,38 +24,25 @@ class LoginController extends GetxController {
       globalContext?.go(PagePath.homeScreen);
     } catch (e) {
       if (e.toString().toLowerCase().contains('email was not verified')) {
-        generateOtp(email);
+        OtpController().generateOtp(email);
+        // generateOtp(email);
         return;
       }
       ToastMessage.message(e.toString());
     }
   }
 
-  Future generateOtp(String email) async {
-    try {
-      {
-        final String result = await _repo.generateOtp(email);
-        ToastMessage.message(result, type: ToastType.info);
-        if (globalContext!.mounted) {
-          globalContext?.push('${PagePath.registerEmailOtp}/$email');
-        }
-      }
-    } catch (e) {
-      ToastMessage.message(e.toString(), type: ToastType.error);
-    }
-  }
-
-  Future forgotPassword(String email) async {
-    try {
-      {
-        final String result = await _repo.forgot(email);
-        ToastMessage.message(result, type: ToastType.info);
-        if (globalContext!.mounted) {
-          globalContext?.push('${PagePath.emailOtp}/$email');
-        }
-      }
-    } catch (e) {
-      ToastMessage.message(e.toString(), type: ToastType.error);
-    }
-  }
+  // Future generateOtp(String email) async {
+  //   try {
+  //     {
+  //       final String result = await _repo.generateOtp(email);
+  //       ToastMessage.message(result, type: ToastType.info);
+  //       if (globalContext!.mounted) {
+  //         globalContext?.push('${PagePath.registerEmailOtp}/$email');
+  //       }
+  //     }
+  //   } catch (e) {
+  //     ToastMessage.message(e.toString(), type: ToastType.error);
+  //   }
+  // }
 }

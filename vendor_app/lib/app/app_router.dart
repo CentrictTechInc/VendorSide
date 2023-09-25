@@ -14,6 +14,7 @@ import 'package:vendor_app/presentation/screens/chat/inbox_screen.dart';
 import 'package:vendor_app/presentation/screens/contact_us/contact_us_screen.dart';
 import 'package:vendor_app/presentation/screens/home/home_screen.dart';
 import 'package:vendor_app/presentation/screens/notification/notification_screen.dart';
+import 'package:vendor_app/presentation/screens/password_screens/controllers/pass_controller.dart';
 import 'package:vendor_app/presentation/screens/password_screens/create_new_password.dart';
 import 'package:vendor_app/presentation/screens/password_screens/forgot_password_screen.dart';
 import 'package:vendor_app/presentation/screens/profile_module/edit_screen.dart';
@@ -170,14 +171,16 @@ class AppRouter {
         GoRoute(
             path: PagePath.forgotPasswrod,
             builder: (context, state) {
-              Get.lazyPut<LoginController>(() => LoginController());
+              Get.lazyPut<PasswordController>(() => PasswordController());
               return ForgotPasswordScreen();
             }),
         GoRoute(
             path: PagePath.createNewPassword,
             builder: (context, state) {
+              Get.lazyPut<PasswordController>(() => PasswordController());
+              String email = state.pathParameters['email'] as String;
               return CreateNewPasswordScreen(
-                email: '',
+                email: email,
               );
             }),
       ]);

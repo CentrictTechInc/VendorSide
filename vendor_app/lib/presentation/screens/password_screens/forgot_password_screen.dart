@@ -11,6 +11,7 @@ import 'package:vendor_app/app/utils/common_text_field.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/presentation/screens/auth/login/controllers/login_controller.dart';
+import 'package:vendor_app/presentation/screens/password_screens/controllers/pass_controller.dart';
 
 class ForgotPasswordScreen extends StatelessWidget with FieldsValidation {
   ForgotPasswordScreen({super.key});
@@ -82,8 +83,8 @@ class ForgotPasswordScreen extends StatelessWidget with FieldsValidation {
                     countryCodeColor: AppColors.grey,
                   ),
                   const VerticalSpacing(70),
-                  GetBuilder<LoginController>(
-                      init: LoginController(),
+                  GetBuilder<PasswordController>(
+                      init: PasswordController(),
                       builder: (controller) {
                         return CommonTextButton(
                           onPressed: () async {
