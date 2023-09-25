@@ -1,14 +1,20 @@
 import 'dart:convert';
 
 import 'package:vendor_app/data/dto/registration_dto.dart';
+import 'package:vendor_app/data/dto/user_dto.dart';
 import 'package:vendor_app/data/provider/network/apis/auth_api.dart';
+import 'package:vendor_app/domain/entity/user_model.dart';
 import 'package:vendor_app/domain/repository/auth_repositpory.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   @override
-  Future<String> forgot(String email) {
-    // TODO: implement forgot
-    throw UnimplementedError();
+  Future<String> forgot(String email) async {
+    try {
+      final response = await AuthAPI.forgotPassword(email).request();
+      return response;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
@@ -18,17 +24,21 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<String> generateOtp(String email) {
-    // TODO: implement generateOtp
-    throw UnimplementedError();
+  Future<String> generateOtp(String email) async {
+    try {
+      final response = await AuthAPI.generateOtp(email).request();
+      return response;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
-  Future<String> login(String email, String password) async {
+  Future<UserModel> login(String email, String password) async {
     try {
       final response = await AuthAPI.login(email, password).request();
-      // UserModel user = UserDto.fromRawJson(response);
-      return response;
+      UserModel user = UserDto.fromRawJson(response);
+      return user;
     } catch (e) {
       rethrow;
     }
@@ -46,9 +56,10 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<String> registerEmailVerification(String email, String otp) {
-    // TODO: implement registerEmailVerification
-    throw UnimplementedError();
+  Future<String> registerEmailVerification(String email, String otp) async {
+    final response =
+        await AuthAPI.registerEmailVerification(email, otp).request();
+    return response;
   }
 
   @override

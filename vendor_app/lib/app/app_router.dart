@@ -148,7 +148,10 @@ class AppRouter {
         GoRoute(
             path: PagePath.emailOtp,
             builder: (context, state) {
-              return EmailOtpScreen();
+              String email = state.pathParameters['email'] as String;
+              return EmailOtpScreen(
+                email: email,
+              );
             }),
         GoRoute(
             path: PagePath.mobileOtp,
@@ -156,15 +159,18 @@ class AppRouter {
               return const NumberOtpScreen();
             }),
         GoRoute(
-            path: PagePath.registerEmailOtp,
+            path: "${PagePath.registerEmailOtp}/:email",
             builder: (context, state) {
+              String email = state.pathParameters['email'] as String;
+              Get.lazyPut<RegisterController>(() => RegisterController());
               return RegisterEmailOtpScreen(
-                email: '',
+                email: email,
               );
             }),
         GoRoute(
             path: PagePath.forgotPasswrod,
             builder: (context, state) {
+              Get.lazyPut<LoginController>(() => LoginController());
               return ForgotPasswordScreen();
             }),
         GoRoute(

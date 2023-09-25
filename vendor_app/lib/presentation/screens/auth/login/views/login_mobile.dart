@@ -19,8 +19,10 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
 
   LoginMobile({super.key});
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passController = TextEditingController();
+  final TextEditingController emailController =
+      TextEditingController(text: "vendor@gmail.com");
+  final TextEditingController passController =
+      TextEditingController(text: "Test@123");
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   @override
@@ -116,8 +118,13 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
                                 const VerticalSpacing(50),
                                 CommonTextButton(
                                     onPressed: () async {
-                                      context.go(PagePath.homeScreen);
-                                      // if (loginFormKey.currentState!.validate()) {}
+                                      // context.go(PagePath.homeScreen);
+                                      if (loginFormKey.currentState!
+                                          .validate()) {
+                                        await controller.login(
+                                            emailController.text,
+                                            passController.text);
+                                      }
                                     },
                                     color: AppColors.white,
                                     text: "LOG IN"),

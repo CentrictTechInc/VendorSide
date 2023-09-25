@@ -130,7 +130,7 @@ class CommonAppBar extends StatelessWidget {
                   child: NetWorkImageWithInitials(
                     imageUrl:
                         "https://zakrademos.com/professional/wp-content/uploads/sites/46/2021/02/team2.jpg",
-                    name: LocalStorageService.instance.user?.email,
+                    name: LocalStorageService.instance.user?.vendoremail,
                   ),
                 ),
               ),

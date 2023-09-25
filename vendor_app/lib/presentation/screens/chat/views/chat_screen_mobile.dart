@@ -174,8 +174,8 @@ class _ChatMobileScreenState extends State<ChatMobileScreen> {
   }
 
   Widget buildMessage(MessageModel message) {
-    bool isReciever = (message.senderId ==
-        LocalStorageService.instance.user?.userId.toString());
+    bool isReciever =
+        (message.senderId == LocalStorageService.instance.user?.vid.toString());
     return Column(
       crossAxisAlignment:
           isReciever ? CrossAxisAlignment.end : CrossAxisAlignment.start,

@@ -1,16 +1,16 @@
 import 'dart:convert';
+
 import 'package:vendor_app/domain/entity/user_model.dart';
 
 class UserDto extends UserModel {
   UserDto({
-    super.address,
-    super.email,
-    super.password,
-    super.phoneNumber,
-    super.roleName,
-    super.token,
-    super.userId,
-    super.userName,
+    required super.vid,
+    required super.vendoremail,
+    required super.vendorPassword,
+    required super.token,
+    required super.jobTitle,
+    required super.vendorMobileDetail,
+    required super.vendoraddress,
   });
 
   factory UserDto.fromRawJson(String str) => UserDto.fromJson(json.decode(str));
@@ -18,23 +18,22 @@ class UserDto extends UserModel {
   String toRawJson() => json.encode(toJson());
 
   factory UserDto.fromJson(Map<String, dynamic> json) => UserDto(
-      userId: json["userId"],
-      email: json["email"],
-      password: json["password"],
-      token: json["token"],
-      roleName: json["roleName"],
-      phoneNumber: json["phoneNumber"],
-      address: json["address"],
-      userName: json["username"]);
+        vid: json["vid"],
+        vendoremail: json["vendoremail"],
+        vendorPassword: json["vendorPassword"],
+        token: json["token"],
+        jobTitle: json["jobTitle"],
+        vendorMobileDetail: json["vendorMobileDetail"],
+        vendoraddress: json["vendoraddress"],
+      );
 
   Map<String, dynamic> toJson() => {
-        "userId": userId,
-        "email": email,
-        "password": password,
+        "vid": vid,
+        "vendoremail": vendoremail,
+        "vendorPassword": vendorPassword,
         "token": token,
-        "roleName": roleName,
-        "phoneNumber": phoneNumber,
-        "address": address,
-        "username": userName,
+        "jobTitle": jobTitle,
+        "vendorMobileDetail": vendorMobileDetail,
+        "vendoraddress": vendoraddress,
       };
 }

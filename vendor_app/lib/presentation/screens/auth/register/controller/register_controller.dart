@@ -7,6 +7,8 @@ import 'package:vendor_app/data/dto/registration_dto.dart';
 import 'package:vendor_app/data/repository/auth_repository.dart';
 import 'package:vendor_app/domain/repository/auth_repositpory.dart';
 
+enum RequestStatus { LOADING, SUCESS, ERROR }
+
 class RegisterController extends GetxController {
   final AuthRepository _repo = AuthRepositoryImpl();
 
@@ -16,6 +18,17 @@ class RegisterController extends GetxController {
       ToastMessage.message(res, type: ToastType.success);
       globalContext
           ?.push("${PagePath.registerEmailOtp}/${register.vendoremail.text}");
+    } catch (e) {
+      ToastMessage.message(e.toString());
+    }
+  }
+
+  Future registerEmailOtp(String email, String otp) async {
+    try {
+      String res = await _repo.registerEmailVerification(email, otp);
+      ToastMessage.message(res, type: ToastType.success);
+      // globalContext
+      //     ?.push("${PagePath.registerEmailOtp}/${register.email.text}");
     } catch (e) {
       ToastMessage.message(e.toString());
     }

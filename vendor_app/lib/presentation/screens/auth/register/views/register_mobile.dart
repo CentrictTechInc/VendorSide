@@ -24,7 +24,7 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
   final GlobalKey<FormState> signUpForm = GlobalKey<FormState>();
   final VendorRegistrationDto registerModel = VendorRegistrationDto(
       vid: 0,
-      vendortype: TextEditingController(),
+      vendortype: TextEditingController(text: 'test'),
       vendorCompanyName: TextEditingController(),
       vendoraddress: TextEditingController(),
       vendorCity: TextEditingController(),

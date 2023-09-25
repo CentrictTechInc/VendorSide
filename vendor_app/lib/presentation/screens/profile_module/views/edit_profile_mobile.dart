@@ -148,7 +148,7 @@ class EditScreenMobile extends StatelessWidget with FieldsValidation {
                   onPressed: () {
                     if (editForm.currentState!.validate()) {
                       UserDetailsDto data2 = UserDetailsDto(
-                          userId: LocalStorageService.instance.user!.userId!,
+                          userId: LocalStorageService.instance.user!.vid,
                           userName: nameController.text.toString(),
                           email: emailController.text,
                           phone: phoneController.text,

@@ -13,6 +13,8 @@ import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 
 class EmailOtpScreen extends StatefulWidget {
+  EmailOtpScreen({required this.email});
+  final String email;
   @override
   State<EmailOtpScreen> createState() => _EmailOtpScreenState();
 }

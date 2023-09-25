@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/utils/common_back_button.dart';
 import 'package:vendor_app/app/utils/common_number_testfield.dart';
@@ -10,6 +10,7 @@ import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/app/utils/common_text_field.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
+import 'package:vendor_app/presentation/screens/auth/login/controllers/login_controller.dart';
 
 class ForgotPasswordScreen extends StatelessWidget with FieldsValidation {
   ForgotPasswordScreen({super.key});
@@ -45,7 +46,7 @@ class ForgotPasswordScreen extends StatelessWidget with FieldsValidation {
                     child: CommonText(
                       textAlign: TextAlign.center,
                       text:
-                          "Please enter your email/mobile below and we will send you the OTP code",
+                          "Please enter your email/mobile below and we will send you a OTP code",
                       fontSize: 11.sp,
                       weight: FontWeight.w300,
                       color: AppColors.secondaryText,
@@ -81,14 +82,20 @@ class ForgotPasswordScreen extends StatelessWidget with FieldsValidation {
                     countryCodeColor: AppColors.grey,
                   ),
                   const VerticalSpacing(70),
-                  CommonTextButton(
-                    onPressed: () {
-                      if (validateEmail(email.text) == null) {}
-                    },
-                    text: 'Send'.toUpperCase(),
-                    color: AppColors.white,
-                    backgroundColor: AppColors.primary,
-                  ),
+                  GetBuilder<LoginController>(
+                      init: LoginController(),
+                      builder: (controller) {
+                        return CommonTextButton(
+                          onPressed: () async {
+                            if (validateEmail(email.text) == null) {
+                              await controller.forgotPassword(email.text);
+                            }
+                          },
+                          text: 'Send'.toUpperCase(),
+                          color: AppColors.white,
+                          backgroundColor: AppColors.primary,
+                        );
+                      }),
                   const VerticalSpacing(40),
                 ],
               ),

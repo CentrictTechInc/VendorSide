@@ -1,7 +1,8 @@
 import 'package:vendor_app/data/dto/registration_dto.dart';
+import 'package:vendor_app/domain/entity/user_model.dart';
 
 abstract class AuthRepository {
-  Future<String> login(String email, String password);
+  Future<UserModel> login(String email, String password);
   Future<String> register(VendorRegistrationDto registerDto);
   Future<String> forgot(String email);
   Future<String> generateOtp(String email);
