@@ -12,7 +12,7 @@ import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
-import 'package:vendor_app/presentation/screens/auth/register/controller/register_controller.dart';
+import 'package:vendor_app/presentation/screens/auth/controllers/register_controller.dart';
 
 class RegisterEmailOtpScreen extends StatefulWidget {
   const RegisterEmailOtpScreen({super.key, required this.email});

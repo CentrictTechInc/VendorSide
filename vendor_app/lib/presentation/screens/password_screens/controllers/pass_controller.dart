@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
@@ -8,6 +9,10 @@ import 'package:vendor_app/domain/repository/auth_repositpory.dart';
 
 class PasswordController extends GetxController {
   final AuthRepository _repo = AuthRepositoryImpl();
+  final GlobalKey<FormState> passForm = GlobalKey();
+  final TextEditingController newPassController = TextEditingController();
+  final TextEditingController confirmPassController = TextEditingController();
+  final obscure = false.obs;
 
   Future forgotPassword(String email) async {
     try {

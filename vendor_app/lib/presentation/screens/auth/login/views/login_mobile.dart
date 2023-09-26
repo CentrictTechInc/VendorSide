@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
-// import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
@@ -12,18 +11,10 @@ import 'package:vendor_app/app/utils/common_text_field.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
-import 'package:vendor_app/presentation/screens/auth/login/controllers/login_controller.dart';
+import 'package:vendor_app/presentation/screens/auth/controllers/login_controller.dart';
 
 class LoginMobile extends StatelessWidget with FieldsValidation {
-  bool obscure = false;
-
   LoginMobile({super.key});
-
-  final TextEditingController emailController =
-      TextEditingController(text: "vendor@gmail.com");
-  final TextEditingController passController =
-      TextEditingController(text: "Test@123");
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +31,7 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
             width: context.width,
             child: SingleChildScrollView(
               child: Form(
-                key: loginFormKey,
+                key: controller.loginFormKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -51,15 +42,13 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
                           VerticalSpacing(10.h),
                           Image.asset(Drawables.logo, height: 100),
                           VerticalSpacing(7.5.h),
-                          Obx(() {
-                            return CommonText(
-                              text: "VENDOR LOGIN ${controller.count.value}",
-                              color: AppColors.white,
-                              fontSize: 20.sp,
-                              weight: FontWeight.w600,
-                              letterSpacing: 1.1,
-                            );
-                          }),
+                          CommonText(
+                            text: "LOGIN",
+                            color: AppColors.white,
+                            fontSize: 20.sp,
+                            weight: FontWeight.w600,
+                            letterSpacing: 1.1,
+                          ),
                           VerticalSpacing(4.5.h),
                           Container(
                             constraints: BoxConstraints(
@@ -75,7 +64,7 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
                             child: Column(
                               children: [
                                 CommonTextField(
-                                  controller: emailController,
+                                  controller: controller.emailController,
                                   hintText: 'Email',
                                   validator: validateEmail,
                                   suffix: const ImageIcon(
@@ -86,15 +75,13 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
                                 const VerticalSpacing(20),
                                 Obx(() {
                                   return CommonTextField(
-                                    controller: passController,
+                                    controller: controller.passController,
                                     hintText: 'Password',
                                     validator: passwordValidation,
                                     pass: controller.passToggle.value,
                                     suffix: InkWell(
                                       onTap: () {
-                                        controller.increment();
-
-                                        controller.passwordToggle();
+                                        controller.passToggle.toggle();
                                       },
                                       child: ImageIcon(
                                         AssetImage(controller.passToggle.value
@@ -119,11 +106,9 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
                                 CommonTextButton(
                                     onPressed: () async {
                                       // context.go(PagePath.homeScreen);
-                                      if (loginFormKey.currentState!
+                                      if (controller.loginFormKey.currentState!
                                           .validate()) {
-                                        await controller.login(
-                                            emailController.text,
-                                            passController.text);
+                                        await controller.login();
                                       }
                                     },
                                     color: AppColors.white,

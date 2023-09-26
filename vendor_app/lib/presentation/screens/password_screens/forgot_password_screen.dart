@@ -10,7 +10,6 @@ import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/app/utils/common_text_field.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
-import 'package:vendor_app/presentation/screens/auth/login/controllers/login_controller.dart';
 import 'package:vendor_app/presentation/screens/password_screens/controllers/pass_controller.dart';
 
 class ForgotPasswordScreen extends StatelessWidget with FieldsValidation {

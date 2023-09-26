@@ -13,31 +13,10 @@ import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/resources/strings.dart';
-import 'package:vendor_app/data/dto/registration_dto.dart';
-import 'package:vendor_app/presentation/screens/auth/register/controller/register_controller.dart';
+import 'package:vendor_app/presentation/screens/auth/controllers/register_controller.dart';
 
 class RegisterMobile extends StatelessWidget with FieldsValidation {
-  bool obscure = false;
-
   RegisterMobile({super.key});
-
-  final GlobalKey<FormState> signUpForm = GlobalKey<FormState>();
-  final VendorRegistrationDto registerModel = VendorRegistrationDto(
-      vid: 0,
-      vendortype: TextEditingController(text: 'test'),
-      vendorCompanyName: TextEditingController(),
-      vendoraddress: TextEditingController(),
-      vendorCity: TextEditingController(),
-      vendorRegion: TextEditingController(),
-      vendorPostalcode: TextEditingController(),
-      vendorMobileDetail: TextEditingController(),
-      firstName: TextEditingController(),
-      lastName: TextEditingController(),
-      jobTitle: TextEditingController(),
-      vendoremail: TextEditingController(),
-      vendorPassword: TextEditingController(),
-      isActive: false,
-      serviceTypeId: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +30,7 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
       child: SingleChildScrollView(
         child: GetBuilder<RegisterController>(builder: (controller) {
           return Form(
-            key: signUpForm,
+            key: controller.signUpForm,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -94,7 +73,7 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                       ),
                       const VerticalSpacing(40),
                       CommonTextField(
-                        controller: registerModel.vendorCompanyName,
+                        controller: controller.registerModel.vendorCompanyName,
                         hintText: 'Company Name',
                         validator: emptyFieldValidation,
                         suffix: const ImageIcon(
@@ -105,7 +84,7 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                       ),
                       const VerticalSpacing(20),
                       CommonTextField(
-                        controller: registerModel.vendoraddress,
+                        controller: controller.registerModel.vendoraddress,
                         hintText: 'Street Address',
                         validator: emptyFieldValidation,
                         suffix: const ImageIcon(
@@ -116,7 +95,7 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                       ),
                       const VerticalSpacing(20),
                       CommonTextField(
-                        controller: registerModel.vendorCity,
+                        controller: controller.registerModel.vendorCity,
                         hintText: 'City',
                         validator: emptyFieldValidation,
                         suffix: const ImageIcon(
@@ -126,7 +105,7 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                       ),
                       const VerticalSpacing(20),
                       CommonTextField(
-                        controller: registerModel.vendorRegion,
+                        controller: controller.registerModel.vendorRegion,
                         hintText: 'State/Region',
                         validator: emptyFieldValidation,
                         suffix: const ImageIcon(
@@ -136,7 +115,7 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                       ),
                       const VerticalSpacing(20),
                       CommonTextField(
-                        controller: registerModel.vendorPostalcode,
+                        controller: controller.registerModel.vendorPostalcode,
                         hintText: 'Zip/Postal code',
                         validator: emptyFieldValidation,
                         suffix: const ImageIcon(
@@ -147,7 +126,7 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                       ),
                       const VerticalSpacing(20),
                       CommonMobileTextFeild(
-                        controller: registerModel.vendorMobileDetail,
+                        controller: controller.registerModel.vendorMobileDetail,
                         validator: validatePhone,
                         borderColor: AppColors.grey,
                         countryCodeColor: AppColors.grey,
@@ -158,9 +137,8 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                       ),
                       const VerticalSpacing(20),
                       CommonTextField(
-                        controller: registerModel.firstName,
+                        controller: controller.registerModel.firstName,
                         hintText: 'First Name',
-                        pass: obscure,
                         validator: emptyFieldValidation,
                         suffix: const ImageIcon(
                           AssetImage(RGIcons.account),
@@ -169,9 +147,8 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                       ),
                       const VerticalSpacing(20),
                       CommonTextField(
-                        controller: registerModel.lastName,
+                        controller: controller.registerModel.lastName,
                         hintText: 'Last Name',
-                        pass: obscure,
                         validator: emptyFieldValidation,
                         suffix: const ImageIcon(
                           AssetImage(RGIcons.account),
@@ -180,9 +157,8 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                       ),
                       const VerticalSpacing(20),
                       CommonTextField(
-                        controller: registerModel.jobTitle,
+                        controller: controller.registerModel.jobTitle,
                         hintText: 'Job Title',
-                        pass: obscure,
                         validator: emptyFieldValidation,
                         suffix: const ImageIcon(
                           AssetImage(RGIcons.suitcase),
@@ -192,9 +168,8 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                       ),
                       const VerticalSpacing(20),
                       CommonTextField(
-                        controller: registerModel.vendoremail,
+                        controller: controller.registerModel.vendoremail,
                         hintText: 'Email',
-                        pass: obscure,
                         validator: validateEmail,
                         suffix: const ImageIcon(
                           AssetImage(RGIcons.email),
@@ -202,28 +177,35 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                         ),
                       ),
                       const VerticalSpacing(20),
-                      CommonTextField(
-                        controller: registerModel.vendorPassword,
-                        hintText: 'Password',
-                        pass: obscure,
-                        validator: emptyFieldValidation,
-                        suffix: InkWell(
-                          splashColor: Colors.transparent,
-                          onTap: () {},
-                          child: ImageIcon(
-                            AssetImage(obscure ? RGIcons.lock : RGIcons.unlock),
-                            color: AppColors.grey,
+                      Obx(() {
+                        return CommonTextField(
+                          controller: controller.registerModel.vendorPassword,
+                          hintText: 'Password',
+                          validator: passwordValidation,
+                          pass: controller.obscure.value,
+                          suffix: InkWell(
+                            splashColor: Colors.transparent,
+                            onTap: () {
+                              controller.obscure.toggle();
+                            },
+                            child: ImageIcon(
+                              AssetImage(controller.obscure.value
+                                  ? RGIcons.lock
+                                  : RGIcons.unlock),
+                              color: AppColors.grey,
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      }),
                       VerticalSpacing(8.h),
                       CommonTextButton(
                           onPressed: () {
                             // context.go(PagePath.vendorCharges);
 
-                            // if (signUpForm.currentState!.validate()) {
-                            controller.register(registerModel);
-                            // }
+                            if (controller.signUpForm.currentState!
+                                .validate()) {
+                              controller.register();
+                            }
                           },
                           backgroundColor: AppColors.primary,
                           color: AppColors.background,
