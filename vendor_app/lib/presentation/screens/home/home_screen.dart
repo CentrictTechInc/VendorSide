@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
-import 'package:vendor_app/presentation/screens/bottom_nav_screen.dart';
+import 'package:vendor_app/presentation/screens/bottom_nav/Main_screen.dart';
 import 'package:vendor_app/presentation/screens/home/views/home_screen_mobile.dart';
 
 class HomeScreen extends StatelessWidget {

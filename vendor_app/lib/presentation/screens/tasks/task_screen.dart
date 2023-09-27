@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
-import 'package:vendor_app/presentation/screens/bottom_nav_screen.dart';
+import 'package:vendor_app/presentation/screens/bottom_nav/Main_screen.dart';
 import 'package:vendor_app/presentation/screens/tasks/views/tasks_mobile.dart';
 
 class TasksScreen extends StatelessWidget {

@@ -9,7 +9,8 @@ import 'package:vendor_app/presentation/screens/auth/otp/email_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/phone_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/register_otp_verification_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/controllers/register_controller.dart';
-import 'package:vendor_app/presentation/screens/bottom_nav/bottom_nav_screen.dart';
+import 'package:vendor_app/presentation/screens/bottom_nav/Main_screen.dart';
+import 'package:vendor_app/presentation/screens/bottom_nav/controller/botton_nav_controller.dart';
 import 'package:vendor_app/presentation/screens/business/business_screen.dart';
 import 'package:vendor_app/presentation/screens/chat/inbox_screen.dart';
 import 'package:vendor_app/presentation/screens/contact_us/contact_us_screen.dart';
@@ -37,95 +38,118 @@ final GlobalKey<NavigatorState> _shellNavigatorKey =
 class AppRouter {
   static final router = GoRouter(
       navigatorKey: _rootNavigatorKey,
-      initialLocation: PagePath.login,
+      initialLocation: PagePath.slash,
       routes: [
-        ShellRoute(
-          navigatorKey: _shellNavigatorKey,
-          builder: (context, state, child) {
-            return MainBottomNavScreen(
-              widget: child,
-            );
-          },
-          routes: [
-            GoRoute(
-              parentNavigatorKey: _shellNavigatorKey,
-              path: PagePath.slash,
-              builder: (context, state) {
-                return const Scaffold(
-                  body: Center(
-                    child: CommonText(
-                      text: "Welcome ",
-                    ),
-                  ),
-                );
-              },
-              routes: const [],
-            ),
-            GoRoute(
-              path: PagePath.notification,
-              parentNavigatorKey: _shellNavigatorKey,
-              builder: (context, state) {
-                return NotificationScreen();
-              },
-            ),
-            GoRoute(
-              path: PagePath.inbox,
-              parentNavigatorKey: _shellNavigatorKey,
-              builder: (context, state) {
-                return InboxScreen();
-              },
-            ),
-            GoRoute(
-              path: PagePath.business,
-              parentNavigatorKey: _shellNavigatorKey,
-              builder: (context, state) {
-                return BusinessScreen();
-              },
-            ),
-            GoRoute(
-              path: PagePath.tasks,
-              parentNavigatorKey: _shellNavigatorKey,
-              builder: (context, state) {
-                return TasksScreen();
-              },
-            ),
-            GoRoute(
-                path: PagePath.homeScreen,
-                parentNavigatorKey: _shellNavigatorKey,
-                builder: (context, state) {
-                  return const HomeScreen();
-                },
-                routes: [
-                  GoRoute(
-                      path: PagePath.profile,
-                      builder: (context, state) {
-                        return ProfileScreen();
-                      },
-                      routes: [
-                        GoRoute(
-                            path: PagePath.profileEdit,
-                            builder: (context, state) {
-                              return EditProfileScreen();
-                            }),
-                      ]),
-                  GoRoute(
-                      path: PagePath.contact,
-                      builder: (context, state) {
-                        return ContactUsScreen();
-                      }),
-                  GoRoute(
-                      path: PagePath.review,
-                      builder: (context, state) {
-                        return ReviewScreen();
-                      }),
-                  GoRoute(
-                      path: PagePath.schedule,
-                      builder: (context, state) {
-                        return ScheduleScreen();
-                      }),
-                ])
-          ],
-        ),
+        GoRoute(
+            path: PagePath.slash,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (context, state) {
+              Get.lazyPut<BottomNavController>(() => BottomNavController());
+              return MainBottomNavScreen();
+            },
+            routes: [
+              GoRoute(
+                  path: PagePath.contact,
+                  builder: (context, state) {
+                    return ContactUsScreen();
+                  }),
+              GoRoute(
+                  path: PagePath.review,
+                  builder: (context, state) {
+                    return ReviewScreen();
+                  }),
+              GoRoute(
+                  path: PagePath.schedule,
+                  builder: (context, state) {
+                    return ScheduleScreen();
+                  }),
+            ]),
+        // ShellRoute(
+        //   navigatorKey: _shellNavigatorKey,
+        //   builder: (context, state, child) {
+        //     Get.lazyPut<BottomNavController>(() => BottomNavController());
+        //     return MainBottomNavScreen();
+        //   },
+        //   routes: [
+        //     GoRoute(
+        //       parentNavigatorKey: _shellNavigatorKey,
+        //       path: PagePath.slash,
+        //       builder: (context, state) {
+        //         return const Scaffold(
+        //           body: Center(
+        //             child: CommonText(
+        //               text: "Welcome ",
+        //             ),
+        //           ),
+        //         );
+        //       },
+        //       routes: const [],
+        //     ),
+        //     GoRoute(
+        //       path: PagePath.notification,
+        //       parentNavigatorKey: _shellNavigatorKey,
+        //       builder: (context, state) {
+        //         return NotificationScreen();
+        //       },
+        //     ),
+        //     GoRoute(
+        //       path: PagePath.inbox,
+        //       parentNavigatorKey: _shellNavigatorKey,
+        //       builder: (context, state) {
+        //         return InboxScreen();
+        //       },
+        //     ),
+        //     GoRoute(
+        //       path: PagePath.business,
+        //       parentNavigatorKey: _shellNavigatorKey,
+        //       builder: (context, state) {
+        //         return BusinessScreen();
+        //       },
+        //     ),
+        //     GoRoute(
+        //       path: PagePath.tasks,
+        //       parentNavigatorKey: _shellNavigatorKey,
+        //       builder: (context, state) {
+        //         return TasksScreen();
+        //       },
+        //     ),
+        //     GoRoute(
+        //         path: PagePath.homeScreen,
+        //         parentNavigatorKey: _shellNavigatorKey,
+        //         builder: (context, state) {
+        //           return const HomeScreen();
+        //         },
+        //         routes: [
+        //           GoRoute(
+        //               path: PagePath.profile,
+        //               builder: (context, state) {
+        //                 return ProfileScreen();
+        //               },
+        //               routes: [
+        //                 GoRoute(
+        //                     path: PagePath.profileEdit,
+        //                     builder: (context, state) {
+        //                       return EditProfileScreen();
+        //                     }),
+        //               ]),
+        //           GoRoute(
+        //               path: PagePath.contact,
+        //               builder: (context, state) {
+        //                 return ContactUsScreen();
+        //               }),
+        //           GoRoute(
+        //               path: PagePath.review,
+        //               builder: (context, state) {
+        //                 return ReviewScreen();
+        //               }),
+        //           GoRoute(
+        //               path: PagePath.schedule,
+        //               builder: (context, state) {
+        //                 return ScheduleScreen();
+        //               }),
+        //         ])
+        //   ],
+        // ),
         GoRoute(
             path: PagePath.login,
             builder: (context, state) {

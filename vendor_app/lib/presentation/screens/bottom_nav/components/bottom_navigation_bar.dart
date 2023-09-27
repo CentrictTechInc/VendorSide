@@ -1,37 +1,14 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:vendor_app/common/resources/colors.dart';
-import 'package:vendor_app/common/resources/drawables.dart';
-import 'package:vendor_app/common/resources/page_path.dart';
+import 'package:vendor_app/presentation/screens/bottom_nav/controller/botton_nav_controller.dart';
 
 class HomeBottomNavBar extends StatelessWidget {
   HomeBottomNavBar({super.key});
 
-  final iconList = [
-    RGIcons.home,
-    RGIcons.suitcase,
-    RGIcons.messages,
-    RGIcons.bell,
-  ];
+  final confuse = Get.find<BottomNavController>();
 
-  void onTap(int value, BuildContext context) {
-    switch (value) {
-      case 0:
-        context.go(PagePath.homeScreen);
-        break;
-      case 1:
-        context.go(PagePath.business);
-        break;
-      case 2:
-        context.go(PagePath.inbox);
-        break;
-      default:
-        context.go(PagePath.notification);
-    }
-  }
-
-  final bool isNavBarActive = true;
   @override
   Widget build(BuildContext context) {
     return AnimatedBottomNavigationBar.builder(
@@ -48,9 +25,9 @@ class HomeBottomNavBar extends StatelessWidget {
       leftCornerRadius: 12,
       rightCornerRadius: 12,
       onTap: (index) {
-        onTap(index, context);
+        confuse.changeTabIndex(index);
       },
-      itemCount: iconList.length,
+      itemCount: confuse.iconList.length,
       tabBuilder: (int index, bool isActive) {
         return Padding(
           padding: const EdgeInsets.all(2.0),
@@ -58,11 +35,15 @@ class HomeBottomNavBar extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ImageIcon(
-                AssetImage(iconList[index]),
-                size: 25,
-                color: index == 0 ? AppColors.secondary : AppColors.grey,
-              ),
+              Obx(() {
+                return ImageIcon(
+                  AssetImage(confuse.iconList[index]),
+                  size: 25,
+                  color: confuse.tabIndex.value == index
+                      ? AppColors.secondary
+                      : AppColors.grey,
+                );
+              }),
             ],
           ),
         );
