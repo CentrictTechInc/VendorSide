@@ -11,7 +11,8 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<String> forgot(String email) async {
     try {
       final response = await AuthAPI.forgotPassword(email).request();
-      return response;
+      Map<String, dynamic> msg = jsonDecode(response);
+      return msg['message'];
     } catch (e) {
       rethrow;
     }
@@ -64,8 +65,9 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<String> resetNewPassword(
-      String email, String password, String confirmPassword) {
-    // TODO: implement resetNewPassword
-    throw UnimplementedError();
+      String email, String password, String confirmPassword) async {
+    final response =
+        await AuthAPI.resetPassword(email, password, confirmPassword).request();
+    return response;
   }
 }

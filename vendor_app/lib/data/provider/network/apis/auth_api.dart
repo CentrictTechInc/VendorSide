@@ -97,11 +97,21 @@ class AuthAPI implements APIRequestRepresentable {
   }
 
   @override
-  Map<String, String>? get headers => {
-        "Content-Type": "application/json",
-        // "Authorization":
-        //     "Bearer ${Get.find<LocalStorageService>().user?.token}",
-      };
+  Map<String, String>? get headers {
+    switch (type) {
+      case AuthApiType.registerEmailVerification:
+        return {};
+      case AuthApiType.generateOtp:
+      case AuthApiType.resetPassword:
+      case AuthApiType.forgotEmailOtpVerification:
+      case AuthApiType.forgot:
+      case AuthApiType.login:
+      case AuthApiType.signup:
+      case AuthApiType.mobileOtpVerification:
+      case AuthApiType.createNewPassword:
+        return {'Content-Type': 'application/json; charset=utf-8'};
+    }
+  }
 
   @override
   HTTPMethod get method {
@@ -110,11 +120,11 @@ class AuthAPI implements APIRequestRepresentable {
       case AuthApiType.signup:
       case AuthApiType.mobileOtpVerification:
       case AuthApiType.createNewPassword:
+      case AuthApiType.registerEmailVerification:
         return HTTPMethod.post;
       case AuthApiType.generateOtp:
       case AuthApiType.resetPassword:
       case AuthApiType.forgotEmailOtpVerification:
-      case AuthApiType.registerEmailVerification:
       case AuthApiType.forgot:
         return HTTPMethod.get;
     }
@@ -149,7 +159,7 @@ class AuthAPI implements APIRequestRepresentable {
         return {
           'email': email.toString(),
           'otp': otp.toString(),
-          'type': 'Vendor'
+          'type': 'Vendor'.toString()
         };
       case AuthApiType.generateOtp:
       case AuthApiType.forgot:

@@ -16,17 +16,17 @@ class RegisterController extends GetxController {
   final VendorRegistrationDto registerModel = VendorRegistrationDto(
       vid: 0,
       vendortype: TextEditingController(text: 'test'),
-      vendorCompanyName: TextEditingController(),
-      vendoraddress: TextEditingController(),
-      vendorCity: TextEditingController(),
-      vendorRegion: TextEditingController(),
-      vendorPostalcode: TextEditingController(),
-      vendorMobileDetail: TextEditingController(),
-      firstName: TextEditingController(),
-      lastName: TextEditingController(),
-      jobTitle: TextEditingController(),
+      vendorCompanyName: TextEditingController(text: 'test'),
+      vendoraddress: TextEditingController(text: 'test'),
+      vendorCity: TextEditingController(text: 'test'),
+      vendorRegion: TextEditingController(text: 'test'),
+      vendorPostalcode: TextEditingController(text: 'test'),
+      vendorMobileDetail: TextEditingController(text: '0323321652'),
+      firstName: TextEditingController(text: 'test'),
+      lastName: TextEditingController(text: 'test'),
+      jobTitle: TextEditingController(text: 'test'),
       vendoremail: TextEditingController(),
-      vendorPassword: TextEditingController(),
+      vendorPassword: TextEditingController(text: 'Test@123'),
       isActive: false,
       serviceTypeId: 0);
 
@@ -47,10 +47,13 @@ class RegisterController extends GetxController {
 
   Future registerEmailOtp(String email, String otp) async {
     try {
+      ShowDialogBox.showDialogBoxs(true);
+
       String res = await _repo.registerEmailVerification(email, otp);
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
       ToastMessage.message(res, type: ToastType.success);
-      // globalContext
-      //     ?.push("${PagePath.registerEmailOtp}/${register.email.text}");
     } catch (e) {
       ToastMessage.message(e.toString());
     }

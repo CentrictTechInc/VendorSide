@@ -61,7 +61,7 @@ class CustomDrawer extends StatelessWidget {
                     ),
                     const VerticalSpacing(15),
                     CommonText(
-                      text: 'constant',
+                      text: 'Mrs. Hussain',
                       fontSize: 16.sp,
                       textAlign: TextAlign.start,
                       color: AppColors.white,
@@ -151,7 +151,7 @@ class CustomDrawer extends StatelessWidget {
       icon: RGIcons.review,
     ),
     DrawerItem(
-      location: PagePath.homeScreen + PagePath.review.toRoute,
+      location: PagePath.tasks,
       text: "My Tasks",
       icon: RGIcons.tasks,
     ),
@@ -161,12 +161,12 @@ class CustomDrawer extends StatelessWidget {
       icon: RGIcons.callIcon,
     ),
     DrawerItem(
-      location: PagePath.homeScreen,
+      location: PagePath.homeScreen + PagePath.schedule.toRoute,
       text: "Schedule",
       icon: RGIcons.calendarMonth,
     ),
     DrawerItem(
-      location: PagePath.homeScreen,
+      location: '',
       text: "Manage Services",
       icon: RGIcons.dollar,
     ),

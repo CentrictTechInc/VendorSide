@@ -4,11 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/presentation/screens/auth/controllers/login_controller.dart';
+import 'package:vendor_app/presentation/screens/auth/controllers/otp_controller.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/email_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/phone_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/register_otp_verification_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/controllers/register_controller.dart';
-import 'package:vendor_app/presentation/screens/bottom_nav_screen.dart';
+import 'package:vendor_app/presentation/screens/bottom_nav/bottom_nav_screen.dart';
 import 'package:vendor_app/presentation/screens/business/business_screen.dart';
 import 'package:vendor_app/presentation/screens/chat/inbox_screen.dart';
 import 'package:vendor_app/presentation/screens/contact_us/contact_us_screen.dart';
@@ -20,6 +21,7 @@ import 'package:vendor_app/presentation/screens/password_screens/forgot_password
 import 'package:vendor_app/presentation/screens/profile_module/edit_screen.dart';
 import 'package:vendor_app/presentation/screens/profile_module/profile_screen.dart';
 import 'package:vendor_app/presentation/screens/review/review_screen.dart';
+import 'package:vendor_app/presentation/screens/schedule/schedule_screen.dart';
 import 'package:vendor_app/presentation/screens/tasks/task_screen.dart';
 import 'package:vendor_app/presentation/screens/vendor_category/category_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/login/login_screen.dart';
@@ -116,6 +118,11 @@ class AppRouter {
                       builder: (context, state) {
                         return ReviewScreen();
                       }),
+                  GoRoute(
+                      path: PagePath.schedule,
+                      builder: (context, state) {
+                        return ScheduleScreen();
+                      }),
                 ])
           ],
         ),
@@ -123,6 +130,7 @@ class AppRouter {
             path: PagePath.login,
             builder: (context, state) {
               Get.lazyPut<LoginController>(() => LoginController());
+              Get.lazyPut<OtpController>(() => OtpController());
               return const LoginScreen();
             }),
         GoRoute(
@@ -147,7 +155,7 @@ class AppRouter {
               return const CategoryScreen();
             }),
         GoRoute(
-            path: PagePath.emailOtp,
+            path: "${PagePath.emailOtp}/:email",
             builder: (context, state) {
               String email = state.pathParameters['email'] as String;
               return EmailOtpScreen(
@@ -164,6 +172,8 @@ class AppRouter {
             builder: (context, state) {
               String email = state.pathParameters['email'] as String;
               Get.lazyPut<RegisterController>(() => RegisterController());
+              Get.lazyPut<OtpController>(() => OtpController());
+
               return RegisterEmailOtpScreen(
                 email: email,
               );

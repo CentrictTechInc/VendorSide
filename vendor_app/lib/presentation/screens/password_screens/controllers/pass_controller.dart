@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
+import 'package:vendor_app/common/common_loader.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/data/repository/auth_repository.dart';
@@ -16,12 +17,15 @@ class PasswordController extends GetxController {
 
   Future forgotPassword(String email) async {
     try {
-      {
-        final String result = await _repo.forgot(email);
-        ToastMessage.message(result, type: ToastType.info);
-        if (globalContext!.mounted) {
-          globalContext?.push('${PagePath.emailOtp}/$email');
-        }
+      ShowDialogBox.showDialogBoxs(true);
+
+      final String result = await _repo.forgot(email);
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
+      ToastMessage.message(result, type: ToastType.info);
+      if (globalContext!.mounted) {
+        globalContext?.push('${PagePath.emailOtp}/$email');
       }
     } catch (e) {
       ToastMessage.message(e.toString(), type: ToastType.error);

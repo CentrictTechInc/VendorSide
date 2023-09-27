@@ -6,7 +6,7 @@ class PagePath {
 
   static const String homeScreen = '/homeScreen';
 
-  static const String search = '/search';
+  static const String schedule = 'schedule';
   static const String contact = 'contactUs';
 
   static const String inbox = '/messages';
