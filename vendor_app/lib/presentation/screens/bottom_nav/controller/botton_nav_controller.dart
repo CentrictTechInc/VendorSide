@@ -6,7 +6,6 @@ class BottomNavController extends GetxController {
   final tabIndex = 0.obs;
   void changeTabIndex(int index) {
     tabIndex.value = index;
-    // pageController = index;
     pageController.jumpToPage(index);
   }
 

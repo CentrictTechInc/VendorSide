@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
-import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
@@ -10,24 +9,16 @@ import 'package:sizer/sizer.dart';
 class NoficationScreenMobile extends StatelessWidget {
   // final RemoteMessage? message; // to display notification on screen
 
-  NoficationScreenMobile({super.key, this.onPressed});
-  final VoidCallback? onPressed;
+  NoficationScreenMobile({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
       constraints:
           BoxConstraints(maxWidth: context.width, maxHeight: context.height),
       child: Column(
         children: [
-          CommonAppBar(
-            backButton: false,
-            hamburger: true,
-            text: "Notification",
-            onDrawerPressed: onPressed,
-            hideBell: true,
-          ),
-          const VerticalSpacing(10),
           CommonText(
             //comments are left due to testing
             // text: message?.sentTime.toString() ?? "time",

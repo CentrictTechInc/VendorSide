@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/utils/custom_drawer.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
-import 'package:vendor_app/presentation/screens/tasks/views/tasks_mobile.dart';
+import 'package:vendor_app/presentation/screens/manage_services/views/manage_services_mobile.dart';
 
-class TasksScreen extends StatelessWidget {
-  TasksScreen({super.key});
+class ManageServicesScreen extends StatelessWidget {
+  ManageServicesScreen({super.key});
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -14,13 +14,13 @@ class TasksScreen extends StatelessWidget {
       drawer: CustomDrawer(),
       body: SafeArea(
           child: Responsive(
-              mobile: TasksMobileScreen(
+              mobile: ManageServicesMobileScreen(
                 onPressed: () {
                   scaffoldKey.currentState!.openDrawer();
                 },
               ),
-              tablet: TasksMobileScreen(),
-              desktop: TasksMobileScreen())),
+              tablet: ManageServicesMobileScreen(),
+              desktop: ManageServicesMobileScreen())),
     );
   }
 }

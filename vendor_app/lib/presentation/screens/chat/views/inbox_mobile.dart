@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
-import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/common/resources/colors.dart';
-import 'package:vendor_app/presentation/screens/chat/components/message_card.dart';
 
 class ChatUsers {
   String name;
@@ -19,25 +16,16 @@ class ChatUsers {
 }
 
 class InboxMobileScreen extends StatelessWidget {
-  InboxMobileScreen({super.key, this.onPressed});
-  final VoidCallback? onPressed;
+  InboxMobileScreen({super.key});
   final int currentUser = 1;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
       constraints:
           BoxConstraints(maxWidth: context.width, maxHeight: context.height),
       child: Column(
         children: [
-          CommonAppBar(
-            hamburger: true,
-            onDrawerPressed: onPressed,
-            backButton: false,
-            text: "Inbox",
-            hideBell: true,
-          ),
           const VerticalSpacing(10),
           Expanded(
             child: SingleChildScrollView(

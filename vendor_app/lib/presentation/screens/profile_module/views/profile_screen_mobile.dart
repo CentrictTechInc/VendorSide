@@ -44,9 +44,8 @@ class _ProfileScreenMobileState extends State<ProfileScreenMobile> {
             text: "My Profile",
             editButton: true,
             onEdit: () {
-              context.push(PagePath.homeScreen +
-                  PagePath.profile.toRoute +
-                  PagePath.profileEdit.toRoute);
+              context.push(
+                  PagePath.profile.toRoute + PagePath.profileEdit.toRoute);
             },
           ),
           // const VerticalSpacing(10),

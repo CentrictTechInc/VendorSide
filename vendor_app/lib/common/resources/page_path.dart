@@ -19,7 +19,7 @@ class PagePath {
   static const String profile = 'profile';
   static const String profileEdit = 'edit';
 
-  static const String adminSettings = '/adminSettings';
+  static const String manageServices = 'services';
   static const String splash = '/splash';
   static const String mobileOtp = '/mobileOtp';
   static const String emailOtp = '/emailOtp';
@@ -33,7 +33,7 @@ class PagePath {
 
   static const String category = '/category';
 
-  static const String tasks = '/tasks';
+  static const String tasks = 'tasks';
 }
 
 extension ContextExtensionss on String {

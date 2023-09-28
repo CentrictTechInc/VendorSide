@@ -136,37 +136,37 @@ class CustomDrawer extends StatelessWidget {
 
   final List<DrawerItem> drawer = [
     DrawerItem(
-      location: PagePath.homeScreen,
+      location: PagePath.slash,
       text: "Home",
       icon: RGIcons.home,
     ),
     DrawerItem(
-      location: PagePath.homeScreen + PagePath.profile.toRoute,
+      location: PagePath.profile.toRoute,
       text: "My Profile",
       icon: RGIcons.profile,
     ),
     DrawerItem(
-      location: PagePath.homeScreen + PagePath.review.toRoute,
+      location: PagePath.review.toRoute,
       text: "Customer Reviews",
       icon: RGIcons.review,
     ),
     DrawerItem(
-      location: PagePath.tasks,
+      location: PagePath.tasks.toRoute,
       text: "My Tasks",
       icon: RGIcons.tasks,
     ),
     DrawerItem(
-      location: PagePath.homeScreen + PagePath.contact.toRoute,
+      location: PagePath.contact.toRoute,
       text: "Contact Us",
       icon: RGIcons.callIcon,
     ),
     DrawerItem(
-      location: PagePath.homeScreen + PagePath.schedule.toRoute,
+      location: PagePath.schedule.toRoute,
       text: "Schedule",
       icon: RGIcons.calendarMonth,
     ),
     DrawerItem(
-      location: '',
+      location: PagePath.manageServices.toRoute,
       text: "Manage Services",
       icon: RGIcons.dollar,
     ),

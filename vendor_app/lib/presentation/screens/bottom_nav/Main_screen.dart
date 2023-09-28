@@ -45,7 +45,7 @@ class MainBottomNavScreen extends StatelessWidget {
               bottomNavigationBar: HomeBottomNavBar(),
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
-                  context.go(PagePath.tasks);
+                  context.go(PagePath.tasks.toRoute);
                 },
                 backgroundColor: AppColors.primary,
                 shape: const CircleBorder(eccentricity: .9),
@@ -59,41 +59,51 @@ class MainBottomNavScreen extends StatelessWidget {
                   FloatingActionButtonLocation.centerDocked,
               backgroundColor: AppColors.white,
               body: SafeArea(
-                child: Column(
-                  children: [
-                    Text("data"),
-                    Expanded(
-                      child: CommonAppBar(
-                        backButton: false,
-                        hamburger: true,
-                        text: "Tasks",
-                        onDrawerPressed: () {},
-                        hideBell: true,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 10,
-                      child: GetBuilder(
-                        init: BottomNavController(),
-                        builder: (BottomNavController controller) {
-                          return Obx(() {
-                            return PageView(
-                              controller: controller.pageController,
-                              physics: NeverScrollableScrollPhysics(),
-                              // index: controller.tabIndex.value,
-                              children: [
-                                HomeScreen(),
-                                BusinessScreen(),
-                                InboxScreen(),
-                                NotificationScreen(),
-                              ],
-                            );
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                child: GetBuilder<BottomNavController>(
+                    init: BottomNavController(),
+                    builder: (controller) {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Column(
+                          children: [
+                            Obx(() {
+                              return CommonAppBar(
+                                backButton: false,
+                                hamburger: true,
+                                text: controller.tabIndex.value == 0
+                                    ? ""
+                                    : controller.tabIndex.value == 1
+                                        ? "My Business"
+                                        : controller.tabIndex.value == 2
+                                            ? "Inbox"
+                                            : "Notification",
+                                onDrawerPressed: () {
+                                  globalScaffoldKey.currentState!.openDrawer();
+                                },
+                                hideBell: controller.tabIndex.value == 0
+                                    ? false
+                                    : true,
+                                showProfile: controller.tabIndex.value == 0
+                                    ? true
+                                    : false,
+                              );
+                            }),
+                            Expanded(
+                              child: PageView(
+                                controller: controller.pageController,
+                                physics: const NeverScrollableScrollPhysics(),
+                                children: [
+                                  HomeScreen(),
+                                  BusinessScreen(),
+                                  InboxScreen(),
+                                  NotificationScreen(),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
               ),
             )));
   }

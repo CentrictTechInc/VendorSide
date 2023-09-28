@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/presentation/screens/auth/controllers/login_controller.dart';
 import 'package:vendor_app/presentation/screens/auth/controllers/otp_controller.dart';
@@ -11,11 +10,9 @@ import 'package:vendor_app/presentation/screens/auth/otp/register_otp_verificati
 import 'package:vendor_app/presentation/screens/auth/controllers/register_controller.dart';
 import 'package:vendor_app/presentation/screens/bottom_nav/Main_screen.dart';
 import 'package:vendor_app/presentation/screens/bottom_nav/controller/botton_nav_controller.dart';
-import 'package:vendor_app/presentation/screens/business/business_screen.dart';
-import 'package:vendor_app/presentation/screens/chat/inbox_screen.dart';
 import 'package:vendor_app/presentation/screens/contact_us/contact_us_screen.dart';
-import 'package:vendor_app/presentation/screens/home/home_screen.dart';
-import 'package:vendor_app/presentation/screens/notification/notification_screen.dart';
+import 'package:vendor_app/presentation/screens/manage_services/controller/manage_services_controller.dart';
+import 'package:vendor_app/presentation/screens/manage_services/manage_services_screen.dart';
 import 'package:vendor_app/presentation/screens/password_screens/controllers/pass_controller.dart';
 import 'package:vendor_app/presentation/screens/password_screens/create_new_password.dart';
 import 'package:vendor_app/presentation/screens/password_screens/forgot_password_screen.dart';
@@ -23,6 +20,7 @@ import 'package:vendor_app/presentation/screens/profile_module/edit_screen.dart'
 import 'package:vendor_app/presentation/screens/profile_module/profile_screen.dart';
 import 'package:vendor_app/presentation/screens/review/review_screen.dart';
 import 'package:vendor_app/presentation/screens/schedule/schedule_screen.dart';
+import 'package:vendor_app/presentation/screens/tasks/controller/tasks_controller.dart';
 import 'package:vendor_app/presentation/screens/tasks/task_screen.dart';
 import 'package:vendor_app/presentation/screens/vendor_category/category_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/login/login_screen.dart';
@@ -32,8 +30,6 @@ import 'package:vendor_app/presentation/screens/tax_forms/tax_forms_screen.dart'
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final globalContext = _rootNavigatorKey.currentContext;
-final GlobalKey<NavigatorState> _shellNavigatorKey =
-    GlobalKey<NavigatorState>();
 
 class AppRouter {
   static final router = GoRouter(
@@ -63,93 +59,39 @@ class AppRouter {
                   builder: (context, state) {
                     return ScheduleScreen();
                   }),
+              GoRoute(
+                  path: PagePath.profile,
+                  builder: (context, state) {
+                    return ProfileScreen();
+                  },
+                  routes: [
+                    GoRoute(
+                        path: PagePath.profileEdit,
+                        builder: (context, state) {
+                          return EditProfileScreen();
+                        }),
+                  ]),
+              GoRoute(
+                path: PagePath.tasks,
+                builder: (context, state) {
+                  Get.lazyPut<TasksController>(() => TasksController());
+                  return TasksScreen();
+                },
+              ),
+              GoRoute(
+                  path: PagePath.schedule,
+                  builder: (context, state) {
+                    return ScheduleScreen();
+                  }),
+              GoRoute(
+                  path: PagePath.manageServices,
+                  builder: (context, state) {
+                    Get.lazyPut<ManageServicesController>(
+                        () => ManageServicesController());
+
+                    return ManageServicesScreen();
+                  }),
             ]),
-        // ShellRoute(
-        //   navigatorKey: _shellNavigatorKey,
-        //   builder: (context, state, child) {
-        //     Get.lazyPut<BottomNavController>(() => BottomNavController());
-        //     return MainBottomNavScreen();
-        //   },
-        //   routes: [
-        //     GoRoute(
-        //       parentNavigatorKey: _shellNavigatorKey,
-        //       path: PagePath.slash,
-        //       builder: (context, state) {
-        //         return const Scaffold(
-        //           body: Center(
-        //             child: CommonText(
-        //               text: "Welcome ",
-        //             ),
-        //           ),
-        //         );
-        //       },
-        //       routes: const [],
-        //     ),
-        //     GoRoute(
-        //       path: PagePath.notification,
-        //       parentNavigatorKey: _shellNavigatorKey,
-        //       builder: (context, state) {
-        //         return NotificationScreen();
-        //       },
-        //     ),
-        //     GoRoute(
-        //       path: PagePath.inbox,
-        //       parentNavigatorKey: _shellNavigatorKey,
-        //       builder: (context, state) {
-        //         return InboxScreen();
-        //       },
-        //     ),
-        //     GoRoute(
-        //       path: PagePath.business,
-        //       parentNavigatorKey: _shellNavigatorKey,
-        //       builder: (context, state) {
-        //         return BusinessScreen();
-        //       },
-        //     ),
-        //     GoRoute(
-        //       path: PagePath.tasks,
-        //       parentNavigatorKey: _shellNavigatorKey,
-        //       builder: (context, state) {
-        //         return TasksScreen();
-        //       },
-        //     ),
-        //     GoRoute(
-        //         path: PagePath.homeScreen,
-        //         parentNavigatorKey: _shellNavigatorKey,
-        //         builder: (context, state) {
-        //           return const HomeScreen();
-        //         },
-        //         routes: [
-        //           GoRoute(
-        //               path: PagePath.profile,
-        //               builder: (context, state) {
-        //                 return ProfileScreen();
-        //               },
-        //               routes: [
-        //                 GoRoute(
-        //                     path: PagePath.profileEdit,
-        //                     builder: (context, state) {
-        //                       return EditProfileScreen();
-        //                     }),
-        //               ]),
-        //           GoRoute(
-        //               path: PagePath.contact,
-        //               builder: (context, state) {
-        //                 return ContactUsScreen();
-        //               }),
-        //           GoRoute(
-        //               path: PagePath.review,
-        //               builder: (context, state) {
-        //                 return ReviewScreen();
-        //               }),
-        //           GoRoute(
-        //               path: PagePath.schedule,
-        //               builder: (context, state) {
-        //                 return ScheduleScreen();
-        //               }),
-        //         ])
-        //   ],
-        // ),
         GoRoute(
             path: PagePath.login,
             builder: (context, state) {

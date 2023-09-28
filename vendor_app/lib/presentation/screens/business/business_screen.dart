@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
-import 'package:vendor_app/presentation/screens/bottom_nav/Main_screen.dart';
 import 'package:vendor_app/presentation/screens/business/views/my_business_mobile_screen.dart';
 
 class BusinessScreen extends StatelessWidget {
@@ -10,11 +9,7 @@ class BusinessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Responsive(
-            mobile: BusinessScreenMobile(
-              onPressed: () {
-                globalScaffoldKey.currentState?.openDrawer();
-              },
-            ),
+            mobile: BusinessScreenMobile(),
             tablet: BusinessScreenMobile(),
             desktop: BusinessScreenMobile()));
   }

@@ -13,10 +13,10 @@ class HomeBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedBottomNavigationBar.builder(
       shadow: BoxShadow(
-          offset: const Offset(0, -2.5),
-          blurRadius: 10.0,
+          offset: const Offset(0, 2.5),
+          blurRadius: 5.0,
           color: AppColors.black.withOpacity(0.3),
-          spreadRadius: 5.0),
+          spreadRadius: 0.0),
       splashRadius: 0,
       activeIndex: 1,
       gapLocation: GapLocation.center,
