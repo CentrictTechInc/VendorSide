@@ -35,7 +35,7 @@ class ManageServicesMobileScreen extends StatelessWidget {
                     height: 55,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7),
-                        color: AppColors.extraGrey),
+                        color: AppColors.greyish),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         vertical: 8,

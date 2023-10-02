@@ -5,7 +5,7 @@ import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/presentation/screens/home/components/vendor_details_card.dart';
-import 'package:vendor_app/presentation/screens/tasks/task_screen.dart';
+import 'package:vendor_app/presentation/screens/warranty/warranty.dart';
 
 class HomeScreenMobile extends StatelessWidget {
   HomeScreenMobile({
@@ -67,7 +67,7 @@ class HomeScreenMobile extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => TasksScreen(),
+                        builder: (context) => WarrantyScreen(),
                       ));
                 },
                 splashColor: Colors.transparent,

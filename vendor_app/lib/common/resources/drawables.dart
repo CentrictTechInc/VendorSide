@@ -31,6 +31,9 @@ class RGIcons {
   static const tasksNextIcon = "assets/icons/event_upcoming.png";
   static const sellIcon = "assets/icons/sell.png";
   static const sortIcon = "assets/icons/sort.png";
+  static const suitcase1 = "assets/icons/suit_case_1.png";
+  static const workspacePremium = "assets/icons/workspace_premium.png";
+  static const hub = "assets/icons/hub.png";
   // -------------vendor side
   static const email = "assets/icons/alternate_email.png";
   static const lock = "assets/icons/lock.png";

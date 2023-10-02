@@ -5,20 +5,18 @@ import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
-import 'package:vendor_app/presentation/screens/manage_services_pages/components/price_widget.dart';
 
-class AllServicesScreen extends StatelessWidget with FieldsValidation {
-  const AllServicesScreen({super.key});
+class VendorRatesWidget extends StatelessWidget with FieldsValidation {
+  const VendorRatesWidget({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20)),
-          color: AppColors.greyish),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20), color: AppColors.greyish),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const CommonText(
           text: "Select your area",
@@ -26,6 +24,7 @@ class AllServicesScreen extends StatelessWidget with FieldsValidation {
         ),
         const VerticalSpacing(10),
         DropDownWidget(
+          dropDownHeight: 50,
           validator: validateTextOnlyDropdown,
           arryList: [],
           showSearchBox: true,
@@ -48,6 +47,7 @@ class AllServicesScreen extends StatelessWidget with FieldsValidation {
         ),
         const VerticalSpacing(10),
         DropDownWidget(
+          dropDownHeight: 50,
           validator: validateTextOnlyDropdown,
           arryList: [],
           showSearchBox: true,
@@ -71,11 +71,12 @@ class AllServicesScreen extends StatelessWidget with FieldsValidation {
         const VerticalSpacing(10),
         Row(
           children: [
-            PriceWidget(),
-            HorizontalSpacing(15),
-            PriceWidget(
-              price: "42.5",
-            ),
+            // PriceWidget(),
+            // const HorizontalSpacing(15),
+            // PriceWidget(
+            //   price: "42.5",
+            //   text: "You’ll be paid",
+            // ),
           ],
         ),
       ]),

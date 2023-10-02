@@ -41,7 +41,7 @@ class UploadButtonWithFile extends StatelessWidget {
               height: 100,
               width: context.width,
               decoration: BoxDecoration(
-                  color: AppColors.grey,
+                  color: AppColors.blue,
                   borderRadius: BorderRadius.circular(10)),
               child: imageLink.isEmpty && platformfile == null
                   ? Column(

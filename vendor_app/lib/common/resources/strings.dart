@@ -5,4 +5,7 @@ class Strings {
       "Information provided will be used to present your location  and to generate service estimates to visitors on Repair Guru.";
   static const signupCharges =
       "Your one-time sign up charge is a small investment in the future of our services.";
+
+  static const warrantyDisclamer =
+      "Warranties will be displayed on your public web page and to consumers reviewing service estimates. You can create a warranty based on duration, mileage or both duration and mileage.";
 }

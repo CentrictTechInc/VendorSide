@@ -18,7 +18,7 @@ class MyServicesScreen extends StatelessWidget with FieldsValidation {
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(20),
               bottomRight: Radius.circular(20)),
-          color: AppColors.extraGrey),
+          color: AppColors.greyish),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const CommonText(
           text: "Select your area",

@@ -14,6 +14,7 @@ class PriceWidget extends StatelessWidget {
         CommonText(
           text: "\n\$",
           fontSize: 18,
+          weight: FontWeight.w500,
         ),
         const HorizontalSpacing(6),
         Column(
@@ -32,6 +33,7 @@ class PriceWidget extends StatelessWidget {
                 child: CommonText(
                   text: price ?? "50",
                   fontSize: 14,
+                  weight: FontWeight.w600,
                 ),
               ),
             ),

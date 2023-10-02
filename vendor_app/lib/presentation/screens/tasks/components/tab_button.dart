@@ -9,13 +9,17 @@ class TabButton extends StatelessWidget {
   double minWidth;
   double? fontSize;
   double? height;
+  double? radius;
+  double? padding;
 
   TabButton(
       {super.key,
       this.fontSize,
       this.height,
+      this.padding,
       required this.name,
       this.onPressed,
+      this.radius,
       this.minWidth = 200,
       this.highlighted = false});
 
@@ -23,7 +27,7 @@ class TabButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height ?? 30,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: padding ?? 10),
       constraints: BoxConstraints(minWidth: (minWidth)),
       child: TextButton(
         style: TextButton.styleFrom(
@@ -31,8 +35,8 @@ class TabButton extends StatelessWidget {
                 highlighted ? AppColors.secondary : AppColors.whiteGreyish,
             padding: const EdgeInsets.all(5),
             shape: RoundedRectangleBorder(
-              borderRadius:
-                  BorderRadius.circular(8.0), // Adjust the value as needed
+              borderRadius: BorderRadius.circular(
+                  radius ?? 8.0), // Adjust the value as needed
             ),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap),
         onPressed: onPressed,
