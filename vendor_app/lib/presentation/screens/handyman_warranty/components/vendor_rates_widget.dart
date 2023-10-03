@@ -5,6 +5,7 @@ import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
+import 'package:vendor_app/presentation/screens/manage_services_pages/components/price_widget.dart';
 
 class VendorRatesWidget extends StatelessWidget with FieldsValidation {
   const VendorRatesWidget({
@@ -71,12 +72,12 @@ class VendorRatesWidget extends StatelessWidget with FieldsValidation {
         const VerticalSpacing(10),
         Row(
           children: [
-            // PriceWidget(),
-            // const HorizontalSpacing(15),
-            // PriceWidget(
-            //   price: "42.5",
-            //   text: "You’ll be paid",
-            // ),
+            PriceWidget(),
+            const HorizontalSpacing(15),
+            PriceWidget(
+              price: "42.5",
+              text: "You’ll be paid",
+            ),
           ],
         ),
       ]),

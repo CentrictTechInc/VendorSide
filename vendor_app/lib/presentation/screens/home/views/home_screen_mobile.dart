@@ -4,8 +4,9 @@ import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:sizer/sizer.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/vendor_warranty_screen.dart';
 import 'package:vendor_app/presentation/screens/home/components/vendor_details_card.dart';
-import 'package:vendor_app/presentation/screens/warranty/warranty.dart';
+import 'package:vendor_app/presentation/screens/handyman_warranty/handyman_warranty_screen.dart';
 
 class HomeScreenMobile extends StatelessWidget {
   HomeScreenMobile({
@@ -67,7 +68,7 @@ class HomeScreenMobile extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => WarrantyScreen(),
+                        builder: (context) => AutomotiveWarrantyScreen(),
                       ));
                 },
                 splashColor: Colors.transparent,
