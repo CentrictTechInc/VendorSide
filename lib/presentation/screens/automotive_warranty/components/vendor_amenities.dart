@@ -9,8 +9,7 @@ import 'package:vendor_app/presentation/screens/automotive_warranty/controller/a
 import 'package:vendor_app/presentation/screens/handyman_warranty/components/radio_text_widget.dart';
 
 class VendorAmenities extends StatelessWidget {
-  const VendorAmenities({super.key});
-
+  VendorAmenities({super.key});
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
@@ -94,8 +93,13 @@ class VendorAmenities extends StatelessWidget {
                     itemCount: 10,
                     itemBuilder: (context, index) {
                       return RadioTextWidget(
-                        value: index.toString(),
-                        selectedValue: controller.selectedValue,
+                        isCheckBox: true,
+                        isChanged: (p0) {
+                          controller.isChecked[index] = p0!;
+                          controller.update();
+                        },
+                        checkBoxvalue: controller.isChecked[index],
+                        selectedValue: index.toString(),
                         text: "Autobody Services ${index.toString()}",
                         onChanged: (p0) {
                           controller.selectedValue = p0.toString();

@@ -3,6 +3,7 @@ import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 
+// ignore: must_be_immutable
 class CommonTextRow extends StatelessWidget {
   CommonTextRow(
       {this.expanded = false,

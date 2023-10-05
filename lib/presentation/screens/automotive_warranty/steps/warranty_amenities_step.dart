@@ -68,6 +68,8 @@ class AutomotiveWarrantyStep extends StatelessWidget {
               ),
               const Divider(thickness: 1.5),
               const VerticalSpacing(20),
+
+              ///THIS IS THE AMENITIES WIDGET
               VendorAmenities(),
             ],
           );

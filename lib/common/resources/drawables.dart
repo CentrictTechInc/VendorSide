@@ -11,6 +11,10 @@ class Drawables {
       "https://imgv3.fotor.com/images/gallery/AI-3D-Female-Profile-Picture.jpg";
 }
 
+class ServiceIcons {
+  static const serviceIconUrl = "assets/service_icons/";
+}
+
 class RGIcons {
   static const route = "assets/icons/alt_route.png";
   static const building = "assets/icons/building.png";
