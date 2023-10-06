@@ -20,7 +20,11 @@ class ServiceController extends GetxController {
   var homeImprovementServiceList = <ServicesModel>[].obs;
 
   ServiceRepository repo = ServiceRepositoryImpl();
+
   Future getAllServices() async {
+    if (autoMotiveServiceList.isNotEmpty) {
+      return;
+    }
     try {
       ShowDialogBox.showDialogBoxs(true);
       final services = await repo.getAllServices();

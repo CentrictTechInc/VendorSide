@@ -37,7 +37,7 @@ class RadioTextWidget extends StatelessWidget {
         const Spacer(),
         isCheckBox
             ? Checkbox(
-                shape: CircleBorder(),
+                // shape: CircleBorder(),
                 value: checkBoxvalue,
                 activeColor: AppColors.primary,
                 splashRadius: 20,

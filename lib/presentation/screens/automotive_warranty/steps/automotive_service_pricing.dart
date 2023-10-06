@@ -42,9 +42,11 @@ class AutomotiveServicePricing extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class ServicePricingWidget extends StatelessWidget {
   ServicePricingWidget({required this.service, super.key});
   final ServicesModel service;
+  double discountedCharge = 0;
 
   List<String> alphabet = [
     "A",
@@ -67,7 +69,14 @@ class ServicePricingWidget extends StatelessWidget {
     "R",
     "S",
     "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
   ];
+  final controller = Get.find<ServiceController>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -97,7 +106,7 @@ class ServicePricingWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: CommonText(
                     text:
-                        "${index + 1}. ${service.listSubServiceName[index]!.subServiceName}",
+                        "${alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
                     fontSize: 12,
                   ),
                 ),
@@ -106,9 +115,29 @@ class ServicePricingWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     PriceWidget(
+                      onChanged: (p0) {
+                        String? priceText = p0;
+
+                        double charge = 0.0;
+
+                        if (priceText != null) {
+                          // Parse the price from the first PriceWidget
+                          charge = double.tryParse(priceText) ?? 0.0;
+                          print(priceText);
+                        }
+
+// Calculate 85% of the charge
+                        discountedCharge = charge * 0.85;
+                        // controller.update();
+                        print(discountedCharge.obs);
+                      },
+                      controller:
+                          service.listSubServiceName[index]!.serviceCharges,
                       color: AppColors.whiteGreyish,
                     ),
                     PriceWidget(
+                      readOnly: true,
+                      price: "${discountedCharge.obs}",
                       color: AppColors.whiteGreyish,
                       text: "You'll be Paid",
                     ),
@@ -119,20 +148,6 @@ class ServicePricingWidget extends StatelessWidget {
             );
           },
         ),
-        const VerticalSpacing(10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            PriceWidget(
-              color: AppColors.whiteGreyish,
-            ),
-            PriceWidget(
-              color: AppColors.whiteGreyish,
-              text: "You'll be Paid",
-            ),
-          ],
-        ),
-        const VerticalSpacing(15),
       ],
     );
   }

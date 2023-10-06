@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:vendor_app/domain/entity/services_model.dart';
 
 class ServicesDto extends ServicesModel {
@@ -36,6 +37,7 @@ class ListSubServiceDto extends ListSubServiceName {
   ListSubServiceDto({
     required super.subServiceId,
     required super.subServiceName,
+    super.serviceCharges,
   });
 
   factory ListSubServiceDto.fromRawJson(String str) =>
@@ -45,9 +47,9 @@ class ListSubServiceDto extends ListSubServiceName {
 
   factory ListSubServiceDto.fromJson(Map<String, dynamic> json) =>
       ListSubServiceDto(
-        subServiceId: json["subServiceId"],
-        subServiceName: json["subServiceName"],
-      );
+          subServiceId: json["subServiceId"],
+          subServiceName: json["subServiceName"],
+          serviceCharges: TextEditingController(text: "50"));
 
   Map<String, dynamic> toJson() => {
         "subServiceId": subServiceId,
