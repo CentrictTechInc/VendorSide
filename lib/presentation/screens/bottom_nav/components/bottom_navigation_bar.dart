@@ -7,7 +7,7 @@ import 'package:vendor_app/presentation/screens/bottom_nav/controller/botton_nav
 class HomeBottomNavBar extends StatelessWidget {
   HomeBottomNavBar({super.key});
 
-  final confuse = Get.find<BottomNavController>();
+  final controller = Get.find<BottomNavController>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +25,9 @@ class HomeBottomNavBar extends StatelessWidget {
       leftCornerRadius: 12,
       rightCornerRadius: 12,
       onTap: (index) {
-        confuse.changeTabIndex(index);
+        controller.changeTabIndex(index);
       },
-      itemCount: confuse.iconList.length,
+      itemCount: controller.iconList.length,
       tabBuilder: (int index, bool isActive) {
         return Padding(
           padding: const EdgeInsets.all(2.0),
@@ -37,9 +37,9 @@ class HomeBottomNavBar extends StatelessWidget {
             children: [
               Obx(() {
                 return ImageIcon(
-                  AssetImage(confuse.iconList[index]),
+                  AssetImage(controller.iconList[index]),
                   size: 25,
-                  color: confuse.tabIndex.value == index
+                  color: controller.tabIndex.value == index
                       ? AppColors.secondary
                       : AppColors.grey,
                 );
