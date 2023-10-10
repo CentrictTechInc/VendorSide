@@ -181,6 +181,7 @@ class BusinessScreenMobile extends StatelessWidget {
               ],
             ),
           ),
+          const VerticalSpacing(80),
         ],
       ),
     );

@@ -8,7 +8,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        maintainBottomViewPadding: true,
         child: Responsive(
             mobile: HomeScreenMobile(),
             tablet: HomeScreenMobile(),

@@ -31,15 +31,10 @@ class ServiceController extends GetxController {
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-      print("me service:");
-      print(services);
+
       for (var entry in services) {
         addService(entry);
       }
-      print("me List of service:");
-
-      print(autoMotiveServiceList);
-      print(homeImprovementServiceList);
       update();
     } catch (e) {
       ToastMessage.message(e.toString());

@@ -14,12 +14,13 @@ import 'package:vendor_app/presentation/screens/home/components/confirmation_dia
 import 'package:vendor_app/presentation/screens/home/home_screen.dart';
 import 'package:vendor_app/presentation/screens/notification/notification_screen.dart';
 
+final GlobalKey<ScaffoldState> globalScaffoldKey = GlobalKey<ScaffoldState>();
+
 class MainBottomNavScreen extends StatelessWidget {
-  MainBottomNavScreen({
+  const MainBottomNavScreen({
     super.key,
   });
 
-  final GlobalKey<ScaffoldState> globalScaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

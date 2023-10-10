@@ -26,7 +26,6 @@ class NoficationScreenMobile extends StatelessWidget {
             fontSize: 10.sp,
             color: AppColors.grey,
           ),
-          const VerticalSpacing(10),
           CommonText(
             //comments are left due to testing
             // text: message?.notification?.title.toString() ?? "title",
@@ -57,6 +56,7 @@ class NoficationScreenMobile extends StatelessWidget {
               ),
             ),
           ),
+          const VerticalSpacing(80),
         ],
       ),
     );
