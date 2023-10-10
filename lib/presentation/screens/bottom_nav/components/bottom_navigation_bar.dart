@@ -18,7 +18,7 @@ class HomeBottomNavBar extends StatelessWidget {
           color: AppColors.black.withOpacity(0.3),
           spreadRadius: 0.0),
       splashRadius: 0,
-      activeIndex: 1,
+      activeIndex: controller.tabIndex.value,
       gapLocation: GapLocation.center,
       height: 70,
       notchSmoothness: NotchSmoothness.defaultEdge,
