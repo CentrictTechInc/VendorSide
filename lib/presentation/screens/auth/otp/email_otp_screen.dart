@@ -79,7 +79,7 @@ class _EmailOtpScreenState extends State<EmailOtpScreen> {
                 ),
                 const VerticalSpacing(50),
                 CommonText(
-                  text: 'Email Verification',
+                  text: 'Email here Verification',
                   fontSize: 25.sp,
                   weight: FontWeight.bold,
                 ),

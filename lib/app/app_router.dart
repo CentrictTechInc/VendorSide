@@ -8,6 +8,8 @@ import 'package:vendor_app/presentation/screens/auth/otp/email_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/phone_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/register_otp_verification_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/controllers/register_controller.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/automotive_warranty_screen.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
 import 'package:vendor_app/presentation/screens/bottom_nav/Main_screen.dart';
 import 'package:vendor_app/presentation/screens/bottom_nav/controller/botton_nav_controller.dart';
 import 'package:vendor_app/presentation/screens/contact_us/contact_us_screen.dart';
@@ -22,6 +24,7 @@ import 'package:vendor_app/presentation/screens/review/review_screen.dart';
 import 'package:vendor_app/presentation/screens/schedule/schedule_screen.dart';
 import 'package:vendor_app/presentation/screens/tasks/controller/tasks_controller.dart';
 import 'package:vendor_app/presentation/screens/tasks/task_screen.dart';
+import 'package:vendor_app/presentation/screens/tax_forms/controller/tax_form_controller.dart';
 import 'package:vendor_app/presentation/screens/vendor_category/category_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/login/login_screen.dart';
 import 'package:vendor_app/presentation/screens/payment/vendor_charges_screen.dart';
@@ -34,7 +37,7 @@ final globalContext = _rootNavigatorKey.currentContext;
 class AppRouter {
   static final router = GoRouter(
       navigatorKey: _rootNavigatorKey,
-      initialLocation: PagePath.slash,
+      initialLocation: PagePath.login,
       routes: [
         GoRoute(
             path: PagePath.slash,
@@ -113,6 +116,7 @@ class AppRouter {
         GoRoute(
             path: PagePath.taxForm,
             builder: (context, state) {
+              Get.lazyPut(() => TaxFromController());
               return const TaxFormScreen();
             }),
         GoRoute(
@@ -127,6 +131,12 @@ class AppRouter {
               return EmailOtpScreen(
                 email: email,
               );
+            }),
+        GoRoute(
+            path: PagePath.automotiveService,
+            builder: (context, state) {
+              Get.lazyPut<ServiceController>(() => ServiceController());
+              return AutomotiveWarrantyScreen();
             }),
         GoRoute(
             path: PagePath.mobileOtp,

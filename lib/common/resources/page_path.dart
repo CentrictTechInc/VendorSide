@@ -32,6 +32,7 @@ class PagePath {
   static const String taxForm = '/taxForm';
 
   static const String category = '/category';
+  static const String automotiveService = '/automotiveService';
 
   static const String tasks = 'tasks';
 }

@@ -41,7 +41,7 @@ class UploadButtonWithFile extends StatelessWidget {
               height: 100,
               width: context.width,
               decoration: BoxDecoration(
-                  color: AppColors.blue,
+                  color: AppColors.grey,
                   borderRadius: BorderRadius.circular(10)),
               child: imageLink.isEmpty && platformfile == null
                   ? Column(
@@ -88,8 +88,8 @@ class UploadButtonWithFile extends StatelessWidget {
                           Stack(
                             children: [
                               Container(
-                                  height: 100,
-                                  width: 100,
+                                  height: 80,
+                                  // width: ,
                                   padding: const EdgeInsets.all(10),
                                   margin: const EdgeInsets.all(6),
                                   decoration: BoxDecoration(
@@ -108,7 +108,10 @@ class UploadButtonWithFile extends StatelessWidget {
                                           imageLink,
                                           fit: BoxFit.cover,
                                         )
-                                      : Image.memory(platformfile!.bytes!)),
+                                      : Image.memory(
+                                          platformfile!.bytes!,
+                                          fit: BoxFit.contain,
+                                        )),
                               Positioned(
                                   right: 0,
                                   child: GestureDetector(
@@ -116,11 +119,19 @@ class UploadButtonWithFile extends StatelessWidget {
                                     child: MouseRegion(
                                       cursor: SystemMouseCursors.click,
                                       child: Container(
-                                        height: 18,
-                                        width: 18,
+                                        height: 20,
+                                        width: 20,
                                         padding: const EdgeInsets.all(5),
+                                        // child: ImageIcon(
+                                        //   AssetImage(RGIcons.delete),
+                                        //   color: AppColors.red,
+                                        // ),
                                         decoration: BoxDecoration(
-                                            color: Colors.red,
+                                            // color: Colors.red,
+                                            // image: DecorationImage(
+                                            //     image:
+                                            //         AssetImage(RGIcons.delete)),
+                                            color: AppColors.red,
                                             borderRadius:
                                                 BorderRadius.circular(20)),
                                       ),

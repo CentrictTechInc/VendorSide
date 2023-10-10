@@ -39,6 +39,7 @@ class RGIcons {
   static const workspacePremium = "assets/icons/workspace_premium.png";
   static const hub = "assets/icons/hub.png";
   static const oilBarrel = "assets/icons/oil_barrel.png";
+  static const delete = "assets/icons/delete_forever.png";
   // -------------vendor side
   static const email = "assets/icons/alternate_email.png";
   static const lock = "assets/icons/lock.png";

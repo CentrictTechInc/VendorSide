@@ -58,9 +58,14 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<String> registerEmailVerification(String email, String otp) async {
-    final response =
-        await AuthAPI.registerEmailVerification(email, otp).request();
-    return response;
+    try {
+      final response =
+          await AuthAPI.registerEmailVerification(email, otp).request();
+      Map<String, dynamic> msg = jsonDecode(response);
+      return msg['message'];
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override

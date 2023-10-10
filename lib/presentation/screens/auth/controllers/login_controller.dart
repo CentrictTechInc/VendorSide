@@ -31,7 +31,7 @@ class LoginController extends GetxController {
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-      globalContext?.go(PagePath.homeScreen);
+      globalContext?.go(PagePath.slash);
     } catch (e) {
       if (e.toString().toLowerCase().contains('email was not verified')) {
         otpController.generateOtp(emailController.text);

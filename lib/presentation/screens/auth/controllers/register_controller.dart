@@ -32,8 +32,12 @@ class RegisterController extends GetxController {
 
   Future register() async {
     try {
-      ShowDialogBox.showDialogBoxs(true);
+      // ShowDialogBox.showDialogBoxs(true);
       String res = await _repo.register(registerModel);
+      if (res == "User Already Exist") {
+        await generateOtp(registerModel.vendoremail.text);
+        return;
+      }
       ToastMessage.message(res, type: ToastType.success);
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
@@ -53,6 +57,20 @@ class RegisterController extends GetxController {
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
+      ToastMessage.message(res, type: ToastType.success);
+    } catch (e) {
+      ToastMessage.message(e.toString());
+    }
+  }
+
+  Future generateOtp(String email) async {
+    try {
+      // ShowDialogBox.showDialogBoxs(true);
+
+      String res = await _repo.generateOtp(email);
+      // if (ShowDialogBox.isOpen) {
+      //   globalContext?.pop();
+      // }
       ToastMessage.message(res, type: ToastType.success);
     } catch (e) {
       ToastMessage.message(e.toString());

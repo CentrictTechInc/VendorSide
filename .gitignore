@@ -49,3 +49,10 @@ app.*.map.json
 *.cc
 *.h
 *.cmake
+*.cc
+*.cc
+*.cmake
+*.swift
+*.cc
+*.h
+*.cmake
