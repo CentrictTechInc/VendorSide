@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:vendor_app/data/dto/registration_dto.dart';
+import 'package:vendor_app/data/dto/tax_form_dto.dart';
 import 'package:vendor_app/data/dto/user_dto.dart';
 import 'package:vendor_app/data/provider/network/apis/auth_api.dart';
 import 'package:vendor_app/domain/entity/user_model.dart';
@@ -71,8 +72,23 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<String> resetNewPassword(
       String email, String password, String confirmPassword) async {
-    final response =
-        await AuthAPI.resetPassword(email, password, confirmPassword).request();
-    return response;
+    try {
+      final response =
+          await AuthAPI.resetPassword(email, password, confirmPassword)
+              .request();
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> uploadTaxForm(TaxFromDto data) async {
+    try {
+      final response = await AuthAPI.uploadTaxForm(data).request();
+      return response;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

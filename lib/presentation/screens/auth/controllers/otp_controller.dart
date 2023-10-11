@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
@@ -8,6 +10,33 @@ import 'package:vendor_app/domain/repository/auth_repositpory.dart';
 
 class OtpController extends GetxController {
   final AuthRepository _repo = AuthRepositoryImpl();
+  int secondsRemaining = 30;
+  Timer? timer;
+  bool enableResend = false;
+  void resendCode() {
+    secondsRemaining = 30;
+    enableResend = false;
+    update();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    initializeTimer();
+  }
+
+  void initializeTimer() {
+    print("object");
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (secondsRemaining != 0) {
+        secondsRemaining--;
+        update();
+      } else {
+        enableResend = true;
+        update();
+      }
+    });
+  }
 
   Future generateOtp(String email) async {
     try {

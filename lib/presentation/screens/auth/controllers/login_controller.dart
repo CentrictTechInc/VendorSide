@@ -9,12 +9,11 @@ import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/data/repository/auth_repository.dart';
 import 'package:vendor_app/domain/entity/user_model.dart';
 import 'package:vendor_app/domain/repository/auth_repositpory.dart';
-import 'package:vendor_app/presentation/screens/auth/controllers/otp_controller.dart';
 
 class LoginController extends GetxController {
   final passToggle = false.obs;
   final AuthRepository _repo = AuthRepositoryImpl();
-  final otpController = Get.find<OtpController>();
+  // final otpController = Get.find<OtpController>();
   final TextEditingController emailController =
       TextEditingController(text: "vendor@gmail.com");
   final TextEditingController passController =
@@ -34,7 +33,7 @@ class LoginController extends GetxController {
       globalContext?.go(PagePath.slash);
     } catch (e) {
       if (e.toString().toLowerCase().contains('email was not verified')) {
-        otpController.generateOtp(emailController.text);
+        //  generateOtp otpController.(emailController.text);
         // generateOtp(email);
 
         return;

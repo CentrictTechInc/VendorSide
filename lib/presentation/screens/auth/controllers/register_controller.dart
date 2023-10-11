@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +14,7 @@ import 'package:vendor_app/domain/repository/auth_repositpory.dart';
 class RegisterController extends GetxController {
   final AuthRepository _repo = AuthRepositoryImpl();
   final obscure = false.obs;
+
   final GlobalKey<FormState> signUpForm = GlobalKey<FormState>();
   final VendorRegistrationDto registerModel = VendorRegistrationDto(
       vid: 0,
@@ -33,6 +36,8 @@ class RegisterController extends GetxController {
   Future register() async {
     try {
       // ShowDialogBox.showDialogBoxs(true);
+      globalContext?.push(
+          "${PagePath.registerEmailOtp}/${registerModel.vendoremail.text}");
       String res = await _repo.register(registerModel);
       if (res == "User Already Exist") {
         await generateOtp(registerModel.vendoremail.text);

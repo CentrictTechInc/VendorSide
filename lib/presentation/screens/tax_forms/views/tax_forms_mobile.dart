@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -120,15 +121,17 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                               label: "upload",
                               platformfile: file,
                               topLabel:
-                                  "Professional Liability Insurance if (Property)",
+                                  "Professional Liability Insurance if (Proprietor)",
                               onPress: () async {
-                                // final c = Get.find<TaxFromController>();
                                 FilePickerResult? result =
                                     await FilePicker.platform.pickFiles(
                                         withData: true,
                                         type: FileType.custom,
                                         allowedExtensions: ['png']);
                                 file = result?.files.first;
+                                final bytes = file?.bytes;
+
+                                String img64 = base64Encode(bytes!);
                                 controller.update();
                                 // if (false) {
                                 //   ToastMessage.message('Please select png image.');

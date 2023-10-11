@@ -15,8 +15,9 @@ import 'package:vendor_app/presentation/screens/password_screens/controllers/pas
 class ForgotPasswordScreen extends StatelessWidget with FieldsValidation {
   ForgotPasswordScreen({super.key});
 
-  final TextEditingController email = TextEditingController();
-  final TextEditingController phone = TextEditingController();
+  final TextEditingController email = TextEditingController(text: "h@s.cm");
+  final TextEditingController phone =
+      TextEditingController(text: "89389898438");
 
   @override
   Widget build(BuildContext context) {

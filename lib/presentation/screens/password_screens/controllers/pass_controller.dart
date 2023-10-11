@@ -19,11 +19,11 @@ class PasswordController extends GetxController {
     try {
       ShowDialogBox.showDialogBoxs(true);
 
-      final String result = await _repo.forgot(email);
+      // final String result = await _repo.forgot(email);
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-      ToastMessage.message(result, type: ToastType.info);
+      // ToastMessage.message(result, type: ToastType.info);
       if (globalContext!.mounted) {
         globalContext?.push('${PagePath.emailOtp}/$email');
       }

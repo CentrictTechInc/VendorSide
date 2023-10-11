@@ -128,6 +128,7 @@ class AppRouter {
             path: "${PagePath.emailOtp}/:email",
             builder: (context, state) {
               String email = state.pathParameters['email'] as String;
+              Get.lazyPut<OtpController>(() => OtpController());
               return EmailOtpScreen(
                 email: email,
               );

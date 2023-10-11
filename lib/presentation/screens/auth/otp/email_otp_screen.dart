@@ -11,6 +11,7 @@ import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
 import 'package:vendor_app/common/resources/colors.dart';
+import 'package:vendor_app/presentation/screens/auth/controllers/otp_controller.dart';
 import 'package:vendor_app/presentation/screens/auth/controllers/register_controller.dart';
 
 class EmailOtpScreen extends StatefulWidget {
@@ -32,6 +33,9 @@ class _EmailOtpScreenState extends State<EmailOtpScreen> {
   String? email;
 
   void _resendCode() {
+    final c = Get.find<OtpController>();
+    c.forgotPassword(widget.email);
+
     // ref.read(authNotifierProvider.notifier).forgot(widget.email);
     // setState(() {
     secondsRemaining = 30;
@@ -79,8 +83,9 @@ class _EmailOtpScreenState extends State<EmailOtpScreen> {
                 ),
                 const VerticalSpacing(50),
                 CommonText(
-                  text: 'Email here Verification',
+                  text: 'Forgot Email Verification',
                   fontSize: 25.sp,
+                  textAlign: TextAlign.center,
                   weight: FontWeight.bold,
                 ),
                 const VerticalSpacing(40),
@@ -144,6 +149,7 @@ class _EmailOtpScreenState extends State<EmailOtpScreen> {
                       return true;
                     },
                     onChanged: (String value) {},
+                    onSubmitted: (value) {},
                   ),
                 ),
                 VerticalSpacing(10.h),
