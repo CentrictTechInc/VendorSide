@@ -38,6 +38,8 @@ class ListSubServiceDto extends ListSubServiceName {
     required super.subServiceId,
     required super.subServiceName,
     super.serviceCharges,
+    super.vendorCharge,
+    super.isSelected,
   });
 
   factory ListSubServiceDto.fromRawJson(String str) =>
@@ -47,9 +49,12 @@ class ListSubServiceDto extends ListSubServiceName {
 
   factory ListSubServiceDto.fromJson(Map<String, dynamic> json) =>
       ListSubServiceDto(
-          subServiceId: json["subServiceId"],
-          subServiceName: json["subServiceName"],
-          serviceCharges: TextEditingController(text: "50"));
+        subServiceId: json["subServiceId"],
+        subServiceName: json["subServiceName"],
+        serviceCharges: TextEditingController(),
+        vendorCharge: 0,
+        isSelected: false,
+      );
 
   Map<String, dynamic> toJson() => {
         "subServiceId": subServiceId,

@@ -119,9 +119,9 @@ class CustomDrawer extends StatelessWidget {
           },
         )),
         InkWell(
-          onTap: () => {
-            LocalStorageService.instance.logoutUser(),
-            context.go(PagePath.login)
+          onTap: () async => {
+            await LocalStorageService.instance.logoutUser(),
+            if (context.mounted) {context.go(PagePath.login)}
           },
           child: Row(
             children: [

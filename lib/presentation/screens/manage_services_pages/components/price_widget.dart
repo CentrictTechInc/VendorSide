@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
@@ -53,6 +54,19 @@ class PriceWidget extends StatelessWidget with FieldsValidation {
                         fontSize: 14,
                         weight: FontWeight.w600)
                     : CommonTextField(
+                        inputFormatters: [
+                          // FilteringTextInputFormatter.digitsOnly,
+                          // FilteringTextInputFormatter.allow(
+                          //   RegExp(r'^([0-9])+(.)+([0-9])$'),
+                          // ),
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'(^\d*\.?\d*)'),
+                              replacementString: '1'),
+                          // FilteringTextInputFormatter.allow(
+                          //     RegExp('^[1-9][0-9]*.[0-9]'),
+                          //     replacementString: '1'),
+                          LengthLimitingTextInputFormatter(6),
+                        ],
                         onChanged: onChanged,
                         inputType: TextInputType.number,
                         borderColor: AppColors.white,

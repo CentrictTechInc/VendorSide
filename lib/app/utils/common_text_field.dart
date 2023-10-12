@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 
 class CommonTextField extends StatelessWidget {
@@ -37,6 +38,7 @@ class CommonTextField extends StatelessWidget {
     this.contentPadding =
         const EdgeInsets.only(right: 15.0, top: 18, bottom: 14, left: 20),
     this.prefix,
+    this.inputFormatters,
   }) : super(key: key);
   final double suffixPadding;
   final double prefixPadding;
@@ -70,6 +72,7 @@ class CommonTextField extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry contentPadding;
   final AutovalidateMode? autoValidateMode;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +86,7 @@ class CommonTextField extends StatelessWidget {
         readOnly: readOnly,
         minLines: minLines,
         maxLines: maxLines,
+        inputFormatters: inputFormatters,
         onTap: textOnTap,
         validator: validator,
         autovalidateMode: autoValidateMode,

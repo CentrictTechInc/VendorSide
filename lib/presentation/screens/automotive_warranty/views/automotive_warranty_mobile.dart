@@ -71,16 +71,36 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
                   if (controller.steps == 1) AutomotiveWarrantyStep(),
                   if (controller.steps == 2) AutomotiveServicePricing(),
                   const VerticalSpacing(60),
-                  CommonTextButton(
-                    onPressed: () {
-                      if (controller.steps == 1) {
-                        controller.steps = 2;
-                        cntrl.getAllServices();
-                      }
-                      controller.update();
-                    },
-                    text: "SAVE",
-                    color: AppColors.white,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      if (controller.steps == 2)
+                        CommonTextButton(
+                          onPressed: () {
+                            {
+                              controller.steps = 1;
+                              cntrl.getAllServices();
+                            }
+                            controller.update();
+                          },
+                          text: "BACK",
+                          width: 30,
+                          color: AppColors.white,
+                        ),
+                      if (controller.steps == 1 || controller.steps == 2)
+                        CommonTextButton(
+                          onPressed: () {
+                            if (controller.steps == 1) {
+                              controller.steps = 2;
+                              cntrl.getAllServices();
+                            }
+                            controller.update();
+                          },
+                          text: "SAVE",
+                          width: 30,
+                          color: AppColors.white,
+                        ),
+                    ],
                   ),
                   const VerticalSpacing(20),
                 ],

@@ -17,9 +17,13 @@ class ListSubServiceName {
   int subServiceId;
   String subServiceName;
   TextEditingController? serviceCharges;
+  double? vendorCharge;
+  bool? isSelected;
 
   ListSubServiceName(
       {required this.subServiceId,
       required this.subServiceName,
-      this.serviceCharges});
+      this.serviceCharges,
+      this.vendorCharge,
+      this.isSelected});
 }

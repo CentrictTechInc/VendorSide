@@ -9,7 +9,7 @@ import 'package:vendor_app/domain/repository/service_repository.dart';
 
 class AutomotiveWarrantyController extends GetxController {
   final radioButton = 0.obs;
-  final warrantyInfo = false.obs;
+  final warrantyInfo = true.obs;
   String selectedValue = "0";
   int steps = 1;
   List<bool> isChecked = List<bool>.filled(10, false);
@@ -59,4 +59,13 @@ class ServiceController extends GetxController {
       homeImprovementServiceList.add(entry);
     }
   }
+
+  // getVendorCharge(String serviceCharge, double vendorCharge) {
+  //   if (serviceCharge != '') {
+  //     vendorCharge = double.tryParse(serviceCharge) ?? 0.0;
+  //   }
+  //   vendorCharge = (vendorCharge * 0.85).toPrecision(2);
+  //   update();
+  //   print(vendorCharge.obs);
+  // }
 }

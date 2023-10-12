@@ -15,6 +15,7 @@ import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/resources/strings.dart';
+import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/presentation/screens/tax_forms/controller/tax_form_controller.dart';
 
 // ignore: must_be_immutable
@@ -130,8 +131,11 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                                         allowedExtensions: ['png']);
                                 file = result?.files.first;
                                 final bytes = file?.bytes;
-
+                                print(bytes);
+                                print("img64");
                                 String img64 = base64Encode(bytes!);
+                                print(img64);
+                                print("img64 here in tax_forms_mobile");
                                 controller.update();
                                 // if (false) {
                                 //   ToastMessage.message('Please select png image.');
@@ -154,7 +158,14 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                         alignment: Alignment.center,
                         child: CommonTextButton(
                             onPressed: () {
-                              context.go(PagePath.automotiveService);
+                              if (file != null && file2 != null) {
+                                context.go(PagePath.automotiveService);
+                              } else {
+                                ToastMessage.message(
+                                  "Please Upload Your Tax and Insurance Form!",
+                                  type: ToastType.warn,
+                                );
+                              }
                             },
                             backgroundColor: AppColors.primary,
                             color: AppColors.background,

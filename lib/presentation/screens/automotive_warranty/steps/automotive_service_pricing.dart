@@ -8,6 +8,7 @@ import 'package:vendor_app/common/resources/strings.dart';
 import 'package:vendor_app/domain/entity/services_model.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/components/common_text_icon_row.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
+import 'package:vendor_app/presentation/screens/handyman_warranty/components/radio_text_widget.dart';
 import 'package:vendor_app/presentation/screens/manage_services_pages/components/price_widget.dart';
 
 class AutomotiveServicePricing extends StatelessWidget {
@@ -46,7 +47,6 @@ class AutomotiveServicePricing extends StatelessWidget {
 class ServicePricingWidget extends StatelessWidget {
   ServicePricingWidget({required this.service, super.key});
   final ServicesModel service;
-  double discountedCharge = 0;
 
   List<String> alphabet = [
     "A",
@@ -76,7 +76,7 @@ class ServicePricingWidget extends StatelessWidget {
     "Y",
     "Z",
   ];
-  final controller = Get.find<ServiceController>();
+  // final controller = Get.find<ServiceController>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -94,60 +94,85 @@ class ServicePricingWidget extends StatelessWidget {
           color: AppColors.grey,
         ),
         const VerticalSpacing(20),
-        ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: service.listSubServiceName.length,
-          itemBuilder: (context, index) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CommonText(
-                    text:
-                        "${alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
-                    fontSize: 12,
-                  ),
-                ),
-                const VerticalSpacing(10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    PriceWidget(
-                      onChanged: (p0) {
-                        String? priceText = p0;
-
-                        double charge = 0.0;
-
-                        if (priceText != null) {
-                          // Parse the price from the first PriceWidget
-                          charge = double.tryParse(priceText) ?? 0.0;
-                          print(priceText);
-                        }
-
-// Calculate 85% of the charge
-                        discountedCharge = charge * 0.85;
-                        // controller.update();
-                        print(discountedCharge.obs);
-                      },
-                      controller:
-                          service.listSubServiceName[index]!.serviceCharges,
-                      color: AppColors.whiteGreyish,
-                    ),
-                    PriceWidget(
-                      readOnly: true,
-                      price: "${discountedCharge.obs}",
-                      color: AppColors.whiteGreyish,
-                      text: "You'll be Paid",
-                    ),
-                  ],
-                ),
-                const VerticalSpacing(15),
-              ],
-            );
-          },
-        ),
+        GetBuilder<ServiceController>(
+            init: ServiceController(),
+            builder: (controller) {
+              return ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: service.listSubServiceName.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RadioTextWidget(
+                        isCheckBox: true,
+                        isChanged: (p0) {
+                          // controller.isChecked[index] = p0!;
+                          controller.update();
+                        },
+                        checkBoxvalue:
+                            service.listSubServiceName[index]!.isSelected ??
+                                false,
+                        selectedValue: index.toString(),
+                        text:
+                            "${alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
+                        onChanged: (p0) {
+                          // controller.selectedValue = p0.toString();
+                          controller.update();
+                        },
+                      ),
+                      // Row(
+                      //   children: [
+                      //     Padding(
+                      //       padding: const EdgeInsets.all(8.0),
+                      //       child: CommonText(
+                      //         text:
+                      //             "${alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
+                      //         fontSize: 12,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      const VerticalSpacing(10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          PriceWidget(
+                            onChanged: (p0) {
+                              if (p0.isEmpty) {
+                                service.listSubServiceName[index]!
+                                    .vendorCharge = 0.00;
+                                controller.update();
+                                return;
+                              }
+                              service.listSubServiceName[index]!.vendorCharge =
+                                  (double.parse(p0) * 0.85).toPrecision(2);
+                              controller.update();
+                              // controller.getVendorCharge(
+                              //     p0,
+                              //     service.listSubServiceName[index]!.vendorCharge ??
+                              //         0);
+                            },
+                            controller: service
+                                .listSubServiceName[index]!.serviceCharges,
+                            color: AppColors.whiteGreyish,
+                          ),
+                          PriceWidget(
+                            readOnly: true,
+                            price:
+                                "${service.listSubServiceName[index]!.vendorCharge}",
+                            color: AppColors.whiteGreyish,
+                            text: "You'll be Paid",
+                          ),
+                        ],
+                      ),
+                      const VerticalSpacing(15),
+                    ],
+                  );
+                },
+              );
+            }),
       ],
     );
   }

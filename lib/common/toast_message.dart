@@ -20,14 +20,14 @@ class ToastMessage {
                     ? "Success"
                     : "Info",
         message: message,
-        color: type == ToastType.error
-            ? AppColors.red
-            : type == ToastType.warn
-                ? AppColors.yellow
-                : type == ToastType.success
-                    ? AppColors.primary
-                    : AppColors.blue,
-        inMaterialBanner: true,
+        // color: type == ToastType.error
+        //     ? AppColors.red
+        //     : type == ToastType.warn
+        //         ? AppColors.
+        //         : type == ToastType.success
+        //             ? AppColors.primary
+        //             : AppColors.blue,
+        // inMaterialBanner: true,
         messageFontSize: 14.0,
         contentType: type == ToastType.error
             ? ContentType.failure

@@ -35,7 +35,7 @@ class RegisterController extends GetxController {
 
   Future register() async {
     try {
-      // ShowDialogBox.showDialogBoxs(true);
+      ShowDialogBox.showDialogBoxs(true);
       globalContext?.push(
           "${PagePath.registerEmailOtp}/${registerModel.vendoremail.text}");
       String res = await _repo.register(registerModel);
@@ -73,9 +73,7 @@ class RegisterController extends GetxController {
       // ShowDialogBox.showDialogBoxs(true);
 
       String res = await _repo.generateOtp(email);
-      // if (ShowDialogBox.isOpen) {
-      //   globalContext?.pop();
-      // }
+
       ToastMessage.message(res, type: ToastType.success);
     } catch (e) {
       ToastMessage.message(e.toString());
