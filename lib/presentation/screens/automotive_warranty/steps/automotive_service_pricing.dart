@@ -108,7 +108,7 @@ class ServicePricingWidget extends StatelessWidget {
                       RadioTextWidget(
                         isCheckBox: true,
                         isChanged: (p0) {
-                          // controller.isChecked[index] = p0!;
+                          service.listSubServiceName[index]!.isSelected = p0!;
                           controller.update();
                         },
                         checkBoxvalue:
@@ -117,56 +117,45 @@ class ServicePricingWidget extends StatelessWidget {
                         selectedValue: index.toString(),
                         text:
                             "${alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
-                        onChanged: (p0) {
-                          // controller.selectedValue = p0.toString();
-                          controller.update();
-                        },
                       ),
-                      // Row(
-                      //   children: [
-                      //     Padding(
-                      //       padding: const EdgeInsets.all(8.0),
-                      //       child: CommonText(
-                      //         text:
-                      //             "${alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
-                      //         fontSize: 12,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                       const VerticalSpacing(10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          PriceWidget(
-                            onChanged: (p0) {
-                              if (p0.isEmpty) {
+                      if (service.listSubServiceName[index]!.isSelected == true)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            PriceWidget(
+                              isSelected: service
+                                      .listSubServiceName[index]!.isSelected ??
+                                  false,
+                              onChanged: (p0) {
+                                if (p0.isEmpty) {
+                                  service.listSubServiceName[index]!
+                                      .vendorCharge = 0.00;
+                                  controller.update();
+                                  return;
+                                }
                                 service.listSubServiceName[index]!
-                                    .vendorCharge = 0.00;
+                                        .vendorCharge =
+                                    (double.parse(p0) * 0.85).toPrecision(2);
                                 controller.update();
-                                return;
-                              }
-                              service.listSubServiceName[index]!.vendorCharge =
-                                  (double.parse(p0) * 0.85).toPrecision(2);
-                              controller.update();
-                              // controller.getVendorCharge(
-                              //     p0,
-                              //     service.listSubServiceName[index]!.vendorCharge ??
-                              //         0);
-                            },
-                            controller: service
-                                .listSubServiceName[index]!.serviceCharges,
-                            color: AppColors.whiteGreyish,
-                          ),
-                          PriceWidget(
-                            readOnly: true,
-                            price:
-                                "${service.listSubServiceName[index]!.vendorCharge}",
-                            color: AppColors.whiteGreyish,
-                            text: "You'll be Paid",
-                          ),
-                        ],
-                      ),
+                                // controller.getVendorCharge(
+                                //     p0,
+                                //     service.listSubServiceName[index]!.vendorCharge ??
+                                //         0);
+                              },
+                              controller: service
+                                  .listSubServiceName[index]!.serviceCharges,
+                              color: AppColors.whiteGreyish,
+                            ),
+                            PriceWidget(
+                              readOnly: true,
+                              price:
+                                  "${service.listSubServiceName[index]!.vendorCharge}",
+                              color: AppColors.whiteGreyish,
+                              text: "You'll be Paid",
+                            ),
+                          ],
+                        ),
                       const VerticalSpacing(15),
                     ],
                   );

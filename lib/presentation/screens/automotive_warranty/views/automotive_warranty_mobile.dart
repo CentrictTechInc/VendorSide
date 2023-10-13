@@ -70,7 +70,7 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
                   ),
                   if (controller.steps == 1) AutomotiveWarrantyStep(),
                   if (controller.steps == 2) AutomotiveServicePricing(),
-                  const VerticalSpacing(60),
+                  const VerticalSpacing(40),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [

@@ -13,8 +13,9 @@ import 'package:vendor_app/presentation/screens/handyman_warranty/components/rad
 import 'package:vendor_app/presentation/screens/handyman_warranty/components/vendor_rates_widget.dart';
 import 'package:vendor_app/presentation/screens/handyman_warranty/controllers/handyman_warranty_controller.dart';
 
-class WarantyMobileScreen extends StatelessWidget with FieldsValidation {
-  const WarantyMobileScreen({super.key});
+class HandymanWarantyMobileScreen extends StatelessWidget
+    with FieldsValidation {
+  const HandymanWarantyMobileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +32,12 @@ class WarantyMobileScreen extends StatelessWidget with FieldsValidation {
                     hideBell: true,
                     headFontSize: 15,
                   ),
-                  CommonTextRow(
-                    text: "Service Warranty",
-                    icon: RGIcons.suitcase1,
-                    extraText: "(Check one)",
-                    onPressed: () {
-                      controller.warrantyInfo.toggle();
-                      controller.update();
-                    },
-                    expanded: controller.warrantyInfo.value,
-                  ),
-                  Visibility(
-                    visible: controller.warrantyInfo.value,
-                    child: Column(
+                  ExpansionTile(
+                      title: CommonTextRow(
+                        text: "Service Warranty",
+                        icon: RGIcons.suitcase1,
+                        extraText: "(Check one)",
+                      ),
                       children: [
                         const CommonText(
                           text: Strings.warrantyDisclamer,
@@ -74,9 +68,7 @@ class WarantyMobileScreen extends StatelessWidget with FieldsValidation {
                             controller.update();
                           },
                         ),
-                      ],
-                    ),
-                  ),
+                      ]),
                   const Divider(thickness: 1.5),
                   const VerticalSpacing(20),
                   VendorRatesWidget(),

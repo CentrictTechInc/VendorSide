@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 
+// ignore: must_be_immutable
 class RadioTextWidget extends StatelessWidget {
   RadioTextWidget({
     super.key,
@@ -27,21 +29,24 @@ class RadioTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CommonText(
-          text: text ?? "12 Months / 12,000 Miles",
-          color: selectedValue == value || checkBoxvalue
-              ? AppColors.primary
-              : AppColors.grey,
-          fontSize: 12,
+        Expanded(
+          child: CommonText(
+            text: text ?? "12 Months / 12,000 Miles",
+            color: selectedValue == value || checkBoxvalue
+                ? AppColors.primary
+                : AppColors.grey,
+            fontSize: 10.sp,
+          ),
         ),
-        const Spacer(),
         isCheckBox
-            ? Checkbox(
-                // shape: CircleBorder(),
-                value: checkBoxvalue,
-                activeColor: AppColors.primary,
-                splashRadius: 20,
-                onChanged: isChanged,
+            ? SizedBox(
+                height: 26,
+                child: Checkbox(
+                  value: checkBoxvalue,
+                  activeColor: AppColors.primary,
+                  splashRadius: 20,
+                  onChanged: isChanged,
+                ),
               )
             : Radio<String>(
                 value: value,

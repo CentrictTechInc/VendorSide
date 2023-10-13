@@ -15,10 +15,12 @@ class PriceWidget extends StatelessWidget with FieldsValidation {
       this.text,
       this.controller,
       this.price,
+      this.isSelected = false,
       this.onChanged,
       this.color});
   TextEditingController? controller;
   bool readOnly;
+  bool isSelected;
   String? text;
   String? price;
   Color? color;
@@ -26,7 +28,6 @@ class PriceWidget extends StatelessWidget with FieldsValidation {
   @override
   Widget build(BuildContext context) {
     return Row(
-      // crossAxisAlignment: CrossAxisAlignment.,
       children: [
         const CommonText(
           text: "\n\$",
@@ -50,15 +51,12 @@ class PriceWidget extends StatelessWidget with FieldsValidation {
               child: Center(
                 child: readOnly
                     ? CommonText(
-                        text: price ?? "",
+                        text: price ?? "0.0",
                         fontSize: 14,
                         weight: FontWeight.w600)
                     : CommonTextField(
+                        readOnly: !isSelected,
                         inputFormatters: [
-                          // FilteringTextInputFormatter.digitsOnly,
-                          // FilteringTextInputFormatter.allow(
-                          //   RegExp(r'^([0-9])+(.)+([0-9])$'),
-                          // ),
                           FilteringTextInputFormatter.allow(
                               RegExp(r'(^\d*\.?\d*)'),
                               replacementString: '1'),

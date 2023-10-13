@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:vendor_app/data/dto/pli_form_dto.dart';
 import 'package:vendor_app/data/dto/registration_dto.dart';
 import 'package:vendor_app/data/dto/tax_form_dto.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
@@ -15,14 +16,12 @@ enum AuthApiType {
   resetPassword,
   createNewPassword,
   registerEmailVerification,
-  vendorTaxForm
 }
 
 class AuthAPI implements APIRequestRepresentable {
   AuthApiType type;
   String? email, password, otp, confirmPassword;
   VendorRegistrationDto? data;
-  TaxFromDto? taxFromData;
 
   AuthAPI._(
       {required this.type,
@@ -30,7 +29,6 @@ class AuthAPI implements APIRequestRepresentable {
       this.password,
       this.otp,
       this.data,
-      this.taxFromData,
       this.confirmPassword});
 
   AuthAPI.login(String email, String pass)
@@ -57,8 +55,6 @@ class AuthAPI implements APIRequestRepresentable {
             type: AuthApiType.registerEmailVerification,
             email: email,
             otp: otp);
-  AuthAPI.uploadTaxForm(TaxFromDto taxData)
-      : this._(type: AuthApiType.vendorTaxForm, taxFromData: taxData);
 
   @override
   get body {
@@ -75,8 +71,6 @@ class AuthAPI implements APIRequestRepresentable {
       case AuthApiType.resetPassword:
       case AuthApiType.mobileOtpVerification:
         return {};
-      case AuthApiType.vendorTaxForm:
-        return taxFromData?.toJson();
     }
   }
 
@@ -99,8 +93,7 @@ class AuthAPI implements APIRequestRepresentable {
         return '';
       case AuthApiType.registerEmailVerification:
         return APIEndpoint.registerOTpVerificationUrl;
-      case AuthApiType.vendorTaxForm:
-        return APIEndpoint.taxFormUrl;
+
       case AuthApiType.createNewPassword:
         return "";
     }
@@ -120,8 +113,6 @@ class AuthAPI implements APIRequestRepresentable {
       case AuthApiType.mobileOtpVerification:
       case AuthApiType.createNewPassword:
         return {'Content-Type': 'application/json; charset=utf-8'};
-      case AuthApiType.vendorTaxForm:
-        return {'Content-Type': 'multipart/form-data'};
     }
   }
 
@@ -139,8 +130,6 @@ class AuthAPI implements APIRequestRepresentable {
       case AuthApiType.forgotEmailOtpVerification:
       case AuthApiType.forgot:
         return HTTPMethod.get;
-      case AuthApiType.vendorTaxForm:
-        return HTTPMethod.multiPart;
     }
   }
 
@@ -178,8 +167,6 @@ class AuthAPI implements APIRequestRepresentable {
       case AuthApiType.generateOtp:
       case AuthApiType.forgot:
         return {'email': email.toString()};
-      case AuthApiType.vendorTaxForm:
-        return {};
     }
   }
 }

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
@@ -9,10 +12,41 @@ import 'package:vendor_app/domain/repository/service_repository.dart';
 
 class AutomotiveWarrantyController extends GetxController {
   final radioButton = 0.obs;
-  final warrantyInfo = true.obs;
+  PlatformFile? platformFile;
+  List<PlatformFile>? listplatformFile;
+  List<File>? files;
   String selectedValue = "0";
   int steps = 1;
-  List<bool> isChecked = List<bool>.filled(10, false);
+  List<bool> isChecked = List<bool>.filled(30, false);
+  // List<bool> isChecked = [];
+  List<String> amenitiesList = [
+    "Early drop off",
+    "Loaner car",
+    "Free wifi",
+    "State inspection",
+    "Wait on site",
+    "Availability Today",
+    "Shuttle service",
+    "State inspection",
+    "Autobody Services",
+    "Complimentary Refreshments",
+    "Contactless Payment",
+    "Detailing",
+    "Digital Inspection",
+    "Financing Available",
+    "Fleet Services",
+    "Kid Friendly Waiting Area",
+    "Loaner Car",
+    "Loyalty / Rewards Program",
+    "Restrooms",
+    "Roadside Assistance",
+    "Shuttle Service",
+    "State Inspection",
+    "Towing",
+    "TV",
+    "Waiting Room",
+    "WiFi",
+  ];
 }
 
 class ServiceController extends GetxController {

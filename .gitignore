@@ -56,3 +56,10 @@ app.*.map.json
 *.cc
 *.h
 *.cmake
+*.cmake
+*.h
+*.cc
+*.swift
+*.cmake
+*.h
+*.cc
