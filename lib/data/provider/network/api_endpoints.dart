@@ -1,6 +1,6 @@
 class APIEndpoint {
   static String get baseUrl =>
-      'ec2-3-110-40-165.ap-south-1.compute.amazonaws.com';
+      'ec2-35-154-149-43.ap-south-1.compute.amazonaws.com';
   // ---------------- Authorization --------------------
   static String get loginUrl => '/api/Account/VendorLogin';
   static String get registerUrl => '/api/Account/vendor/Registration';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
@@ -44,7 +45,7 @@ class AutomotiveServicePricing extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class ServicePricingWidget extends StatelessWidget {
+class ServicePricingWidget extends StatelessWidget with FieldsValidation {
   ServicePricingWidget({required this.service, super.key});
   final ServicesModel service;
 
@@ -79,54 +80,84 @@ class ServicePricingWidget extends StatelessWidget {
   // final controller = Get.find<ServiceController>();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Divider(),
-        CommonTextRow(
-          text: service.serviceName,
-          icon:
-              "${ServiceIcons.serviceIconUrl}service_${service.serviceId}.png",
-        ),
-        const CommonText(
-          text: Strings.oilChnagePrice,
-          fontSize: 11,
-          color: AppColors.grey,
-        ),
-        const VerticalSpacing(20),
-        GetBuilder<ServiceController>(
-            init: ServiceController(),
-            builder: (controller) {
-              return ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: service.listSubServiceName.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RadioTextWidget(
-                        isCheckBox: true,
-                        isChanged: (p0) {
-                          service.listSubServiceName[index]!.isSelected = p0!;
+    return GetBuilder<ServiceController>(
+        init: ServiceController(),
+        builder: (controller) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Divider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: Row(
+                  children: [
+                    CommonTextRow(
+                      text: service.serviceName,
+                      icon:
+                          "${ServiceIcons.serviceIconUrl}service_${service.serviceId}.png",
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                      height: 26,
+                      child: Checkbox(
+                        value: service.isSelected ?? false,
+                        activeColor: AppColors.primary,
+                        splashRadius: 20,
+                        onChanged: (p0) {
+                          service.isSelected = p0!;
+                          // service.isSelected == true
+                          //     ? controller.animatedHeight = 150
+                          //     : controller.animatedHeight = 0;
                           controller.update();
                         },
-                        checkBoxvalue:
-                            service.listSubServiceName[index]!.isSelected ??
-                                false,
-                        selectedValue: index.toString(),
-                        text:
-                            "${alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
                       ),
-                      const VerticalSpacing(10),
-                      if (service.listSubServiceName[index]!.isSelected == true)
+                    ),
+                  ],
+                ),
+              ),
+              const CommonText(
+                text: Strings.oilChnagePrice,
+                fontSize: 11,
+                color: AppColors.grey,
+              ),
+              const VerticalSpacing(20),
+              if (service.isSelected == true)
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: service.listSubServiceName.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // RadioTextWidget(
+                        //   isCheckBox: true,
+                        //   isChanged: (p0) {
+                        //     service.listSubServiceName[index]!.isSelected = p0!;
+                        //     controller.update();
+                        //   },
+                        //   checkBoxvalue:
+                        //       service.listSubServiceName[index]!.isSelected ??
+                        //           false,
+                        //   selectedValue: index.toString(),
+                        //   text:
+                        //       "${alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
+                        // ),
+                        CommonText(
+                          text:
+                              "${alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
+                          fontSize: 14,
+                        ),
+                        const VerticalSpacing(10),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             PriceWidget(
-                              isSelected: service
-                                      .listSubServiceName[index]!.isSelected ??
-                                  false,
+                              isSelected: service.isSelected ?? false,
+                              validator: service.isSelected!
+                                  ? emptyFieldValidation
+                                  : (p0) {},
                               onChanged: (p0) {
                                 if (p0.isEmpty) {
                                   service.listSubServiceName[index]!
@@ -138,10 +169,6 @@ class ServicePricingWidget extends StatelessWidget {
                                         .vendorCharge =
                                     (double.parse(p0) * 0.85).toPrecision(2);
                                 controller.update();
-                                // controller.getVendorCharge(
-                                //     p0,
-                                //     service.listSubServiceName[index]!.vendorCharge ??
-                                //         0);
                               },
                               controller: service
                                   .listSubServiceName[index]!.serviceCharges,
@@ -156,13 +183,13 @@ class ServicePricingWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                      const VerticalSpacing(15),
-                    ],
-                  );
-                },
-              );
-            }),
-      ],
-    );
+                        const VerticalSpacing(15),
+                      ],
+                    );
+                  },
+                ),
+            ],
+          );
+        });
   }
 }

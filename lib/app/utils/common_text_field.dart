@@ -35,6 +35,7 @@ class CommonTextField extends StatelessWidget {
     this.textColor = AppColors.secondary,
     this.cursorColor = AppColors.secondary,
     this.padding = const EdgeInsets.all(0.0),
+    this.textAlign = TextAlign.start,
     this.contentPadding =
         const EdgeInsets.only(right: 15.0, top: 18, bottom: 14, left: 20),
     this.prefix,
@@ -73,6 +74,7 @@ class CommonTextField extends StatelessWidget {
   final EdgeInsetsGeometry contentPadding;
   final AutovalidateMode? autoValidateMode;
   final List<TextInputFormatter>? inputFormatters;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +90,7 @@ class CommonTextField extends StatelessWidget {
         maxLines: maxLines,
         inputFormatters: inputFormatters,
         onTap: textOnTap,
+        textAlign: textAlign,
         validator: validator,
         autovalidateMode: autoValidateMode,
         textAlignVertical: TextAlignVertical.top,

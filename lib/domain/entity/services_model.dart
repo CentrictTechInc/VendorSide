@@ -4,12 +4,14 @@ class ServicesModel {
   int serviceId;
   int serviceTypeId;
   String serviceName;
+  bool? isSelected;
   List<ListSubServiceName?> listSubServiceName;
 
   ServicesModel(
       {required this.serviceId,
       required this.serviceTypeId,
       required this.serviceName,
+      this.isSelected,
       required this.listSubServiceName});
 }
 

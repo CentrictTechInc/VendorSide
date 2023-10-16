@@ -52,6 +52,7 @@ class AutomotiveWarrantyController extends GetxController {
 class ServiceController extends GetxController {
   var autoMotiveServiceList = <ServicesModel>[].obs;
   var homeImprovementServiceList = <ServicesModel>[].obs;
+  double animatedHeight = 130;
 
   ServiceRepository repo = ServiceRepositoryImpl();
 

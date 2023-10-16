@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
@@ -13,15 +10,14 @@ import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/app/utils/upload_file.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
-import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/resources/strings.dart';
 import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/presentation/screens/tax_forms/controller/tax_form_controller.dart';
 
 // ignore: must_be_immutable
 class TaxFormMobile extends StatelessWidget with FieldsValidation {
-  PlatformFile? file;
-  PlatformFile? file2;
+  PlatformFile? insuranceFile;
+  PlatformFile? taxFile;
   String? image;
 
   TaxFormMobile({super.key});
@@ -82,7 +78,7 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                             UploadButtonWithFile(
                               label: "upload",
                               topLabel: "EIN (W9 form)",
-                              platformfile: file2,
+                              platformfile: taxFile,
                               onPress: () async {
                                 // final c = Get.find<TaxFromController>();
                                 FilePickerResult? result =
@@ -90,7 +86,10 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                                         withData: true,
                                         type: FileType.custom,
                                         allowedExtensions: ['png']);
-                                file2 = result?.files.first;
+                                taxFile = result?.files.first;
+                                final bytes = taxFile?.bytes;
+                                controller.taxImage = base64Encode(bytes!);
+                                print(controller.taxImage);
                                 controller.update();
                                 // if (false) {
                                 //   ToastMessage.message('Please select png image.');
@@ -100,7 +99,7 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                               },
                               onDeletePress: () {
                                 // data.image = null;
-                                file2 = null;
+                                taxFile = null;
                                 controller.update();
                               },
                             ),
@@ -120,7 +119,7 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                             const VerticalSpacing(10),
                             UploadButtonWithFile(
                               label: "upload",
-                              platformfile: file,
+                              platformfile: insuranceFile,
                               topLabel:
                                   "Professional Liability Insurance if (Proprietor)",
                               onPress: () async {
@@ -129,13 +128,10 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                                         withData: true,
                                         type: FileType.custom,
                                         allowedExtensions: ['png']);
-                                file = result?.files.first;
-                                final bytes = file?.bytes;
-                                print(bytes);
-                                print("img64");
-                                String img64 = base64Encode(bytes!);
-                                print(img64);
-                                print("img64 here in tax_forms_mobile");
+                                insuranceFile = result?.files.first;
+                                final bytes = insuranceFile?.bytes;
+                                controller.pliImage = base64Encode(bytes!);
+                                print(controller.pliImage);
                                 controller.update();
                                 // if (false) {
                                 //   ToastMessage.message('Please select png image.');
@@ -145,7 +141,7 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                               },
                               onDeletePress: () {
                                 // data.image = null;
-                                file = null;
+                                insuranceFile = null;
                                 controller.update();
                               },
                             ),
@@ -157,9 +153,15 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                       Align(
                         alignment: Alignment.center,
                         child: CommonTextButton(
-                            onPressed: () {
-                              if (file != null && file2 != null) {
-                                context.go(PagePath.automotiveService);
+                            onPressed: () async {
+                              if (taxFile != null) {
+                                // context.go(PagePath.automotiveService);
+                                int id = await controller.uploadTaxForm();
+                                print(id);
+                                // await controller.uploadPLIForm(
+                                //   certificateId: id,
+                                //   fileName: "Insurance Form",
+                                // );
                               } else {
                                 ToastMessage.message(
                                   "Please Upload Your Tax and Insurance Form!",

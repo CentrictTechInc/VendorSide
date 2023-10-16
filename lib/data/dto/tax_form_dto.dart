@@ -20,9 +20,9 @@ class TaxFromDto extends TaxFromModel {
         taxForm: json["TaxForm"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "FileName": fileName,
-        "VendorId": vendorId,
-        "TaxForm": taxForm,
+  Map<String, String> toJson() => {
+        "FileName": fileName.toString(),
+        "VendorId": vendorId.toString(),
+        "TaxForm": taxForm.toString(),
       };
 }

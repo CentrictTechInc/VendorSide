@@ -23,15 +23,15 @@ class TaxFromAPI implements APIRequestRepresentable {
   TaxFromAPI.uploadTaxForm(TaxFromDto taxData)
       : this._(type: TaxFromApiType.vendorTaxForm, taxFromData: taxData);
   TaxFromAPI.uploadPLIForm(PLIFormDto pliData)
-      : this._(type: TaxFromApiType.vendorTaxForm, pliFormData: pliData);
+      : this._(type: TaxFromApiType.vendorPLIForm, pliFormData: pliData);
 
   @override
   get body {
     switch (type) {
       case TaxFromApiType.vendorTaxForm:
-        return taxFromData?.toJson();
+        return taxFromData!.toJson();
       case TaxFromApiType.vendorPLIForm:
-        return pliFormData?.toJson();
+        return pliFormData!.toJson();
     }
   }
 

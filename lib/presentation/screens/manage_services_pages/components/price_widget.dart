@@ -17,6 +17,7 @@ class PriceWidget extends StatelessWidget with FieldsValidation {
       this.price,
       this.isSelected = false,
       this.onChanged,
+      this.validator,
       this.color});
   TextEditingController? controller;
   bool readOnly;
@@ -24,6 +25,7 @@ class PriceWidget extends StatelessWidget with FieldsValidation {
   String? text;
   String? price;
   Color? color;
+  String? Function(String?)? validator;
   final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,10 @@ class PriceWidget extends StatelessWidget with FieldsValidation {
                         fontSize: 14,
                         weight: FontWeight.w600)
                     : CommonTextField(
+                        txtweight: FontWeight.w600,
+                        textAlign: TextAlign.center,
                         readOnly: !isSelected,
+                        // validator: validator,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                               RegExp(r'(^\d*\.?\d*)'),

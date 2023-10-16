@@ -8,6 +8,7 @@ class ServicesDto extends ServicesModel {
     required super.serviceTypeId,
     required super.serviceName,
     required super.listSubServiceName,
+    super.isSelected,
   });
 
   factory ServicesDto.fromRawJson(String str) =>
@@ -19,6 +20,7 @@ class ServicesDto extends ServicesModel {
         serviceId: json["serviceId"],
         serviceTypeId: json["serviceTypeId"],
         serviceName: json["serviceName"],
+        isSelected: false,
         listSubServiceName: List<ListSubServiceName?>.from(
             json["listSubServiceName"]
                 .map((x) => x == null ? null : ListSubServiceDto.fromJson(x))),
