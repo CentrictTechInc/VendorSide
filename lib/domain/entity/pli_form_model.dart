@@ -2,12 +2,12 @@ class PLIFormModel {
   int certificateId;
   int vendorId;
   String fileName;
-  String pliFile;
+  String? pliFile;
 
   PLIFormModel({
     required this.certificateId,
     required this.fileName,
     required this.vendorId,
-    required this.pliFile,
+    this.pliFile,
   });
 }

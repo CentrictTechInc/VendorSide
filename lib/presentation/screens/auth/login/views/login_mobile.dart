@@ -77,7 +77,7 @@ class LoginMobile extends StatelessWidget with FieldsValidation {
                                   return CommonTextField(
                                     controller: controller.passController,
                                     hintText: 'Password',
-                                    validator: passwordValidation,
+                                    validator: emptyFieldValidation,
                                     pass: controller.passToggle.value,
                                     suffix: InkWell(
                                       onTap: () {

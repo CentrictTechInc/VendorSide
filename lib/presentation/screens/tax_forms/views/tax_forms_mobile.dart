@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -87,8 +88,9 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                                         type: FileType.custom,
                                         allowedExtensions: ['png']);
                                 taxFile = result?.files.first;
-                                final bytes = taxFile?.bytes;
-                                controller.taxImage = base64Encode(bytes!);
+                                File file = File(taxFile!.path!);
+                                controller.taxImage = file;
+                                // controller.taxImage = base64Encode(bytes!);
                                 print(controller.taxImage);
                                 controller.update();
                                 // if (false) {
@@ -129,9 +131,9 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                                         type: FileType.custom,
                                         allowedExtensions: ['png']);
                                 insuranceFile = result?.files.first;
-                                final bytes = insuranceFile?.bytes;
-                                controller.pliImage = base64Encode(bytes!);
-                                print(controller.pliImage);
+                                File insuranceImage =
+                                    File(insuranceFile!.path!);
+                                controller.pliImage = insuranceImage;
                                 controller.update();
                                 // if (false) {
                                 //   ToastMessage.message('Please select png image.');
@@ -154,14 +156,13 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                         alignment: Alignment.center,
                         child: CommonTextButton(
                             onPressed: () async {
-                              if (taxFile != null) {
+                              if (taxFile != null && insuranceFile != null) {
                                 // context.go(PagePath.automotiveService);
                                 int id = await controller.uploadTaxForm();
                                 print(id);
-                                // await controller.uploadPLIForm(
-                                //   certificateId: id,
-                                //   fileName: "Insurance Form",
-                                // );
+                                await controller.uploadPLIForm(
+                                  certificateId: id,
+                                );
                               } else {
                                 ToastMessage.message(
                                   "Please Upload Your Tax and Insurance Form!",

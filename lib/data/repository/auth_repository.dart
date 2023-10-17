@@ -18,9 +18,15 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<String> forgotEmailOtpVerification(String email, String otp) {
-    // TODO: implement forgotEmailOtpVerification
-    throw UnimplementedError();
+  Future<String> forgotEmailOtpVerification(String email, String otp) async {
+    try {
+      final response =
+          await AuthAPI.forgotEmailOtpVerification(email, otp).request();
+      Map<String, dynamic> msg = jsonDecode(response);
+      return msg['message'];
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
@@ -60,8 +66,7 @@ class AuthRepositoryImpl extends AuthRepository {
     try {
       final response =
           await AuthAPI.registerEmailVerification(email, otp).request();
-      Map<String, dynamic> msg = jsonDecode(response);
-      return msg['message'];
+      return response;
     } catch (e) {
       rethrow;
     }

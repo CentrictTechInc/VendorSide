@@ -6,7 +6,7 @@ class TaxFromDto extends TaxFromModel {
   TaxFromDto({
     required super.fileName,
     required super.vendorId,
-    required super.taxForm,
+    super.taxForm,
   });
 
   factory TaxFromDto.fromRawJson(String str) =>
@@ -23,6 +23,5 @@ class TaxFromDto extends TaxFromModel {
   Map<String, String> toJson() => {
         "FileName": fileName.toString(),
         "VendorId": vendorId.toString(),
-        "TaxForm": taxForm.toString(),
       };
 }

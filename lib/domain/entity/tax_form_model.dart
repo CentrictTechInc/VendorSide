@@ -1,11 +1,13 @@
+import 'dart:io';
+
 class TaxFromModel {
   String fileName;
   int vendorId;
-  String taxForm;
+  File? taxForm;
 
   TaxFromModel({
     required this.fileName,
     required this.vendorId,
-    required this.taxForm,
+    this.taxForm,
   });
 }

@@ -37,7 +37,7 @@ final globalContext = _rootNavigatorKey.currentContext;
 class AppRouter {
   static final router = GoRouter(
       navigatorKey: _rootNavigatorKey,
-      initialLocation: PagePath.taxForm,
+      initialLocation: PagePath.login,
       routes: [
         GoRoute(
             path: PagePath.slash,
@@ -162,7 +162,7 @@ class AppRouter {
               return ForgotPasswordScreen();
             }),
         GoRoute(
-            path: PagePath.createNewPassword,
+            path: "${PagePath.createNewPassword}/:email",
             builder: (context, state) {
               Get.lazyPut<PasswordController>(() => PasswordController());
               String email = state.pathParameters['email'] as String;

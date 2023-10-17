@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:mime/mime.dart';
 import 'package:vendor_app/data/provider/network/api_request_representable.dart';
 
 class APIProvider {
@@ -34,8 +35,25 @@ class APIProvider {
           break;
         case HTTPMethod.multiPart:
           var req = http.MultipartRequest('Post', uri);
-          req.fields.addAll(request.body);
+          req.fields.addAll(
+            request.body['data'],
+          );
           req.headers.addAll(request.headers!);
+
+          if (request.body['TaxForm'] != null) {
+            // final mimeType = lookupMimeType(file.name);
+            final File file = request.body['TaxForm'];
+            req.files.add(http.MultipartFile.fromBytes(
+                "TaxForm", file.readAsBytesSync().toList(),
+                // contentType: MedaiType,
+                filename: file.path.split('/').last));
+          }
+          if (request.body['PliFileName'] != null) {
+            final File file = request.body['PliFileName'];
+            req.files.add(http.MultipartFile.fromBytes(
+                "PliFileName", file.readAsBytesSync().toList(),
+                filename: file.path.split('/').last));
+          }
           final res = await req.send();
           response =
               http.Response(await res.stream.bytesToString(), res.statusCode);

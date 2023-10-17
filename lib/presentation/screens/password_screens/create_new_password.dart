@@ -118,9 +118,8 @@ class CreateNewPasswordScreen extends StatelessWidget with FieldsValidation {
                     VerticalSpacing(15.h),
                     CommonTextButton(
                       onPressed: () {
-                        context.go(PagePath.login);
-
                         if (controller.passForm.currentState!.validate()) {
+                          // controller.forgotEmailOtpVerification();
                         } else {
                           ToastMessage.message("Passwords deos not match!");
                         }

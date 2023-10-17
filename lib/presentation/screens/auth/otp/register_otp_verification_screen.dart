@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/utils/common_back_button.dart';
@@ -10,7 +9,7 @@ import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
 import 'package:vendor_app/common/resources/colors.dart';
-import 'package:vendor_app/common/resources/page_path.dart';
+import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/presentation/screens/auth/controllers/otp_controller.dart';
 import 'package:vendor_app/presentation/screens/auth/controllers/register_controller.dart';
 
@@ -108,10 +107,11 @@ class RegisterEmailOtpScreen extends StatelessWidget {
                     builder: (controller) {
                       return CommonTextButton(
                         onPressed: () async {
-                          context.go(PagePath.category);
                           if (pinController.text.isNotEmpty) {
-                            // await controller.registerEmailOtp(
-                            //     email, pinController.text);
+                            await controller.registerEmailOtp(
+                                email, pinController.text);
+                          } else {
+                            ToastMessage.message("Input OTP");
                           }
                         },
                         text: 'VERIFY',

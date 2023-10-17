@@ -7,7 +7,7 @@ class PLIFormDto extends PLIFormModel {
     required super.certificateId,
     required super.fileName,
     required super.vendorId,
-    required super.pliFile,
+    super.pliFile,
   });
   factory PLIFormDto.fromRawJson(String str) =>
       PLIFormDto.fromJson(json.decode(str));
@@ -22,10 +22,9 @@ class PLIFormDto extends PLIFormModel {
     );
   }
 
-  Map<String, dynamic> toJson() => {
-        'CertificateId': certificateId,
-        'FileName': fileName,
-        'VendorId': vendorId,
-        'PliFileName': pliFile,
+  Map<String, String> toJson() => {
+        'CertificateId': certificateId.toString(),
+        'FileName': fileName.toString(),
+        'VendorId': vendorId.toString(),
       };
 }

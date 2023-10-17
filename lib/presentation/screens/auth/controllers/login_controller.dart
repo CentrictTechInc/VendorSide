@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
+import 'package:vendor_app/app/services/generate_otp_service.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
@@ -27,6 +28,13 @@ class LoginController extends GetxController {
       UserModel res =
           await _repo.login(emailController.text, passController.text);
       LocalStorageService.instance.user = res;
+      if (res.emailVerified == false) {
+        GenerateOtpService().generateOtp(_repo, emailController.text);
+        globalContext
+            ?.push("${PagePath.registerEmailOtp}/${emailController.text}");
+        ToastMessage.message("Please Verify Email", type: ToastType.warn);
+        return;
+      }
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }

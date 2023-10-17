@@ -30,25 +30,28 @@ class RegisterController extends GetxController {
       jobTitle: TextEditingController(text: 'test'),
       vendoremail: TextEditingController(),
       vendorPassword: TextEditingController(text: 'Test@123'),
-      isActive: false,
+      isActive: true,
       serviceTypeId: 0);
 
   Future register() async {
     try {
       ShowDialogBox.showDialogBoxs(true);
-      globalContext?.push(
-          "${PagePath.registerEmailOtp}/${registerModel.vendoremail.text}");
+
       String res = await _repo.register(registerModel);
       if (res == "User Already Exist") {
-        await generateOtp(registerModel.vendoremail.text);
+        globalContext?.go(PagePath.login);
+        ToastMessage.message(res, type: ToastType.info);
         return;
       }
       ToastMessage.message(res, type: ToastType.success);
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-      globalContext?.push(
-          "${PagePath.registerEmailOtp}/${registerModel.vendoremail.text}");
+
+      if (res == "Vendor Registered Successfully!") {
+        globalContext?.push(
+            "${PagePath.registerEmailOtp}/${registerModel.vendoremail.text}");
+      }
     } catch (e) {
       ToastMessage.message(e.toString());
     }
@@ -62,18 +65,13 @@ class RegisterController extends GetxController {
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-      ToastMessage.message(res, type: ToastType.success);
-    } catch (e) {
-      ToastMessage.message(e.toString());
-    }
-  }
 
-  Future generateOtp(String email) async {
-    try {
-      // ShowDialogBox.showDialogBoxs(true);
-
-      String res = await _repo.generateOtp(email);
-
+      if (res == "Otp verified and Email Confirmed!") {
+        globalContext?.go(PagePath.login);
+      }
+      if (res == "Otp Not Matched!") {
+        ToastMessage.message(res, type: ToastType.error);
+      }
       ToastMessage.message(res, type: ToastType.success);
     } catch (e) {
       ToastMessage.message(e.toString());

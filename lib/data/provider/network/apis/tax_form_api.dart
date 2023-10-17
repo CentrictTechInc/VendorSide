@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:vendor_app/data/dto/pli_form_dto.dart';
 import 'package:vendor_app/data/dto/tax_form_dto.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
@@ -13,25 +15,40 @@ class TaxFromAPI implements APIRequestRepresentable {
   TaxFromApiType type;
   TaxFromDto? taxFromData;
   PLIFormDto? pliFormData;
+  File? taxFormImage;
+  File? pliFormImage;
 
   TaxFromAPI._({
     required this.type,
     this.pliFormData,
     this.taxFromData,
+    this.taxFormImage,
+    this.pliFormImage,
   });
 
-  TaxFromAPI.uploadTaxForm(TaxFromDto taxData)
-      : this._(type: TaxFromApiType.vendorTaxForm, taxFromData: taxData);
-  TaxFromAPI.uploadPLIForm(PLIFormDto pliData)
-      : this._(type: TaxFromApiType.vendorPLIForm, pliFormData: pliData);
+  TaxFromAPI.uploadTaxForm(TaxFromDto taxData, File taxFormImage)
+      : this._(
+            type: TaxFromApiType.vendorTaxForm,
+            taxFromData: taxData,
+            taxFormImage: taxFormImage);
+  TaxFromAPI.uploadPLIForm(PLIFormDto pliData, File pliFormImage)
+      : this._(
+          type: TaxFromApiType.vendorPLIForm,
+          pliFormData: pliData,
+          pliFormImage: pliFormImage,
+        );
 
   @override
   get body {
     switch (type) {
       case TaxFromApiType.vendorTaxForm:
-        return taxFromData!.toJson();
+        // return {'FileName': 'q', 'VendorId': '2', 'TaxForm': 'cbimage'};
+        return {
+          "data": taxFromData!.toJson(),
+          "TaxForm": taxFormImage,
+        };
       case TaxFromApiType.vendorPLIForm:
-        return pliFormData!.toJson();
+        return {"data": pliFormData!.toJson(), "PliFileName": pliFormImage};
     }
   }
 

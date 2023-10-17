@@ -89,8 +89,9 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
                         ),
                       if (controller.steps == 1 || controller.steps == 2)
                         CommonTextButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (controller.steps == 1) {
+                              await controller.postWarrantyAndAmenitiesInfo();
                               controller.steps = 2;
                               cntrl.getAllServices();
                             }

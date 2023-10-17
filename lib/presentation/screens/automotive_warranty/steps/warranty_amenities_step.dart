@@ -24,6 +24,8 @@ class AutomotiveWarrantyStep extends StatelessWidget {
           return Column(
             children: [
               ExpansionTile(
+                  maintainState: true,
+                  initiallyExpanded: true,
                   shape: Border.all(color: Colors.transparent, width: 0),
                   collapsedShape:
                       Border.all(color: Colors.transparent, width: 0),
@@ -41,7 +43,8 @@ class AutomotiveWarrantyStep extends StatelessWidget {
                       color: AppColors.grey,
                     ),
                     RadioTextWidget(
-                      value: '1',
+                      value: controller.warrantyDuration[0],
+                      text: controller.warrantyDuration[0],
                       selectedValue: controller.selectedValue,
                       onChanged: (p0) {
                         controller.selectedValue = p0.toString();
@@ -49,16 +52,18 @@ class AutomotiveWarrantyStep extends StatelessWidget {
                       },
                     ),
                     RadioTextWidget(
-                      value: '2',
+                      value: controller.warrantyDuration[1],
                       selectedValue: controller.selectedValue,
+                      text: controller.warrantyDuration[1],
                       onChanged: (p0) {
                         controller.selectedValue = p0.toString();
                         controller.update();
                       },
                     ),
                     RadioTextWidget(
-                      value: '3',
+                      value: controller.warrantyDuration[2],
                       selectedValue: controller.selectedValue,
+                      text: controller.warrantyDuration[2],
                       onChanged: (p0) {
                         controller.selectedValue = p0.toString();
                         controller.update();
@@ -84,16 +89,6 @@ class AutomotiveWarrantyStep extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const VerticalSpacing(5),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    alignment: Alignment.bottomLeft,
-                    child: const CommonText(
-                      text: "(Check all that apply)",
-                      fontSize: 10,
-                      color: AppColors.grey,
-                    ),
-                  ),
                   const VerticalSpacing(15),
                   Row(
                     children: [
@@ -114,7 +109,6 @@ class AutomotiveWarrantyStep extends StatelessWidget {
                                 .map((path) => File(path!))
                                 .toList();
                             controller.update();
-                            print(controller.files!.length);
                           }
                         },
                         child: MouseRegion(
@@ -149,13 +143,13 @@ class AutomotiveWarrantyStep extends StatelessWidget {
                           ),
                         ),
                       ),
-                      HorizontalSpacing(2),
+                      const HorizontalSpacing(2),
                       if (controller.files != null)
-                        Container(
+                        SizedBox(
                           height: 80,
                           width: context.width * .7,
                           child: ListView.builder(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             scrollDirection: Axis.horizontal,
                             itemCount: controller.files!.length,
                             shrinkWrap: true,
@@ -173,6 +167,8 @@ class AutomotiveWarrantyStep extends StatelessWidget {
                     ],
                   ),
                   ExpansionTile(
+                    initiallyExpanded: true,
+                    maintainState: true,
                     tilePadding: EdgeInsets.zero,
                     childrenPadding: EdgeInsets.zero,
                     collapsedShape:
@@ -186,7 +182,7 @@ class AutomotiveWarrantyStep extends StatelessWidget {
                     children: [
                       ListView.separated(
                         separatorBuilder: (context, index) {
-                          return VerticalSpacing(5);
+                          return const VerticalSpacing(5);
                         },
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -196,11 +192,21 @@ class AutomotiveWarrantyStep extends StatelessWidget {
                             isCheckBox: true,
                             isChanged: (p0) {
                               controller.isChecked[index] = p0!;
+                              if (controller.isChecked[index]) {
+                                controller.amenitiesCheckedList.addIf(
+                                    !controller.amenitiesCheckedList.contains(
+                                        controller.amenitiesList[index]),
+                                    controller.amenitiesList[index]);
+                              } else {
+                                controller.amenitiesCheckedList
+                                    .remove(controller.amenitiesList[index]);
+                              }
+
                               controller.update();
                             },
                             checkBoxvalue: controller.isChecked[index],
                             selectedValue: index.toString(),
-                            text: "${controller.amenitiesList[index]}",
+                            text: "${controller.amenitiesList[index]} ",
                             onChanged: (p0) {
                               controller.selectedValue = p0.toString();
                               controller.update();

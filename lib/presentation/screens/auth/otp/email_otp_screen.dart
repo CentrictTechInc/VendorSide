@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/utils/common_back_button.dart';
@@ -12,7 +11,7 @@ import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/presentation/screens/auth/controllers/otp_controller.dart';
-import 'package:vendor_app/presentation/screens/auth/controllers/register_controller.dart';
+import 'package:vendor_app/presentation/screens/password_screens/controllers/pass_controller.dart';
 
 class EmailOtpScreen extends StatefulWidget {
   EmailOtpScreen({required this.email});
@@ -153,15 +152,13 @@ class _EmailOtpScreenState extends State<EmailOtpScreen> {
                   ),
                 ),
                 VerticalSpacing(10.h),
-                GetBuilder<RegisterController>(
-                    init: RegisterController(),
+                GetBuilder<PasswordController>(
+                    init: PasswordController(),
                     builder: (controller) {
                       return CommonTextButton(
                         onPressed: () {
-                          // print(PagePath.createNewPassword);
-                          // context.push(PagePath.createNewPassword);
                           if (pinController.text.isNotEmpty) {
-                            controller.registerEmailOtp(
+                            controller.forgotEmailOtpVerification(
                                 widget.email, pinController.text);
                           }
                         },

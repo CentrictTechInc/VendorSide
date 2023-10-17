@@ -19,16 +19,34 @@ class PasswordController extends GetxController {
     try {
       ShowDialogBox.showDialogBoxs(true);
 
-      // final String result = await _repo.forgot(email);
+      final String result = await _repo.forgot(email);
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-      // ToastMessage.message(result, type: ToastType.info);
+      ToastMessage.message(result, type: ToastType.info);
       if (globalContext!.mounted) {
         globalContext?.push('${PagePath.emailOtp}/$email');
       }
     } catch (e) {
       ToastMessage.message(e.toString(), type: ToastType.error);
+    }
+  }
+
+  //   'https://ec2-35-154-149-43.ap-south-1.compute.amazonaws.com/api/Account/Both/otpverification?otp=6357&email=bapak12711%40dixiser.com&type=Vendor
+  // Forgot Email OTP API Function
+  Future<void> forgotEmailOtpVerification(String email, String otp) async {
+    try {
+      final String result = await _repo.forgotEmailOtpVerification(email, otp);
+      if (result != 'Otp Not Matched!') {
+        if (globalContext!.mounted) {
+          ToastMessage.message(result, type: ToastType.success);
+          globalContext?.replace('${PagePath.createNewPassword}/$email');
+        }
+      } else {
+        ToastMessage.message(result);
+      }
+    } catch (e) {
+      ToastMessage.message(e.toString());
     }
   }
 

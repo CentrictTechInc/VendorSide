@@ -15,19 +15,22 @@ class AutomotiveWarrantyController extends GetxController {
   PlatformFile? platformFile;
   List<PlatformFile>? listplatformFile;
   List<File>? files;
-  String selectedValue = "0";
+  String selectedValue = "12 Months / 12,000 Miles";
   int steps = 1;
   List<bool> isChecked = List<bool>.filled(30, false);
-  // List<bool> isChecked = [];
+  List<String> amenitiesCheckedList = [];
+
+  List<String> warrantyDuration = [
+    "12 Months / 12,000 Miles",
+    "24 Months / 24,000 Miles",
+    "36 Months / 36,000 Miles",
+  ];
   List<String> amenitiesList = [
     "Early drop off",
     "Loaner car",
     "Free wifi",
-    "State inspection",
-    "Wait on site",
     "Availability Today",
     "Shuttle service",
-    "State inspection",
     "Autobody Services",
     "Complimentary Refreshments",
     "Contactless Payment",
@@ -36,7 +39,6 @@ class AutomotiveWarrantyController extends GetxController {
     "Financing Available",
     "Fleet Services",
     "Kid Friendly Waiting Area",
-    "Loaner Car",
     "Loyalty / Rewards Program",
     "Restrooms",
     "Roadside Assistance",
@@ -45,8 +47,24 @@ class AutomotiveWarrantyController extends GetxController {
     "Towing",
     "TV",
     "Waiting Room",
-    "WiFi",
   ];
+
+  Future postWarrantyAndAmenitiesInfo() async {
+    try {
+      ShowDialogBox.showDialogBoxs(true);
+      print("warranty Duration: $selectedValue");
+      print("Amenities: $amenitiesCheckedList");
+      print("Image Files: ${files}");
+      await Future.delayed(const Duration(seconds: 1));
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
+      ToastMessage.message("Information Added Succesfully!",
+          type: ToastType.success);
+    } catch (e) {
+      ToastMessage.message(e.toString());
+    }
+  }
 }
 
 class ServiceController extends GetxController {
@@ -94,13 +112,4 @@ class ServiceController extends GetxController {
       homeImprovementServiceList.add(entry);
     }
   }
-
-  // getVendorCharge(String serviceCharge, double vendorCharge) {
-  //   if (serviceCharge != '') {
-  //     vendorCharge = double.tryParse(serviceCharge) ?? 0.0;
-  //   }
-  //   vendorCharge = (vendorCharge * 0.85).toPrecision(2);
-  //   update();
-  //   print(vendorCharge.obs);
-  // }
 }
