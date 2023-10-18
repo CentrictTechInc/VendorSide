@@ -10,14 +10,14 @@ import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/app/utils/common_text_field.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
+import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/presentation/screens/password_screens/controllers/pass_controller.dart';
 
 class ForgotPasswordScreen extends StatelessWidget with FieldsValidation {
   ForgotPasswordScreen({super.key});
 
-  final TextEditingController email = TextEditingController(text: "h@s.cm");
-  final TextEditingController phone =
-      TextEditingController(text: "89389898438");
+  final TextEditingController email = TextEditingController();
+  final TextEditingController phone = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +90,9 @@ class ForgotPasswordScreen extends StatelessWidget with FieldsValidation {
                           onPressed: () async {
                             if (validateEmail(email.text) == null) {
                               await controller.forgotPassword(email.text);
+                            } else {
+                              ToastMessage.message("Please Input A Valid Email",
+                                  type: ToastType.warn);
                             }
                           },
                           text: 'Send'.toUpperCase(),

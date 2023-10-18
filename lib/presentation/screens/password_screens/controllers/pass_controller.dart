@@ -50,11 +50,10 @@ class PasswordController extends GetxController {
     }
   }
 
-  Future<void> changeNewPassword(
-      String email, String password, String confirmPassword) async {
+  Future<void> changeNewPassword(String email) async {
     try {
-      final String result =
-          await _repo.resetNewPassword(email, password, confirmPassword);
+      final String result = await _repo.resetNewPassword(
+          email, newPassController.text, confirmPassController.text);
       ToastMessage.message(result, type: ToastType.success);
       if (globalContext!.mounted) {
         globalContext?.go(PagePath.login);

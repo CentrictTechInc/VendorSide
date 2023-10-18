@@ -16,7 +16,7 @@ class LoginController extends GetxController {
   final AuthRepository _repo = AuthRepositoryImpl();
   // final otpController = Get.find<OtpController>();
   final TextEditingController emailController =
-      TextEditingController(text: "vendor@gmail.com");
+      TextEditingController(text: "bapak12711@dixiser.com");
   final TextEditingController passController =
       TextEditingController(text: "Test@123");
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();

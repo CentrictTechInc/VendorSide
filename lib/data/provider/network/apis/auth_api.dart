@@ -14,7 +14,6 @@ enum AuthApiType {
   forgotEmailOtpVerification,
   mobileOtpVerification,
   resetPassword,
-  createNewPassword,
   registerEmailVerification,
 }
 
@@ -66,7 +65,6 @@ class AuthAPI implements APIRequestRepresentable {
       case AuthApiType.forgotEmailOtpVerification:
       case AuthApiType.generateOtp:
       case AuthApiType.forgot:
-      case AuthApiType.createNewPassword:
       case AuthApiType.registerEmailVerification:
       case AuthApiType.resetPassword:
       case AuthApiType.mobileOtpVerification:
@@ -93,9 +91,6 @@ class AuthAPI implements APIRequestRepresentable {
         return '';
       case AuthApiType.registerEmailVerification:
         return APIEndpoint.registerOTpVerificationUrl;
-
-      case AuthApiType.createNewPassword:
-        return "";
     }
   }
 
@@ -111,7 +106,6 @@ class AuthAPI implements APIRequestRepresentable {
       case AuthApiType.login:
       case AuthApiType.signup:
       case AuthApiType.mobileOtpVerification:
-      case AuthApiType.createNewPassword:
         return {'Content-Type': 'application/json; charset=utf-8'};
     }
   }
@@ -122,7 +116,6 @@ class AuthAPI implements APIRequestRepresentable {
       case AuthApiType.login:
       case AuthApiType.signup:
       case AuthApiType.mobileOtpVerification:
-      case AuthApiType.createNewPassword:
       case AuthApiType.registerEmailVerification:
         return HTTPMethod.post;
       case AuthApiType.generateOtp:
@@ -150,7 +143,6 @@ class AuthAPI implements APIRequestRepresentable {
       case AuthApiType.login:
       case AuthApiType.signup:
       case AuthApiType.mobileOtpVerification:
-      case AuthApiType.createNewPassword:
       case AuthApiType.resetPassword:
         return {
           'email': email.toString(),

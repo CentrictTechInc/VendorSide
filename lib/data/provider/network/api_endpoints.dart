@@ -10,8 +10,7 @@ class APIEndpoint {
   static String get forgotPasswordUrl => '/api/Account/vendor/ForgetPassword';
   static String get forgotOtpVerificationUrl =>
       '/api/Account/Both/otpverification';
-  static String get newPasswordUrl => '/api/Account/Vendor/NewPassword';
-  static String get resetPasswordUrl => '/api/Account/Client/ResetPassword';
+  static String get resetPasswordUrl => '/api/Account/Vendor/NewPassword';
   static String get taxFormUrl => '/api/Account/vendor/TaxForm';
   static String get pLIFormUrl => '/api/Account/vendor/PLIForm';
   static String get getCertificateUrl => '/api/Account/GetCertificateId';

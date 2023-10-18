@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/utils/common_back_button.dart';
@@ -10,13 +9,10 @@ import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/app/utils/common_text_field.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
-import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/presentation/screens/password_screens/controllers/pass_controller.dart';
 
 class CreateNewPasswordScreen extends StatelessWidget with FieldsValidation {
-  // bool enable = true;
-
   CreateNewPasswordScreen({super.key, required this.email});
   final String email;
   final controller = Get.find<PasswordController>();
@@ -119,9 +115,11 @@ class CreateNewPasswordScreen extends StatelessWidget with FieldsValidation {
                     CommonTextButton(
                       onPressed: () {
                         if (controller.passForm.currentState!.validate()) {
-                          // controller.forgotEmailOtpVerification();
+                          controller.changeNewPassword(
+                            email,
+                          );
                         } else {
-                          ToastMessage.message("Passwords deos not match!");
+                          ToastMessage.message("Passwords does not match!");
                         }
                       },
                       text: 'Save'.toUpperCase(),
