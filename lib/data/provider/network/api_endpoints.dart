@@ -11,8 +11,19 @@ class APIEndpoint {
   static String get forgotOtpVerificationUrl =>
       '/api/Account/Both/otpverification';
   static String get resetPasswordUrl => '/api/Account/Vendor/NewPassword';
+  // ----------------Tax Form--------------------
   static String get taxFormUrl => '/api/Account/vendor/TaxForm';
   static String get pLIFormUrl => '/api/Account/vendor/PLIForm';
   static String get getCertificateUrl => '/api/Account/GetCertificateId';
+  //------------------Services-------------------------
   static String get getAllServicesUrl => '/Services/GetAllServices';
+
+  // ---------------- Profile --------------------
+  static String get getProfileDetailsUrl =>
+      '/api/Account/Client/GetProfileDetails';
+  static String get postProfileDetailsUrl =>
+      "/api/Account/Client/PostProfileDetails";
+
+  //--------------Contact Us---------------
+  static String get contactUsUrl => '/api/Account/Client/ContactUs';
 }

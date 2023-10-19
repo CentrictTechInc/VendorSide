@@ -13,9 +13,10 @@ class OtpController extends GetxController {
   int secondsRemaining = 30;
   Timer? timer;
   bool enableResend = false;
-  void resendCode() {
+  void resendCode(String email) {
     secondsRemaining = 30;
     enableResend = false;
+    generateOtp(email);
     update();
   }
 
@@ -43,9 +44,6 @@ class OtpController extends GetxController {
       {
         final String result = await _repo.generateOtp(email);
         ToastMessage.message(result, type: ToastType.info);
-        if (globalContext!.mounted) {
-          globalContext?.push('${PagePath.registerEmailOtp}/$email');
-        }
       }
     } catch (e) {
       ToastMessage.message(e.toString(), type: ToastType.error);

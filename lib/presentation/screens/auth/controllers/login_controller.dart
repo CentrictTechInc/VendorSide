@@ -12,9 +12,16 @@ import 'package:vendor_app/domain/entity/user_model.dart';
 import 'package:vendor_app/domain/repository/auth_repositpory.dart';
 
 class LoginController extends GetxController {
+  @override
+  void onReady() {
+    super.onReady();
+    if (LocalStorageService.instance.user?.token != null) {
+      globalContext?.go(PagePath.slash);
+    }
+  }
+
   final passToggle = false.obs;
   final AuthRepository _repo = AuthRepositoryImpl();
-  // final otpController = Get.find<OtpController>();
   final TextEditingController emailController =
       TextEditingController(text: "bapak12711@dixiser.com");
   final TextEditingController passController =
@@ -28,21 +35,17 @@ class LoginController extends GetxController {
       UserModel res =
           await _repo.login(emailController.text, passController.text);
       LocalStorageService.instance.user = res;
-      if (res.emailVerified == false) {
-        GenerateOtpService().generateOtp(_repo, emailController.text);
-        globalContext
-            ?.push("${PagePath.registerEmailOtp}/${emailController.text}");
-        ToastMessage.message("Please Verify Email", type: ToastType.warn);
-        return;
-      }
+
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
       globalContext?.go(PagePath.slash);
     } catch (e) {
-      if (e.toString().toLowerCase().contains('email was not verified')) {
-        //  generateOtp otpController.(emailController.text);
-        // generateOtp(email);
+      if (e.toString().contains('Email Was Not verified')) {
+        GenerateOtpService().generateOtp(_repo, emailController.text);
+        globalContext
+            ?.push("${PagePath.registerEmailOtp}/${emailController.text}");
+        ToastMessage.message(e.toString(), type: ToastType.warn);
 
         return;
       }

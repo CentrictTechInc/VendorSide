@@ -13,12 +13,14 @@ import 'package:vendor_app/presentation/screens/automotive_warranty/controller/a
 import 'package:vendor_app/presentation/screens/bottom_nav/Main_screen.dart';
 import 'package:vendor_app/presentation/screens/bottom_nav/controller/botton_nav_controller.dart';
 import 'package:vendor_app/presentation/screens/contact_us/contact_us_screen.dart';
+import 'package:vendor_app/presentation/screens/contact_us/controller/contact_us_controller.dart';
 import 'package:vendor_app/presentation/screens/manage_services/controller/manage_services_controller.dart';
 import 'package:vendor_app/presentation/screens/manage_services/manage_services_screen.dart';
 import 'package:vendor_app/presentation/screens/password_screens/controllers/pass_controller.dart';
 import 'package:vendor_app/presentation/screens/password_screens/create_new_password.dart';
 import 'package:vendor_app/presentation/screens/password_screens/forgot_password_screen.dart';
-import 'package:vendor_app/presentation/screens/profile_module/edit_screen.dart';
+import 'package:vendor_app/presentation/screens/profile_module/controller/profile_controller.dart';
+import 'package:vendor_app/presentation/screens/profile_module/profile_edit_screen.dart';
 import 'package:vendor_app/presentation/screens/profile_module/profile_screen.dart';
 import 'package:vendor_app/presentation/screens/review/review_screen.dart';
 import 'package:vendor_app/presentation/screens/schedule/schedule_screen.dart';
@@ -50,6 +52,8 @@ class AppRouter {
               GoRoute(
                   path: PagePath.contact,
                   builder: (context, state) {
+                    Get.lazyPut<ContactUsContoller>(() => ContactUsContoller());
+
                     return ContactUsScreen();
                   }),
               GoRoute(
@@ -65,12 +69,17 @@ class AppRouter {
               GoRoute(
                   path: PagePath.profile,
                   builder: (context, state) {
+                    Get.lazyPut<ProfileController>(() => ProfileController());
+
                     return ProfileScreen();
                   },
                   routes: [
                     GoRoute(
                         path: PagePath.profileEdit,
                         builder: (context, state) {
+                          Get.lazyPut<ProfileController>(
+                              () => ProfileController());
+
                           return EditProfileScreen();
                         }),
                   ]),
