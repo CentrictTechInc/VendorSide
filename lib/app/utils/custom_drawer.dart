@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +19,7 @@ class CustomDrawer extends StatelessWidget {
   CustomDrawer({
     super.key,
   });
-
+  final String? pic = LocalStorageService.instance.userPic;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -52,16 +54,24 @@ class CustomDrawer extends StatelessWidget {
                             width: 0.25,
                           ),
                           borderRadius: BorderRadius.circular(70)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(70),
-                        child: const NetWorkImageWithInitials(
-                          imageUrl: Drawables.personUrl,
-                          name: "a",
-                          backgroundColor: AppColors.whiteGreyish,
-                          textColor: AppColors.black,
-                          fontSize: 36,
-                        ),
-                      ),
+                      child: pic != null
+                          ? CircleAvatar(
+                              backgroundImage: pic == null
+                                  ? null
+                                  : FileImage(
+                                      File(pic!),
+                                    ),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(70),
+                              child: const NetWorkImageWithInitials(
+                                imageUrl: Drawables.personUrl,
+                                name: "a",
+                                backgroundColor: AppColors.whiteGreyish,
+                                textColor: AppColors.black,
+                                fontSize: 36,
+                              ),
+                            ),
                     ),
                     const VerticalSpacing(15),
                     CommonText(

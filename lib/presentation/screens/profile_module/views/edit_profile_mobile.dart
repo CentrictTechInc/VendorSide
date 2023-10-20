@@ -36,10 +36,16 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
     ))
         ?.files;
     c.file = File(result!.first.path!);
+    // c.file = await c.file?.copy(c.file!.path);
+    // Directory dupPath = await getApplicationDocumentsDirectory();
+    // String tempPath = dupPath.path;
+    LocalStorageService.instance.userPicture = "${c.file?.path}";
+    print("Picture: ${LocalStorageService.instance.userPic}");
     c.update();
     isSelected = true;
   }
 
+  final String? pic = LocalStorageService.instance.userPic;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -63,28 +69,24 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
                       child: Stack(
                         children: [
                           Container(
-                            width: 115,
-                            height: 115,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: AppColors.grey.withOpacity(0.5),
-                                  width: 0.25,
-                                ),
-                                borderRadius: BorderRadius.circular(70)),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(70),
-                              child: c.file == null
-                                  ? const NetWorkImageWithInitials(
-                                      imageUrl: Drawables.personUrl,
-                                      name: "Shaheer",
-                                    )
-                                  : Image.file(
-                                      c.file!,
-                                      // height: 100,
-                                      // width: 100,
-                                    ),
-                            ),
-                          ),
+                              width: 115,
+                              height: 115,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: AppColors.grey.withOpacity(0.5),
+                                    width: 0.25,
+                                  ),
+                                  borderRadius: BorderRadius.circular(70)),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(70),
+                                  child: c.file == null
+                                      ? const NetWorkImageWithInitials(
+                                          imageUrl: Drawables.personUrl,
+                                          name: "Shaheer",
+                                        )
+                                      : Image.file(
+                                          c.file!,
+                                        ))),
                           Positioned(
                             bottom: 2,
                             right: 0,

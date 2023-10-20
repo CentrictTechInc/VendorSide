@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/network_image_with_initials.dart';
@@ -11,8 +14,9 @@ import 'package:vendor_app/presentation/screens/profile_module/components/profil
 import 'package:vendor_app/presentation/screens/profile_module/controller/profile_controller.dart';
 
 class ProfileScreenMobile extends StatelessWidget {
-  const ProfileScreenMobile({super.key, required this.onPressed});
+  ProfileScreenMobile({super.key, required this.onPressed});
   final VoidCallback onPressed;
+  final String? pic = LocalStorageService.instance.userPic;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +51,21 @@ class ProfileScreenMobile extends StatelessWidget {
                               width: 0.25,
                             ),
                             borderRadius: BorderRadius.circular(70)),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(70),
-                          child: const NetWorkImageWithInitials(
-                            imageUrl: Drawables.personUrl,
-                            name: "Shaheer",
-                          ),
-                        ),
+                        child: pic != null
+                            ? CircleAvatar(
+                                backgroundImage: pic == null
+                                    ? null
+                                    : FileImage(
+                                        File(pic!),
+                                      ),
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(70),
+                                child: const NetWorkImageWithInitials(
+                                  imageUrl: Drawables.personUrl,
+                                  name: "Shaheer",
+                                ),
+                              ),
                       ),
                     ),
                     const VerticalSpacing(20),

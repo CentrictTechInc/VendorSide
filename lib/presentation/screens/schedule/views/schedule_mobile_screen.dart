@@ -319,34 +319,57 @@ class ScheduleMobileScreen extends StatelessWidget {
                         ],
                       ),
                       const VerticalSpacing(20),
-                      Obx(() {
-                        return Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: TabButton(
-                                name: "Central",
-                                height: 44,
-                                radius: 14,
-                                highlighted: controller.timeStandard.value,
-                                onPressed: () =>
-                                    controller.timeStandard.toggle(),
-                              ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: TabButton(
+                              name: "Central",
+                              height: 44,
+                              radius: 14,
+                              highlighted: controller.timeStandard == 0,
+                              onPressed: () => controller.changetime(0),
                             ),
-                            Expanded(
-                              child: TabButton(
-                                name: "Eastern",
-                                height: 44,
-                                radius: 14,
-                                highlighted: !controller.timeStandard.value,
-                                onPressed: () {
-                                  controller.timeStandard.toggle();
-                                },
-                              ),
+                          ),
+                          Expanded(
+                            child: TabButton(
+                              name: "Eastern",
+                              height: 44,
+                              radius: 14,
+                              highlighted: controller.timeStandard == 1,
+                              onPressed: () {
+                                controller.changetime(1);
+                              },
                             ),
-                          ],
-                        );
-                      }),
+                          ),
+                        ],
+                      ),
+                      const VerticalSpacing(20),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: TabButton(
+                              name: "Mountain",
+                              height: 44,
+                              radius: 14,
+                              highlighted: controller.timeStandard == 2,
+                              onPressed: () => controller.changetime(2),
+                            ),
+                          ),
+                          Expanded(
+                            child: TabButton(
+                              name: "Pacific",
+                              height: 44,
+                              radius: 14,
+                              highlighted: controller.timeStandard == 3,
+                              onPressed: () {
+                                controller.changetime(3);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                       Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(

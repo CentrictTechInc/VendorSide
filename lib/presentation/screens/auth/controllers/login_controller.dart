@@ -15,7 +15,7 @@ class LoginController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    if (LocalStorageService.instance.user?.token != null) {
+    if (LocalStorageService.instance.user != null) {
       globalContext?.go(PagePath.slash);
     }
   }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
@@ -115,7 +117,7 @@ class CommonAppBar extends StatelessWidget {
           if (showProfile)
             InkWell(
               onTap: () =>
-                  context.go(PagePath.homeScreen + PagePath.profile.toRoute),
+                  context.go(PagePath.slash + PagePath.profile.toRoute),
               child: Container(
                 width: 40,
                 height: 40,
@@ -127,11 +129,21 @@ class CommonAppBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(70)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(70),
-                  child: NetWorkImageWithInitials(
-                    imageUrl:
-                        "https://zakrademos.com/professional/wp-content/uploads/sites/46/2021/02/team2.jpg",
-                    name: LocalStorageService.instance.user?.vendoremail,
-                  ),
+                  child: LocalStorageService.instance.userPic != null
+                      ? CircleAvatar(
+                          backgroundImage: LocalStorageService
+                                      .instance.userPic ==
+                                  null
+                              ? null
+                              : FileImage(
+                                  File(LocalStorageService.instance.userPic!),
+                                ),
+                        )
+                      : NetWorkImageWithInitials(
+                          imageUrl:
+                              "https://zakrademos.com/professional/wp-content/uploads/sites/46/2021/02/team2.jpg",
+                          name: LocalStorageService.instance.user?.vendoremail,
+                        ),
                 ),
               ),
             )

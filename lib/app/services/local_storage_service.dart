@@ -4,7 +4,7 @@ import 'package:vendor_app/data/dto/user_dto.dart';
 import 'package:vendor_app/domain/entity/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum Key { user, fcmToken }
+enum Key { user, fcmToken, pic }
 
 class LocalStorageService {
   SharedPreferences? _prefs;
@@ -30,6 +30,22 @@ class LocalStorageService {
     } else {
       _prefs?.remove(Key.user.toString());
     }
+  }
+
+  set userPicture(String? path) {
+    if (path != null) {
+      _prefs?.setString(Key.pic.name, path);
+    } else {
+      _prefs?.remove(Key.pic.name);
+    }
+  }
+
+  String? get userPic {
+    final pic = _prefs?.getString(Key.pic.name);
+    if (pic == null) {
+      return null;
+    }
+    return pic;
   }
 
   String? get fcmToken {
