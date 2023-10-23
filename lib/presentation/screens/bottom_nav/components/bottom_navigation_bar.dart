@@ -1,6 +1,9 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
+import 'package:vendor_app/app/utils/common_spacing.dart';
+import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/presentation/screens/bottom_nav/controller/botton_nav_controller.dart';
 
@@ -36,12 +39,19 @@ class HomeBottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Obx(() {
-                return ImageIcon(
-                  AssetImage(controller.iconList[index]),
-                  size: 25,
-                  color: controller.tabIndex.value == index
-                      ? AppColors.secondary
-                      : AppColors.grey,
+                return Column(
+                  children: [
+                    ImageIcon(
+                      AssetImage(controller.iconList[index]),
+                      size: 25,
+                      color: controller.tabIndex.value == index
+                          ? AppColors.secondary
+                          : AppColors.grey,
+                    ),
+                    VerticalSpacing(1.h),
+                    CommonText(
+                        text: controller.titleList[index], fontSize: 7.sp),
+                  ],
                 );
               }),
             ],

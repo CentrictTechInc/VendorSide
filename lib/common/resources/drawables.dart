@@ -8,7 +8,7 @@ class Drawables {
   static const noDataIcon = "assets/images/empty_box.gif";
 
   static const personUrl =
-      "https://imgv3.fotor.com/images/gallery/AI-3D-Female-Profile-Picture.jpg";
+      "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1600";
 }
 
 class ServiceIcons {

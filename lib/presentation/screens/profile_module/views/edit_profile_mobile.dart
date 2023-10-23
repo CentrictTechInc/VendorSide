@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +15,7 @@ import 'package:vendor_app/presentation/screens/profile_module/components/profil
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/presentation/screens/profile_module/controller/profile_controller.dart';
 
+// ignore: must_be_immutable
 class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
   EditProfileScreenMobile({super.key});
   final GlobalKey<FormState> editForm = GlobalKey<FormState>();
@@ -36,11 +36,8 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
     ))
         ?.files;
     c.file = File(result!.first.path!);
-    // c.file = await c.file?.copy(c.file!.path);
-    // Directory dupPath = await getApplicationDocumentsDirectory();
-    // String tempPath = dupPath.path;
+
     LocalStorageService.instance.userPicture = "${c.file?.path}";
-    print("Picture: ${LocalStorageService.instance.userPic}");
     c.update();
     isSelected = true;
   }
@@ -102,7 +99,6 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
                               ),
                               onTap: () {
                                 pickFile(c);
-                                print("object");
                               },
                             ),
                           )

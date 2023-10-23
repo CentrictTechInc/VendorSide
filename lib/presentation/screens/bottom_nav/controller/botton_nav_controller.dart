@@ -16,4 +16,10 @@ class BottomNavController extends GetxController {
     RGIcons.messages,
     RGIcons.bell,
   ];
+  final titleList = [
+    'Home',
+    'Orders',
+    'Messages',
+    'Notifications',
+  ];
 }

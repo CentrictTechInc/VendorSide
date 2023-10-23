@@ -75,7 +75,7 @@ class CustomDrawer extends StatelessWidget {
                     ),
                     const VerticalSpacing(15),
                     CommonText(
-                      text: 'Mrs. Hussain',
+                      text: 'Hussain',
                       fontSize: 16.sp,
                       textAlign: TextAlign.start,
                       color: AppColors.white,

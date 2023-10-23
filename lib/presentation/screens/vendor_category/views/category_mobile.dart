@@ -48,7 +48,7 @@ class CategoryMobile extends StatelessWidget with FieldsValidation {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                 child: CommonText(
-                  text: Strings.signupCharges,
+                  text: Strings.categoryText,
                   fontSize: 15,
                   textAlign: TextAlign.center,
                   color: AppColors.grey,

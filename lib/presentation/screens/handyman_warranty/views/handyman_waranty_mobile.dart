@@ -33,6 +33,13 @@ class HandymanWarantyMobileScreen extends StatelessWidget
                     headFontSize: 15,
                   ),
                   ExpansionTile(
+                      maintainState: true,
+                      initiallyExpanded: true,
+                      shape: Border.all(color: Colors.transparent, width: 0),
+                      collapsedShape:
+                          Border.all(color: Colors.transparent, width: 0),
+                      tilePadding: EdgeInsets.zero,
+                      childrenPadding: EdgeInsets.zero,
                       title: CommonTextRow(
                         text: "Service Warranty",
                         icon: RGIcons.suitcase1,

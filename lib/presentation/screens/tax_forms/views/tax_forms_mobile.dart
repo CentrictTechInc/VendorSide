@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +42,6 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
           ),
           VerticalSpacing(7.5.h),
           Container(
-            // constraints: BoxConstraints(minHeight: context.height - 250),
             width: context.width,
             padding: const EdgeInsets.all(20),
             decoration: const BoxDecoration(
@@ -59,9 +57,9 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                     children: [
                       const VerticalSpacing(20),
                       const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30.0),
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
                         child: CommonText(
-                          text: Strings.signupCharges,
+                          text: Strings.taxForm,
                           fontSize: 15,
                           textAlign: TextAlign.center,
                           color: AppColors.grey,
@@ -81,17 +79,18 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                               topLabel: "EIN (W9 form)",
                               platformfile: taxFile,
                               onPress: () async {
-                                // final c = Get.find<TaxFromController>();
                                 FilePickerResult? result =
                                     await FilePicker.platform.pickFiles(
                                         withData: true,
                                         type: FileType.custom,
-                                        allowedExtensions: ['png']);
+                                        allowedExtensions: [
+                                      'png',
+                                      'jpg',
+                                      'pdf',
+                                    ]);
                                 taxFile = result?.files.first;
                                 File file = File(taxFile!.path!);
                                 controller.taxImage = file;
-                                // controller.taxImage = base64Encode(bytes!);
-                                print(controller.taxImage);
                                 controller.update();
                                 // if (false) {
                                 //   ToastMessage.message('Please select png image.');
@@ -129,7 +128,11 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                                     await FilePicker.platform.pickFiles(
                                         withData: true,
                                         type: FileType.custom,
-                                        allowedExtensions: ['png']);
+                                        allowedExtensions: [
+                                      'png',
+                                      'jpg',
+                                      'pdf',
+                                    ]);
                                 insuranceFile = result?.files.first;
                                 File insuranceImage =
                                     File(insuranceFile!.path!);
@@ -157,9 +160,7 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                         child: CommonTextButton(
                             onPressed: () async {
                               if (taxFile != null && insuranceFile != null) {
-                                // context.go(PagePath.automotiveService);
                                 int id = await controller.uploadTaxForm();
-                                print(id);
                                 await controller.uploadPLIForm(
                                   certificateId: id,
                                 );
