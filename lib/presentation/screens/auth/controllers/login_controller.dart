@@ -22,10 +22,8 @@ class LoginController extends GetxController {
 
   final passToggle = false.obs;
   final AuthRepository _repo = AuthRepositoryImpl();
-  final TextEditingController emailController =
-      TextEditingController(text: "bapak12711@dixiser.com");
-  final TextEditingController passController =
-      TextEditingController(text: "Test@123");
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   Future login() async {

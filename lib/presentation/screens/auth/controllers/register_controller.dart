@@ -18,19 +18,19 @@ class RegisterController extends GetxController {
 
   final GlobalKey<FormState> signUpForm = GlobalKey<FormState>();
   final VendorRegistrationDto registerModel = VendorRegistrationDto(
-      vid: 0,
-      vendortype: TextEditingController(text: 'test'),
-      vendorCompanyName: TextEditingController(text: 'test'),
-      vendoraddress: TextEditingController(text: 'test'),
-      vendorCity: TextEditingController(text: 'test'),
-      vendorRegion: TextEditingController(text: 'test'),
-      vendorPostalcode: TextEditingController(text: 'test'),
-      vendorMobileDetail: TextEditingController(text: '0323321652'),
-      firstName: TextEditingController(text: 'test'),
-      lastName: TextEditingController(text: 'test'),
-      jobTitle: TextEditingController(text: 'test'),
+      vid: 1,
+      vendortype: TextEditingController(),
+      vendorCompanyName: TextEditingController(),
+      vendoraddress: TextEditingController(),
+      vendorCity: TextEditingController(),
+      vendorRegion: TextEditingController(),
+      vendorPostalcode: TextEditingController(),
+      vendorMobileDetail: TextEditingController(),
+      firstName: TextEditingController(),
+      lastName: TextEditingController(),
+      jobTitle: TextEditingController(),
       vendoremail: TextEditingController(),
-      vendorPassword: TextEditingController(text: 'Test@123'),
+      vendorPassword: TextEditingController(),
       isActive: true,
       serviceTypeId: 0);
 
