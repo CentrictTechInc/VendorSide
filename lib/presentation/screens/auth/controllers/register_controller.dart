@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/toast_message.dart';
@@ -39,6 +40,7 @@ class RegisterController extends GetxController {
 
       String res = await _repo.register(registerModel);
       if (res == "User Already Exist") {
+        LocalStorageService.instance.logoutUser();
         globalContext?.go(PagePath.login);
         ToastMessage.message(res, type: ToastType.info);
         return;

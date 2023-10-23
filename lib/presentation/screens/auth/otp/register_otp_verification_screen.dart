@@ -48,6 +48,7 @@ class RegisterEmailOtpScreen extends StatelessWidget {
                     text: 'Email Verification',
                     fontSize: 25.sp,
                     weight: FontWeight.bold,
+                    textAlign: TextAlign.center,
                   ),
                   const VerticalSpacing(40),
                   SizedBox(
