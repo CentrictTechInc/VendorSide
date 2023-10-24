@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
@@ -7,6 +8,7 @@ import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
+import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/resources/strings.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/components/common_text_icon_row.dart';
 import 'package:vendor_app/presentation/screens/handyman_warranty/components/radio_text_widget.dart';
@@ -81,7 +83,9 @@ class HandymanWarantyMobileScreen extends StatelessWidget
                   VendorRatesWidget(),
                   const VerticalSpacing(60),
                   CommonTextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.go(PagePath.login);
+                    },
                     text: "SAVE",
                     color: AppColors.white,
                   ),

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_number_testfield.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
@@ -87,10 +88,15 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                         controller: controller.registerModel.vendoraddress,
                         hintText: 'Street Address',
                         validator: emptyFieldValidation,
-                        suffix: const ImageIcon(
-                          AssetImage(RGIcons.route),
-                          size: 20,
-                          color: AppColors.grey,
+                        suffix: InkWell(
+                          onTap: () {
+                            controller.getAddress();
+                          },
+                          child: const ImageIcon(
+                            AssetImage(RGIcons.route),
+                            size: 20,
+                            color: AppColors.primary,
+                          ),
                         ),
                       ),
                       const VerticalSpacing(20),
@@ -117,7 +123,7 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                       CommonTextField(
                         controller: controller.registerModel.vendorPostalcode,
                         hintText: 'Zip/Postal code',
-                        validator: emptyFieldValidation,
+                        validator: zipCodeOptionalValidation,
                         suffix: const ImageIcon(
                           AssetImage(RGIcons.mailBox),
                           size: 20,
@@ -222,6 +228,7 @@ class RegisterMobile extends StatelessWidget with FieldsValidation {
                                     const TextStyle(color: AppColors.primary),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
+                                    LocalStorageService.instance.logoutUser();
                                     context.go(PagePath.login);
                                   },
                               )

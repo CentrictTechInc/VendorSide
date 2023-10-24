@@ -51,6 +51,8 @@ dependencies:
   table_calendar: ^3.0.9
   mime: ^1.0.4
   path_provider: ^2.1.1
+  geocoding: ^2.1.1
+  geolocator: ^10.1.0
 
 dev_dependencies:
   flutter_test:
@@ -62,7 +64,16 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
 
+
+flutter_launcher_icons: 
+  image_path_android: "assets/images/logo_vendor.png"
+  image_path_ios: "assets/images/logo_vendor.png"
+  remove_alpha_ios: true
+  background_color_ios: "#FFFFFF"
+  android: true 
+  ios: true
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

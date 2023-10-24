@@ -48,9 +48,9 @@ class HomeBottomNavBar extends StatelessWidget {
                           ? AppColors.secondary
                           : AppColors.grey,
                     ),
-                    VerticalSpacing(1.h),
+                    const VerticalSpacing(4),
                     CommonText(
-                        text: controller.titleList[index], fontSize: 7.sp),
+                        text: controller.titleList[index], fontSize: 6.sp),
                   ],
                 );
               }),

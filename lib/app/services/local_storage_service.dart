@@ -66,5 +66,7 @@ class LocalStorageService {
 
   logoutUser() async {
     await _prefs?.remove(Key.user.toString());
+    await _prefs?.remove(Key.fcmToken.toString());
+    await _prefs?.remove(Key.pic.name);
   }
 }
