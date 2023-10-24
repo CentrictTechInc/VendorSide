@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
@@ -7,6 +8,7 @@ import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
+import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/steps/automotive_service_pricing.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/steps/warranty_amenities_step.dart';
@@ -94,6 +96,9 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
                               await controller.postWarrantyAndAmenitiesInfo();
                               controller.steps = 2;
                               cntrl.getAllServices();
+                            } else if (context.mounted &&
+                                controller.steps == 2) {
+                              context.go(PagePath.login);
                             }
                             controller.update();
                           },

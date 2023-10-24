@@ -33,6 +33,9 @@ class TaxFromController extends GetxController {
       return res.certificateid;
     } catch (e) {
       ToastMessage.message(e.toString());
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
       return 0;
     }
   }
@@ -57,7 +60,10 @@ class TaxFromController extends GetxController {
         globalContext?.go(PagePath.automotiveService);
       }
     } catch (e) {
-      ToastMessage.message(e.toString());
+      // ToastMessage.message(e.toString());
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
     }
   }
 }

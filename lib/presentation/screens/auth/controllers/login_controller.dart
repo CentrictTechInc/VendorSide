@@ -12,13 +12,13 @@ import 'package:vendor_app/domain/entity/user_model.dart';
 import 'package:vendor_app/domain/repository/auth_repositpory.dart';
 
 class LoginController extends GetxController {
-  @override
-  void onReady() {
-    super.onReady();
-    if (LocalStorageService.instance.user != null) {
-      globalContext?.go(PagePath.slash);
-    }
-  }
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  //   if (LocalStorageService.instance.user != null) {
+  //     globalContext?.go(PagePath.slash);
+  //   }
+  // }
 
   final passToggle = false.obs;
   final AuthRepository _repo = AuthRepositoryImpl();

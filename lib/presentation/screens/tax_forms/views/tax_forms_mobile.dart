@@ -85,8 +85,6 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                                         type: FileType.custom,
                                         allowedExtensions: [
                                       'png',
-                                      'jpg',
-                                      'pdf',
                                     ]);
                                 taxFile = result?.files.first;
                                 File file = File(taxFile!.path!);
@@ -130,8 +128,6 @@ class TaxFormMobile extends StatelessWidget with FieldsValidation {
                                         type: FileType.custom,
                                         allowedExtensions: [
                                       'png',
-                                      'jpg',
-                                      'pdf',
                                     ]);
                                 insuranceFile = result?.files.first;
                                 File insuranceImage =

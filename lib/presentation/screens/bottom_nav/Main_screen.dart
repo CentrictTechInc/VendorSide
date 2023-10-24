@@ -77,6 +77,9 @@ class MainBottomNavScreen extends StatelessWidget {
                           children: [
                             Obx(() {
                               return CommonAppBar(
+                                onNotificationPressed: () {
+                                  controller.changeTabIndex(3);
+                                },
                                 backButton: false,
                                 hamburger: true,
                                 text: controller.tabIndex.value == 0

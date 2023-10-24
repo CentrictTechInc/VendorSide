@@ -22,6 +22,7 @@ class CommonAppBar extends StatelessWidget {
       this.onEdit,
       // this.isText = false,
       this.hideBell = false,
+      this.onNotificationPressed,
       this.text = '',
       this.editButton = false,
       this.headFontSize});
@@ -35,6 +36,7 @@ class CommonAppBar extends StatelessWidget {
   final String text;
   final VoidCallback? onDrawerPressed;
   final VoidCallback? onEdit;
+  final VoidCallback? onNotificationPressed;
   final double? headFontSize;
 
   @override
@@ -99,13 +101,7 @@ class CommonAppBar extends StatelessWidget {
               : hideBell
                   ? const Spacer()
                   : IconButton(
-                      onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => NotificationScreen(),
-                        //     ));
-                      },
+                      onPressed: onNotificationPressed,
                       splashColor: AppColors.grey.withOpacity(0.15),
                       highlightColor: AppColors.grey.withOpacity(0.15),
                       hoverColor: AppColors.grey.withOpacity(0.15),
@@ -116,8 +112,7 @@ class CommonAppBar extends StatelessWidget {
                       )),
           if (showProfile)
             InkWell(
-              onTap: () =>
-                  context.go(PagePath.slash + PagePath.profile.toRoute),
+              onTap: () => context.go(PagePath.profile.toRoute),
               child: Container(
                 width: 40,
                 height: 40,
