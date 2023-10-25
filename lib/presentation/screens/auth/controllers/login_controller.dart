@@ -4,12 +4,14 @@ import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
 import 'package:vendor_app/app/services/generate_otp_service.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
+import 'package:vendor_app/app/services/notification_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/data/repository/auth_repository.dart';
 import 'package:vendor_app/domain/entity/user_model.dart';
 import 'package:vendor_app/domain/repository/auth_repositpory.dart';
+import 'package:vendor_app/presentation/screens/chat/controllers/fb_msg_service.dart';
 
 class LoginController extends GetxController {
   // @override
@@ -22,8 +24,10 @@ class LoginController extends GetxController {
 
   final passToggle = false.obs;
   final AuthRepository _repo = AuthRepositoryImpl();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passController = TextEditingController();
+  final TextEditingController emailController =
+      TextEditingController(text: "tedimib710@scubalm.com");
+  final TextEditingController passController =
+      TextEditingController(text: "Test@123");
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   Future login() async {
@@ -33,6 +37,10 @@ class LoginController extends GetxController {
       UserModel res =
           await _repo.login(emailController.text, passController.text);
       LocalStorageService.instance.user = res;
+      FirebaseMessagingService.instance.addUserToFirebase();
+      NotificationService.intance.sendNotification(
+          "Welcome ${LocalStorageService.instance.user?.vendoremail ?? ''}",
+          "You have successfully logged in");
 
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();

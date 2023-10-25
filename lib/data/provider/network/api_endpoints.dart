@@ -26,4 +26,7 @@ class APIEndpoint {
 
   //--------------Contact Us---------------
   static String get contactUsUrl => '/api/Account/Client/ContactUs';
+
+  //------------Nofication----------------
+  static String get notificationUrl => '/Notification/Notifications';
 }

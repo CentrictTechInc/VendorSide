@@ -31,8 +31,8 @@ class MessageCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => ChatScreen(
-                  // document: document,
-                  ),
+                document: document,
+              ),
             ));
       },
       child: Container(

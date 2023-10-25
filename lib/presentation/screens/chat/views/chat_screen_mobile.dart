@@ -9,6 +9,7 @@ import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/domain/entity/message_model.dart';
 import 'package:vendor_app/domain/entity/user_msg.dart';
 import 'package:sizer/sizer.dart';
+import 'package:vendor_app/presentation/screens/chat/controllers/fb_msg_service.dart';
 
 class ChatMobileScreen extends StatefulWidget {
   const ChatMobileScreen({super.key, this.document});
@@ -19,7 +20,7 @@ class ChatMobileScreen extends StatefulWidget {
 }
 
 class _ChatMobileScreenState extends State<ChatMobileScreen> {
-  ScrollController _scrollController = new ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +31,11 @@ class _ChatMobileScreenState extends State<ChatMobileScreen> {
     Future sendMessage() async {
       if (messageController.text.trim() != '') {
         textMsg = messageController.text.trimLeft().trimRight();
+
         messageController.clear();
 
-        ///TODO:
-        ///impement the send msg calling.
+        FirebaseMessagingService.instance
+            .sendMessage(data.uid.toString(), textMsg, data.email);
         _scrollController.animateTo(
           0.0,
           curve: Curves.easeOut,
@@ -143,27 +145,24 @@ class _ChatMobileScreenState extends State<ChatMobileScreen> {
 
   Widget messgaeList(otherUserId) {
     return StreamBuilder(
-      stream: null,
-      // stream: ref
-      //     .read(firebaseMsgNotifierProvider.notifier)
-      //     .getMessage(otherUserId.toString()),
+      stream:
+          FirebaseMessagingService.instance.getMessage(otherUserId.toString()),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Text("Has error");
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: const CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else {
           return ListView.builder(
             shrinkWrap: true,
             reverse: true,
             controller: _scrollController,
-            // itemCount: snapshot.data!.docs.length,
+            itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
-              // final messageData =
-              //     snapshot.data!.docs[index].data() as Map<String, dynamic>;
-              final message =
-                  MessageModel.fromMap(snapshot.data as Map<String, dynamic>);
+              final messageData =
+                  snapshot.data!.docs[index].data() as Map<String, dynamic>;
+              final message = MessageModel.fromMap(messageData);
 
               return Container(child: buildMessage(message));
             },

@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "341378575671",
+    "project_id": "repair-guru-dev",
+    "storage_bucket": "repair-guru-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341378575671:android:c9d31409b07222131d7eb2",
+        "android_client_info": {
+          "package_name": "com.centric.repair_guru"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "341378575671-rf598j9esppvc3ups884m4ngae05rhkt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjvmr4LX5KOrXiSKnH2DXWsjM31cnQU2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "341378575671-rf598j9esppvc3ups884m4ngae05rhkt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "341378575671-1vu8qdadh58n7vrvs87f59dj3n53s130.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.centric.repairgurumobileapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341378575671:android:d703c2cb1a4ee3031d7eb2",
+        "android_client_info": {
+          "package_name": "com.example.vendor_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "341378575671-rf598j9esppvc3ups884m4ngae05rhkt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjvmr4LX5KOrXiSKnH2DXWsjM31cnQU2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "341378575671-rf598j9esppvc3ups884m4ngae05rhkt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "341378575671-1vu8qdadh58n7vrvs87f59dj3n53s130.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.centric.repairgurumobileapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

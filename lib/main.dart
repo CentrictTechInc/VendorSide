@@ -1,15 +1,18 @@
 import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/app.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
+import 'package:vendor_app/firbase_push_notification.dart';
+import 'package:vendor_app/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocalStorageService.instance.init();
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   HttpOverrides.global = MyHttpOverrides();
-  // await FirebaseApi().initNotifications();
+  await FirebaseApi().initNotifications();
 
   runApp(const RepairGuruVendor());
 }
