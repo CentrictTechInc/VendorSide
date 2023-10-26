@@ -37,9 +37,9 @@ class LoginController extends GetxController {
       UserModel res =
           await _repo.login(emailController.text, passController.text);
       LocalStorageService.instance.user = res;
-      FirebaseMessagingService.instance.addUserToFirebase();
-      NotificationService.intance.sendNotification(
-          "Welcome ${LocalStorageService.instance.user?.vendoremail ?? ''}",
+      await FirebaseMessagingService.instance.addUserToFirebase();
+      await NotificationService.intance.sendNotification(
+          "Welcome ${LocalStorageService.instance.user?.vendoremail.split('@')[0] ?? ''}",
           "You have successfully logged in");
 
       if (ShowDialogBox.isOpen) {
