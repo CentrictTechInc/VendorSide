@@ -9,7 +9,6 @@ import 'package:vendor_app/common/resources/strings.dart';
 import 'package:vendor_app/domain/entity/services_model.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/components/common_text_icon_row.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
-import 'package:vendor_app/presentation/screens/handyman_warranty/components/radio_text_widget.dart';
 import 'package:vendor_app/presentation/screens/manage_services_pages/components/price_widget.dart';
 
 class AutomotiveServicePricing extends StatelessWidget {
@@ -49,35 +48,6 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
   ServicePricingWidget({required this.service, super.key});
   final ServicesModel service;
 
-  List<String> alphabet = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z",
-  ];
-  // final controller = Get.find<ServiceController>();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ServiceController>(
@@ -145,7 +115,7 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                         // ),
                         CommonText(
                           text:
-                              "${alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
+                              "${controller.alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
                           fontSize: 14,
                         ),
                         const VerticalSpacing(10),
@@ -157,7 +127,9 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                               isSelected: service.isSelected ?? false,
                               validator: service.isSelected!
                                   ? emptyFieldValidation
-                                  : (p0) {},
+                                  : (p0) {
+                                      return null;
+                                    },
                               onChanged: (p0) {
                                 if (p0.isEmpty) {
                                   service.listSubServiceName[index]!

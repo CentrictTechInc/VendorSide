@@ -39,8 +39,9 @@ class LoginController extends GetxController {
       LocalStorageService.instance.user = res;
       await FirebaseMessagingService.instance.addUserToFirebase();
       await NotificationService.intance.sendNotification(
-          "Welcome ${LocalStorageService.instance.user?.vendoremail.split('@')[0] ?? ''}",
-          "You have successfully logged in");
+        "Repair Guru - Login Alert",
+        "Dear ${LocalStorageService.instance.user?.vendoremail.split('@')[0] ?? ''}, you have successfully logged into RG Vendor App at  ${DateTime.now().toString().split('.')[0]}",
+      );
 
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
