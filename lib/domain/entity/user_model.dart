@@ -1,19 +1,27 @@
 class UserModel {
-  int vid;
-  String vendoremail;
-  String token;
-  dynamic jobTitle;
-  String vendorMobileDetail;
-  bool emailVerified;
-  String vendoraddress;
+  int? vid;
+  String? vendoremail;
+  String? firstName;
+  String? lastName;
+  String? token;
+  String? jobTitle;
+  String? vendorMobileDetail;
+  bool? emailVerified;
+  String? vendoraddress;
+  // String? longitude;
+  // String? latitude;
 
   UserModel({
-    required this.vid,
-    required this.vendoremail,
-    required this.token,
-    required this.jobTitle,
-    required this.vendorMobileDetail,
-    required this.emailVerified,
-    required this.vendoraddress,
+    this.vid,
+    this.vendoremail,
+    this.token,
+    this.jobTitle,
+    this.vendorMobileDetail,
+    this.emailVerified,
+    this.vendoraddress,
+    this.firstName,
+    this.lastName,
+    // this.longitude,
+    // this.latitude,
   });
 }

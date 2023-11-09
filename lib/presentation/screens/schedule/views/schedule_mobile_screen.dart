@@ -12,6 +12,7 @@ import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/presentation/screens/schedule/controllers/task_schedule_controller.dart';
 import 'package:vendor_app/presentation/screens/tasks/components/tab_button.dart';
 
+// ignore: must_be_immutable
 class ScheduleMobileScreen extends StatelessWidget {
   ScheduleMobileScreen({this.onPressed, super.key});
 

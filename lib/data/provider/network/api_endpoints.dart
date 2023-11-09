@@ -1,6 +1,6 @@
 class APIEndpoint {
   static String get baseUrl =>
-      'ec2-3-110-46-6.ap-south-1.compute.amazonaws.com';
+      'ec2-3-110-103-5.ap-south-1.compute.amazonaws.com';
   // ---------------- Authorization --------------------
   static String get loginUrl => '/api/Account/VendorLogin';
   static String get registerUrl => '/api/Account/vendor/Registration';
@@ -19,14 +19,19 @@ class APIEndpoint {
   static String get getAllServicesUrl => '/Services/GetAllServices';
 
   // ---------------- Profile --------------------
-  static String get getProfileDetailsUrl =>
-      '/api/Account/Client/GetProfileDetails';
-  static String get postProfileDetailsUrl =>
-      "/api/Account/Client/PostProfileDetails";
+  static String get getProfileDetailsUrl => '/api/Account/Vendor/VendorById';
+  static String get postProfileDetailsUrl => "/api/Account/Vendor/VendorById";
 
   //--------------Contact Us---------------
   static String get contactUsUrl => '/api/Account/Client/ContactUs';
 
   //------------Nofication----------------
   static String get notificationUrl => '/Notification/Notifications';
+
+  //------------Training and Amenities + Services----------------
+  static String get trainingAndAmenitiesUrl =>
+      '/api/Account/Vendor/TrainingAndAminities';
+
+  static String get servicePackagePricingUrl =>
+      '/api/Account/ServicePackagePricing';
 }

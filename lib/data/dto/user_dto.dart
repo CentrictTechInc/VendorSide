@@ -1,17 +1,20 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 import 'package:vendor_app/domain/entity/user_model.dart';
 
 class UserDto extends UserModel {
   UserDto({
-    required super.vid,
-    required super.vendoremail,
-    required super.token,
-    required super.jobTitle,
-    required super.vendorMobileDetail,
-    required super.emailVerified,
-    required super.vendoraddress,
+    super.vid,
+    super.vendoremail,
+    super.firstName,
+    super.lastName,
+    super.token,
+    super.jobTitle,
+    super.vendorMobileDetail,
+    super.emailVerified,
+    super.vendoraddress,
+    // super.longitude,
+    // super.latitude,
   });
 
   factory UserDto.fromRawJson(String str) => UserDto.fromJson(json.decode(str));
@@ -21,6 +24,8 @@ class UserDto extends UserModel {
   factory UserDto.fromJson(Map<String, dynamic> json) => UserDto(
         vid: json["vid"],
         vendoremail: json["vendoremail"],
+        firstName: json["firstName"],
+        lastName: json["lastName"],
         token: json["token"],
         jobTitle: json["jobTitle"],
         vendorMobileDetail: json["vendorMobileDetail"],
@@ -32,6 +37,8 @@ class UserDto extends UserModel {
         "vid": vid,
         "vendoremail": vendoremail,
         "token": token,
+        "firstName": firstName,
+        "lastName": lastName,
         "jobTitle": jobTitle,
         "vendorMobileDetail": vendorMobileDetail,
         "emailVerified": emailVerified,

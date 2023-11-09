@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'package:vendor_app/data/dto/pli_form_dto.dart';
 import 'package:vendor_app/data/dto/registration_dto.dart';
-import 'package:vendor_app/data/dto/tax_form_dto.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
 import 'package:vendor_app/data/provider/network/api_provider.dart';
 import 'package:vendor_app/data/provider/network/api_request_representable.dart';

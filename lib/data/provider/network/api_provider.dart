@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:mime/mime.dart';
 import 'package:vendor_app/data/provider/network/api_request_representable.dart';
 
 class APIProvider {

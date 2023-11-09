@@ -20,9 +20,10 @@ class FirebaseMessagingService {
       final user = LocalStorageService.instance.user;
 
       UserMessageModel userData = UserMessageModel(
-          uid: user!.vid!,
-          email: user.vendoremail!,
-          userName: user.vendoremail.split('@')[0]);
+        uid: user!.vid!,
+        email: user.vendoremail!,
+        userName: user.firstName ?? "Vendor",
+      );
 
       await _firestore
           .collection('users')

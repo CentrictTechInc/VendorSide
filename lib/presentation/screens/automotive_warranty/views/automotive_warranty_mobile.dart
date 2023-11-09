@@ -70,8 +70,8 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
                       ),
                     ],
                   ),
-                  if (controller.steps == 1) AutomotiveWarrantyStep(),
-                  if (controller.steps == 2) AutomotiveServicePricing(),
+                  if (controller.steps == 1) const AutomotiveWarrantyStep(),
+                  if (controller.steps == 2) const AutomotiveServicePricing(),
                   const VerticalSpacing(40),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -117,6 +117,7 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
   }
 }
 
+// ignore: must_be_immutable
 class CircleText extends StatelessWidget {
   CircleText({
     super.key,

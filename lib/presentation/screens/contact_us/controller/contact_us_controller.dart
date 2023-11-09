@@ -23,11 +23,12 @@ class ContactUsContoller extends GetxController {
           phoneNumber: user?.vendorMobileDetail ?? "021",
           comment: comments);
       String res = await repo.contactUs(info);
+
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
       ToastMessage.message(
-          "Your request has been sent, we'll get back to you shortly",
+          "Your request has been sent, we'll get back to you shortly $res",
           type: ToastType.success);
     } catch (e) {
       ToastMessage.message(e.toString());

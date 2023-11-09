@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
-import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/presentation/screens/chat/components/message_card.dart';
@@ -19,7 +18,7 @@ class ChatUsers {
 }
 
 class InboxMobileScreen extends StatelessWidget {
-  InboxMobileScreen({super.key});
+  const InboxMobileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

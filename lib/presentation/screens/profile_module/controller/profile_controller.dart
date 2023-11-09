@@ -19,7 +19,7 @@ class ProfileController extends GetxController {
   Future getUserDetails() async {
     try {
       ShowDialogBox.showDialogBoxs(true);
-      int id = LocalStorageService.instance.user!.vid;
+      int id = LocalStorageService.instance.user!.vid!;
       user = await repo.getUserDetails(id);
       LocalStorageService.instance.user = UserDto(
           vendoraddress: user!.address,
