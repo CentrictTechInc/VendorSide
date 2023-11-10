@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/toast_message.dart';
@@ -22,8 +23,8 @@ class TaxFromController extends GetxController {
       // ShowDialogBox.showDialogBoxs(true);
       TaxFromDto data = TaxFromDto(
         fileName: "EIN(W9 Form)",
-        // vendorId: LocalStorageService.instance.user!.vid,
-        vendorId: 1,
+        vendorId: LocalStorageService.instance.user!.vid!,
+        // vendorId: 1,
       );
       final res = await repo.uploadTaxForm(data, taxImage);
       if (ShowDialogBox.isOpen) {

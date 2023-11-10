@@ -11,5 +11,5 @@ class TrainingAmenitierModel {
   final String? serviceWarranty;
   final String? certificateName;
   final String? trainingCertificate;
-  final String? amenities;
+  final List<String>? amenities;
 }

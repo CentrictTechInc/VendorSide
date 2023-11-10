@@ -4,13 +4,19 @@ import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
 import 'package:vendor_app/common/toast_message.dart';
+import 'package:vendor_app/data/dto/training_amenities_dto.dart';
+import 'package:vendor_app/data/repository/services_amenities_repository.dart';
 import 'package:vendor_app/data/repository/services_repository.dart';
 import 'package:vendor_app/domain/entity/services_model.dart';
 import 'package:vendor_app/domain/repository/service_repository.dart';
+import 'package:vendor_app/domain/repository/services_amenities_repository.dart';
 
 class AutomotiveWarrantyController extends GetxController {
+  ServicesAmenitiesRepository repo = ServicesAmenitiesRepositoryImpl();
+
   final radioButton = 0.obs;
   PlatformFile? platformFile;
   List<PlatformFile>? listplatformFile;
@@ -55,14 +61,26 @@ class AutomotiveWarrantyController extends GetxController {
       print("warranty Duration: $selectedValue");
       print("Amenities: $amenitiesCheckedList");
       print("Image Files: ${files}");
+      TrainingAmenitiesDto data = TrainingAmenitiesDto(
+        certificateName:
+            "Automotive Warranty of, {LocalStorageService.instance.user!.firstName}",
+        vid: LocalStorageService.instance.user!.vid!,
+        serviceWarranty: selectedValue,
+      );
+
+      final res =
+          repo.uploadTrainingAmenitiesForm(data, files!, amenitiesCheckedList);
       await Future.delayed(const Duration(seconds: 1));
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-      ToastMessage.message("Information Added Succesfully!",
+      ToastMessage.message("Information Added Succesfully!$res",
           type: ToastType.success);
     } catch (e) {
       ToastMessage.message(e.toString());
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
     }
   }
 }

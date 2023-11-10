@@ -30,6 +30,6 @@ class TrainingAmenitiesDto extends TrainingAmenitierModel {
         "ServiceWarranty": serviceWarranty,
         "CertificateName": certificateName,
         "TrainingCertificate": trainingCertificate,
-        "Amenities": amenities,
+        "Amenities": amenities == null ? [] : List<dynamic>.from(amenities!),
       };
 }
