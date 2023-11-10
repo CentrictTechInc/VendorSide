@@ -25,8 +25,13 @@ class ServicesAmenitiesRepositoryImpl extends ServicesAmenitiesRepository {
 
   @override
   Future<String> servicePackagePricing(ServicePricingDto data) async {
-    final res = await ServiceAmenitiesAPI.servicePackagePricing(data).request();
-    Map<String, dynamic> result = jsonDecode(res);
-    return result['message'];
+    try {
+      final res =
+          await ServiceAmenitiesAPI.servicePackagePricing(data).request();
+      Map<String, dynamic> result = jsonDecode(res);
+      return result['message'];
+    } catch (e) {
+      rethrow;
+    }
   }
 }

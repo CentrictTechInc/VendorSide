@@ -7,6 +7,7 @@ import 'package:vendor_app/app/app_router.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
 import 'package:vendor_app/common/toast_message.dart';
+import 'package:vendor_app/data/dto/service_pricing_dto.dart';
 import 'package:vendor_app/data/dto/training_amenities_dto.dart';
 import 'package:vendor_app/data/repository/services_amenities_repository.dart';
 import 'package:vendor_app/data/repository/services_repository.dart';
@@ -86,6 +87,7 @@ class AutomotiveWarrantyController extends GetxController {
 }
 
 class ServiceController extends GetxController {
+  ServicesAmenitiesRepository _repo = ServicesAmenitiesRepositoryImpl();
   var autoMotiveServiceList = <ServicesModel>[].obs;
   var homeImprovementServiceList = <ServicesModel>[].obs;
   double animatedHeight = 130;
@@ -119,6 +121,35 @@ class ServiceController extends GetxController {
   ];
 
   ServiceRepository repo = ServiceRepositoryImpl();
+  Future servicePackagePricing() async {
+    try {
+      ShowDialogBox.showDialogBoxs(true);
+      ServicePricingDto data = ServicePricingDto(servicePrices: <ServicePrice>[
+        ServicePrice(
+          serviceId: 1,
+          vendorId: 0,
+          serviceTypeId: 0,
+          subServiceId: 0,
+          subServiceName: "string",
+          serviceName: "string",
+          registerDate: "",
+          serviceCharges: 100,
+        ),
+      ]);
+      final res = _repo.servicePackagePricing(data);
+      await Future.delayed(const Duration(seconds: 1));
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
+      ToastMessage.message("Information Added Succesfully!$res",
+          type: ToastType.success);
+    } catch (e) {
+      ToastMessage.message(e.toString());
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
+    }
+  }
 
   Future getAllServices() async {
     if (autoMotiveServiceList.isNotEmpty) {

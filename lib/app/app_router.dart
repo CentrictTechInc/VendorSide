@@ -39,8 +39,8 @@ final globalContext = _rootNavigatorKey.currentContext;
 class AppRouter {
   static final router = GoRouter(
       navigatorKey: _rootNavigatorKey,
-      initialLocation: PagePath.automotiveService,
-      // initialLocation: PagePath.login,
+      // initialLocation: PagePath.automotiveService,
+      initialLocation: PagePath.login,
       routes: [
         GoRoute(
             path: PagePath.slash,

@@ -46,7 +46,8 @@ class LoginController extends GetxController {
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-      globalContext?.go(PagePath.slash);
+      // globalContext?.go(PagePath.slash);
+      globalContext?.go(PagePath.automotiveService);
     } catch (e) {
       if (e.toString().contains('Email Was Not verified')) {
         GenerateOtpService().generateOtp(_repo, emailController.text);
