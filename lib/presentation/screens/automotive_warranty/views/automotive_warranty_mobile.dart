@@ -98,7 +98,8 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
                               cntrl.getAllServices();
                             } else if (context.mounted &&
                                 controller.steps == 2) {
-                              context.go(PagePath.login);
+                              await cntrl.postServicePackagePricing();
+                              // context.go(PagePath.login);
                             }
                             controller.update();
                           },

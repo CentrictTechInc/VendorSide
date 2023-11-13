@@ -35,7 +35,7 @@ class ServicePrice {
   String? subServiceName;
   String? serviceName;
   String? registerDate;
-  int? serviceCharges;
+  double? serviceCharges;
 
   ServicePrice({
     this.vendorId,

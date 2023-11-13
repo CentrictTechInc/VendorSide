@@ -43,9 +43,7 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
           "Amenities": amenities
         };
       case ServiceAmenitiesAPIType.servicePackagePricing:
-        return {
-          "data": servicePricingDto!.toJson(),
-        };
+        return servicePricingDto?.toJson();
     }
   }
 
