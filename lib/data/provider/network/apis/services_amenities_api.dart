@@ -12,22 +12,19 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
   ServiceAmenitiesAPIType type;
   TrainingAmenitiesDto? amenitiesDto;
   ServicePricingDto? servicePricingDto;
-  List<String>? amenities;
   List<File>? certificateImage = [];
   ServiceAmenitiesAPI._(
       {required this.type,
       this.amenitiesDto,
       this.certificateImage,
-      this.servicePricingDto,
-      this.amenities});
+      this.servicePricingDto});
 
-  ServiceAmenitiesAPI.uploadTrainingAmenitiesForm(TrainingAmenitiesDto data,
-      List<File> trainingAmenitiesImage, List<String> amenities)
+  ServiceAmenitiesAPI.uploadTrainingAmenitiesForm(
+      TrainingAmenitiesDto data, List<File> trainingAmenitiesImage)
       : this._(
             type: ServiceAmenitiesAPIType.trainingAndAminities,
             amenitiesDto: data,
-            certificateImage: trainingAmenitiesImage,
-            amenities: amenities);
+            certificateImage: trainingAmenitiesImage);
 
   ServiceAmenitiesAPI.servicePackagePricing(ServicePricingDto data)
       : this._(
@@ -39,8 +36,7 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       case ServiceAmenitiesAPIType.trainingAndAminities:
         return {
           "data": amenitiesDto!.toJson(),
-          "TrainingCertificate": certificateImage,
-          "Amenities": amenities
+          "TrainingCertificate": certificateImage
         };
       case ServiceAmenitiesAPIType.servicePackagePricing:
         return {

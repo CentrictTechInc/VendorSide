@@ -9,10 +9,10 @@ import 'package:vendor_app/domain/repository/services_amenities_repository.dart'
 class ServicesAmenitiesRepositoryImpl extends ServicesAmenitiesRepository {
   @override
   Future<String> uploadTrainingAmenitiesForm(TrainingAmenitiesDto data,
-      List<File> trainingAmenitiesImage, List<String> amenities) async {
+      List<File> trainingAmenitiesImage) async {
     try {
       final res = await ServiceAmenitiesAPI.uploadTrainingAmenitiesForm(
-              data, trainingAmenitiesImage, amenities)
+              data, trainingAmenitiesImage)
           .request();
       print(res);
       Map<String, String> result = jsonDecode(res);
