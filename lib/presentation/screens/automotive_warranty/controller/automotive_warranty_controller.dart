@@ -69,13 +69,11 @@ class AutomotiveWarrantyController extends GetxController {
           serviceWarranty: selectedValue,
           amenities: amenitiesCheckedList);
 
-      final res = repo.uploadTrainingAmenitiesForm(data, files!);
-      await Future.delayed(const Duration(seconds: 1));
+      final res = await repo.uploadTrainingAmenitiesForm(data, files!);
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-      ToastMessage.message("Information Added Succesfully!$res",
-          type: ToastType.success);
+      ToastMessage.message(res, type: ToastType.success);
     } catch (e) {
       ToastMessage.message(e.toString());
       if (ShowDialogBox.isOpen) {
