@@ -24,7 +24,7 @@ class ServicesAmenitiesRepositoryImpl extends ServicesAmenitiesRepository {
   }
 
   @override
-  Future<String> servicePackagePricing(ServicePricingDto data) async {
+  Future<String> servicePackagePricing(List<ServicePrice> data) async {
     try {
       final res =
           await ServiceAmenitiesAPI.servicePackagePricing(data).request();

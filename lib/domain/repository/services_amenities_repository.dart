@@ -7,5 +7,5 @@ abstract class ServicesAmenitiesRepository {
   Future<String> uploadTrainingAmenitiesForm(TrainingAmenitiesDto data,
       List<File> trainingAmenitiesImage, List<String> amenities);
 
-  Future<String> servicePackagePricing(ServicePricingDto data);
+  Future<String> servicePackagePricing(List<ServicePrice> data);
 }

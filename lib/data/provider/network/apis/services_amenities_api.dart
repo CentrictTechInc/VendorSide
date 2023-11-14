@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:vendor_app/data/dto/service_pricing_dto.dart';
@@ -12,6 +13,7 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
   ServiceAmenitiesAPIType type;
   TrainingAmenitiesDto? amenitiesDto;
   ServicePricingDto? servicePricingDto;
+  List<ServicePrice>? listOfServicePrice;
   List<String>? amenities;
   List<File>? certificateImage = [];
   ServiceAmenitiesAPI._(
@@ -19,6 +21,7 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       this.amenitiesDto,
       this.certificateImage,
       this.servicePricingDto,
+      this.listOfServicePrice,
       this.amenities});
 
   ServiceAmenitiesAPI.uploadTrainingAmenitiesForm(TrainingAmenitiesDto data,
@@ -29,10 +32,10 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
             certificateImage: trainingAmenitiesImage,
             amenities: amenities);
 
-  ServiceAmenitiesAPI.servicePackagePricing(ServicePricingDto data)
+  ServiceAmenitiesAPI.servicePackagePricing(List<ServicePrice> data)
       : this._(
             type: ServiceAmenitiesAPIType.servicePackagePricing,
-            servicePricingDto: data);
+            listOfServicePrice: data);
   @override
   get body {
     switch (type) {
@@ -43,7 +46,9 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
           "Amenities": amenities
         };
       case ServiceAmenitiesAPIType.servicePackagePricing:
-        return servicePricingDto?.toJson();
+        return jsonEncode({
+          "servicePrices": listOfServicePrice?.map((e) => e.toJson()).toList()
+        });
     }
   }
 
@@ -56,7 +61,8 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       case ServiceAmenitiesAPIType.trainingAndAminities:
         return {'Content-Type': 'multipart/form-data'};
       case ServiceAmenitiesAPIType.servicePackagePricing:
-        return {"Content-Type": "application/json"};
+        return {};
+      // return {"Content-Type": "application/json"};
     }
   }
 

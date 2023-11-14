@@ -153,7 +153,7 @@ class ServiceController extends GetxController {
           //   ),
           // ]
           );
-      final res = _repo.servicePackagePricing(data);
+      final res = await _repo.servicePackagePricing(servicePriceList);
       await Future.delayed(const Duration(seconds: 1));
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
