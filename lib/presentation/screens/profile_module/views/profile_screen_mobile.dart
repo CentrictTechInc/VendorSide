@@ -71,27 +71,27 @@ class ProfileScreenMobile extends StatelessWidget {
                     const VerticalSpacing(20),
                     ProfileItem(
                         heading: "UserName",
-                        text: "John Class",
+                        text: "${c.user?.firstName} ${c.user?.lastName}",
                         icon: RGIcons.profile),
                     const VerticalSpacing(20),
-                    const ProfileItem(
+                    ProfileItem(
                         heading: "Vendor Shop",
-                        text: "Star Auto Service",
+                        text: c.user?.vendoraddress ?? "",
                         icon: RGIcons.storeIcon),
                     const VerticalSpacing(20),
                     ProfileItem(
                         heading: "Location",
-                        text: c.user?.address ?? "",
+                        text: c.user?.vendoraddress ?? "",
                         icon: RGIcons.address),
                     const VerticalSpacing(20),
                     ProfileItem(
                         heading: "Email",
-                        text: c.user?.email ?? "",
+                        text: c.user?.vendoremail ?? "",
                         icon: RGIcons.email),
                     const VerticalSpacing(20),
                     ProfileItem(
                         heading: "Phone",
-                        text: c.user?.phone ?? "",
+                        text: c.user?.vendorMobileDetail ?? "",
                         icon: RGIcons.phone),
                   ],
                 );

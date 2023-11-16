@@ -14,21 +14,40 @@ import 'package:vendor_app/domain/repository/profile_repository.dart';
 
 class ProfileController extends GetxController {
   final ProfileRepository repo = ProfileRepositoryImpl();
-  UserDetails? user;
+  ProfileDetailsModel? user;
   File? file;
+
+  @override
+  void onReady() async {
+    await getUserDetails();
+    super.onReady();
+  }
+
+  // @override
+  // void onInit() async {
+  //   await getUserDetails();
+  //   super.onInit();
+  // }
+
   Future getUserDetails() async {
     try {
       ShowDialogBox.showDialogBoxs(true);
-      int id = LocalStorageService.instance.user!.vid!;
-      user = await repo.getUserDetails(id);
+      int id = LocalStorageService.instance.user!.vid! ?? 58;
+      ProfileDetailsModel user = await repo.getUserDetails(id);
+      this.user = user;
       LocalStorageService.instance.user = UserDto(
-          vendoraddress: user!.address,
-          vendoremail: LocalStorageService.instance.user!.vendoremail,
-          vendorMobileDetail: user!.phone,
-          token: LocalStorageService.instance.user!.token,
-          vid: LocalStorageService.instance.user!.vid,
-          jobTitle: "null",
-          emailVerified: true);
+        vendoraddress: user.vendoraddress,
+        vendoremail: user.vendoremail,
+        vendorMobileDetail: user.vendorMobileDetail,
+        token: LocalStorageService.instance.user?.token,
+        vid: LocalStorageService.instance.user?.vid,
+        jobTitle: user.jobTitle,
+        emailVerified: LocalStorageService.instance.user?.emailVerified,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      );
+
+      update();
     } catch (e) {
       ToastMessage.message(e.toString());
     }
@@ -37,17 +56,19 @@ class ProfileController extends GetxController {
     }
   }
 
-  Future postUserDetails(UserDetailsDto data) async {
+  Future postUserDetails(ProfileDetailsDto data) async {
     try {
       ShowDialogBox.showDialogBoxs(true);
       final res = await repo.postUserDetails(data);
-      if (ShowDialogBox.isOpen) {
-        globalContext?.pop();
-      }
+
       globalContext?.pop();
       ToastMessage.message(res, type: ToastType.success);
     } catch (e) {
       ToastMessage.message(e.toString());
+    } finally {
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
     }
   }
 }

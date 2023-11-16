@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/app_router.dart';
-import 'package:vendor_app/common/resources/colors.dart';
 
 class ShowDialogBox {
   static bool isOpen = false;

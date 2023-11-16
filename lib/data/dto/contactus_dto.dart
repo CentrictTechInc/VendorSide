@@ -4,12 +4,13 @@ import 'package:vendor_app/domain/entity/contact_model.dart';
 
 class ContactUsDto extends ContactUs {
   ContactUsDto({
-    required super.contactId,
-    required super.contactName,
-    required super.vendorShopName,
-    required super.email,
-    required super.phoneNumber,
-    required super.comment,
+    super.contactId,
+    super.contactName,
+    super.vendorShopName,
+    super.email,
+    super.phoneNumber,
+    super.comment,
+    super.type,
   });
 
   factory ContactUsDto.fromRawJson(String str) =>
@@ -24,6 +25,7 @@ class ContactUsDto extends ContactUs {
         email: json["email"],
         phoneNumber: json["phoneNumber"],
         comment: json["comment"],
+        type: json["type"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,5 +35,6 @@ class ContactUsDto extends ContactUs {
         "email": email,
         "phoneNumber": phoneNumber,
         "comment": comment,
+        "type": type,
       };
 }

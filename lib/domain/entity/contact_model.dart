@@ -1,17 +1,20 @@
 class ContactUs {
-  int contactId;
-  String contactName;
-  String vendorShopName;
-  String email;
-  String phoneNumber;
-  String comment;
+  int? contactId;
+  String? contactName;
+  String? vendorShopName;
+  String? email;
+  String? phoneNumber;
+  String? comment;
+  int? type;
 
   ContactUs({
-    required this.contactId,
-    required this.contactName,
-    required this.vendorShopName,
-    required this.email,
-    required this.phoneNumber,
-    required this.comment,
+    this.contactId,
+    this.contactName,
+    this.vendorShopName,
+    this.email,
+    this.phoneNumber,
+    this.comment,
+    this.type = 2,
+    //type 2 means its vendor
   });
 }

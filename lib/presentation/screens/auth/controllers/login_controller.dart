@@ -43,11 +43,8 @@ class LoginController extends GetxController {
         "Dear ${res.firstName ?? "Vendor"}, you have successfully logged into RG Vendor App at  ${DateTime.now().toString().split('.')[0]}",
       );
 
-      if (ShowDialogBox.isOpen) {
-        globalContext?.pop();
-      }
-      // globalContext?.go(PagePath.slash);
-      globalContext?.go(PagePath.automotiveService);
+      globalContext?.go(PagePath.slash);
+      // globalContext?.go(PagePath.automotiveService);
     } catch (e) {
       if (e.toString().contains('Email Was Not verified')) {
         GenerateOtpService().generateOtp(_repo, emailController.text);
@@ -57,10 +54,12 @@ class LoginController extends GetxController {
 
         return;
       }
-      if (ShowDialogBox.isOpen) {
-        globalContext?.pop();
-      }
+
       ToastMessage.message(e.toString());
+    }
+
+    if (ShowDialogBox.isOpen) {
+      globalContext?.pop();
     }
   }
 }

@@ -1,38 +1,56 @@
 import 'dart:convert';
+
 import 'package:vendor_app/domain/entity/user_details_model.dart';
 
-class UserDetailsDto extends UserDetails {
-  UserDetailsDto(
-      {required super.userId,
-      required super.userName,
-      required super.email,
-      required super.phone,
-      required super.address,
-      super.longitude,
-      super.latitude});
+class ProfileDetailsDto extends ProfileDetailsModel {
+  ProfileDetailsDto({
+    super.vid,
+    super.vendortype,
+    super.vendorCompanyName,
+    super.vendoraddress,
+    super.vendorCity,
+    super.vendorRegion,
+    super.vendorPostalcode,
+    super.vendorMobileDetail,
+    super.firstName,
+    super.lastName,
+    super.jobTitle,
+    super.vendoremail,
+  });
 
-  factory UserDetailsDto.fromRawJson(String str) =>
-      UserDetailsDto.fromJson(json.decode(str));
+  factory ProfileDetailsDto.fromRawJson(String str) =>
+      ProfileDetailsDto.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory UserDetailsDto.fromJson(Map<String, dynamic> json) => UserDetailsDto(
-        userId: json["userId"],
-        userName: json["userName"],
-        email: json["email"],
-        phone: json["phone"] ?? "",
-        address: json["address"] ?? "",
-        latitude: json["latitude"] ?? 0.0,
-        longitude: json["longitude"] ?? 0.0,
+  factory ProfileDetailsDto.fromJson(Map<String, dynamic> json) =>
+      ProfileDetailsDto(
+        vid: json["vid"],
+        vendortype: json["vendortype"],
+        vendorCompanyName: json["vendorCompanyName"],
+        vendoraddress: json["vendoraddress"],
+        vendorCity: json["vendorCity"],
+        vendorRegion: json["vendorRegion"],
+        vendorPostalcode: json["vendorPostalcode"],
+        vendorMobileDetail: json["vendorMobileDetail"],
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+        jobTitle: json["jobTitle"],
+        vendoremail: json["vendoremail"],
       );
 
   Map<String, dynamic> toJson() => {
-        "userId": userId,
-        "userName": userName,
-        "email": email,
-        "phone": phone,
-        "address": address,
-        "longitude": longitude,
-        "latitude": latitude,
+        "vid": vid,
+        "vendortype": vendortype,
+        "vendorCompanyName": vendorCompanyName,
+        "vendoraddress": vendoraddress,
+        "vendorCity": vendorCity,
+        "vendorRegion": vendorRegion,
+        "vendorPostalcode": vendorPostalcode,
+        "vendorMobileDetail": vendorMobileDetail,
+        "firstName": firstName,
+        "lastName": lastName,
+        "jobTitle": jobTitle,
+        "vendoremail": vendoremail,
       };
 }

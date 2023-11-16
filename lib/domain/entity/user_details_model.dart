@@ -1,19 +1,29 @@
-class UserDetails {
-  int userId;
-  String userName;
-  String email;
-  String phone;
-  String address;
-  double? longitude;
-  double? latitude;
+class ProfileDetailsModel {
+  int? vid;
+  String? vendortype;
+  String? vendorCompanyName;
+  String? vendoraddress;
+  String? vendorCity;
+  String? vendorRegion;
+  String? vendorPostalcode;
+  String? vendorMobileDetail;
+  String? firstName;
+  String? lastName;
+  String? jobTitle;
+  String? vendoremail;
 
-  UserDetails({
-    required this.userId,
-    required this.userName,
-    required this.email,
-    required this.phone,
-    required this.address,
-    this.longitude,
-    this.latitude,
+  ProfileDetailsModel({
+    this.vid,
+    this.vendortype,
+    this.vendorCompanyName,
+    this.vendoraddress,
+    this.vendorCity,
+    this.vendorRegion,
+    this.vendorPostalcode,
+    this.vendorMobileDetail,
+    this.firstName,
+    this.lastName,
+    this.jobTitle,
+    this.vendoremail,
   });
 }
