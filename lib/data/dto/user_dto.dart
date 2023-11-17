@@ -13,6 +13,7 @@ class UserDto extends UserModel {
     super.vendorMobileDetail,
     super.emailVerified,
     super.vendoraddress,
+    super.step,
     // super.longitude,
     // super.latitude,
   });
@@ -31,6 +32,7 @@ class UserDto extends UserModel {
         vendorMobileDetail: json["vendorMobileDetail"],
         emailVerified: json["emailVerified"],
         vendoraddress: json["vendoraddress"],
+        step: json["step"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,5 +45,6 @@ class UserDto extends UserModel {
         "vendorMobileDetail": vendorMobileDetail,
         "emailVerified": emailVerified,
         "vendoraddress": vendoraddress,
+        "step": step,
       };
 }

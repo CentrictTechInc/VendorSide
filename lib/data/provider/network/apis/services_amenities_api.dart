@@ -1,13 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:vendor_app/data/dto/h_service_warranty_dto.dart';
 import 'package:vendor_app/data/dto/service_pricing_dto.dart';
 import 'package:vendor_app/data/dto/training_amenities_dto.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
 import 'package:vendor_app/data/provider/network/api_provider.dart';
 import 'package:vendor_app/data/provider/network/api_request_representable.dart';
 
-enum ServiceAmenitiesAPIType { trainingAndAminities, servicePackagePricing }
+enum ServiceAmenitiesAPIType {
+  trainingAndAminities,
+  servicePackagePricing,
+  homeServicePriceUpdate
+}
 
 class ServiceAmenitiesAPI implements APIRequestRepresentable {
   ServiceAmenitiesAPIType type;
@@ -16,12 +21,14 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
   List<ServicePrice>? listOfServicePrice;
   List<String>? amenities;
   List<File>? certificateImage = [];
+  HomeImprovementServiceDto? homeServiceDto;
   ServiceAmenitiesAPI._(
       {required this.type,
       this.amenitiesDto,
       this.certificateImage,
       this.servicePricingDto,
       this.listOfServicePrice,
+      this.homeServiceDto,
       this.amenities});
 
   ServiceAmenitiesAPI.uploadTrainingAmenitiesForm(TrainingAmenitiesDto data,
@@ -36,6 +43,11 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       : this._(
             type: ServiceAmenitiesAPIType.servicePackagePricing,
             listOfServicePrice: data);
+
+  ServiceAmenitiesAPI.homeServicePriceUpdate(HomeImprovementServiceDto data)
+      : this._(
+            type: ServiceAmenitiesAPIType.homeServicePriceUpdate,
+            homeServiceDto: data);
   @override
   get body {
     switch (type) {
@@ -49,6 +61,8 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
         return jsonEncode({
           "servicePrices": listOfServicePrice?.map((e) => e.toJson()).toList()
         });
+      case ServiceAmenitiesAPIType.homeServicePriceUpdate:
+        return homeServiceDto?.toJson();
     }
   }
 
@@ -62,7 +76,8 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
         return {'Content-Type': 'multipart/form-data'};
       case ServiceAmenitiesAPIType.servicePackagePricing:
         return {};
-      // return {"Content-Type": "application/json"};
+      case ServiceAmenitiesAPIType.homeServicePriceUpdate:
+        return {"Content-Type": "application/json"};
     }
   }
 
@@ -72,6 +87,7 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       case ServiceAmenitiesAPIType.trainingAndAminities:
         return HTTPMethod.multiPart;
       case ServiceAmenitiesAPIType.servicePackagePricing:
+      case ServiceAmenitiesAPIType.homeServicePriceUpdate:
         return HTTPMethod.post;
     }
   }
@@ -83,6 +99,8 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
         return APIEndpoint.trainingAndAmenitiesUrl;
       case ServiceAmenitiesAPIType.servicePackagePricing:
         return APIEndpoint.servicePackagePricingUrl;
+      case ServiceAmenitiesAPIType.homeServicePriceUpdate:
+        return APIEndpoint.homeImprovementServiceUrl;
     }
   }
 
@@ -101,6 +119,7 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
     switch (type) {
       case ServiceAmenitiesAPIType.trainingAndAminities:
       case ServiceAmenitiesAPIType.servicePackagePricing:
+      case ServiceAmenitiesAPIType.homeServicePriceUpdate:
         return {};
     }
   }

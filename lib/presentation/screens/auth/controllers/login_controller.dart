@@ -29,6 +29,24 @@ class LoginController extends GetxController {
   final TextEditingController passController =
       TextEditingController(text: "Test@123");
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  redirectStepper(int step) {
+    switch (step) {
+      case 0:
+        globalContext?.go(PagePath.slash);
+      case 1:
+        globalContext?.go(PagePath.category);
+        break;
+      case 2:
+        globalContext?.go(PagePath.taxForm);
+        break;
+      case 3:
+        globalContext?.go(PagePath.automotiveService);
+        break;
+      case 4:
+        globalContext?.go(PagePath.reviewInProcess);
+        break;
+    }
+  }
 
   Future login() async {
     try {
@@ -42,9 +60,7 @@ class LoginController extends GetxController {
         "Repair Guru - Login Alert",
         "Dear ${res.firstName ?? "Vendor"}, you have successfully logged into RG Vendor App at  ${DateTime.now().toString().split('.')[0]}",
       );
-
-      globalContext?.go(PagePath.slash);
-      // globalContext?.go(PagePath.automotiveService);
+      redirectStepper(res.step ?? 0);
     } catch (e) {
       if (e.toString().contains('Email Was Not verified')) {
         GenerateOtpService().generateOtp(_repo, emailController.text);

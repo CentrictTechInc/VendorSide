@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:vendor_app/data/dto/h_service_warranty_dto.dart';
 import 'package:vendor_app/data/dto/service_pricing_dto.dart';
 import 'package:vendor_app/data/dto/training_amenities_dto.dart';
 import 'package:vendor_app/data/provider/network/apis/services_amenities_api.dart';
@@ -28,6 +29,18 @@ class ServicesAmenitiesRepositoryImpl extends ServicesAmenitiesRepository {
     try {
       final res =
           await ServiceAmenitiesAPI.servicePackagePricing(data).request();
+      Map<String, dynamic> result = jsonDecode(res);
+      return result['message'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> homeServicePriceUpdate(HomeImprovementServiceDto data) async {
+    try {
+      final res =
+          await ServiceAmenitiesAPI.homeServicePriceUpdate(data).request();
       Map<String, dynamic> result = jsonDecode(res);
       return result['message'];
     } catch (e) {

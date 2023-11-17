@@ -13,7 +13,6 @@ class EmptyListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        // height: 250,
         width: 300,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -31,7 +30,6 @@ class EmptyListWidget extends StatelessWidget {
             CommonText(
               text: title,
               fontSize: 18,
-              // fontSize: gamaSubHeadingSize,
               weight: FontWeight.w400,
             ),
             const VerticalSpacing(10),
