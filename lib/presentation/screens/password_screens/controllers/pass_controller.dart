@@ -32,11 +32,28 @@ class PasswordController extends GetxController {
     }
   }
 
-  Future<void> changeNewPassword(
-      String email, String password, String confirmPassword) async {
+  //   'https://ec2-35-154-149-43.ap-south-1.compute.amazonaws.com/api/Account/Both/otpverification?otp=6357&email=bapak12711%40dixiser.com&type=Vendor
+  // Forgot Email OTP API Function
+  Future<void> forgotEmailOtpVerification(String email, String otp) async {
     try {
-      final String result =
-          await _repo.resetNewPassword(email, password, confirmPassword);
+      final String result = await _repo.forgotEmailOtpVerification(email, otp);
+      if (result != 'Otp Not Matched!') {
+        if (globalContext!.mounted) {
+          ToastMessage.message(result, type: ToastType.success);
+          globalContext?.replace('${PagePath.createNewPassword}/$email');
+        }
+      } else {
+        ToastMessage.message(result);
+      }
+    } catch (e) {
+      ToastMessage.message(e.toString());
+    }
+  }
+
+  Future<void> changeNewPassword(String email) async {
+    try {
+      final String result = await _repo.resetNewPassword(
+          email, newPassController.text, confirmPassController.text);
       ToastMessage.message(result, type: ToastType.success);
       if (globalContext!.mounted) {
         globalContext?.go(PagePath.login);

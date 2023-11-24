@@ -34,8 +34,36 @@ class APIProvider {
           break;
         case HTTPMethod.multiPart:
           var req = http.MultipartRequest('Post', uri);
-          req.fields.addAll(request.body);
+          req.fields.addAll(
+            request.body['data'],
+          );
           req.headers.addAll(request.headers!);
+          // if (request.body['Amenities'] != null) {
+          //   req.fields.addAll({"Amenities": request.body['Amenities']});
+          // }
+          if (request.body['TrainingCertificate'] != null) {
+            final List<File> files = request.body['TrainingCertificate'];
+            for (var i = 0; i < files.length; i++) {
+              req.files.add(http.MultipartFile.fromBytes(
+                  "TrainingCertificate", files[i].readAsBytesSync().toList(),
+                  filename: files[i].path.split('/').last));
+            }
+          }
+
+          if (request.body['TaxForm'] != null) {
+            // final mimeType = lookupMimeType(file.name);
+            final File file = request.body['TaxForm'];
+            req.files.add(http.MultipartFile.fromBytes(
+                "TaxForm", file.readAsBytesSync().toList(),
+                // contentType: MedaiType,
+                filename: file.path.split('/').last));
+          }
+          if (request.body['PliFileName'] != null) {
+            final File file = request.body['PliFileName'];
+            req.files.add(http.MultipartFile.fromBytes(
+                "PliFileName", file.readAsBytesSync().toList(),
+                filename: file.path.split('/').last));
+          }
           final res = await req.send();
           response =
               http.Response(await res.stream.bytesToString(), res.statusCode);

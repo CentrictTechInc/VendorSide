@@ -28,7 +28,7 @@ class _ReviewMobileState extends State<ReviewMobile> {
   List<ReviewChild> reviewList = [
     const ReviewChild(
         name: "someone",
-        rating: "5",
+        rating: "4",
         time: "April 01 2023",
         description:
             "Jorem ipsum dolor sit amet, consectetur adipis cing elit. Etiam eu turpis molestie, dictum est a, mattis tellus.",

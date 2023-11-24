@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/automotive_warranty_screen.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
 import 'package:vendor_app/presentation/screens/home/components/vendor_details_card.dart';
 
 class HomeScreenMobile extends StatelessWidget {
@@ -64,6 +66,7 @@ class HomeScreenMobile extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
+                  Get.lazyPut<ServiceController>(() => ServiceController());
                   Navigator.push(
                       context,
                       MaterialPageRoute(

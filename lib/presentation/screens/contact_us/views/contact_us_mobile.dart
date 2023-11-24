@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
+import 'package:get/get.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
@@ -8,9 +8,8 @@ import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/app/utils/network_image_with_initials.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
-import 'package:vendor_app/data/dto/user_details_dto.dart';
+import 'package:vendor_app/presentation/screens/contact_us/controller/contact_us_controller.dart';
 import 'package:vendor_app/presentation/screens/profile_module/components/profile_item.dart';
-import 'package:sizer/sizer.dart';
 
 class ContactUsMobile extends StatefulWidget {
   ContactUsMobile({super.key, this.onPressed});
@@ -22,18 +21,12 @@ class ContactUsMobile extends StatefulWidget {
 
 class _ContactUsMobileState extends State<ContactUsMobile>
     with FieldsValidation {
-  final TextEditingController nameController = TextEditingController();
   final TextEditingController commentsController = TextEditingController();
   final GlobalKey<FormState> contactFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final user = UserDetailsDto(
-        userId: 0,
-        userName: "Test",
-        email: "email",
-        phone: "090",
-        address: "USA");
+    final user = LocalStorageService.instance.user;
     return Container(
       constraints: BoxConstraints(maxHeight: context.height),
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -75,25 +68,26 @@ class _ContactUsMobileState extends State<ContactUsMobile>
                     ProfileItem(
                         ishighLight: false,
                         heading: "Name",
-                        text: user.userName ?? "",
+                        text:
+                            "${user?.firstName} ${user?.lastName}" ?? "vendor",
                         icon: RGIcons.profile),
                     const VerticalSpacing(20),
                     ProfileItem(
                         ishighLight: false,
                         heading: "Vendor Shop",
-                        text: user.email ?? "",
+                        text: user?.jobTitle ?? "",
                         icon: RGIcons.storeIcon),
                     const VerticalSpacing(20),
                     ProfileItem(
                         ishighLight: false,
                         heading: "Email",
-                        text: user.email ?? "",
+                        text: user?.vendoremail ?? " ",
                         icon: RGIcons.email),
                     const VerticalSpacing(20),
                     ProfileItem(
                         ishighLight: false,
                         heading: "Phone",
-                        text: user.phone ?? "",
+                        text: user?.vendorMobileDetail ?? '',
                         icon: RGIcons.phone),
                     const VerticalSpacing(20),
                     ProfileItem(
@@ -111,7 +105,9 @@ class _ContactUsMobileState extends State<ContactUsMobile>
                     VerticalSpacing(context.height * .09),
                     CommonTextButton(
                       onPressed: () {
+                        final controller = Get.find<ContactUsContoller>();
                         if (contactFormKey.currentState!.validate()) {
+                          controller.contactUs(commentsController.text);
                           commentsController.clear();
                         }
                       },

@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/app/utils/network_image_with_initials.dart';
@@ -7,13 +11,15 @@ import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:sizer/sizer.dart';
+import 'package:vendor_app/presentation/screens/bottom_nav/Main_screen.dart';
+import 'package:vendor_app/presentation/screens/bottom_nav/controller/botton_nav_controller.dart';
 import 'drawer_item.dart';
 
 class CustomDrawer extends StatelessWidget {
   CustomDrawer({
     super.key,
   });
-
+  final String? pic = LocalStorageService.instance.userPic;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -48,20 +54,28 @@ class CustomDrawer extends StatelessWidget {
                             width: 0.25,
                           ),
                           borderRadius: BorderRadius.circular(70)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(70),
-                        child: const NetWorkImageWithInitials(
-                          imageUrl: Drawables.personUrl,
-                          name: "a",
-                          backgroundColor: AppColors.whiteGreyish,
-                          textColor: AppColors.black,
-                          fontSize: 36,
-                        ),
-                      ),
+                      child: pic != null
+                          ? CircleAvatar(
+                              backgroundImage: pic == null
+                                  ? null
+                                  : FileImage(
+                                      File(pic!),
+                                    ),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(70),
+                              child: const NetWorkImageWithInitials(
+                                imageUrl: Drawables.personUrl,
+                                name: "a",
+                                backgroundColor: AppColors.whiteGreyish,
+                                textColor: AppColors.black,
+                                fontSize: 36,
+                              ),
+                            ),
                     ),
                     const VerticalSpacing(15),
                     CommonText(
-                      text: 'Mrs. Hussain',
+                      text: 'Hussain',
                       fontSize: 16.sp,
                       textAlign: TextAlign.start,
                       color: AppColors.white,
@@ -96,21 +110,28 @@ class CustomDrawer extends StatelessWidget {
               ..highlighted = GoRouterState.of(context).uri.toString() ==
                   drawer[index].location
               ..onTap = () async {
+                final controller = Get.find<BottomNavController>();
                 if (GoRouterState.of(context).uri.toString() !=
                     drawer[index].location) {
                   context.pop();
-                  await Future.delayed(const Duration(milliseconds: 250));
                   if (context.mounted) {
                     context.go(drawer[index].location);
+                  }
+                  await Future.delayed(const Duration(milliseconds: 250));
+                  controller.changeTabIndex(0);
+                } else if (controller.tabIndex.value != 0) {
+                  controller.changeTabIndex(0);
+                  if (context.mounted) {
+                    globalScaffoldKey.currentState!.closeDrawer();
                   }
                 }
               };
           },
         )),
         InkWell(
-          onTap: () => {
-            // LocalStorageService.instance.logoutUser(),
-            context.go(PagePath.login)
+          onTap: () async => {
+            await LocalStorageService.instance.logoutUser(),
+            if (context.mounted) {context.go(PagePath.login)}
           },
           child: Row(
             children: [

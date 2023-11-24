@@ -6,14 +6,15 @@ import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/common/resources/colors.dart';
+import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/steps/automotive_service_pricing.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/steps/warranty_amenities_step.dart';
 
 class AutomotiveWarantyMobileScreen extends StatelessWidget
     with FieldsValidation {
-  const AutomotiveWarantyMobileScreen({super.key});
-
+  AutomotiveWarantyMobileScreen({super.key});
+  final cntrl = Get.find<ServiceController>();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,16 +37,17 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
                     children: [
                       Visibility(
                         visible: controller.steps == 1,
-                        replacement: CircleText(
-                          number: "✔️",
-                          highlighted: true,
+                        replacement: const ImageIcon(
+                          AssetImage(RGIcons.circleCheck),
+                          size: 40,
+                          color: AppColors.primary,
                         ),
                         child: CircleText(
                           number: "1",
                           highlighted: true,
                         ),
                       ),
-                      const HorizontalSpacing(5),
+                      if (controller.steps == 1) const HorizontalSpacing(5),
                       Container(
                         height: 1.5,
                         width: 50,
@@ -56,31 +58,53 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
                       const HorizontalSpacing(5),
                       Visibility(
                         visible: controller.steps == 2,
+                        replacement: CircleText(
+                          number: "2",
+                        ),
                         child: CircleText(
                           number: "2",
                           highlighted: true,
                         ),
-                        replacement: CircleText(
-                          number: "2",
-                        ),
                       ),
                     ],
                   ),
-                  if (controller.steps == 1) AutomotiveWarrantyStep(),
-                  if (controller.steps == 2) AutomotiveServicePricing(),
-                  const VerticalSpacing(60),
-                  CommonTextButton(
-                    onPressed: () {
-                      if (controller.steps == 1) {
-                        controller.steps = 2;
-                      } else {
-                        controller.steps = 1;
-                      }
-                      controller.update();
-                      print(controller.steps);
-                    },
-                    text: "SAVE",
-                    color: AppColors.white,
+                  if (controller.steps == 1) const AutomotiveWarrantyStep(),
+                  if (controller.steps == 2) const AutomotiveServicePricing(),
+                  const VerticalSpacing(40),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      if (controller.steps == 2)
+                        CommonTextButton(
+                          onPressed: () {
+                            {
+                              controller.steps = 1;
+                              cntrl.getAllServices();
+                            }
+                            controller.update();
+                          },
+                          text: "BACK",
+                          width: 30,
+                          color: AppColors.white,
+                        ),
+                      if (controller.steps == 1 || controller.steps == 2)
+                        CommonTextButton(
+                          onPressed: () async {
+                            if (controller.steps == 1) {
+                              await controller.postWarrantyAndAmenitiesInfo();
+                              controller.steps = 2;
+                              cntrl.getAllServices();
+                            } else if (context.mounted &&
+                                controller.steps == 2) {
+                              await cntrl.postServicePackagePricing();
+                            }
+                            controller.update();
+                          },
+                          text: "SAVE",
+                          width: 30,
+                          color: AppColors.white,
+                        ),
+                    ],
                   ),
                   const VerticalSpacing(20),
                 ],
@@ -91,6 +115,7 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
   }
 }
 
+// ignore: must_be_immutable
 class CircleText extends StatelessWidget {
   CircleText({
     super.key,

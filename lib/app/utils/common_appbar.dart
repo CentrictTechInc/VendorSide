@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
@@ -20,6 +22,7 @@ class CommonAppBar extends StatelessWidget {
       this.onEdit,
       // this.isText = false,
       this.hideBell = false,
+      this.onNotificationPressed,
       this.text = '',
       this.editButton = false,
       this.headFontSize});
@@ -33,6 +36,7 @@ class CommonAppBar extends StatelessWidget {
   final String text;
   final VoidCallback? onDrawerPressed;
   final VoidCallback? onEdit;
+  final VoidCallback? onNotificationPressed;
   final double? headFontSize;
 
   @override
@@ -97,13 +101,7 @@ class CommonAppBar extends StatelessWidget {
               : hideBell
                   ? const Spacer()
                   : IconButton(
-                      onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => NotificationScreen(),
-                        //     ));
-                      },
+                      onPressed: onNotificationPressed,
                       splashColor: AppColors.grey.withOpacity(0.15),
                       highlightColor: AppColors.grey.withOpacity(0.15),
                       hoverColor: AppColors.grey.withOpacity(0.15),
@@ -114,8 +112,7 @@ class CommonAppBar extends StatelessWidget {
                       )),
           if (showProfile)
             InkWell(
-              onTap: () =>
-                  context.go(PagePath.homeScreen + PagePath.profile.toRoute),
+              onTap: () => context.go(PagePath.profile.toRoute),
               child: Container(
                 width: 40,
                 height: 40,
@@ -127,11 +124,20 @@ class CommonAppBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(70)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(70),
-                  child: NetWorkImageWithInitials(
-                    imageUrl:
-                        "https://zakrademos.com/professional/wp-content/uploads/sites/46/2021/02/team2.jpg",
-                    name: LocalStorageService.instance.user?.vendoremail,
-                  ),
+                  child: LocalStorageService.instance.userPic != null
+                      ? CircleAvatar(
+                          backgroundImage: LocalStorageService
+                                      .instance.userPic ==
+                                  null
+                              ? null
+                              : FileImage(
+                                  File(LocalStorageService.instance.userPic!),
+                                ),
+                        )
+                      : NetWorkImageWithInitials(
+                          imageUrl: Drawables.personUrl,
+                          name: LocalStorageService.instance.user?.vendoremail,
+                        ),
                 ),
               ),
             )

@@ -47,7 +47,7 @@ class ReviewChild extends StatelessWidget {
               ),
             ),
           ),
-          HorizontalSpacing(15),
+          const HorizontalSpacing(15),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -58,10 +58,7 @@ class ReviewChild extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon(
-                    Icons.star,
-                    color: AppColors.yellow,
-                  ),
+                  const Icon(Icons.star, color: AppColors.yellow),
                   CommonText(
                     text: rating,
                     fontSize: 14,

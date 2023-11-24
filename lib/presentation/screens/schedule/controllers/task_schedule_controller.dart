@@ -3,7 +3,12 @@ import 'package:get/get.dart';
 class TaskScheduleController extends GetxController {
   final timeStartFormat = false.obs;
   final timeEndFormat = false.obs;
-  final timeStandard = false.obs;
+  int timeStandard = 0;
+  changetime(int i) {
+    timeStandard = i;
+    update();
+  }
+
   final List<String> timings = [
     "01:00",
     "02:00",

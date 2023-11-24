@@ -9,6 +9,7 @@ import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/resources/strings.dart';
+import 'package:vendor_app/presentation/screens/handyman_warranty/handyman_warranty_screen.dart';
 import 'package:vendor_app/presentation/screens/vendor_category/components/category_container.dart';
 
 class CategoryMobile extends StatelessWidget with FieldsValidation {
@@ -32,7 +33,7 @@ class CategoryMobile extends StatelessWidget with FieldsValidation {
         ),
         VerticalSpacing(7.5.h),
         Container(
-          constraints: BoxConstraints(minHeight: context.height - 201),
+          constraints: BoxConstraints(minHeight: context.height - 211),
           width: context.width,
           padding: const EdgeInsets.all(20),
           decoration: const BoxDecoration(
@@ -47,7 +48,7 @@ class CategoryMobile extends StatelessWidget with FieldsValidation {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                 child: CommonText(
-                  text: Strings.signupCharges,
+                  text: Strings.categoryText,
                   fontSize: 15,
                   textAlign: TextAlign.center,
                   color: AppColors.grey,
@@ -58,7 +59,7 @@ class CategoryMobile extends StatelessWidget with FieldsValidation {
                 label: "Automotives",
                 icon: RGIcons.fancyCar,
                 onTap: () {
-                  context.push(PagePath.emailOtp);
+                  context.push(PagePath.vendorCharges);
                 },
               ),
               const VerticalSpacing(60),
@@ -66,7 +67,12 @@ class CategoryMobile extends StatelessWidget with FieldsValidation {
                 label: "Home Improvement",
                 icon: RGIcons.homeService,
                 onTap: () {
-                  context.push(PagePath.mobileOtp);
+                  // Get.lazyPut<ServiceController>(() => ServiceController());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HandymanWarrantyScreen(),
+                      ));
                 },
               ),
             ],

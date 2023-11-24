@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/utils/common_dropdown.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
@@ -74,7 +73,7 @@ class AllServicesScreen extends StatelessWidget with FieldsValidation {
           Row(
             children: [
               PriceWidget(),
-              HorizontalSpacing(15),
+              const HorizontalSpacing(15),
               PriceWidget(
                 price: "42.5",
               ),

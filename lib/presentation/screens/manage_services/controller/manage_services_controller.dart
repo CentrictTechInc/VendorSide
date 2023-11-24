@@ -9,6 +9,9 @@ class ManageServicesController extends GetxController {
     update();
   }
 
+  TextEditingController chargeController = TextEditingController();
+  double vendorCharge = 0.0;
+
   final PageController pageController = PageController(
     initialPage: 0,
   );

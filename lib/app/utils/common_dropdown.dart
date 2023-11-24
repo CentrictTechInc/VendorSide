@@ -4,6 +4,7 @@ import 'package:vendor_app/app/utils/responsive_builder.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 
+// ignore: must_be_immutable
 class DropDownWidget<T> extends StatelessWidget {
   final Color hintColor;
 
@@ -182,16 +183,20 @@ class DropDownWidget<T> extends StatelessWidget {
                     fontWeight: hintweight),
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: AppColors.white, width: 0)),
+                    borderSide:
+                        const BorderSide(color: AppColors.white, width: 0)),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: AppColors.white, width: 0)),
+                    borderSide:
+                        const BorderSide(color: AppColors.white, width: 0)),
                 disabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: AppColors.white, width: 0)),
+                    borderSide:
+                        const BorderSide(color: AppColors.white, width: 0)),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: AppColors.white, width: 0)),
+                    borderSide:
+                        const BorderSide(color: AppColors.white, width: 0)),
                 errorBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.red, width: 1)),
                 alignLabelWithHint: true,

@@ -10,9 +10,9 @@ class HandymanWarrantyScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Responsive(
-            mobile: WarantyMobileScreen(),
-            tablet: WarantyMobileScreen(),
-            desktop: WarantyMobileScreen()),
+            mobile: HandymanWarantyMobileScreen(),
+            tablet: HandymanWarantyMobileScreen(),
+            desktop: HandymanWarantyMobileScreen()),
       ),
     );
   }

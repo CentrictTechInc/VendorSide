@@ -12,4 +12,9 @@ class Strings {
       "Repair Guru will automatically quote these services based on the packaged pricing you provide. Please include parts, labor and tax for these services for most vehicles.";
   static const oilChnagePrice =
       "Price to perform oil change service up to five quarts of conventional motor oil. Courtesy vehicle inspection is typically included.";
+  static const taxForm =
+      "Please upload EIN (federal tax number) 9 number, w9 form and General Liability Insurance if (company),  OR Professional Liability Insurance if (property), which you provide us for giving the service to the user.";
+
+  static const categoryText =
+      "Please select a category to provide services to the user.";
 }

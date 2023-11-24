@@ -221,11 +221,22 @@ mixin FieldsValidation {
     }
   }
 
-  String? zipCodeOptionalValidation(String zipCode) {
-    bool isZipValid =
-        RegExp(r"^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$", caseSensitive: false)
-            .hasMatch(zipCode);
-    if (isZipValid) {
+  // String? zipCodeOptionalValidation(String zipCode) {
+  //   bool isZipValid =
+  //       RegExp(r"^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$", caseSensitive: false)
+  //           .hasMatch(zipCode);
+  //   if (isZipValid) {
+  //     return "Zip/Postal code invalid!";
+  //   } else {
+  //     return null;
+  //   }
+  // }
+  String? zipCodeOptionalValidation(String? zipCode) {
+    bool isZipValid = RegExp(
+            r'^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$|^\d{5}(-\d{4})?$',
+            caseSensitive: false)
+        .hasMatch(zipCode!);
+    if (!isZipValid) {
       return "Zip/Postal code invalid!";
     } else {
       return null;

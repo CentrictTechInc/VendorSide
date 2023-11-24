@@ -25,13 +25,21 @@ class MainBottomNavScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
-          bool closeConfirmed = await showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return const CloseConfirmationDialogue();
-            },
-          );
-          return closeConfirmed;
+          final controller = Get.find<BottomNavController>();
+          controller.update();
+          if (controller.tabIndex.value == 0) {
+            bool closeConfirmed = await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const CloseConfirmationDialogue();
+              },
+            );
+            return closeConfirmed;
+          } else {
+            controller.changeTabIndex(0);
+            controller.update();
+            return false;
+          }
         },
         child: RefreshIndicator(
             onRefresh: () async {
@@ -59,6 +67,7 @@ class MainBottomNavScreen extends StatelessWidget {
                   FloatingActionButtonLocation.centerDocked,
               backgroundColor: AppColors.white,
               body: SafeArea(
+                maintainBottomViewPadding: true,
                 child: GetBuilder<BottomNavController>(
                     init: BottomNavController(),
                     builder: (controller) {
@@ -68,6 +77,9 @@ class MainBottomNavScreen extends StatelessWidget {
                           children: [
                             Obx(() {
                               return CommonAppBar(
+                                onNotificationPressed: () {
+                                  controller.changeTabIndex(3);
+                                },
                                 backButton: false,
                                 hamburger: true,
                                 text: controller.tabIndex.value == 0

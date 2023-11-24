@@ -8,20 +8,26 @@ import 'package:vendor_app/presentation/screens/auth/otp/email_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/phone_otp_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/otp/register_otp_verification_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/controllers/register_controller.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/automotive_warranty_screen.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
 import 'package:vendor_app/presentation/screens/bottom_nav/Main_screen.dart';
 import 'package:vendor_app/presentation/screens/bottom_nav/controller/botton_nav_controller.dart';
 import 'package:vendor_app/presentation/screens/contact_us/contact_us_screen.dart';
+import 'package:vendor_app/presentation/screens/contact_us/controller/contact_us_controller.dart';
 import 'package:vendor_app/presentation/screens/manage_services/controller/manage_services_controller.dart';
 import 'package:vendor_app/presentation/screens/manage_services/manage_services_screen.dart';
 import 'package:vendor_app/presentation/screens/password_screens/controllers/pass_controller.dart';
 import 'package:vendor_app/presentation/screens/password_screens/create_new_password.dart';
 import 'package:vendor_app/presentation/screens/password_screens/forgot_password_screen.dart';
-import 'package:vendor_app/presentation/screens/profile_module/edit_screen.dart';
+import 'package:vendor_app/presentation/screens/profile_module/controller/profile_controller.dart';
+import 'package:vendor_app/presentation/screens/profile_module/profile_edit_screen.dart';
 import 'package:vendor_app/presentation/screens/profile_module/profile_screen.dart';
 import 'package:vendor_app/presentation/screens/review/review_screen.dart';
+import 'package:vendor_app/presentation/screens/review_in_process/rip_screen.dart';
 import 'package:vendor_app/presentation/screens/schedule/schedule_screen.dart';
 import 'package:vendor_app/presentation/screens/tasks/controller/tasks_controller.dart';
 import 'package:vendor_app/presentation/screens/tasks/task_screen.dart';
+import 'package:vendor_app/presentation/screens/tax_forms/controller/tax_form_controller.dart';
 import 'package:vendor_app/presentation/screens/vendor_category/category_screen.dart';
 import 'package:vendor_app/presentation/screens/auth/login/login_screen.dart';
 import 'package:vendor_app/presentation/screens/payment/vendor_charges_screen.dart';
@@ -34,7 +40,8 @@ final globalContext = _rootNavigatorKey.currentContext;
 class AppRouter {
   static final router = GoRouter(
       navigatorKey: _rootNavigatorKey,
-      initialLocation: PagePath.slash,
+      // initialLocation: PagePath.automotiveService,
+      initialLocation: PagePath.login,
       routes: [
         GoRoute(
             path: PagePath.slash,
@@ -47,6 +54,8 @@ class AppRouter {
               GoRoute(
                   path: PagePath.contact,
                   builder: (context, state) {
+                    Get.lazyPut<ContactUsContoller>(() => ContactUsContoller());
+
                     return ContactUsScreen();
                   }),
               GoRoute(
@@ -62,12 +71,17 @@ class AppRouter {
               GoRoute(
                   path: PagePath.profile,
                   builder: (context, state) {
+                    Get.lazyPut<ProfileController>(() => ProfileController());
+
                     return ProfileScreen();
                   },
                   routes: [
                     GoRoute(
                         path: PagePath.profileEdit,
                         builder: (context, state) {
+                          Get.lazyPut<ProfileController>(
+                              () => ProfileController());
+
                           return EditProfileScreen();
                         }),
                   ]),
@@ -100,6 +114,11 @@ class AppRouter {
               return const LoginScreen();
             }),
         GoRoute(
+            path: PagePath.reviewInProcess,
+            builder: (context, state) {
+              return ReviewInProcessScreen();
+            }),
+        GoRoute(
             path: PagePath.register,
             builder: (context, state) {
               Get.lazyPut<RegisterController>(() => RegisterController());
@@ -113,6 +132,7 @@ class AppRouter {
         GoRoute(
             path: PagePath.taxForm,
             builder: (context, state) {
+              Get.lazyPut(() => TaxFromController());
               return const TaxFormScreen();
             }),
         GoRoute(
@@ -124,9 +144,16 @@ class AppRouter {
             path: "${PagePath.emailOtp}/:email",
             builder: (context, state) {
               String email = state.pathParameters['email'] as String;
+              Get.lazyPut<OtpController>(() => OtpController());
               return EmailOtpScreen(
                 email: email,
               );
+            }),
+        GoRoute(
+            path: PagePath.automotiveService,
+            builder: (context, state) {
+              Get.lazyPut<ServiceController>(() => ServiceController());
+              return AutomotiveWarrantyScreen();
             }),
         GoRoute(
             path: PagePath.mobileOtp,
@@ -151,7 +178,7 @@ class AppRouter {
               return ForgotPasswordScreen();
             }),
         GoRoute(
-            path: PagePath.createNewPassword,
+            path: "${PagePath.createNewPassword}/:email",
             builder: (context, state) {
               Get.lazyPut<PasswordController>(() => PasswordController());
               String email = state.pathParameters['email'] as String;

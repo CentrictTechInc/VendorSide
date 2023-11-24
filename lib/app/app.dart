@@ -16,8 +16,6 @@ class RepairGuruVendor extends StatelessWidget {
         statusBarColor: AppColors.secondary,
         statusBarBrightness: Brightness.light,
         statusBarIconBrightness: Brightness.light,
-        // commented to stay mobile theme
-        // systemNavigationBarColor: AppColors.secondary,
         systemNavigationBarIconBrightness: Brightness.light,
       ),
     );
@@ -41,7 +39,6 @@ class RepairGuruVendor extends StatelessWidget {
           buttonTheme:
               const ButtonThemeData(textTheme: ButtonTextTheme.primary),
         ),
-        // theme: ThemeData(useMaterial3: true),
       );
     });
   }

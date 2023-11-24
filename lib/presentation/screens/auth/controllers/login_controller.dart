@@ -2,24 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
+import 'package:vendor_app/app/services/generate_otp_service.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
+import 'package:vendor_app/app/services/notification_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/data/repository/auth_repository.dart';
 import 'package:vendor_app/domain/entity/user_model.dart';
 import 'package:vendor_app/domain/repository/auth_repositpory.dart';
-import 'package:vendor_app/presentation/screens/auth/controllers/otp_controller.dart';
+import 'package:vendor_app/presentation/screens/chat/controllers/fb_msg_service.dart';
 
 class LoginController extends GetxController {
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  //   if (LocalStorageService.instance.user != null) {
+  //     globalContext?.go(PagePath.slash);
+  //   }
+  // }
+
   final passToggle = false.obs;
   final AuthRepository _repo = AuthRepositoryImpl();
-  final otpController = Get.find<OtpController>();
   final TextEditingController emailController =
-      TextEditingController(text: "vendor@gmail.com");
+      TextEditingController(text: "tedimib710@scubalm.com");
   final TextEditingController passController =
       TextEditingController(text: "Test@123");
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  redirectStepper(int step) {
+    switch (step) {
+      case 0:
+        globalContext?.go(PagePath.slash);
+      case 1:
+        globalContext?.go(PagePath.category);
+        break;
+      case 2:
+        globalContext?.go(PagePath.taxForm);
+        break;
+      case 3:
+        globalContext?.go(PagePath.automotiveService);
+        break;
+      case 4:
+        globalContext?.go(PagePath.reviewInProcess);
+        break;
+    }
+  }
 
   Future login() async {
     try {
@@ -28,21 +55,27 @@ class LoginController extends GetxController {
       UserModel res =
           await _repo.login(emailController.text, passController.text);
       LocalStorageService.instance.user = res;
-      if (ShowDialogBox.isOpen) {
-        globalContext?.pop();
-      }
-      globalContext?.go(PagePath.homeScreen);
+      await FirebaseMessagingService.instance.addUserToFirebase();
+      await NotificationService.intance.sendNotification(
+        "Repair Guru - Login Alert",
+        "Dear ${res.firstName ?? "Vendor"}, you have successfully logged into RG Vendor App at  ${DateTime.now().toString().split('.')[0]}",
+      );
+      redirectStepper(res.step ?? 0);
     } catch (e) {
-      if (e.toString().toLowerCase().contains('email was not verified')) {
-        otpController.generateOtp(emailController.text);
-        // generateOtp(email);
+      if (e.toString().contains('Email Was Not verified')) {
+        GenerateOtpService().generateOtp(_repo, emailController.text);
+        globalContext
+            ?.push("${PagePath.registerEmailOtp}/${emailController.text}");
+        ToastMessage.message(e.toString(), type: ToastType.warn);
 
         return;
       }
-      if (ShowDialogBox.isOpen) {
-        globalContext?.pop();
-      }
+
       ToastMessage.message(e.toString());
+    }
+
+    if (ShowDialogBox.isOpen) {
+      globalContext?.pop();
     }
   }
 }

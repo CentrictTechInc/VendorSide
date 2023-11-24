@@ -10,9 +10,9 @@ class EditProfileScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: Responsive(
-              mobile: EditScreenMobile(),
-              tablet: EditScreenMobile(),
-              desktop: EditScreenMobile())),
+              mobile: EditProfileScreenMobile(),
+              tablet: EditProfileScreenMobile(),
+              desktop: EditProfileScreenMobile())),
     );
   }
 }

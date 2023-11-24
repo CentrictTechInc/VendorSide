@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
@@ -7,14 +8,16 @@ import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
+import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/resources/strings.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/components/common_text_icon_row.dart';
 import 'package:vendor_app/presentation/screens/handyman_warranty/components/radio_text_widget.dart';
 import 'package:vendor_app/presentation/screens/handyman_warranty/components/vendor_rates_widget.dart';
 import 'package:vendor_app/presentation/screens/handyman_warranty/controllers/handyman_warranty_controller.dart';
 
-class WarantyMobileScreen extends StatelessWidget with FieldsValidation {
-  const WarantyMobileScreen({super.key});
+class HandymanWarantyMobileScreen extends StatelessWidget
+    with FieldsValidation {
+  const HandymanWarantyMobileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +34,19 @@ class WarantyMobileScreen extends StatelessWidget with FieldsValidation {
                     hideBell: true,
                     headFontSize: 15,
                   ),
-                  CommonTextRow(
-                    text: "Service Warranty",
-                    icon: RGIcons.suitcase1,
-                    extraText: "(Check one)",
-                    onPressed: () {
-                      controller.warrantyInfo.toggle();
-                      controller.update();
-                    },
-                    expanded: controller.warrantyInfo.value,
-                  ),
-                  Visibility(
-                    visible: controller.warrantyInfo.value,
-                    child: Column(
+                  ExpansionTile(
+                      maintainState: true,
+                      initiallyExpanded: true,
+                      shape: Border.all(color: Colors.transparent, width: 0),
+                      collapsedShape:
+                          Border.all(color: Colors.transparent, width: 0),
+                      tilePadding: EdgeInsets.zero,
+                      childrenPadding: EdgeInsets.zero,
+                      title: CommonTextRow(
+                        text: "Service Warranty",
+                        icon: RGIcons.suitcase1,
+                        extraText: "(Check one)",
+                      ),
                       children: [
                         const CommonText(
                           text: Strings.warrantyDisclamer,
@@ -74,15 +77,15 @@ class WarantyMobileScreen extends StatelessWidget with FieldsValidation {
                             controller.update();
                           },
                         ),
-                      ],
-                    ),
-                  ),
+                      ]),
                   const Divider(thickness: 1.5),
                   const VerticalSpacing(20),
                   VendorRatesWidget(),
                   const VerticalSpacing(60),
                   CommonTextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.go(PagePath.login);
+                    },
                     text: "SAVE",
                     color: AppColors.white,
                   ),
