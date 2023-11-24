@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:vendor_app/app/app_router.dart';
 import 'package:vendor_app/app/services/generate_otp_service.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
@@ -26,6 +27,9 @@ class LoginController extends GetxController {
   final AuthRepository _repo = AuthRepositoryImpl();
   final TextEditingController emailController =
       TextEditingController(text: "tedimib710@scubalm.com");
+  //second email
+  //wokepej604@dpsols.com
+
   final TextEditingController passController =
       TextEditingController(text: "Test@123");
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
@@ -50,17 +54,26 @@ class LoginController extends GetxController {
 
   Future login() async {
     try {
+      String formattedDate =
+          DateFormat('yyyy-MM-dd – kk:mm:ss').format(DateTime.now());
       ShowDialogBox.showDialogBoxs(true);
 
       UserModel res =
           await _repo.login(emailController.text, passController.text);
       LocalStorageService.instance.user = res;
       await FirebaseMessagingService.instance.addUserToFirebase();
-      await NotificationService.intance.sendNotification(
-        "Repair Guru - Login Alert",
-        "Dear ${res.firstName ?? "Vendor"}, you have successfully logged into RG Vendor App at  ${DateTime.now().toString().split('.')[0]}",
-      );
-      redirectStepper(res.step ?? 0);
+      if (res.step == 0) {
+        await NotificationService.intance.sendNotification(
+          "Repair Guru - Login Alert",
+          "Dear ${res.firstName ?? "Vendor"}, you have successfully logged into RG Vendor App at  $formattedDate",
+        );
+      } else {
+        await NotificationService.intance.sendNotification(
+          "Repair Guru - Login Alert",
+          "Dear ${res.firstName ?? "Vendor"}, your registration is still pending. Please complete your registration.",
+        );
+      }
+      redirectStepper(res.step ?? 4);
     } catch (e) {
       if (e.toString().contains('Email Was Not verified')) {
         GenerateOtpService().generateOtp(_repo, emailController.text);
