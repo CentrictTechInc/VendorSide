@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
@@ -91,7 +92,8 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                                       subServiceId: e!.subServiceId,
                                       subServiceName: e.subServiceName,
                                       serviceName: service.serviceName,
-                                      registerDate: DateTime.now().toString(),
+                                      registerDate: DateFormat('yyyy-MM-dd')
+                                          .format(DateTime.now()),
                                       serviceCharges: e.vendorCharge,
                                     ),
                                   )
