@@ -41,7 +41,7 @@ class AppRouter {
   static final router = GoRouter(
       navigatorKey: _rootNavigatorKey,
       // initialLocation: PagePath.automotiveService,
-      initialLocation: PagePath.reviewInProcess,
+      initialLocation: PagePath.login,
       routes: [
         GoRoute(
             path: PagePath.slash,

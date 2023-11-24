@@ -32,7 +32,7 @@ class UserDto extends UserModel {
         vendorMobileDetail: json["vendorMobileDetail"],
         emailVerified: json["emailVerified"],
         vendoraddress: json["vendoraddress"],
-        step: json["step"],
+        step: json["vendorStatus"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -45,6 +45,6 @@ class UserDto extends UserModel {
         "vendorMobileDetail": vendorMobileDetail,
         "emailVerified": emailVerified,
         "vendoraddress": vendoraddress,
-        "step": step,
+        "vendorStatus": step,
       };
 }
