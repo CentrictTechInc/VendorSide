@@ -63,20 +63,17 @@ class AutomotiveWarrantyController extends GetxController {
       print("Amenities: $amenitiesCheckedList");
       print("Image Files: ${files}");
       TrainingAmenitiesDto data = TrainingAmenitiesDto(
-        certificateName:
-            "Automotive Warranty of, {LocalStorageService.instance.user!.firstName}",
-        vid: LocalStorageService.instance.user!.vid!,
-        serviceWarranty: selectedValue,
-      );
+          certificateName:
+              "Automotive Warranty of, ${LocalStorageService.instance.user!.firstName}",
+          vid: LocalStorageService.instance.user!.vid!,
+          serviceWarranty: selectedValue,
+          amenities: amenitiesCheckedList);
 
-      final res =
-          repo.uploadTrainingAmenitiesForm(data, files!, amenitiesCheckedList);
-      await Future.delayed(const Duration(seconds: 1));
+      final res = await repo.uploadTrainingAmenitiesForm(data, files!);
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-      ToastMessage.message("Information Added Succesfully!$res",
-          type: ToastType.success);
+      ToastMessage.message(res, type: ToastType.success);
     } catch (e) {
       ToastMessage.message(e.toString());
       if (ShowDialogBox.isOpen) {

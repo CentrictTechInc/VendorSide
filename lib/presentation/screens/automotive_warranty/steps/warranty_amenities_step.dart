@@ -83,7 +83,7 @@ class AutomotiveWarrantyStep extends StatelessWidget {
                       ImageIcon(AssetImage(RGIcons.workspacePremium)),
                       HorizontalSpacing(10),
                       CommonText(
-                        text: "Automotive Certification and Training",
+                        text: "Automotive Certifications and Trainings",
                         fontSize: 14,
                         weight: FontWeight.w600,
                       ),
@@ -102,7 +102,8 @@ class AutomotiveWarrantyStep extends StatelessWidget {
                                   allowedExtensions: ['png']);
 
                           if (result == null) {
-                            ToastMessage.message('Please select png image.',
+                            ToastMessage.message(
+                                'Please upload your automotive certifications and trainings',
                                 type: ToastType.warn);
                           } else {
                             controller.files = result.paths
@@ -166,6 +167,8 @@ class AutomotiveWarrantyStep extends StatelessWidget {
                         ),
                     ],
                   ),
+                  const VerticalSpacing(10),
+                  const Divider(thickness: 1.5),
                   ExpansionTile(
                     initiallyExpanded: true,
                     maintainState: true,

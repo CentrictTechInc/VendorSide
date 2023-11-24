@@ -25,11 +25,17 @@ class TrainingAmenitiesDto extends TrainingAmenitierModel {
         amenities: json["Amenities"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "Vid": vid,
-        "ServiceWarranty": serviceWarranty,
-        "CertificateName": certificateName,
-        "TrainingCertificate": trainingCertificate,
-        "Amenities": amenities == null ? [] : List<dynamic>.from(amenities!),
-      };
+  Map<String, String> toJson() {
+    Map<String, String> obj = {
+      "Vid": vid.toString(),
+      "ServiceWarranty": serviceWarranty.toString(),
+      "CertificateName": certificateName.toString(),
+    };
+    if (amenities != null && amenities!.isNotEmpty) {
+      for (var i = 0; i < amenities!.length; i++) {
+        obj["Amenities[$i]"] = amenities![i];
+      }
+    }
+    return obj;
+  }
 }

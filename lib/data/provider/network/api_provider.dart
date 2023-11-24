@@ -38,9 +38,9 @@ class APIProvider {
             request.body['data'],
           );
           req.headers.addAll(request.headers!);
-          if (request.body['Amenities'] != null) {
-            req.fields.addAll({"Amenities": request.body['Amenities']});
-          }
+          // if (request.body['Amenities'] != null) {
+          //   req.fields.addAll({"Amenities": request.body['Amenities']});
+          // }
           if (request.body['TrainingCertificate'] != null) {
             final List<File> files = request.body['TrainingCertificate'];
             for (var i = 0; i < files.length; i++) {
