@@ -3,39 +3,40 @@ class APIEndpoint {
       'ec2-13-233-131-19.ap-south-1.compute.amazonaws.com';
   // ---------------- Authorization --------------------
   static String get loginUrl => '/api/Vendor/VendorLogin';
-  static String get registerUrl => '/api/Account/vendor/Registration';
+  static String get registerUrl => '/api/Vendor/vendor/Registration';
   static String get registerOTpVerificationUrl =>
-      '/api/Account/client/EmailVerification';
-  static String get generateOtpUrl => '/api/Account/Both/GenerateOtp';
-  static String get forgotPasswordUrl => '/api/Account/vendor/ForgetPassword';
+      '/api/Client/client/EmailVerification';
+  static String get generateOtpUrl => '/api/Client/Both/GenerateOtp';
+  static String get forgotPasswordUrl => '/api/Vendor/vendor/ForgetPassword';
   static String get forgotOtpVerificationUrl =>
-      '/api/Account/Both/otpverification';
-  static String get resetPasswordUrl => '/api/Account/Vendor/NewPassword';
+      '/api/Client/Both/otpverification';
+  static String get resetPasswordUrl => '/api/Vendor/Vendor/NewPassword';
   // ----------------Tax Form--------------------
-  static String get taxFormUrl => '/api/Account/vendor/TaxForm';
-  static String get pLIFormUrl => '/api/Account/vendor/PLIForm';
+  static String get taxFormUrl => '/api/Vendor/vendor/TaxForm';
+  static String get pLIFormUrl => '/api/Vendor/vendor/PLIForm';
   static String get getCertificateUrl => '/api/Account/GetCertificateId';
   //------------------Services-------------------------
   static String get getAllServicesUrl => '/Services/GetAllServices';
 
   // ---------------- Profile --------------------
-  static String get getProfileDetailsUrl => '/api/Account/Vendor/GetVendorById';
+  static String get getProfileDetailsUrl =>
+      '/api/ProfileDetails/Vendor/ProfileDetails';
   static String get postProfileDetailsUrl =>
-      "/api/Account/Vendor/InsertVendorById";
+      "/api/ProfileDetails/Vendor/ProfileDetails";
 
   //--------------Contact Us---------------
-  static String get contactUsUrl => '/api/Account/Client/ContactUs';
+  static String get contactUsUrl => '/api/Vendor/Vendor/ContactUs';
 
   //------------Nofication----------------
   static String get notificationUrl => '/Notification/Notifications';
 
   //------------Training and Amenities + Services----------------
   static String get trainingAndAmenitiesUrl =>
-      '/api/Account/Vendor/TrainingAndAminities';
+      '/Services/Vendor/TrainingAndAminities';
 
   static String get servicePackagePricingUrl =>
-      '/api/Account/ServicePackagePricing';
+      '/Services/ServicePackagePricing';
 
   //------------Home Improvement Service----------------
-  static String get homeImprovementServiceUrl => '/api/Account/Vendor/Services';
+  static String get homeImprovementServiceUrl => '/Services/Vendor/Services';
 }
