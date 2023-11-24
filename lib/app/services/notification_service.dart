@@ -18,7 +18,7 @@ class NotificationService {
       );
       await _repo.sendNotification(data);
     } catch (e) {
-      print('Error sending notification: $e');
+      print('Error sending notification:');
     }
   }
 }

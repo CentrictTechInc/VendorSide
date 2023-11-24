@@ -62,6 +62,7 @@ class LoginController extends GetxController {
           await _repo.login(emailController.text, passController.text);
       LocalStorageService.instance.user = res;
       await FirebaseMessagingService.instance.addUserToFirebase();
+
       if (res.step == 0) {
         await NotificationService.intance.sendNotification(
           "Repair Guru - Login Alert",
@@ -73,6 +74,7 @@ class LoginController extends GetxController {
           "Dear ${res.firstName ?? "Vendor"}, your registration is still pending. Please complete your registration.",
         );
       }
+
       redirectStepper(res.step ?? 4);
     } catch (e) {
       if (e.toString().contains('Email Was Not verified')) {
