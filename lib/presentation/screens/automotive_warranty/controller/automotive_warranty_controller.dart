@@ -84,10 +84,11 @@ class AutomotiveWarrantyController extends GetxController {
 }
 
 class ServiceController extends GetxController {
-  ServicesAmenitiesRepository _repo = ServicesAmenitiesRepositoryImpl();
+  final ServicesAmenitiesRepository _repo = ServicesAmenitiesRepositoryImpl();
   var autoMotiveServiceList = <ServicesModel>[].obs;
   var homeImprovementServiceList = <ServicesModel>[].obs;
   double animatedHeight = 130;
+  List<ServicePrice> servicePriceList = [];
   List<String> alphabet = [
     "A",
     "B",
@@ -118,22 +119,38 @@ class ServiceController extends GetxController {
   ];
 
   ServiceRepository repo = ServiceRepositoryImpl();
-  Future servicePackagePricing() async {
+  Future postServicePackagePricing() async {
     try {
+      if (servicePriceList.isEmpty) {
+        ToastMessage.message("Please Select At Least One Service",
+            type: ToastType.info);
+        return;
+      } else {
+        for (var element in servicePriceList) {
+          if (element.serviceCharges == 0) {
+            ToastMessage.message("Please Enter Service Charges Of All Services",
+                type: ToastType.warn);
+            return;
+          }
+        }
+        // return;
+      }
       ShowDialogBox.showDialogBoxs(true);
-      ServicePricingDto data = ServicePricingDto(servicePrices: <ServicePrice>[
-        ServicePrice(
-          serviceId: 1,
-          vendorId: 0,
-          serviceTypeId: 0,
-          subServiceId: 0,
-          subServiceName: "string",
-          serviceName: "string",
-          registerDate: "",
-          serviceCharges: 100,
-        ),
-      ]);
-      final res = _repo.servicePackagePricing(data);
+      ServicePricingDto data = ServicePricingDto(servicePrices: servicePriceList
+          //  <ServicePrice>[
+          //   ServicePrice(
+          //     serviceId: 1,
+          //     vendorId: 0,
+          //     serviceTypeId: 0,
+          //     subServiceId: 0,
+          //     subServiceName: "string",
+          //     serviceName: "string",
+          //     registerDate: "",
+          //     serviceCharges: 100,
+          //   ),
+          // ]
+          );
+      final res = await _repo.servicePackagePricing(servicePriceList);
       await Future.delayed(const Duration(seconds: 1));
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();

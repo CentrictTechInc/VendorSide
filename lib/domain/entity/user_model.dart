@@ -8,6 +8,7 @@ class UserModel {
   String? vendorMobileDetail;
   bool? emailVerified;
   String? vendoraddress;
+  int? step;
   // String? longitude;
   // String? latitude;
 
@@ -21,6 +22,7 @@ class UserModel {
     this.vendoraddress,
     this.firstName,
     this.lastName,
+    this.step,
     // this.longitude,
     // this.latitude,
   });

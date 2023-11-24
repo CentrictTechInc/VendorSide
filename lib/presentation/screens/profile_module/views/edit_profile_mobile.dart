@@ -24,6 +24,7 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
+  final TextEditingController shopNameController = TextEditingController();
 
   bool isSelected = false;
   String base64Image = '';
@@ -53,6 +54,13 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
           child: GetBuilder<ProfileController>(
               init: ProfileController(),
               builder: (c) {
+                nameController.text =
+                    "${c.user?.firstName} ${c.user?.lastName}";
+                emailController.text = "${c.user?.vendoremail}";
+                phoneController.text = "${c.user?.vendorMobileDetail}";
+                addressController.text = "${c.user?.vendoraddress}";
+                shopNameController.text = "${c.user?.vendorCompanyName}";
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -157,16 +165,16 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
                       child: CommonTextButton(
                         onPressed: () {
                           if (editForm.currentState!.validate()) {
-                            UserDetailsDto data2 = UserDetailsDto(
-                                userId:
-                                    LocalStorageService.instance.user!.vid! ??
-                                        0,
-                                userName: nameController.text.toString(),
-                                email: emailController.text,
-                                phone: phoneController.text,
-                                address: addressController.text,
-                                latitude: 0,
-                                longitude: 0);
+                            // ProfileDetailsDto data2 = ProfileDetailsDto(
+                            //     userId:
+                            //         LocalStorageService.instance.user!.vid! ??
+                            //             0,
+                            //     userName: nameController.text.toString(),
+                            //     email: emailController.text,
+                            //     phone: phoneController.text,
+                            //     address: addressController.text,
+                            //     latitude: 0,
+                            //     longitude: 0);
                           }
                         },
                         text: "SAVE",

@@ -5,10 +5,10 @@ import 'package:vendor_app/domain/repository/profile_repository.dart';
 
 class ProfileRepositoryImpl extends ProfileRepository {
   @override
-  Future<UserDetails> getUserDetails(int userId) async {
+  Future<ProfileDetailsModel> getUserDetails(int userId) async {
     try {
       final response = await UserDetailAPI.getUserDetail(userId).request();
-      UserDetails userData = UserDetailsDto.fromRawJson(response);
+      ProfileDetailsModel userData = ProfileDetailsDto.fromRawJson(response);
       return userData;
     } catch (e) {
       rethrow;
@@ -16,7 +16,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<String> postUserDetails(UserDetailsDto data) async {
+  Future<String> postUserDetails(ProfileDetailsDto data) async {
     try {
       final response = await UserDetailAPI.postUserDetail(data).request();
       return response;

@@ -35,6 +35,8 @@ class PagePath {
   static const String automotiveService = '/automotiveService';
 
   static const String tasks = 'tasks';
+
+  static const String reviewInProcess = '/reviewInProcess';
 }
 
 extension ContextExtensionss on String {

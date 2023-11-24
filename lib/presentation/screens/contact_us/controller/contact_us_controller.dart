@@ -17,10 +17,10 @@ class ContactUsContoller extends GetxController {
       ShowDialogBox.showDialogBoxs(true);
       ContactUsDto info = ContactUsDto(
           contactId: user?.vid ?? 1,
-          contactName: "Vendor Name Not Here",
+          contactName: "${user?.firstName} ${user?.lastName}",
           vendorShopName: user?.jobTitle ?? "job",
           email: user?.vendoremail ?? "email",
-          phoneNumber: user?.vendorMobileDetail ?? "021",
+          phoneNumber: user?.vendorMobileDetail ?? "",
           comment: comments);
       String res = await repo.contactUs(info);
 

@@ -68,7 +68,8 @@ class _ContactUsMobileState extends State<ContactUsMobile>
                     ProfileItem(
                         ishighLight: false,
                         heading: "Name",
-                        text: user?.emailVerified.toString() ?? "user",
+                        text:
+                            "${user?.firstName} ${user?.lastName}" ?? "vendor",
                         icon: RGIcons.profile),
                     const VerticalSpacing(20),
                     ProfileItem(

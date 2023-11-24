@@ -7,7 +7,7 @@ enum UserAPIType { getUserDetail, postUserDetail }
 
 class UserDetailAPI implements APIRequestRepresentable {
   UserAPIType type;
-  UserDetailsDto? data;
+  ProfileDetailsDto? data;
   int? userId;
   UserDetailAPI._({required this.type, this.data, this.userId});
   UserDetailAPI.getUserDetail(userId)
@@ -64,7 +64,7 @@ class UserDetailAPI implements APIRequestRepresentable {
   Map<String, String>? get urlParams {
     switch (type) {
       case UserAPIType.getUserDetail:
-        return {'userid': userId.toString()};
+        return {'Vid': userId.toString()};
       case UserAPIType.postUserDetail:
         return {};
     }

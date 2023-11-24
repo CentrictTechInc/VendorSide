@@ -23,7 +23,7 @@ class ServicePricingDto {
   Map<String, dynamic> toJson() => {
         "servicePrices": servicePrices == null
             ? []
-            : List<dynamic>.from(servicePrices!.map((x) => x.toJson())),
+            : List<ServicePrice>.from(servicePrices!.map((x) => x.toJson())),
       };
 }
 
@@ -35,7 +35,7 @@ class ServicePrice {
   String? subServiceName;
   String? serviceName;
   String? registerDate;
-  int? serviceCharges;
+  double? serviceCharges;
 
   ServicePrice({
     this.vendorId,

@@ -23,6 +23,7 @@ import 'package:vendor_app/presentation/screens/profile_module/controller/profil
 import 'package:vendor_app/presentation/screens/profile_module/profile_edit_screen.dart';
 import 'package:vendor_app/presentation/screens/profile_module/profile_screen.dart';
 import 'package:vendor_app/presentation/screens/review/review_screen.dart';
+import 'package:vendor_app/presentation/screens/review_in_process/rip_screen.dart';
 import 'package:vendor_app/presentation/screens/schedule/schedule_screen.dart';
 import 'package:vendor_app/presentation/screens/tasks/controller/tasks_controller.dart';
 import 'package:vendor_app/presentation/screens/tasks/task_screen.dart';
@@ -40,7 +41,7 @@ class AppRouter {
   static final router = GoRouter(
       navigatorKey: _rootNavigatorKey,
       // initialLocation: PagePath.automotiveService,
-      initialLocation: PagePath.login,
+      initialLocation: PagePath.reviewInProcess,
       routes: [
         GoRoute(
             path: PagePath.slash,
@@ -111,6 +112,11 @@ class AppRouter {
               Get.lazyPut<LoginController>(() => LoginController());
               Get.lazyPut<OtpController>(() => OtpController());
               return const LoginScreen();
+            }),
+        GoRoute(
+            path: PagePath.reviewInProcess,
+            builder: (context, state) {
+              return ReviewInProcessScreen();
             }),
         GoRoute(
             path: PagePath.register,

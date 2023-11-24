@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/strings.dart';
+import 'package:vendor_app/data/dto/service_pricing_dto.dart';
 import 'package:vendor_app/domain/entity/services_model.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/components/common_text_icon_row.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
@@ -75,6 +77,40 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                         splashRadius: 20,
                         onChanged: (p0) {
                           service.isSelected = p0!;
+                          print("count  ${service.isSelected} $p0");
+                          print(service.listSubServiceName.length);
+                          if (service.isSelected == true) {
+                            controller.servicePriceList.addAll(
+                              service.listSubServiceName
+                                  .map(
+                                    (e) => ServicePrice(
+                                      serviceId: service.serviceId,
+                                      vendorId: LocalStorageService
+                                          .instance.user!.vid,
+                                      serviceTypeId: 1,
+                                      subServiceId: e!.subServiceId,
+                                      subServiceName: e.subServiceName,
+                                      serviceName: service.serviceName,
+                                      registerDate: DateTime.now().toString(),
+                                      serviceCharges: e.vendorCharge,
+                                    ),
+                                  )
+                                  .toList(),
+                            );
+                          } else {
+                            controller.servicePriceList.removeWhere((element) =>
+                                element.serviceId == service.serviceId);
+                            // element.subServiceId ==
+                            // service.listSubServiceName[0]!.subServiceId);
+                          }
+                          print(controller.servicePriceList.length);
+                          for (var i = 0;
+                              i < controller.servicePriceList.length;
+                              i++) {
+                            print(controller.servicePriceList[i].toJson());
+                          }
+                          // print(controller.servicePriceList[0].toJson());
+
                           // service.isSelected == true
                           //     ? controller.animatedHeight = 150
                           //     : controller.animatedHeight = 0;
@@ -137,9 +173,36 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                                   controller.update();
                                   return;
                                 }
+                                // controller.servicePriceList.where((element) =>
+                                // element.serviceId == service.serviceId
+
+                                // );
+                                controller.servicePriceList =
+                                    controller.servicePriceList.map((element) {
+                                  if (element.subServiceId ==
+                                          service.listSubServiceName[index]!
+                                              .subServiceId
+                                      //  &&
+                                      // element.subServiceId == service.listSubServiceName[index]!.subServiceId
+
+                                      ) {
+                                    element.serviceCharges = (double.parse(p0))
+                                        .toPrecision(
+                                            2); // replace with the new value
+                                  }
+                                  return element;
+                                }).toList();
+
                                 service.listSubServiceName[index]!
                                         .vendorCharge =
                                     (double.parse(p0) * 0.85).toPrecision(2);
+                                print(controller.servicePriceList.length);
+                                for (var i = 0;
+                                    i < controller.servicePriceList.length;
+                                    i++) {
+                                  print(
+                                      controller.servicePriceList[i].toJson());
+                                }
                                 controller.update();
                               },
                               controller: service
