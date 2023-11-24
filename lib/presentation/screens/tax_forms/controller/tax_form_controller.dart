@@ -20,16 +20,16 @@ class TaxFromController extends GetxController {
   TaxRepository repo = TaxRepositoryImpl();
   Future<int> uploadTaxForm() async {
     try {
-      // ShowDialogBox.showDialogBoxs(true);
+      ShowDialogBox.showDialogBoxs(true);
       TaxFromDto data = TaxFromDto(
         fileName: "EIN(W9 Form)",
         vendorId: LocalStorageService.instance.user!.vid!,
         // vendorId: 1,
       );
       final res = await repo.uploadTaxForm(data, taxImage);
-      if (ShowDialogBox.isOpen) {
-        globalContext?.pop();
-      }
+      // if (ShowDialogBox.isOpen) {
+      //   globalContext?.pop();
+      // }
       // await ToastMessage.message(res.message, type: ToastType.success);
       return res.certificateid;
     } catch (e) {
@@ -49,8 +49,7 @@ class TaxFromController extends GetxController {
       PLIFormDto? pliData = PLIFormDto(
         certificateId: certificateId,
         fileName: "Insurance Form",
-        // vendorId: LocalStorageService.instance.user!.vid,
-        vendorId: 1,
+        vendorId: LocalStorageService.instance.user!.vid!,
       );
       final res = await repo.uploadPLIForm(pliData, pliImage);
       if (ShowDialogBox.isOpen) {
