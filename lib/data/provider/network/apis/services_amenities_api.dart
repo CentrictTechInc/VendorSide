@@ -21,14 +21,14 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
   List<ServicePrice>? listOfServicePrice;
   List<File>? certificateImage = [];
   HomeImprovementServiceDto? homeServiceDto;
-  ServiceAmenitiesAPI._(
-      {required this.type,
-      this.amenitiesDto,
-      this.certificateImage,
-      this.servicePricingDto,
-      this.listOfServicePrice,
-      this.homeServiceDto,
-      this.amenities});
+  ServiceAmenitiesAPI._({
+    required this.type,
+    this.amenitiesDto,
+    this.certificateImage,
+    this.servicePricingDto,
+    this.listOfServicePrice,
+    this.homeServiceDto,
+  });
 
   ServiceAmenitiesAPI.uploadTrainingAmenitiesForm(
       TrainingAmenitiesDto data, List<File> trainingAmenitiesImage)
