@@ -14,7 +14,7 @@ class APIEndpoint {
   // ----------------Tax Form--------------------
   static String get taxFormUrl => '/api/Vendor/vendor/TaxForm';
   static String get pLIFormUrl => '/api/Vendor/vendor/PLIForm';
-  static String get getCertificateUrl => '/api/Account/GetCertificateId';
+
   //------------------Services-------------------------
   static String get getAllServicesUrl => '/Services/GetAllServices';
 
@@ -38,5 +38,16 @@ class APIEndpoint {
       '/Services/ServicePackagePricing';
 
   //------------Home Improvement Service----------------
-  static String get homeImprovementServiceUrl => '/Services/Vendor/Services';
+  static String get homeImprovementAddServiceUrl => '/Services/Vendor/Services';
+  static String get homeImprovementUpdateServiceUrl =>
+      '/Services/Vendor/Services';
+
+  //-----------------Vendor Service by ID -----------------
+  static String get getVendorServiceByIdUrl =>
+      '/Services/Vendor/VendorServicesByVendorId';
+
+  //---------------Schedule-----------------------
+  static String get updateScheduleUrl => '/api/Vendor/Vendor/VendorSchedule';
+  static String get getScheduleUrl =>
+      '/api/Vendor/Vendor/VendorScheduleByVendorId';
 }

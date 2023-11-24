@@ -55,9 +55,13 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
           "TrainingCertificate": certificateImage
         };
       case ServiceAmenitiesAPIType.servicePackagePricing:
-        return jsonEncode({
+        Map<String, dynamic> payload = {
           "servicePrices": listOfServicePrice?.map((e) => e.toJson()).toList()
-        });
+        };
+        return jsonEncode(payload);
+      // return jsonEncode({
+      //   "servicePrices": listOfServicePrice?.map((e) => e.toJson()).toList()
+      // });
       case ServiceAmenitiesAPIType.homeServicePriceUpdate:
         return homeServiceDto?.toJson();
     }
@@ -72,9 +76,9 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       case ServiceAmenitiesAPIType.trainingAndAminities:
         return {'Content-Type': 'multipart/form-data'};
       case ServiceAmenitiesAPIType.servicePackagePricing:
-        return {};
       case ServiceAmenitiesAPIType.homeServicePriceUpdate:
         return {"Content-Type": "application/json"};
+      // return {};
     }
   }
 
@@ -97,7 +101,7 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       case ServiceAmenitiesAPIType.servicePackagePricing:
         return APIEndpoint.servicePackagePricingUrl;
       case ServiceAmenitiesAPIType.homeServicePriceUpdate:
-        return APIEndpoint.homeImprovementServiceUrl;
+        return APIEndpoint.homeImprovementAddServiceUrl;
     }
   }
 
