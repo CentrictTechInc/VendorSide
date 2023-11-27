@@ -1,6 +1,4 @@
-// import 'package:file_picker/file_picker.dart';
 import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
@@ -20,17 +18,11 @@ class TaxFromController extends GetxController {
   TaxRepository repo = TaxRepositoryImpl();
   Future<int> uploadTaxForm() async {
     try {
-      ShowDialogBox.showDialogBoxs(true);
       TaxFromDto data = TaxFromDto(
         fileName: "EIN(W9 Form)",
         vendorId: LocalStorageService.instance.user!.vid!,
-        // vendorId: 1,
       );
       final res = await repo.uploadTaxForm(data, taxImage);
-      // if (ShowDialogBox.isOpen) {
-      //   globalContext?.pop();
-      // }
-      // await ToastMessage.message(res.message, type: ToastType.success);
       return res.certificateid;
     } catch (e) {
       ToastMessage.message(e.toString());
@@ -57,10 +49,9 @@ class TaxFromController extends GetxController {
       }
       if (res == "Document uploaded Succesfully!") {
         ToastMessage.message(res, type: ToastType.success);
-        globalContext?.go(PagePath.automotiveService);
+        globalContext?.push(PagePath.automotiveService);
       }
     } catch (e) {
-      // ToastMessage.message(e.toString());
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }

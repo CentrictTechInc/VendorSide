@@ -118,7 +118,7 @@ class VendorChargesMobile extends StatelessWidget with FieldsValidation {
                   alignment: Alignment.center,
                   child: CommonTextButton(
                       onPressed: () {
-                        context.push(PagePath.taxForm);
+                        context.go(PagePath.taxForm);
                       },
                       backgroundColor: AppColors.primary,
                       color: AppColors.background,

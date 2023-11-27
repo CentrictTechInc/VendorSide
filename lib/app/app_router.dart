@@ -48,7 +48,7 @@ class AppRouter {
             parentNavigatorKey: _rootNavigatorKey,
             builder: (context, state) {
               Get.lazyPut<BottomNavController>(() => BottomNavController());
-              return MainBottomNavScreen();
+              return const MainBottomNavScreen();
             },
             routes: [
               GoRoute(

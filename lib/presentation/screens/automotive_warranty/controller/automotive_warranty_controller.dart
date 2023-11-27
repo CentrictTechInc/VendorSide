@@ -1,11 +1,11 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
+import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/data/dto/service_pricing_dto.dart';
 import 'package:vendor_app/data/dto/training_amenities_dto.dart';
@@ -133,30 +133,16 @@ class ServiceController extends GetxController {
             return;
           }
         }
-        // return;
       }
       ShowDialogBox.showDialogBoxs(true);
-      ServicePricingDto data = ServicePricingDto(servicePrices: servicePriceList
-          //  <ServicePrice>[
-          //   ServicePrice(
-          //     serviceId: 1,
-          //     vendorId: 0,
-          //     serviceTypeId: 0,
-          //     subServiceId: 0,
-          //     subServiceName: "string",
-          //     serviceName: "string",
-          //     registerDate: "",
-          //     serviceCharges: 100,
-          //   ),
-          // ]
-          );
+
       final res = await _repo.servicePackagePricing(servicePriceList);
       await Future.delayed(const Duration(seconds: 1));
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-      ToastMessage.message("Information Added Succesfully!$res",
-          type: ToastType.success);
+      ToastMessage.message("$res!", type: ToastType.success);
+      globalContext?.go(PagePath.reviewInProcess);
     } catch (e) {
       ToastMessage.message(e.toString());
       if (ShowDialogBox.isOpen) {

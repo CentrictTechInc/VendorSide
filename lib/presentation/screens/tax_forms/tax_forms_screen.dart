@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
 import 'package:vendor_app/common/resources/colors.dart';
+import 'package:vendor_app/presentation/screens/home/components/confirmation_dialogue.dart';
 import 'package:vendor_app/presentation/screens/tax_forms/views/tax_forms_mobile.dart';
 
 class TaxFormScreen extends StatelessWidget {
@@ -11,8 +11,14 @@ class TaxFormScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        context.pop();
-        return true;
+        bool closeConfirmed = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const CloseConfirmationDialogue();
+          },
+        );
+
+        return closeConfirmed;
       },
       child: Scaffold(
         backgroundColor: AppColors.secondary,
