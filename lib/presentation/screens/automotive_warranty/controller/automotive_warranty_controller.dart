@@ -64,7 +64,7 @@ class AutomotiveWarrantyController extends GetxController {
       print("Image Files: ${files}");
       TrainingAmenitiesDto data = TrainingAmenitiesDto(
           certificateName:
-              "Automotive Warranty of, ${LocalStorageService.instance.user!.firstName}",
+              "Automotive Warranty of, ${LocalStorageService.instance.user?.firstName ?? ''}",
           vid: LocalStorageService.instance.user!.vid!,
           serviceWarranty: selectedValue,
           amenities: amenitiesCheckedList);

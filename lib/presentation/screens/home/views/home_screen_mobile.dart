@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
+import 'package:vendor_app/app/utils/common_text_button.dart';
+import 'package:vendor_app/app/utils/common_text_field.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:sizer/sizer.dart';
-import 'package:vendor_app/presentation/screens/automotive_warranty/automotive_warranty_screen.dart';
-import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
+import 'package:vendor_app/common/resources/page_path.dart';
+import 'package:vendor_app/domain/entity/tasks_model.dart';
 import 'package:vendor_app/presentation/screens/home/components/vendor_details_card.dart';
+import 'package:vendor_app/presentation/screens/tasks_pages/components/tasks_card.dart';
 
 class HomeScreenMobile extends StatelessWidget {
   HomeScreenMobile({
     super.key,
   });
-
+  List<TasksModel> appointmentList = [TasksModel(tasks: 'tasks')];
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -43,10 +47,121 @@ class HomeScreenMobile extends StatelessWidget {
             weight: FontWeight.w600,
           ),
           const VerticalSpacing(5),
-          const CommonText(
-            text: "Welcome back!",
-            fontSize: 12,
-            color: AppColors.grey,
+          InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                  isScrollControlled: true,
+                  isDismissible: false,
+                  backgroundColor: AppColors.grey,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20)),
+                  ),
+                  context: context,
+                  builder: (context) {
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: SingleChildScrollView(
+                        child: Container(
+                          height: 500,
+                          decoration: BoxDecoration(
+                            color: AppColors.background,
+                            borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(20),
+                              topLeft: Radius.circular(20),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: AppColors.grey.withOpacity(0.2),
+                                  blurRadius: 5.0),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              const VerticalSpacing(20),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      icon: const Icon(
+                                        Icons.close,
+                                        color: AppColors.grey,
+                                      )),
+                                  CommonText(
+                                    text: "Appointment Details",
+                                    fontSize: 12.sp,
+                                    weight: FontWeight.w600,
+                                    color: AppColors.primaryText,
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        // Navigator.pop(context);
+                                      },
+                                      icon: const Icon(
+                                        Icons.more_vert,
+                                        color: AppColors.grey,
+                                      )),
+                                ],
+                              ),
+                              Container(
+                                height: 200,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 40),
+                                // color: AppColors.green,
+                                child: TasksCard(
+                                  type: "Completed:",
+                                  data: appointmentList[0],
+                                  icon: Icons.alarm,
+                                ),
+                              ),
+                              const VerticalSpacing(20),
+                              CommonText(
+                                text: "Your Offer",
+                                fontSize: 18,
+                                weight: FontWeight.bold,
+                              ),
+                              SizedBox(
+                                width: context.width - 70,
+                                child: CommonTextField(
+                                  hintText: "Enter Offer",
+                                  controller: TextEditingController(),
+                                ),
+                              ),
+                              const VerticalSpacing(20),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: CommonTextButton(
+                                        onPressed: () {},
+                                        color: AppColors.white,
+                                        text: "Accept"),
+                                  ),
+                                  Expanded(
+                                    child: CommonTextButton(
+                                        onPressed: () {},
+                                        color: AppColors.white,
+                                        text: "Decline"),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  });
+            },
+            child: const CommonText(
+              text: "Welcome back!",
+              fontSize: 12,
+              color: AppColors.grey,
+            ),
           ),
           const VerticalSpacing(15),
           Container(
@@ -66,12 +181,7 @@ class HomeScreenMobile extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Get.lazyPut<ServiceController>(() => ServiceController());
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AutomotiveWarrantyScreen(),
-                      ));
+                  context.push(PagePath.tasks.toRoute);
                 },
                 splashColor: Colors.transparent,
                 child: Material(

@@ -55,7 +55,7 @@ class ListSubServiceDto extends ListSubServiceName {
         subServiceName: json["subServiceName"],
         serviceCharges: TextEditingController(),
         vendorCharge: 0,
-        isSelected: false,
+        isSelected: true,
       );
 
   Map<String, dynamic> toJson() => {

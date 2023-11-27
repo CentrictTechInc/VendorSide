@@ -78,7 +78,7 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                         activeColor: AppColors.primary,
                         splashRadius: 20,
                         onChanged: (p0) {
-                          service.isSelected = p0!;
+                          service.isSelected = p0;
                           print("count  ${service.isSelected} $p0");
                           print(service.listSubServiceName.length);
                           if (service.isSelected == true) {
@@ -142,7 +142,7 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                         RadioTextWidget(
                           isCheckBox: true,
                           isChanged: (p0) {
-                            service.listSubServiceName[index]!.isSelected = p0!;
+                            service.listSubServiceName[index]?.isSelected = p0;
                             controller.update();
                           },
                           checkBoxvalue:
@@ -152,11 +152,11 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                           text:
                               "${controller.alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
                         ),
-                        CommonText(
-                          text:
-                              "${controller.alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
-                          fontSize: 14,
-                        ),
+                        // CommonText(
+                        //   text:
+                        //       "${controller.alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
+                        //   fontSize: 14,
+                        // ),
                         const VerticalSpacing(10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,

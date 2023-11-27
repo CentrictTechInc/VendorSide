@@ -82,7 +82,7 @@ class AppRouter {
                           Get.lazyPut<ProfileController>(
                               () => ProfileController());
 
-                          return EditProfileScreen();
+                          return const EditProfileScreen();
                         }),
                   ]),
               GoRoute(

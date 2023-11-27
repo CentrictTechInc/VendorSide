@@ -35,12 +35,12 @@ class RadioTextWidget extends StatelessWidget {
             color: selectedValue == value || checkBoxvalue
                 ? AppColors.primary
                 : AppColors.grey,
-            fontSize: 10.sp,
+            fontSize: 11.sp,
           ),
         ),
         isCheckBox
             ? SizedBox(
-                height: 26,
+                height: 20,
                 child: Checkbox(
                   value: checkBoxvalue,
                   activeColor: AppColors.primary,
