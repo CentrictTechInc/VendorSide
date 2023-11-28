@@ -1,25 +1,36 @@
+import 'dart:io';
+
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/data/dto/user_details_dto.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
 import 'package:vendor_app/data/provider/network/api_provider.dart';
 import 'package:vendor_app/data/provider/network/api_request_representable.dart';
 
-enum UserAPIType { getUserDetail, postUserDetail }
+enum UserAPIType { getUserDetail, updateUserDetail }
 
 class UserDetailAPI implements APIRequestRepresentable {
   UserAPIType type;
   ProfileDetailsDto? data;
+  File? profileImage;
   int? userId;
-  UserDetailAPI._({required this.type, this.data, this.userId});
+  UserDetailAPI._(
+      {required this.type, this.data, this.userId, this.profileImage});
   UserDetailAPI.getUserDetail(userId)
       : this._(type: UserAPIType.getUserDetail, userId: userId);
-  UserDetailAPI.postUserDetail(userdata)
-      : this._(type: UserAPIType.postUserDetail, data: userdata);
+  UserDetailAPI.postUserDetail(userdata, userPic)
+      : this._(
+            type: UserAPIType.updateUserDetail,
+            data: userdata,
+            profileImage: userPic);
 
   @override
   get body {
     switch (type) {
-      case UserAPIType.postUserDetail:
-        return data?.toRawJson();
+      case UserAPIType.updateUserDetail:
+        return {
+          "data": data?.toJson(),
+          "PictureDataFile": profileImage,
+        };
       case UserAPIType.getUserDetail:
         return {};
     }
@@ -29,23 +40,29 @@ class UserDetailAPI implements APIRequestRepresentable {
   String get endpoint => APIEndpoint.baseUrl;
 
   @override
-  Map<String, String>? get headers => {
-        "Content-Type": "application/json",
-      };
+  Map<String, String>? get headers {
+    switch (type) {
+      case UserAPIType.getUserDetail:
+        return {"Content-Type": "application/json"};
+      case UserAPIType.updateUserDetail:
+        return {'Content-Type': 'multipart/form-data'};
+    }
+  }
+
   @override
   HTTPMethod get method {
     switch (type) {
       case UserAPIType.getUserDetail:
         return HTTPMethod.get;
-      case UserAPIType.postUserDetail:
-        return HTTPMethod.post;
+      case UserAPIType.updateUserDetail:
+        return HTTPMethod.multiPartPut;
     }
   }
 
   @override
   String get path {
     switch (type) {
-      case UserAPIType.postUserDetail:
+      case UserAPIType.updateUserDetail:
         return APIEndpoint.postProfileDetailsUrl;
       case UserAPIType.getUserDetail:
         return APIEndpoint.getProfileDetailsUrl;
@@ -64,8 +81,8 @@ class UserDetailAPI implements APIRequestRepresentable {
   Map<String, String>? get urlParams {
     switch (type) {
       case UserAPIType.getUserDetail:
-        return {'Vid': userId.toString()};
-      case UserAPIType.postUserDetail:
+        return {'vendorId': userId.toString()};
+      case UserAPIType.updateUserDetail:
         return {};
     }
   }

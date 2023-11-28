@@ -32,7 +32,7 @@ class ProfileController extends GetxController {
   Future getUserDetails() async {
     try {
       ShowDialogBox.showDialogBoxs(true);
-      int id = LocalStorageService.instance.user!.vid! ?? 58;
+      int id = LocalStorageService.instance.user!.vid!;
       ProfileDetailsModel user = await repo.getUserDetails(id);
       this.user = user;
       LocalStorageService.instance.user = UserDto(
@@ -59,8 +59,13 @@ class ProfileController extends GetxController {
   Future postUserDetails(ProfileDetailsDto data) async {
     try {
       ShowDialogBox.showDialogBoxs(true);
-      final res = await repo.postUserDetails(data);
-
+      final String res;
+      if (file == null) {
+        res = await repo.postUserDetails(data);
+      } else {
+        res = await repo.postUserDetails(data, userPic: file);
+      }
+      update();
       globalContext?.pop();
       ToastMessage.message(res, type: ToastType.success);
     } catch (e) {

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -51,19 +52,20 @@ class ProfileScreenMobile extends StatelessWidget {
                               width: 0.25,
                             ),
                             borderRadius: BorderRadius.circular(70)),
-                        child: pic != null
+                        child: c.user?.pictureData != null
                             ? CircleAvatar(
-                                backgroundImage: pic == null
+                                backgroundImage: c.user?.pictureData == null
                                     ? null
-                                    : FileImage(
-                                        File(pic!),
+                                    : MemoryImage(
+                                        base64Decode(c.user?.pictureData ?? ""),
                                       ),
                               )
                             : ClipRRect(
                                 borderRadius: BorderRadius.circular(70),
-                                child: const NetWorkImageWithInitials(
+                                child: NetWorkImageWithInitials(
                                   imageUrl: Drawables.personUrl,
-                                  name: "Shaheer",
+                                  name:
+                                      "${LocalStorageService.instance.user?.firstName?[0]}}",
                                 ),
                               ),
                       ),
