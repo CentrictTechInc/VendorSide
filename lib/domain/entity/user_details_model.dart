@@ -11,6 +11,10 @@ class ProfileDetailsModel {
   String? lastName;
   String? jobTitle;
   String? vendoremail;
+  bool? isActive;
+  int? serviceTypeId;
+  String? excludedDates;
+  String? pictureData;
 
   ProfileDetailsModel({
     this.vid,
@@ -25,5 +29,9 @@ class ProfileDetailsModel {
     this.lastName,
     this.jobTitle,
     this.vendoremail,
+    this.isActive,
+    this.serviceTypeId,
+    this.excludedDates,
+    this.pictureData,
   });
 }

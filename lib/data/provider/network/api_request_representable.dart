@@ -1,4 +1,4 @@
-enum HTTPMethod { get, post, delete, put, patch, multiPart }
+enum HTTPMethod { get, post, delete, put, patch, multiPart, multiPartPut }
 
 extension HTTPMethodString on HTTPMethod {
   String get string {
@@ -15,6 +15,8 @@ extension HTTPMethodString on HTTPMethod {
         return "put";
       case HTTPMethod.multiPart:
         return "multiPart";
+      case HTTPMethod.multiPartPut:
+        return "multiPartPut";
     }
   }
 }

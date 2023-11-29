@@ -40,7 +40,6 @@ final globalContext = _rootNavigatorKey.currentContext;
 class AppRouter {
   static final router = GoRouter(
       navigatorKey: _rootNavigatorKey,
-      // initialLocation: PagePath.automotiveService,
       initialLocation: PagePath.login,
       routes: [
         GoRoute(
@@ -48,7 +47,7 @@ class AppRouter {
             parentNavigatorKey: _rootNavigatorKey,
             builder: (context, state) {
               Get.lazyPut<BottomNavController>(() => BottomNavController());
-              return MainBottomNavScreen();
+              return const MainBottomNavScreen();
             },
             routes: [
               GoRoute(
@@ -82,7 +81,7 @@ class AppRouter {
                           Get.lazyPut<ProfileController>(
                               () => ProfileController());
 
-                          return EditProfileScreen();
+                          return const EditProfileScreen();
                         }),
                   ]),
               GoRoute(

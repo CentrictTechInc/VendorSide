@@ -16,6 +16,10 @@ class ProfileDetailsDto extends ProfileDetailsModel {
     super.lastName,
     super.jobTitle,
     super.vendoremail,
+    super.isActive,
+    super.serviceTypeId,
+    super.excludedDates,
+    super.pictureData,
   });
 
   factory ProfileDetailsDto.fromRawJson(String str) =>
@@ -37,20 +41,18 @@ class ProfileDetailsDto extends ProfileDetailsModel {
         lastName: json["lastName"],
         jobTitle: json["jobTitle"],
         vendoremail: json["vendoremail"],
+        isActive: json["isActive"],
+        serviceTypeId: json["serviceTypeId"],
+        excludedDates: json["excludedDates"],
+        pictureData: json["pictureData"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "vid": vid,
-        "vendortype": vendortype,
-        "vendorCompanyName": vendorCompanyName,
-        "vendoraddress": vendoraddress,
-        "vendorCity": vendorCity,
-        "vendorRegion": vendorRegion,
-        "vendorPostalcode": vendorPostalcode,
-        "vendorMobileDetail": vendorMobileDetail,
-        "firstName": firstName,
-        "lastName": lastName,
-        "jobTitle": jobTitle,
-        "vendoremail": vendoremail,
+  Map<String, String> toJson() => {
+        "Vid": vid.toString(),
+        "FirstName": firstName.toString(),
+        "LastName": lastName.toString(),
+        "VendorCompanyName": vendorCompanyName.toString(),
+        "Vendoraddress": vendoraddress.toString(),
+        "VendorMobileDetails": vendorMobileDetail.toString(),
       };
 }

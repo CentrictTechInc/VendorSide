@@ -74,24 +74,27 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
                       child: Stack(
                         children: [
                           Container(
-                              width: 115,
-                              height: 115,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: AppColors.grey.withOpacity(0.5),
-                                    width: 0.25,
-                                  ),
-                                  borderRadius: BorderRadius.circular(70)),
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(70),
-                                  child: c.file == null
-                                      ? const NetWorkImageWithInitials(
-                                          imageUrl: Drawables.personUrl,
-                                          name: "Shaheer",
-                                        )
-                                      : Image.file(
-                                          c.file!,
-                                        ))),
+                            width: 115,
+                            height: 115,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: AppColors.grey.withOpacity(0.5),
+                                  width: 0.25,
+                                ),
+                                borderRadius: BorderRadius.circular(70)),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(70),
+                              child: c.file == null
+                                  ? NetWorkImageWithInitials(
+                                      imageUrl: Drawables.personUrl,
+                                      name:
+                                          "${LocalStorageService.instance.user?.firstName}",
+                                    )
+                                  : Image.file(
+                                      c.file!,
+                                    ),
+                            ),
+                          ),
                           Positioned(
                             bottom: 2,
                             right: 0,
@@ -129,7 +132,7 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
                       validator: emptyFieldValidation,
                       isTextFields: true,
                       hintText: "Star Autos",
-                      controller: addressController,
+                      controller: shopNameController,
                     ),
                     const VerticalSpacing(20),
                     ProfileItem(
@@ -142,16 +145,16 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
                       controller: addressController,
                     ),
                     const VerticalSpacing(20),
-                    ProfileItem(
-                      heading: "Email",
-                      icon: RGIcons.email,
-                      isTextFields: true,
-                      hintText: "email@email",
-                      validator: validateEmail,
-                      controller: emailController,
-                      readOnly: true,
-                    ),
-                    const VerticalSpacing(20),
+                    // ProfileItem(
+                    //   heading: "Email",
+                    //   icon: RGIcons.email,
+                    //   isTextFields: true,
+                    //   hintText: "email@email",
+                    //   validator: validateEmail,
+                    //   controller: emailController,
+                    //   readOnly: true,
+                    // ),
+                    // const VerticalSpacing(20),
                     ProfileItem(
                       heading: "Phone",
                       icon: RGIcons.phone,
@@ -160,21 +163,27 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
                       validator: validatePhone,
                       controller: phoneController,
                     ),
-                    const VerticalSpacing(40),
+                    const VerticalSpacing(60),
                     Center(
                       child: CommonTextButton(
                         onPressed: () {
                           if (editForm.currentState!.validate()) {
-                            // ProfileDetailsDto data2 = ProfileDetailsDto(
-                            //     userId:
-                            //         LocalStorageService.instance.user!.vid! ??
-                            //             0,
-                            //     userName: nameController.text.toString(),
-                            //     email: emailController.text,
-                            //     phone: phoneController.text,
-                            //     address: addressController.text,
-                            //     latitude: 0,
-                            //     longitude: 0);
+                            List<String> names =
+                                nameController.text.trim().split(' ');
+                            String firstName = names[0];
+                            String lastName = names.length > 1
+                                ? names.sublist(1).join(' ')
+                                : '';
+                            ProfileDetailsDto data2 = ProfileDetailsDto(
+                              vid: LocalStorageService.instance.user!.vid!,
+                              firstName: firstName,
+                              lastName: lastName,
+                              vendoremail: emailController.text,
+                              vendorMobileDetail: phoneController.text,
+                              vendoraddress: addressController.text,
+                              vendorCompanyName: shopNameController.text,
+                            );
+                            c.postUserDetails(data2);
                           }
                         },
                         text: "SAVE",

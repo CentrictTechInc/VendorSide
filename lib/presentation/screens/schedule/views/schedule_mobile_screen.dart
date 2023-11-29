@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -16,18 +19,19 @@ import 'package:vendor_app/presentation/screens/tasks/components/tab_button.dart
 class ScheduleMobileScreen extends StatelessWidget {
   ScheduleMobileScreen({this.onPressed, super.key});
 
-  final ValueNotifier<DateTime> _focusedDay = ValueNotifier(DateTime.now());
   late PageController _pageController;
   final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final headerText = DateFormat.yMMM().format(_focusedDay.value);
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: GetBuilder<TaskScheduleController>(
             init: TaskScheduleController(),
             builder: (controller) {
+              final headerText =
+                  DateFormat.yMMM().format(controller.focusedDay.value);
+
               return SingleChildScrollView(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,6 +42,10 @@ class ScheduleMobileScreen extends StatelessWidget {
                         text: "Add Schedule",
                         onDrawerPressed: onPressed,
                         hideBell: true,
+                        editButton: true,
+                        onEdit: () {
+                          print("can edit");
+                        },
                       ),
                       Container(
                         alignment: Alignment.center,
@@ -86,8 +94,74 @@ class ScheduleMobileScreen extends StatelessWidget {
                         ],
                       ),
                       const VerticalSpacing(20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          'Sun',
+                          'Mon',
+                          'Tue',
+                          'Wed',
+                          'Thu',
+                          'Fri',
+                          'Sat',
+                        ].map((day) => Text(day)).toList(),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: controller.daysOfWeek.entries.map((entry) {
+                          List<DateTime> dates = entry.value;
+                          return Expanded(
+                            flex: 2,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: dates.map((date) {
+                                return InkWell(
+                                  onTap: () {
+                                    if (controller.selectedDates
+                                        .contains(date)) {
+                                      controller.selectedDates.remove(date);
+                                      print("hi");
+                                      controller.update();
+                                    } else {
+                                      // Otherwise, select it
+                                      controller.selectedDates.add(date);
+                                      controller.update();
+                                    }
+                                  },
+                                  child: Container(
+                                    constraints: const BoxConstraints(
+                                        minWidth: 40, minHeight: 45),
+                                    margin: const EdgeInsets.only(
+                                        bottom: 5, right: 5),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: controller.selectedDates
+                                              .contains(date)
+                                          ? AppColors.whiteGreyish
+                                          : AppColors.primary,
+                                    ),
+                                    alignment: Alignment.center,
+                                    // padding: const EdgeInsets.symmetric(
+                                    //     vertical: 15.0, horizontal: 10),
+                                    child: CommonText(
+                                      textAlign: TextAlign.center,
+                                      fontSize: 18,
+                                      text: DateFormat('d').format(date),
+                                      color: isSameDay(
+                                              controller.focusedDay.value, date)
+                                          ? AppColors.white
+                                          : AppColors.grey,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      const VerticalSpacing(20),
                       TableCalendar(
-                        focusedDay: _focusedDay.value,
+                        focusedDay: controller.focusedDay.value,
                         calendarFormat: CalendarFormat.month,
                         rowHeight: 50,
                         headerVisible: false,
@@ -96,7 +170,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                         onCalendarCreated: (controller) =>
                             _pageController = controller,
                         onPageChanged: (focusedDay) =>
-                            _focusedDay.value = focusedDay,
+                            controller.focusedDay.value = focusedDay,
                         firstDay: DateTime(DateTime.now().year - 1),
                         lastDay: DateTime(DateTime.now().year + 1),
                         // focusedDay: stringToDateTime(data.appointmentDate ?? "")!,

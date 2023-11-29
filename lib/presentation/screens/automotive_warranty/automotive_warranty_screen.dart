@@ -11,14 +11,13 @@ class AutomotiveWarrantyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        // context.pop();
-        // return true;
         bool closeConfirmed = await showDialog(
           context: context,
           builder: (BuildContext context) {
             return const CloseConfirmationDialogue();
           },
         );
+
         return closeConfirmed;
       },
       child: Scaffold(

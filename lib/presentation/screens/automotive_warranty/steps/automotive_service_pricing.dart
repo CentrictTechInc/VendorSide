@@ -12,6 +12,7 @@ import 'package:vendor_app/data/dto/service_pricing_dto.dart';
 import 'package:vendor_app/domain/entity/services_model.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/components/common_text_icon_row.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
+import 'package:vendor_app/presentation/screens/handyman_warranty/components/radio_text_widget.dart';
 import 'package:vendor_app/presentation/screens/manage_services_pages/components/price_widget.dart';
 
 class AutomotiveServicePricing extends StatelessWidget {
@@ -77,7 +78,7 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                         activeColor: AppColors.primary,
                         splashRadius: 20,
                         onChanged: (p0) {
-                          service.isSelected = p0!;
+                          service.isSelected = p0;
                           print("count  ${service.isSelected} $p0");
                           print(service.listSubServiceName.length);
                           if (service.isSelected == true) {
@@ -138,26 +139,25 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // RadioTextWidget(
-                        //   isCheckBox: true,
-                        //   isChanged: (p0) {
-                        //     service.listSubServiceName[index]!.isSelected = p0!;
-                        //     controller.update();
-                        //   },
-                        //   checkBoxvalue:
-                        //       service.listSubServiceName[index]!.isSelected ??
-                        //           false,
-                        //   selectedValue: index.toString(),
-                        //   text:
-                        //       "${alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
-                        // ),
-                        CommonText(
+                        RadioTextWidget(
+                          isCheckBox: true,
+                          isChanged: (p0) {
+                            service.listSubServiceName[index]?.isSelected = p0;
+                            controller.update();
+                          },
+                          checkBoxvalue:
+                              service.listSubServiceName[index]!.isSelected ??
+                                  false,
+                          selectedValue: index.toString(),
                           text:
                               "${controller.alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
-                          fontSize: 14,
                         ),
+                        // CommonText(
+                        //   text:
+                        //       "${controller.alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
+                        //   fontSize: 14,
+                        // ),
                         const VerticalSpacing(10),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [

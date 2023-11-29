@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:vendor_app/data/dto/user_details_dto.dart';
 import 'package:vendor_app/data/provider/network/apis/user_details_api.dart';
 import 'package:vendor_app/domain/entity/user_details_model.dart';
@@ -16,10 +19,13 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<String> postUserDetails(ProfileDetailsDto data) async {
+  Future<String> postUserDetails(ProfileDetailsDto data,
+      {File? userPic}) async {
     try {
-      final response = await UserDetailAPI.postUserDetail(data).request();
-      return response;
+      final response =
+          await UserDetailAPI.postUserDetail(data, userPic).request();
+      Map<String, dynamic> res = jsonDecode(response);
+      return res['message'];
     } catch (e) {
       rethrow;
     }
