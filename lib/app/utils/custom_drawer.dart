@@ -75,7 +75,8 @@ class CustomDrawer extends StatelessWidget {
                     ),
                     const VerticalSpacing(15),
                     CommonText(
-                      text: 'Hussain',
+                      text:
+                          '${LocalStorageService.instance.user?.firstName} ${LocalStorageService.instance.user?.lastName}',
                       fontSize: 16.sp,
                       textAlign: TextAlign.start,
                       color: AppColors.white,

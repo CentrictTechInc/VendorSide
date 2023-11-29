@@ -8,6 +8,7 @@ class AppColors {
   static const Color greyish = Color(0xffF2F4F6);
   static const Color whiteish = Color(0xffE7EBED);
   static const Color primary = Color(0xff0D4744);
+  static const Color primaryLight = Color(0xffCDECEA);
   static const List<Color> primaryGradient = [
     Color(0xff0d4744),
     Color(0xff00726c)

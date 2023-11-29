@@ -4,6 +4,7 @@ import 'package:sizer/sizer.dart';
 import 'common_spacing.dart';
 import 'common_text.dart';
 
+// ignore: must_be_immutable
 class DrawerItem extends StatelessWidget {
   DrawerItem({
     super.key,

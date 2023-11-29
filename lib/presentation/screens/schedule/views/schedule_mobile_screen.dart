@@ -106,6 +106,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                           'Sat',
                         ].map((day) => Text(day)).toList(),
                       ),
+                      const VerticalSpacing(10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: controller.daysOfWeek.entries.map((entry) {
@@ -116,15 +117,18 @@ class ScheduleMobileScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: dates.map((date) {
                                 return InkWell(
+                                  splashColor: Colors.white,
+                                  highlightColor: Colors.transparent,
                                   onTap: () {
                                     if (controller.selectedDates
                                         .contains(date)) {
                                       controller.selectedDates.remove(date);
-                                      print("hi");
+                                      print(controller.selectedDates);
                                       controller.update();
                                     } else {
                                       // Otherwise, select it
                                       controller.selectedDates.add(date);
+
                                       controller.update();
                                     }
                                   },
@@ -132,25 +136,34 @@ class ScheduleMobileScreen extends StatelessWidget {
                                     constraints: const BoxConstraints(
                                         minWidth: 40, minHeight: 45),
                                     margin: const EdgeInsets.only(
-                                        bottom: 5, right: 5),
+                                        bottom: 5, right: 5, top: 5),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(25),
                                       color: controller.selectedDates
                                               .contains(date)
-                                          ? AppColors.whiteGreyish
-                                          : AppColors.primary,
+                                          ? AppColors.white
+                                          : isSameDay(
+                                                  controller.focusedDay.value,
+                                                  date)
+                                              ? AppColors.primary
+                                              : AppColors.primaryLight,
                                     ),
                                     alignment: Alignment.center,
                                     // padding: const EdgeInsets.symmetric(
                                     //     vertical: 15.0, horizontal: 10),
                                     child: CommonText(
                                       textAlign: TextAlign.center,
-                                      fontSize: 18,
+                                      weight: FontWeight.bold,
+                                      fontSize: 14,
                                       text: DateFormat('d').format(date),
-                                      color: isSameDay(
-                                              controller.focusedDay.value, date)
-                                          ? AppColors.white
-                                          : AppColors.grey,
+                                      color: controller.selectedDates
+                                              .contains(date)
+                                          ? AppColors.grey
+                                          : isSameDay(
+                                                  controller.focusedDay.value,
+                                                  date)
+                                              ? AppColors.white
+                                              : AppColors.primary,
                                     ),
                                   ),
                                 );
@@ -160,41 +173,41 @@ class ScheduleMobileScreen extends StatelessWidget {
                         }).toList(),
                       ),
                       const VerticalSpacing(20),
-                      TableCalendar(
-                        focusedDay: controller.focusedDay.value,
-                        calendarFormat: CalendarFormat.month,
-                        rowHeight: 50,
-                        headerVisible: false,
-                        availableGestures: AvailableGestures.all,
-                        // weekNumbersVisible: true,
-                        onCalendarCreated: (controller) =>
-                            _pageController = controller,
-                        onPageChanged: (focusedDay) =>
-                            controller.focusedDay.value = focusedDay,
-                        firstDay: DateTime(DateTime.now().year - 1),
-                        lastDay: DateTime(DateTime.now().year + 1),
-                        // focusedDay: stringToDateTime(data.appointmentDate ?? "")!,
-                        calendarStyle: CalendarStyle(
-                            selectedDecoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(70),
-                                border: Border.all(
-                                  color: AppColors.primary,
-                                  width: 1.5,
-                                )),
-                            selectedTextStyle: const TextStyle(
-                                color: AppColors.primary,
-                                fontWeight: FontWeight.bold),
-                            isTodayHighlighted: false,
-                            weekendTextStyle:
-                                const TextStyle(color: AppColors.primaryText)),
+                      // TableCalendar(
+                      //   focusedDay: controller.focusedDay.value,
+                      //   calendarFormat: CalendarFormat.month,
+                      //   rowHeight: 50,
+                      //   headerVisible: false,
+                      //   availableGestures: AvailableGestures.all,
+                      //   // weekNumbersVisible: true,
+                      //   onCalendarCreated: (controller) =>
+                      //       _pageController = controller,
+                      //   onPageChanged: (focusedDay) =>
+                      //       controller.focusedDay.value = focusedDay,
+                      //   firstDay: DateTime(DateTime.now().year - 1),
+                      //   lastDay: DateTime(DateTime.now().year + 1),
+                      //   // focusedDay: stringToDateTime(data.appointmentDate ?? "")!,
+                      //   calendarStyle: CalendarStyle(
+                      //       selectedDecoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.circular(70),
+                      //           border: Border.all(
+                      //             color: AppColors.primary,
+                      //             width: 1.5,
+                      //           )),
+                      //       selectedTextStyle: const TextStyle(
+                      //           color: AppColors.primary,
+                      //           fontWeight: FontWeight.bold),
+                      //       isTodayHighlighted: false,
+                      //       weekendTextStyle:
+                      //           const TextStyle(color: AppColors.primaryText)),
 
-                        // selectedDayPredicate: (day) {
-                        //   return isSameDay(
-                        //       stringToDateTime(data.appointmentDate ?? ''), day);
-                        // },
-                        currentDay: DateTime.now(),
-                      ),
-                      const VerticalSpacing(10),
+                      //   // selectedDayPredicate: (day) {
+                      //   //   return isSameDay(
+                      //   //       stringToDateTime(data.appointmentDate ?? ''), day);
+                      //   // },
+                      //   currentDay: DateTime.now(),
+                      // ),
+                      // const VerticalSpacing(10),
                       const Divider(
                         thickness: 1,
                       ),
@@ -206,6 +219,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                           weight: FontWeight.w600,
                         ),
                       ),
+                      const VerticalSpacing(10),
                       const Padding(
                         padding: EdgeInsets.only(left: 12.0, bottom: 10),
                         child: CommonText(
@@ -452,9 +466,10 @@ class ScheduleMobileScreen extends StatelessWidget {
                         ),
                         child: CommonTextButton(
                           onPressed: () {
-                            ToastMessage.message(
-                                "Your Schedule Has Been Updated Successfully",
-                                type: ToastType.success);
+                            controller.updateSchedule();
+                            // ToastMessage.message(
+                            //     "Your Schedule Has Been Updated Successfully",
+                            //     type: ToastType.success);
                           },
                           text: "SAVE",
                           color: AppColors.white,
