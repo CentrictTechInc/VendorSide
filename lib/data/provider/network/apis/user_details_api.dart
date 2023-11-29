@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/data/dto/user_details_dto.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
 import 'package:vendor_app/data/provider/network/api_provider.dart';

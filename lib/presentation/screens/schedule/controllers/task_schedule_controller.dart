@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:vendor_app/app/app_router.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
+import 'package:vendor_app/common/common_loader.dart';
+import 'package:vendor_app/common/toast_message.dart';
+import 'package:vendor_app/data/dto/schedule_dto.dart';
+import 'package:vendor_app/data/repository/schedule_repository.dart';
+import 'package:vendor_app/domain/repository/schedule_repository.dart';
 
 class TaskScheduleController extends GetxController {
-  final timeStartFormat = false.obs;
+  ScheduleRepository repo = ScheduleRepositoryImpl();
+  final timeStartFormat = true.obs;
   final timeEndFormat = false.obs;
   int timeStandard = 0;
+  String? timeZone;
   final ValueNotifier<DateTime> focusedDay = ValueNotifier(DateTime.now());
   List<DateTime> selectedDates = [];
   Map<String, List<DateTime>> daysOfWeek = {
@@ -51,10 +61,55 @@ class TaskScheduleController extends GetxController {
   }
 
   @override
-  onInit() {
+  onInit() async {
     super.onInit();
     timeStandard = 0;
     generateDatesForMonth(focusedDay.value.year, focusedDay.value.month);
+    getSchedule();
+  }
+
+  setTimeStandart(int i) {
+    switch (i) {
+      case 0:
+        timeZone = "Central";
+        break;
+      case 1:
+        timeZone = "Eastern";
+        break;
+      case 2:
+        timeZone = "Mountain";
+        break;
+      case 3:
+        timeZone = "Pacific";
+        break;
+    }
+  }
+
+  setTimeZone(String? timeZone) {
+    switch (timeZone) {
+      case "Central":
+        timeStandard = 0;
+        break;
+      case "Eastern":
+        timeStandard = 1;
+        break;
+      case "Mountain":
+        timeStandard = 2;
+        break;
+      case "Pacific":
+        timeStandard = 3;
+        break;
+    }
+  }
+
+  String setTimeAmPm(bool i) {
+    switch (i) {
+      case true:
+        return "AM";
+
+      case false:
+        return "PM";
+    }
   }
 
   changetime(int i) {
@@ -105,6 +160,64 @@ class TaskScheduleController extends GetxController {
     if (j.value != 0) {
       timings[j.value--];
       getEndTime.value = timings[j.value];
+    }
+  }
+
+  Future updateSchedule() async {
+    try {
+      ShowDialogBox.showDialogBoxs(true);
+
+      List<String> selectedDatesStrings =
+          selectedDates.map((date) => date.toIso8601String()).toList();
+      setTimeStandart(timeStandard);
+      String startTimeFormat =
+          "${getStartTime.value} ${setTimeAmPm(timeStartFormat.value)} ${timeZone!}";
+      String endTimeFormat =
+          "${getEndTime.value} ${setTimeAmPm(timeEndFormat.value)} ${timeZone!}";
+      ScheduleDto scheduleModel = ScheduleDto(
+        vid: LocalStorageService.instance.user?.vid,
+        excludedDatesList: selectedDatesStrings,
+        startTime: startTimeFormat,
+        endTime: endTimeFormat,
+        timeZone: timeZone,
+      );
+      final response = await repo.updateSchedule(scheduleModel: scheduleModel);
+      ToastMessage.message(response, type: ToastType.success);
+      // "Your Schedule Has Been Updated Successfully"
+      return response;
+    } catch (e) {
+      ToastMessage.message(e.toString(), type: ToastType.error);
+
+      rethrow;
+    } finally {
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
+    }
+  }
+
+  Future getSchedule() async {
+    try {
+      final ScheduleDto response = await repo.getSchedule();
+      if (response.excludedDatesList != null) {
+        selectedDates = response.excludedDatesList!
+            .map((date) => DateTime.parse(date))
+            .toList();
+      }
+      if (response.startTime != null) {
+        getStartTime.value = response.startTime?.split(" ")[0] ?? "";
+      }
+      if (response.endTime != null) {
+        getEndTime.value = response.endTime?.split(" ")[0] ?? "";
+      }
+      if (response.timeZone != null) {
+        setTimeZone(response.timeZone);
+      }
+      print(response.toJson());
+      update();
+      // return response;
+    } catch (e) {
+      rethrow;
     }
   }
 }

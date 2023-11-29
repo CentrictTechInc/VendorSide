@@ -32,7 +32,7 @@ class TabButton extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
             backgroundColor:
-                highlighted ? AppColors.secondary : AppColors.whiteGreyish,
+                highlighted ? AppColors.primary : AppColors.whiteGreyish,
             padding: const EdgeInsets.all(5),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
