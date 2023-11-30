@@ -12,6 +12,7 @@ import 'package:vendor_app/domain/repository/schedule_repository.dart';
 
 class TaskScheduleController extends GetxController {
   ScheduleRepository repo = ScheduleRepositoryImpl();
+  bool canEdit = false;
   final timeStartFormat = true.obs;
   final timeEndFormat = false.obs;
   int timeStandard = 0;
@@ -61,11 +62,17 @@ class TaskScheduleController extends GetxController {
   }
 
   @override
-  onInit() async {
+  onInit() {
     super.onInit();
-    timeStandard = 0;
+    // timeStandard = 0;
     generateDatesForMonth(focusedDay.value.year, focusedDay.value.month);
-    getSchedule();
+    // await getSchedule();
+  }
+
+  @override
+  onReady() async {
+    super.onReady();
+    await getSchedule();
   }
 
   setTimeStandart(int i) {
@@ -109,6 +116,17 @@ class TaskScheduleController extends GetxController {
 
       case false:
         return "PM";
+    }
+  }
+
+  bool timeFormat(String time) {
+    switch (time) {
+      case "AM":
+        return true;
+      case "PM":
+        return false;
+      default:
+        throw Exception("Invalid time format");
     }
   }
 
@@ -171,9 +189,9 @@ class TaskScheduleController extends GetxController {
           selectedDates.map((date) => date.toIso8601String()).toList();
       setTimeStandart(timeStandard);
       String startTimeFormat =
-          "${getStartTime.value} ${setTimeAmPm(timeStartFormat.value)} ${timeZone!}";
+          "${getStartTime.value} ${setTimeAmPm(timeStartFormat.value)}";
       String endTimeFormat =
-          "${getEndTime.value} ${setTimeAmPm(timeEndFormat.value)} ${timeZone!}";
+          "${getEndTime.value} ${setTimeAmPm(timeEndFormat.value)}";
       ScheduleDto scheduleModel = ScheduleDto(
         vid: LocalStorageService.instance.user?.vid,
         excludedDatesList: selectedDatesStrings,
@@ -182,38 +200,51 @@ class TaskScheduleController extends GetxController {
         timeZone: timeZone,
       );
       final response = await repo.updateSchedule(scheduleModel: scheduleModel);
+      canEdit = false;
+      update();
       ToastMessage.message(response, type: ToastType.success);
       // "Your Schedule Has Been Updated Successfully"
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
       return response;
     } catch (e) {
       ToastMessage.message(e.toString(), type: ToastType.error);
 
       rethrow;
-    } finally {
-      if (ShowDialogBox.isOpen) {
-        globalContext?.pop();
-      }
     }
+    // finally {
+    //   if (ShowDialogBox.isOpen) {
+    //     globalContext?.pop();
+    //   }
+    // }
   }
 
   Future getSchedule() async {
     try {
+      ShowDialogBox.showDialogBoxs(true);
       final ScheduleDto response = await repo.getSchedule();
-      if (response.excludedDatesList != null) {
+
+      if (response.excludedDatesList!.isNotEmpty) {
         selectedDates = response.excludedDatesList!
             .map((date) => DateTime.parse(date))
             .toList();
       }
-      if (response.startTime != null) {
-        getStartTime.value = response.startTime?.split(" ")[0] ?? "";
-      }
-      if (response.endTime != null) {
-        getEndTime.value = response.endTime?.split(" ")[0] ?? "";
-      }
-      if (response.timeZone != null) {
-        setTimeZone(response.timeZone);
-      }
+      //for start time
+      var startTimeParts = response.startTime?.split(" ") ?? ["", ""];
+      getStartTime.value = startTimeParts[0];
+      timeStartFormat.value = timeFormat(startTimeParts[1]);
+      //for end time
+      var endTimeParts = response.endTime?.split(" ") ?? ["", ""];
+      getEndTime.value = endTimeParts[0];
+      timeEndFormat.value = timeFormat(endTimeParts[1]);
+      //for time zone
+      setTimeZone(response.timeZone);
+
       print(response.toJson());
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
       update();
       // return response;
     } catch (e) {

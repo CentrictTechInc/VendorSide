@@ -39,60 +39,71 @@ class ScheduleMobileScreen extends StatelessWidget {
                       CommonAppBar(
                         backButton: false,
                         hamburger: true,
-                        text: "Add Schedule",
+                        text: controller.canEdit ? "Edit Schedule" : "Schedule",
                         onDrawerPressed: onPressed,
                         hideBell: true,
-                        editButton: true,
+                        editButton: !controller.canEdit,
                         onEdit: () {
-                          print("can edit");
+                          controller.canEdit = true;
+                          controller.update();
                         },
                       ),
                       Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: const CommonText(
-                          text: "Select Date",
+                        child: CommonText(
+                          text: controller.canEdit
+                              ? "Current Dates"
+                              : "Selected Dates",
                           fontSize: 14,
                           weight: FontWeight.w600,
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            icon: const Icon(
-                              Icons.chevron_left,
-                              size: 30,
-                              color: AppColors.grey,
-                            ),
-                            onPressed: () {
-                              _pageController.previousPage(
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeOut,
-                              );
-                            },
-                          ),
-                          const HorizontalSpacing(50),
-                          CommonText(
-                            text: headerText,
-                            fontSize: 14,
-                          ),
-                          const HorizontalSpacing(50),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.chevron_right,
-                              size: 30,
-                              color: AppColors.grey,
-                            ),
-                            onPressed: () {
-                              _pageController.nextPage(
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeOut,
-                              );
-                            },
-                          ),
-                        ],
+                      const VerticalSpacing(10),
+                      Center(
+                        child: CommonText(
+                          text: headerText,
+                          fontSize: 14,
+                        ),
                       ),
+                      const VerticalSpacing(10),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     IconButton(
+                      //       icon: const Icon(
+                      //         Icons.chevron_left,
+                      //         size: 30,
+                      //         color: AppColors.grey,
+                      //       ),
+                      //       onPressed: () {
+                      //         _pageController.previousPage(
+                      //           duration: const Duration(milliseconds: 300),
+                      //           curve: Curves.easeOut,
+                      //         );
+                      //       },
+                      //     ),
+                      //     const HorizontalSpacing(50),
+                      //     CommonText(
+                      //       text: headerText,
+                      //       fontSize: 14,
+                      //     ),
+                      //     const HorizontalSpacing(50),
+                      //     IconButton(
+                      //       icon: const Icon(
+                      //         Icons.chevron_right,
+                      //         size: 30,
+                      //         color: AppColors.grey,
+                      //       ),
+                      //       onPressed: () {
+                      //         _pageController.nextPage(
+                      //           duration: const Duration(milliseconds: 300),
+                      //           curve: Curves.easeOut,
+                      //         );
+                      //       },
+                      //     ),
+                      //   ],
+                      // ),
                       const VerticalSpacing(20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -116,22 +127,36 @@ class ScheduleMobileScreen extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: dates.map((date) {
+                                bool isCurrentMonth = date.month ==
+                                        controller.focusedDay.value.month &&
+                                    date.year ==
+                                        controller.focusedDay.value.year;
+                                bool isSameDay1(
+                                    DateTime date1, DateTime date2) {
+                                  return date1.day == date2.day &&
+                                      date1.month == date2.month &&
+                                      date1.year == date2.year;
+                                }
+
                                 return InkWell(
                                   splashColor: Colors.white,
                                   highlightColor: Colors.transparent,
-                                  onTap: () {
-                                    if (controller.selectedDates
-                                        .contains(date)) {
-                                      controller.selectedDates.remove(date);
-                                      print(controller.selectedDates);
-                                      controller.update();
-                                    } else {
-                                      // Otherwise, select it
-                                      controller.selectedDates.add(date);
+                                  onTap: controller.canEdit && isCurrentMonth
+                                      ? () {
+                                          if (controller.selectedDates
+                                              .contains(date)) {
+                                            controller.selectedDates
+                                                .remove(date);
+                                            print(controller.selectedDates);
+                                            controller.update();
+                                          } else {
+                                            // Otherwise, select it
+                                            controller.selectedDates.add(date);
 
-                                      controller.update();
-                                    }
-                                  },
+                                            controller.update();
+                                          }
+                                        }
+                                      : null,
                                   child: Container(
                                     constraints: const BoxConstraints(
                                         minWidth: 40, minHeight: 45),
@@ -140,9 +165,10 @@ class ScheduleMobileScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(25),
                                       color: controller.selectedDates
-                                              .contains(date)
+                                                  .contains(date) &&
+                                              isCurrentMonth
                                           ? AppColors.white
-                                          : isSameDay(
+                                          : isSameDay1(
                                                   controller.focusedDay.value,
                                                   date)
                                               ? AppColors.primary
@@ -159,7 +185,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                                       color: controller.selectedDates
                                               .contains(date)
                                           ? AppColors.grey
-                                          : isSameDay(
+                                          : isSameDay1(
                                                   controller.focusedDay.value,
                                                   date)
                                               ? AppColors.white
@@ -202,7 +228,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                       //           const TextStyle(color: AppColors.primaryText)),
 
                       //   // selectedDayPredicate: (day) {
-                      //   //   return isSameDay(
+                      //   //   return isSameDay1(
                       //   //       stringToDateTime(data.appointmentDate ?? ''), day);
                       //   // },
                       //   currentDay: DateTime.now(),
@@ -212,9 +238,11 @@ class ScheduleMobileScreen extends StatelessWidget {
                         thickness: 1,
                       ),
                       const VerticalSpacing(10),
-                      const Center(
+                      Center(
                         child: CommonText(
-                          text: "Select Time",
+                          text: controller.canEdit
+                              ? "Select Time"
+                              : "Current Time",
                           fontSize: 14,
                           weight: FontWeight.w600,
                         ),
@@ -246,9 +274,11 @@ class ScheduleMobileScreen extends StatelessWidget {
                                       size: 20,
                                       color: AppColors.grey,
                                     ),
-                                    onPressed: () {
-                                      controller.decrementStartTime();
-                                    },
+                                    onPressed: controller.canEdit
+                                        ? () {
+                                            controller.decrementStartTime();
+                                          }
+                                        : null,
                                   ),
                                 ),
                                 const HorizontalSpacing(10),
@@ -266,9 +296,11 @@ class ScheduleMobileScreen extends StatelessWidget {
                                       size: 20,
                                       color: AppColors.grey,
                                     ),
-                                    onPressed: () {
-                                      controller.incrementStartTime();
-                                    },
+                                    onPressed: controller.canEdit
+                                        ? () {
+                                            controller.incrementStartTime();
+                                          }
+                                        : null,
                                   ),
                                 ),
                               ],
@@ -291,8 +323,10 @@ class ScheduleMobileScreen extends StatelessWidget {
                                         radius: 14,
                                         highlighted:
                                             controller.timeStartFormat.value,
-                                        onPressed: () =>
-                                            controller.timeStartFormat.toggle(),
+                                        onPressed: controller.canEdit
+                                            ? () => controller.timeStartFormat
+                                                .toggle()
+                                            : null,
                                       ),
                                     ),
                                     Expanded(
@@ -303,9 +337,12 @@ class ScheduleMobileScreen extends StatelessWidget {
                                         radius: 14,
                                         highlighted:
                                             !controller.timeStartFormat.value,
-                                        onPressed: () {
-                                          controller.timeStartFormat.toggle();
-                                        },
+                                        onPressed: controller.canEdit
+                                            ? () {
+                                                controller.timeStartFormat
+                                                    .toggle();
+                                              }
+                                            : null,
                                       ),
                                     ),
                                   ],
@@ -340,9 +377,11 @@ class ScheduleMobileScreen extends StatelessWidget {
                                       size: 20,
                                       color: AppColors.grey,
                                     ),
-                                    onPressed: () {
-                                      controller.decrementEndTime();
-                                    },
+                                    onPressed: controller.canEdit
+                                        ? () {
+                                            controller.decrementEndTime();
+                                          }
+                                        : null,
                                   ),
                                 ),
                                 const HorizontalSpacing(10),
@@ -360,9 +399,11 @@ class ScheduleMobileScreen extends StatelessWidget {
                                       size: 20,
                                       color: AppColors.grey,
                                     ),
-                                    onPressed: () {
-                                      controller.incrementEndTime();
-                                    },
+                                    onPressed: controller.canEdit
+                                        ? () {
+                                            controller.incrementEndTime();
+                                          }
+                                        : null,
                                   ),
                                 ),
                               ],
@@ -385,8 +426,10 @@ class ScheduleMobileScreen extends StatelessWidget {
                                         radius: 14,
                                         highlighted:
                                             controller.timeEndFormat.value,
-                                        onPressed: () =>
-                                            controller.timeEndFormat.toggle(),
+                                        onPressed: controller.canEdit
+                                            ? () => controller.timeEndFormat
+                                                .toggle()
+                                            : null,
                                       ),
                                     ),
                                     Expanded(
@@ -397,9 +440,12 @@ class ScheduleMobileScreen extends StatelessWidget {
                                         radius: 14,
                                         highlighted:
                                             !controller.timeEndFormat.value,
-                                        onPressed: () {
-                                          controller.timeEndFormat.toggle();
-                                        },
+                                        onPressed: controller.canEdit
+                                            ? () {
+                                                controller.timeEndFormat
+                                                    .toggle();
+                                              }
+                                            : null,
                                       ),
                                     ),
                                   ],
@@ -417,7 +463,9 @@ class ScheduleMobileScreen extends StatelessWidget {
                               height: 44,
                               radius: 14,
                               highlighted: controller.timeStandard == 0,
-                              onPressed: () => controller.changetime(0),
+                              onPressed: controller.canEdit
+                                  ? () => controller.changetime(0)
+                                  : null,
                             ),
                           ),
                           Expanded(
@@ -426,9 +474,11 @@ class ScheduleMobileScreen extends StatelessWidget {
                               height: 44,
                               radius: 14,
                               highlighted: controller.timeStandard == 1,
-                              onPressed: () {
-                                controller.changetime(1);
-                              },
+                              onPressed: controller.canEdit
+                                  ? () {
+                                      controller.changetime(1);
+                                    }
+                                  : null,
                             ),
                           ),
                         ],
@@ -443,7 +493,9 @@ class ScheduleMobileScreen extends StatelessWidget {
                               height: 44,
                               radius: 14,
                               highlighted: controller.timeStandard == 2,
-                              onPressed: () => controller.changetime(2),
+                              onPressed: controller.canEdit
+                                  ? () => controller.changetime(2)
+                                  : null,
                             ),
                           ),
                           Expanded(
@@ -452,29 +504,32 @@ class ScheduleMobileScreen extends StatelessWidget {
                               height: 44,
                               radius: 14,
                               highlighted: controller.timeStandard == 3,
-                              onPressed: () {
-                                controller.changetime(3);
-                              },
+                              onPressed: controller.canEdit
+                                  ? () {
+                                      controller.changetime(3);
+                                    }
+                                  : null,
                             ),
                           ),
                         ],
                       ),
-                      Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 40,
+                      Visibility(
+                        visible: controller.canEdit,
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 40,
+                          ),
+                          child: CommonTextButton(
+                            onPressed: () {
+                              controller.updateSchedule();
+                            },
+                            text: "SAVE",
+                            color: AppColors.white,
+                          ),
                         ),
-                        child: CommonTextButton(
-                          onPressed: () {
-                            controller.updateSchedule();
-                            // ToastMessage.message(
-                            //     "Your Schedule Has Been Updated Successfully",
-                            //     type: ToastType.success);
-                          },
-                          text: "SAVE",
-                          color: AppColors.white,
-                        ),
-                      )
+                      ),
+                      const VerticalSpacing(30),
                     ]),
               );
             }));
