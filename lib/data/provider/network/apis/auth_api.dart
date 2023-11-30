@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/data/dto/registration_dto.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
 import 'package:vendor_app/data/provider/network/api_provider.dart';
@@ -57,7 +58,11 @@ class AuthAPI implements APIRequestRepresentable {
   get body {
     switch (type) {
       case AuthApiType.login:
-        return jsonEncode({'email': email, 'password': password});
+        return jsonEncode({
+          'email': email,
+          'password': password,
+          'deviceToken': LocalStorageService.instance.fcmToken
+        });
       case AuthApiType.signup:
         return data?.toRawJson();
       case AuthApiType.forgotEmailOtpVerification:
@@ -139,8 +144,14 @@ class AuthAPI implements APIRequestRepresentable {
   Map<String, String>? get urlParams {
     switch (type) {
       case AuthApiType.login:
+        return {
+          'email': email.toString(),
+          'password': password.toString(),
+          'deviceToken': LocalStorageService.instance.fcmToken.toString()
+        };
       case AuthApiType.signup:
       case AuthApiType.mobileOtpVerification:
+        return {};
       case AuthApiType.resetPassword:
         return {
           'email': email.toString(),

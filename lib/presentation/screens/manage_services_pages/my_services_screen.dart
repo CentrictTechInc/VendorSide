@@ -59,13 +59,13 @@ class MyServicesScreen extends StatelessWidget with FieldsValidation {
           ),
           const VerticalSpacing(30),
           const CommonText(
-            text: "Choose Your Category",
+            text: "Choose Your Services",
             fontSize: 14,
           ),
           const VerticalSpacing(10),
           DropDownWidget(
             validator: validateTextOnlyDropdown,
-            arryList: const ["hello", "world"],
+            arryList: const ["Capertry", "Plumbing", "Electrician", "Painting"],
             showSearchBox: true,
             compareFn: (value1, value2) {
               return value1 == value2;

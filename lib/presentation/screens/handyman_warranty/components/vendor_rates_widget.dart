@@ -5,13 +5,18 @@ import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
-import 'package:vendor_app/presentation/screens/manage_services_pages/components/price_widget.dart';
 
 class VendorRatesWidget extends StatelessWidget with FieldsValidation {
-  const VendorRatesWidget({
-    super.key,
-  });
-
+  const VendorRatesWidget(
+      {super.key,
+      this.onChanged,
+      this.controller,
+      this.ddList,
+      required this.child});
+  final dynamic Function(dynamic)? onChanged;
+  final TextEditingController? controller;
+  final List<dynamic>? ddList;
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,47 +25,64 @@ class VendorRatesWidget extends StatelessWidget with FieldsValidation {
           borderRadius: BorderRadius.circular(20), color: AppColors.greyish),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const CommonText(
-          text: "Select your area",
+          text: "Select Your Area",
           fontSize: 14,
         ),
         const VerticalSpacing(10),
-        DropDownWidget(
-          dropDownHeight: 50,
-          validator: validateTextOnlyDropdown,
-          arryList: [],
-          showSearchBox: true,
-          compareFn: (value1, value2) {
-            return value1 == value2;
+        // DropDownWidget(
+        //   dropDownHeight: 50,
+        //   validator: validateTextOnlyDropdown,
+        //   arryList: [],
+        //   showSearchBox: true,
+        //   compareFn: (value1, value2) {
+        //     return value1 == value2;
+        //   },
+        //   itemAsString: (p0) {
+        //     return p0;
+        //   },
+        //   fillColor: AppColors.white,
+        //   isFilledColor: true,
+        //   onChanged: (value) async {},
+        //   suffixSearchIcon: RGIcons.search,
+        //   hintText: "Select Your Working Location",
+        // ),
+        TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            filled: true,
+            fillColor: AppColors.white,
+            hintText: "Enter Your Working Location",
+            hintStyle: TextStyle(
+              color: AppColors.grey,
+              fontSize: 14,
+            ),
+          ),
+          onChanged: (value) {
+            // Handle the change
           },
-          itemAsString: (p0) {
-            return p0;
-          },
-          fillColor: AppColors.white,
-          isFilledColor: true,
-          onChanged: (value) async {},
-          suffixSearchIcon: RGIcons.search,
-          hintText: "Select Your Working Location",
         ),
         const VerticalSpacing(30),
         const CommonText(
-          text: "Choose Your Category",
+          text: "Choose Your Service",
           fontSize: 14,
         ),
         const VerticalSpacing(10),
         DropDownWidget(
-          dropDownHeight: 50,
+          dropDownHeight: 58,
+          maxHeight: 250,
           validator: validateTextOnlyDropdown,
-          arryList: [],
+          arryList: ddList ?? [],
           showSearchBox: true,
           compareFn: (value1, value2) {
             return value1 == value2;
           },
           itemAsString: (p0) {
+            // print(p0);
             return p0;
           },
           fillColor: AppColors.white,
           isFilledColor: true,
-          onChanged: (value) async {},
+          onChanged: onChanged,
           suffixSearchIcon: RGIcons.search,
           hintText: "Select Your Category",
         ),
@@ -70,16 +92,7 @@ class VendorRatesWidget extends StatelessWidget with FieldsValidation {
           fontSize: 14,
         ),
         const VerticalSpacing(10),
-        Row(
-          children: [
-            PriceWidget(),
-            const HorizontalSpacing(15),
-            PriceWidget(
-              price: "42.5",
-              text: "You’ll be paid",
-            ),
-          ],
-        ),
+        child
       ]),
     );
   }

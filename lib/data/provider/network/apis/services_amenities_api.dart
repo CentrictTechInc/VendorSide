@@ -101,7 +101,7 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       case ServiceAmenitiesAPIType.servicePackagePricing:
         return APIEndpoint.servicePackagePricingUrl;
       case ServiceAmenitiesAPIType.homeServicePriceUpdate:
-        return APIEndpoint.homeImprovementAddServiceUrl;
+        return APIEndpoint.hIAddServiceUrl;
     }
   }
 

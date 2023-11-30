@@ -172,7 +172,11 @@ class ScheduleMobileScreen extends StatelessWidget {
                                                   controller.focusedDay.value,
                                                   date)
                                               ? AppColors.primary
-                                              : AppColors.primaryLight,
+                                              : !isCurrentMonth
+                                                  ? AppColors.white
+                                                  // : AppColors.greyish,
+                                                  : AppColors.primaryLight,
+                                      // : AppColors.primaryLight,
                                     ),
                                     alignment: Alignment.center,
                                     // padding: const EdgeInsets.symmetric(
@@ -189,7 +193,10 @@ class ScheduleMobileScreen extends StatelessWidget {
                                                   controller.focusedDay.value,
                                                   date)
                                               ? AppColors.white
-                                              : AppColors.primary,
+                                              : !isCurrentMonth
+                                                  ? AppColors.grey
+                                                  // : AppColors.greyish,
+                                                  : AppColors.primary,
                                     ),
                                   ),
                                 );

@@ -119,14 +119,14 @@ class TaskScheduleController extends GetxController {
     }
   }
 
-  bool timeFormat(String time) {
+  bool timeFormat(String? time) {
     switch (time) {
       case "AM":
         return true;
       case "PM":
         return false;
       default:
-        throw Exception("Invalid time format");
+        return true;
     }
   }
 
