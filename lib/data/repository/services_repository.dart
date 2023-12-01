@@ -18,4 +18,17 @@ class ServiceRepositoryImpl extends ServiceRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<List> getAmServices() async {
+    try {
+      final response = await ServiceAPI.getAllServices().request();
+      List<dynamic> json = jsonDecode(response);
+      List<ServicesModel> allServices =
+          json.map((data) => ServicesDto.fromJson(data)).toList();
+      return allServices;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
