@@ -47,7 +47,7 @@ class TaskScheduleController extends GetxController {
     }
 
     // Get the next dates that are in the same week as the last day of the current month
-    int nextMonthDays = 6 - lastDayOfMonth.weekday;
+    int nextMonthDays = 6 - lastDayOfMonth.weekday % 7;
     for (int i = 1; i <= nextMonthDays; i++) {
       dates.add(lastDayOfMonth.add(Duration(days: i)));
     }

@@ -16,7 +16,7 @@ class APIEndpoint {
   static String get pLIFormUrl => '/api/Vendor/vendor/PLIForm';
 
   //------------------Services-------------------------
-  static String get getAllServicesUrl => '/Services/GetAllServices';
+  static String get getAllServicesUrl => '/api/Service/GetAllServices';
 
   // ---------------- Profile --------------------
   static String get getProfileDetailsUrl =>
@@ -28,22 +28,26 @@ class APIEndpoint {
   static String get contactUsUrl => '/api/Vendor/Vendor/ContactUs';
 
   //------------Nofication----------------
-  static String get notificationUrl => '/Notification/Notifications';
+  static String get notificationUrl => '/api/Notification/Notifications';
 
   //------------Training and Amenities + Services----------------
   static String get trainingAndAmenitiesUrl =>
-      '/Services/Vendor/TrainingAndAminities';
+      '/api/Service/Vendor/TrainingAndAminities';
 
   static String get servicePackagePricingUrl =>
-      '/Services/ServicePackagePricing';
+      '/api/Service/Automotive/ServicePackagePricing';
+  static String get updateServicePackagePricingUrl =>
+      '/api/Service/Automotive/ServicePackagePricing';
 
   //------------Home Improvement Service----------------
-  static String get hIAddServiceUrl => '/Services/Handyman/Services';
-  static String get hIUpdateServiceUrl => '/Services/Handyman/Services';
+  static String get hIAddServiceUrl => '/api/Service/Handyman/Services';
+  static String get hIUpdateServiceUrl => '/api/Service/Handyman/Services';
+  static String get getHIServiceUrl =>
+      '/api/Service/Handyman/ServicesByVendorId';
 
-  //-----------------Vendor Service by ID -----------------
-  static String get getVendorServiceByIdUrl =>
-      '/Services/Vendor/VendorServicesByVendorId';
+  //-----------------Aotomotive Service by ID -----------------
+  static String get getAutomotiveServiceByIdUrl =>
+      '/api/Service/Automotive/ServicesByVendorId';
 
   //---------------Schedule-----------------------
   static String get updateScheduleUrl => '/api/Vendor/Vendor/VendorSchedule';

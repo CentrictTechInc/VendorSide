@@ -12,10 +12,12 @@ class VendorRatesWidget extends StatelessWidget with FieldsValidation {
       this.onChanged,
       this.controller,
       this.ddList,
+      this.validator,
       required this.child});
   final dynamic Function(dynamic)? onChanged;
   final TextEditingController? controller;
   final List<dynamic>? ddList;
+  final String? Function(String?)? validator;
   final Widget child;
   @override
   Widget build(BuildContext context) {
@@ -46,8 +48,9 @@ class VendorRatesWidget extends StatelessWidget with FieldsValidation {
         //   suffixSearchIcon: RGIcons.search,
         //   hintText: "Select Your Working Location",
         // ),
-        TextField(
+        TextFormField(
           controller: controller,
+          validator: validator,
           decoration: const InputDecoration(
             filled: true,
             fillColor: AppColors.white,

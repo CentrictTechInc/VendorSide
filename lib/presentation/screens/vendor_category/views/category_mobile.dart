@@ -34,50 +34,53 @@ class CategoryMobile extends StatelessWidget with FieldsValidation {
           color: AppColors.white,
         ),
         VerticalSpacing(7.5.h),
-        Container(
-          constraints: BoxConstraints(minHeight: context.height - 211),
-          width: context.width,
-          padding: const EdgeInsets.all(20),
-          decoration: const BoxDecoration(
-              color: AppColors.background,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const VerticalSpacing(20),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.0),
-                child: CommonText(
-                  text: Strings.categoryText,
-                  fontSize: 15,
-                  textAlign: TextAlign.center,
-                  color: AppColors.grey,
+        Expanded(
+          child: Container(
+            constraints: BoxConstraints(minHeight: context.height - 23.h),
+            width: context.width,
+            padding: const EdgeInsets.all(20),
+            decoration: const BoxDecoration(
+                color: AppColors.background,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20))),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const VerticalSpacing(20),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  child: CommonText(
+                    text: Strings.categoryText,
+                    fontSize: 15,
+                    textAlign: TextAlign.center,
+                    color: AppColors.grey,
+                  ),
                 ),
-              ),
-              const VerticalSpacing(30),
-              CategoryContainer(
-                label: "Automotives",
-                icon: RGIcons.fancyCar,
-                onTap: () {
-                  context.push(PagePath.vendorCharges);
-                },
-              ),
-              const VerticalSpacing(60),
-              CategoryContainer(
-                label: "Home Improvement",
-                icon: RGIcons.homeService,
-                onTap: () {
-                  Get.lazyPut<ServiceController>(() => ServiceController());
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HandymanWarrantyScreen(),
-                      ));
-                },
-              ),
-            ],
+                const VerticalSpacing(30),
+                CategoryContainer(
+                  label: "Automotives",
+                  icon: RGIcons.fancyCar,
+                  onTap: () {
+                    context.push(PagePath.vendorCharges);
+                  },
+                ),
+                const VerticalSpacing(60),
+                CategoryContainer(
+                  label: "Home Improvement",
+                  icon: RGIcons.homeService,
+                  onTap: () {
+                    Get.lazyPut<ServiceController>(() => ServiceController());
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HandymanWarrantyScreen(),
+                        ));
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ]),
