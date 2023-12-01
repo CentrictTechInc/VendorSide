@@ -1,25 +1,19 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/common/resources/colors.dart';
-import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/presentation/screens/schedule/controllers/task_schedule_controller.dart';
 import 'package:vendor_app/presentation/screens/tasks/components/tab_button.dart';
 
 // ignore: must_be_immutable
 class ScheduleMobileScreen extends StatelessWidget {
-  ScheduleMobileScreen({this.onPressed, super.key});
+  const ScheduleMobileScreen({this.onPressed, super.key});
 
-  late PageController _pageController;
   final VoidCallback? onPressed;
 
   @override
@@ -66,45 +60,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                           fontSize: 14,
                         ),
                       ),
-                      const VerticalSpacing(10),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     IconButton(
-                      //       icon: const Icon(
-                      //         Icons.chevron_left,
-                      //         size: 30,
-                      //         color: AppColors.grey,
-                      //       ),
-                      //       onPressed: () {
-                      //         _pageController.previousPage(
-                      //           duration: const Duration(milliseconds: 300),
-                      //           curve: Curves.easeOut,
-                      //         );
-                      //       },
-                      //     ),
-                      //     const HorizontalSpacing(50),
-                      //     CommonText(
-                      //       text: headerText,
-                      //       fontSize: 14,
-                      //     ),
-                      //     const HorizontalSpacing(50),
-                      //     IconButton(
-                      //       icon: const Icon(
-                      //         Icons.chevron_right,
-                      //         size: 30,
-                      //         color: AppColors.grey,
-                      //       ),
-                      //       onPressed: () {
-                      //         _pageController.nextPage(
-                      //           duration: const Duration(milliseconds: 300),
-                      //           curve: Curves.easeOut,
-                      //         );
-                      //       },
-                      //     ),
-                      //   ],
-                      // ),
-                      const VerticalSpacing(20),
+                      const VerticalSpacing(30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -147,7 +103,6 @@ class ScheduleMobileScreen extends StatelessWidget {
                                               .contains(date)) {
                                             controller.selectedDates
                                                 .remove(date);
-                                            print(controller.selectedDates);
                                             controller.update();
                                           } else {
                                             // Otherwise, select it
@@ -174,13 +129,9 @@ class ScheduleMobileScreen extends StatelessWidget {
                                               ? AppColors.primary
                                               : !isCurrentMonth
                                                   ? AppColors.white
-                                                  // : AppColors.greyish,
                                                   : AppColors.primaryLight,
-                                      // : AppColors.primaryLight,
                                     ),
                                     alignment: Alignment.center,
-                                    // padding: const EdgeInsets.symmetric(
-                                    //     vertical: 15.0, horizontal: 10),
                                     child: CommonText(
                                       textAlign: TextAlign.center,
                                       weight: FontWeight.bold,
@@ -195,7 +146,6 @@ class ScheduleMobileScreen extends StatelessWidget {
                                               ? AppColors.white
                                               : !isCurrentMonth
                                                   ? AppColors.grey
-                                                  // : AppColors.greyish,
                                                   : AppColors.primary,
                                     ),
                                   ),
@@ -206,41 +156,6 @@ class ScheduleMobileScreen extends StatelessWidget {
                         }).toList(),
                       ),
                       const VerticalSpacing(20),
-                      // TableCalendar(
-                      //   focusedDay: controller.focusedDay.value,
-                      //   calendarFormat: CalendarFormat.month,
-                      //   rowHeight: 50,
-                      //   headerVisible: false,
-                      //   availableGestures: AvailableGestures.all,
-                      //   // weekNumbersVisible: true,
-                      //   onCalendarCreated: (controller) =>
-                      //       _pageController = controller,
-                      //   onPageChanged: (focusedDay) =>
-                      //       controller.focusedDay.value = focusedDay,
-                      //   firstDay: DateTime(DateTime.now().year - 1),
-                      //   lastDay: DateTime(DateTime.now().year + 1),
-                      //   // focusedDay: stringToDateTime(data.appointmentDate ?? "")!,
-                      //   calendarStyle: CalendarStyle(
-                      //       selectedDecoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(70),
-                      //           border: Border.all(
-                      //             color: AppColors.primary,
-                      //             width: 1.5,
-                      //           )),
-                      //       selectedTextStyle: const TextStyle(
-                      //           color: AppColors.primary,
-                      //           fontWeight: FontWeight.bold),
-                      //       isTodayHighlighted: false,
-                      //       weekendTextStyle:
-                      //           const TextStyle(color: AppColors.primaryText)),
-
-                      //   // selectedDayPredicate: (day) {
-                      //   //   return isSameDay1(
-                      //   //       stringToDateTime(data.appointmentDate ?? ''), day);
-                      //   // },
-                      //   currentDay: DateTime.now(),
-                      // ),
-                      // const VerticalSpacing(10),
                       const Divider(
                         thickness: 1,
                       ),
