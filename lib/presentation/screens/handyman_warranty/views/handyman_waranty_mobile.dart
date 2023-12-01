@@ -30,6 +30,7 @@ class HandymanWarantyMobileScreen extends StatelessWidget
                       hideBell: true,
                       headFontSize: 15,
                     ),
+                    //service warranty accordion
                     // ExpansionTile(
                     //     maintainState: true,
                     //     initiallyExpanded: true,
