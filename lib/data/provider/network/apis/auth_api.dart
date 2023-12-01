@@ -144,11 +144,6 @@ class AuthAPI implements APIRequestRepresentable {
   Map<String, String>? get urlParams {
     switch (type) {
       case AuthApiType.login:
-        return {
-          'email': email.toString(),
-          'password': password.toString(),
-          'deviceToken': LocalStorageService.instance.fcmToken.toString()
-        };
       case AuthApiType.signup:
       case AuthApiType.mobileOtpVerification:
         return {};

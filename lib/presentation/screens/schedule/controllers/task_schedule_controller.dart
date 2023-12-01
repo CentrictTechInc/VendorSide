@@ -64,9 +64,7 @@ class TaskScheduleController extends GetxController {
   @override
   onInit() {
     super.onInit();
-    // timeStandard = 0;
     generateDatesForMonth(focusedDay.value.year, focusedDay.value.month);
-    // await getSchedule();
   }
 
   @override
@@ -209,15 +207,11 @@ class TaskScheduleController extends GetxController {
       }
       return response;
     } catch (e) {
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
       ToastMessage.message(e.toString(), type: ToastType.error);
-
-      rethrow;
     }
-    // finally {
-    //   if (ShowDialogBox.isOpen) {
-    //     globalContext?.pop();
-    //   }
-    // }
   }
 
   Future getSchedule() async {
@@ -241,14 +235,16 @@ class TaskScheduleController extends GetxController {
       //for time zone
       setTimeZone(response.timeZone);
 
-      print(response.toJson());
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
       update();
       // return response;
     } catch (e) {
-      rethrow;
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
+      ToastMessage.message(e.toString(), type: ToastType.error);
     }
   }
 }
