@@ -7,3 +7,9 @@ enum VendorStatusEnum {
   Certified, // = 3
   UnderReview // = 4
 }
+
+enum VendorType {
+  defaultVendor, // 0
+  automotiveVendor, // 1
+  homeImprovementVendor //2
+}

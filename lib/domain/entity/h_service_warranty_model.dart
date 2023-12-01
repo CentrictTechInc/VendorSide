@@ -4,8 +4,8 @@ class HomeImprovementServiceModel {
   int? serviceId;
   int? serviceTypeId;
   String? serviceName;
-  String? registerDate;
-  int? serviceCharges;
+
+  double? serviceCharges;
   String? vendorLocation;
 
   HomeImprovementServiceModel({
@@ -14,7 +14,6 @@ class HomeImprovementServiceModel {
     this.serviceId,
     this.serviceTypeId,
     this.serviceName,
-    this.registerDate,
     this.serviceCharges,
     this.vendorLocation,
   });

@@ -9,7 +9,6 @@ class HomeImprovementServiceDto extends HomeImprovementServiceModel {
     super.serviceId,
     super.serviceTypeId,
     super.serviceName,
-    super.registerDate,
     super.serviceCharges,
     super.vendorLocation,
   });
@@ -26,7 +25,6 @@ class HomeImprovementServiceDto extends HomeImprovementServiceModel {
         serviceId: json["serviceId"],
         serviceTypeId: json["serviceTypeId"],
         serviceName: json["serviceName"],
-        registerDate: json["registerDate"],
         serviceCharges: json["serviceCharges"],
         vendorLocation: json["vendorLocation"],
       );
@@ -37,7 +35,6 @@ class HomeImprovementServiceDto extends HomeImprovementServiceModel {
         "serviceId": serviceId,
         "serviceTypeId": serviceTypeId,
         "serviceName": serviceName,
-        "registerDate": registerDate,
         "serviceCharges": serviceCharges,
         "vendorLocation": vendorLocation,
       };

@@ -63,7 +63,7 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       //   "servicePrices": listOfServicePrice?.map((e) => e.toJson()).toList()
       // });
       case ServiceAmenitiesAPIType.homeServicePriceUpdate:
-        return homeServiceDto?.toJson();
+        return homeServiceDto?.toRawJson();
     }
   }
 
@@ -101,7 +101,7 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       case ServiceAmenitiesAPIType.servicePackagePricing:
         return APIEndpoint.servicePackagePricingUrl;
       case ServiceAmenitiesAPIType.homeServicePriceUpdate:
-        return APIEndpoint.homeImprovementAddServiceUrl;
+        return APIEndpoint.hIAddServiceUrl;
     }
   }
 

@@ -167,6 +167,9 @@ class ServiceController extends GetxController {
       }
       update();
     } catch (e) {
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
       ToastMessage.message(e.toString());
     }
   }

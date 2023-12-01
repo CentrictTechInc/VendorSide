@@ -27,9 +27,7 @@ class ContactUsContoller extends GetxController {
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-      ToastMessage.message(
-          "Your request has been sent, we'll get back to you shortly $res",
-          type: ToastType.success);
+      ToastMessage.message(res, type: ToastType.success);
     } catch (e) {
       ToastMessage.message(e.toString());
     }
