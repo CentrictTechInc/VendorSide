@@ -10,8 +10,8 @@ import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/presentation/screens/manage_services/controller/manage_services_controller.dart';
 import 'package:vendor_app/presentation/screens/manage_services_pages/components/price_widget.dart';
 
-class MyServicesScreen extends StatelessWidget with FieldsValidation {
-  MyServicesScreen({
+class MyAmServicesScreen extends StatelessWidget with FieldsValidation {
+  MyAmServicesScreen({
     super.key,
   });
   @override

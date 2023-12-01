@@ -239,6 +239,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: TabButton(
+                                        color: AppColors.primary,
                                         name: "AM",
                                         padding: 0,
                                         height: 44,
@@ -253,6 +254,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: TabButton(
+                                        color: AppColors.primary,
                                         padding: 0,
                                         name: "PM",
                                         height: 44,
@@ -342,6 +344,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: TabButton(
+                                        color: AppColors.primary,
                                         name: "AM",
                                         padding: 0,
                                         height: 44,
@@ -356,6 +359,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: TabButton(
+                                        color: AppColors.primary,
                                         padding: 0,
                                         name: "PM",
                                         height: 44,
@@ -381,6 +385,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: TabButton(
+                              color: AppColors.primary,
                               name: "Central",
                               height: 44,
                               radius: 14,
@@ -392,6 +397,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                           ),
                           Expanded(
                             child: TabButton(
+                              color: AppColors.primary,
                               name: "Eastern",
                               height: 44,
                               radius: 14,
@@ -411,6 +417,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: TabButton(
+                              color: AppColors.primary,
                               name: "Mountain",
                               height: 44,
                               radius: 14,
@@ -422,6 +429,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                           ),
                           Expanded(
                             child: TabButton(
+                              color: AppColors.primary,
                               name: "Pacific",
                               height: 44,
                               radius: 14,

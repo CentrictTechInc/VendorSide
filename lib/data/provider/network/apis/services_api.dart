@@ -1,8 +1,9 @@
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
 import 'package:vendor_app/data/provider/network/api_provider.dart';
 import 'package:vendor_app/data/provider/network/api_request_representable.dart';
 
-enum ServiceAPIType { getAllServices }
+enum ServiceAPIType { getAllServices, getAmServicesByVendorId }
 
 class ServiceAPI extends APIRequestRepresentable {
   ServiceAPIType type;
@@ -25,6 +26,7 @@ class ServiceAPI extends APIRequestRepresentable {
   HTTPMethod get method {
     switch (type) {
       case ServiceAPIType.getAllServices:
+      case ServiceAPIType.getAmServicesByVendorId:
         return HTTPMethod.get;
     }
   }
@@ -34,6 +36,8 @@ class ServiceAPI extends APIRequestRepresentable {
     switch (type) {
       case ServiceAPIType.getAllServices:
         return APIEndpoint.getAllServicesUrl;
+      case ServiceAPIType.getAmServicesByVendorId:
+        return APIEndpoint.getAutomotiveServiceByIdUrl;
     }
   }
 
@@ -50,6 +54,10 @@ class ServiceAPI extends APIRequestRepresentable {
     switch (type) {
       case ServiceAPIType.getAllServices:
         return {};
+      case ServiceAPIType.getAmServicesByVendorId:
+        return {
+          'vendorId': LocalStorageService.instance.user?.vid.toString() ?? '',
+        };
     }
   }
 }

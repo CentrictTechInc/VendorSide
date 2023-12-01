@@ -11,7 +11,7 @@ class TabButton extends StatelessWidget {
   double? height;
   double? radius;
   double? padding;
-
+  Color color;
   TabButton(
       {super.key,
       this.fontSize,
@@ -20,6 +20,7 @@ class TabButton extends StatelessWidget {
       required this.name,
       this.onPressed,
       this.radius,
+      this.color = AppColors.black,
       this.minWidth = 200,
       this.highlighted = false});
 
@@ -31,8 +32,7 @@ class TabButton extends StatelessWidget {
       constraints: BoxConstraints(minWidth: (minWidth)),
       child: TextButton(
         style: TextButton.styleFrom(
-            backgroundColor:
-                highlighted ? AppColors.primary : AppColors.whiteGreyish,
+            backgroundColor: highlighted ? color : AppColors.whiteGreyish,
             padding: const EdgeInsets.all(5),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(

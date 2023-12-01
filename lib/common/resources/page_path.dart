@@ -20,6 +20,7 @@ class PagePath {
   static const String profileEdit = 'edit';
 
   static const String manageServices = 'services';
+  static const String automotiveManageServices = 'automotiveServices';
   static const String splash = '/splash';
   static const String mobileOtp = '/mobileOtp';
   static const String emailOtp = '/emailOtp';

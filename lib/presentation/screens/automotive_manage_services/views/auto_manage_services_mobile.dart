@@ -3,22 +3,23 @@ import 'package:get/get.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/common/resources/colors.dart';
+import 'package:vendor_app/presentation/screens/automotive_manage_services/controller/auto_manage_services_controller.dart';
 import 'package:vendor_app/presentation/screens/manage_services/controller/manage_services_controller.dart';
 import 'package:vendor_app/presentation/screens/manage_services_pages/all_services_screen.dart';
 import 'package:vendor_app/presentation/screens/manage_services_pages/my_services_screen.dart';
 import 'package:vendor_app/presentation/screens/tasks/components/tab_button.dart';
 
-class ManageServicesMobileScreen extends StatelessWidget {
-  ManageServicesMobileScreen({super.key, this.onPressed});
+class ManageAmServicesMobileScreen extends StatelessWidget {
+  ManageAmServicesMobileScreen({super.key, this.onPressed});
   final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      constraints: BoxConstraints(maxHeight: context.height / 1.6),
-      child: GetBuilder<ManageServicesController>(
-          init: ManageServicesController(),
+      // constraints: BoxConstraints(maxHeight: context.height / 1.6),
+      child: GetBuilder<ManageAmServicesController>(
+          init: ManageAmServicesController(),
           builder: (controller) {
             return Column(
               children: [
@@ -68,6 +69,7 @@ class ManageServicesMobileScreen extends StatelessWidget {
                       ),
                     )),
                 Expanded(
+                  // flex: 10,
                   child: PageView(
                     physics: const NeverScrollableScrollPhysics(),
                     controller: controller.pageController,
@@ -78,7 +80,7 @@ class ManageServicesMobileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Text('kkkk')
+                const VerticalSpacing(15),
               ],
             );
           }),

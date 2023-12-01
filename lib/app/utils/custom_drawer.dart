@@ -187,10 +187,16 @@ class CustomDrawer extends StatelessWidget {
       text: "Schedule",
       icon: RGIcons.calendarMonth,
     ),
-    DrawerItem(
-      location: PagePath.manageServices.toRoute,
-      text: "Manage Services",
-      icon: RGIcons.dollar,
-    ),
+    LocalStorageService.instance.user?.vendorType == 2
+        ? DrawerItem(
+            location: PagePath.manageServices.toRoute,
+            text: "Manage Services 1",
+            icon: RGIcons.dollar,
+          )
+        : DrawerItem(
+            location: PagePath.automotiveManageServices.toRoute,
+            text: "Manage Services 2",
+            icon: RGIcons.dollar,
+          ),
   ];
 }
