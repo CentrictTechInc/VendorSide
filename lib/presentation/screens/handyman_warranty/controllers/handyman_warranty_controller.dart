@@ -23,7 +23,7 @@ class HandymanWarrantyController extends GetxController {
   String selectedValue = "0";
   TextEditingController chargeController = TextEditingController();
   double vendorCharge = 0.0;
-  var serviceNames = [];
+  List<String> serviceNames = [];
   List<ServicesModel> serviceList = [];
   String selectedServiceName = "";
   int selectedServiceId = 0;
@@ -71,7 +71,7 @@ class HandymanWarrantyController extends GetxController {
       }
       ShowDialogBox.showDialogBoxs(true);
 
-      final res = await repo.homeServicePriceUpdate(HomeImprovementServiceDto(
+      final res = await repo.postHIServicePricing(HomeImprovementServiceDto(
         vendorId: LocalStorageService.instance.user?.vid,
         serviceName: selectedServiceName,
         serviceCharges: double.parse(chargeController.text),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:vendor_app/domain/entity/h_service_warranty_model.dart';
 
@@ -25,7 +26,7 @@ class HomeImprovementServiceDto extends HomeImprovementServiceModel {
         serviceId: json["serviceId"],
         serviceTypeId: json["serviceTypeId"],
         serviceName: json["serviceName"],
-        serviceCharges: json["serviceCharges"],
+        serviceCharges: json["serviceCharges"].toDouble(),
         vendorLocation: json["vendorLocation"],
       );
 
