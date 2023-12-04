@@ -70,15 +70,9 @@ class ManageAmServicesMobileScreen extends StatelessWidget {
                     )),
                 Expanded(
                   // flex: 10,
-                  child: PageView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: controller.pageController,
-                    onPageChanged: (value) {},
-                    children: [
-                      MyAmServicesScreen(),
-                      AllAmServicesScreen(),
-                    ],
-                  ),
+                  child: controller.tabIndex == 0
+                      ? MyAmServicesScreen()
+                      : AllAmServicesScreen(),
                 ),
                 const VerticalSpacing(15),
               ],

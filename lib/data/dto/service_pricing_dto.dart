@@ -29,6 +29,7 @@ class ServicePricingDto {
 
 class ServicePrice {
   int? vendorId;
+  int? vendorServiceId;
   int? serviceId;
   int? serviceTypeId;
   int? subServiceId;
@@ -40,6 +41,7 @@ class ServicePrice {
   ServicePrice({
     this.vendorId,
     this.serviceId,
+    this.vendorServiceId,
     this.serviceTypeId,
     this.subServiceId,
     this.subServiceName,
@@ -66,6 +68,7 @@ class ServicePrice {
 
   Map<String, dynamic> toJson() => {
         "vendorId": vendorId,
+        "vendorServiceId": vendorServiceId ?? 0,
         "serviceId": serviceId,
         "serviceTypeId": serviceTypeId,
         "subServiceId": subServiceId,
@@ -73,5 +76,6 @@ class ServicePrice {
         "serviceName": serviceName,
         "registerDate": registerDate,
         "serviceCharges": serviceCharges,
+        "modificationDate": DateTime.now().toIso8601String(),
       };
 }
