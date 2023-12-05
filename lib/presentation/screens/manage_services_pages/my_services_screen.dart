@@ -7,7 +7,7 @@ import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
-import 'package:vendor_app/domain/entity/a_servoces_model.dart';
+import 'package:vendor_app/domain/entity/a_services_model.dart';
 import 'package:vendor_app/presentation/screens/automotive_manage_services/controller/auto_manage_services_controller.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/components/common_text_icon_row.dart';
 import 'package:vendor_app/presentation/screens/handyman_warranty/components/radio_text_widget.dart';
@@ -36,14 +36,14 @@ class MyAmServicesScreen extends StatelessWidget with FieldsValidation {
           Expanded(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: cntrl.amVendorServiceList.length,
+              itemCount: cntrl.amvsList.length,
               itemBuilder: (context, i) {
                 return Column(
                   children: [
                     CommonTextRow(
-                      text: cntrl.amVendorServiceList[i].serviceName ?? '',
+                      text: cntrl.amvsList[i].serviceName ?? '',
                       icon:
-                          "${ServiceIcons.serviceIconUrl}service_${cntrl.amVendorServiceList[i].serviceId}.png",
+                          "${ServiceIcons.serviceIconUrl}service_${cntrl.amvsList[i].serviceId}.png",
                     ),
                     // Column(
                     //   children:

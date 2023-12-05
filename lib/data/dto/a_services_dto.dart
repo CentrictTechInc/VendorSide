@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:vendor_app/domain/entity/a_servoces_model.dart';
+import 'package:vendor_app/domain/entity/a_services_model.dart';
 
 class AutoServicesDto extends AutoServicesModel {
   AutoServicesDto({

@@ -13,6 +13,15 @@ class ServicesModel {
       required this.serviceName,
       this.isSelected,
       required this.listSubServiceName});
+
+//to json method
+  Map<String, dynamic> toJson() => {
+        "serviceId": serviceId,
+        "serviceTypeId": serviceTypeId,
+        "serviceName": serviceName,
+        "isSelected": isSelected,
+        "listSubServiceName": listSubServiceName
+      };
 }
 
 class ListSubServiceName {

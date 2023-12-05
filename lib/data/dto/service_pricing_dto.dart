@@ -37,6 +37,7 @@ class ServicePrice {
   String? serviceName;
   String? registerDate;
   double? serviceCharges;
+  bool? isSelected;
 
   ServicePrice({
     this.vendorId,
@@ -48,6 +49,7 @@ class ServicePrice {
     this.serviceName,
     this.registerDate,
     this.serviceCharges,
+    this.isSelected = false,
   });
 
   factory ServicePrice.fromRawJson(String str) =>

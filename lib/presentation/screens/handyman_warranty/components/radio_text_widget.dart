@@ -31,9 +31,9 @@ class RadioTextWidget extends StatelessWidget {
       children: [
         Expanded(
           child: CommonText(
-            text: text ?? "12 Months / 12,000 Miles",
+            text: text ?? "",
             color: selectedValue == value || checkBoxvalue
-                ? AppColors.primary
+                ? AppColors.black
                 : AppColors.grey,
             fontSize: 11.sp,
           ),

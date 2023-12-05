@@ -20,4 +20,16 @@ class AutoServicesModel {
     this.subServiceId,
     this.subServiceName,
   });
+
+  Map<String, dynamic> toJson() => {
+        "vendorServiceId": vendorServiceId,
+        "vendorId": vendorId,
+        "serviceId": serviceId,
+        "serviceCharges": serviceCharges,
+        "vendorLocation": vendorLocation,
+        "serviceName": serviceName,
+        "serviceTypeId": serviceTypeId,
+        "subServiceId": subServiceId,
+        "subServiceName": subServiceName,
+      };
 }

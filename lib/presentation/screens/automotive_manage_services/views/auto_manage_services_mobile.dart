@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
+import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/presentation/screens/automotive_manage_services/controller/auto_manage_services_controller.dart';
-import 'package:vendor_app/presentation/screens/manage_services/controller/manage_services_controller.dart';
 import 'package:vendor_app/presentation/screens/manage_services_pages/all_services_screen.dart';
 import 'package:vendor_app/presentation/screens/manage_services_pages/my_services_screen.dart';
 import 'package:vendor_app/presentation/screens/tasks/components/tab_button.dart';
@@ -75,6 +75,18 @@ class ManageAmServicesMobileScreen extends StatelessWidget {
                       : AllAmServicesScreen(),
                 ),
                 const VerticalSpacing(15),
+                CommonTextButton(
+                  onPressed: () async {
+                    if (controller.tabIndex == 1) {
+                      await controller.postServicePackagePricing();
+                    } else if (context.mounted && controller.tabIndex == 0) {}
+                    controller.update();
+                  },
+                  text: "SAVE",
+                  width: 30,
+                  color: AppColors.white,
+                ),
+                const VerticalSpacing(20),
               ],
             );
           }),

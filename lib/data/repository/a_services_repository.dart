@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:vendor_app/data/dto/a_services_dto.dart';
 import 'package:vendor_app/data/dto/service_pricing_dto.dart';
 import 'package:vendor_app/data/provider/network/apis/a_services_api.dart';
-import 'package:vendor_app/domain/entity/a_servoces_model.dart';
+import 'package:vendor_app/domain/entity/a_services_model.dart';
 import 'package:vendor_app/domain/repository/a_services_reposotory.dart';
 
 class AutoServiceRepositoryImp extends AutoServiceRepository {
