@@ -22,71 +22,75 @@ class ManageServicesMobileScreen extends StatelessWidget with FieldsValidation {
         child: GetBuilder<ManageServicesController>(
             init: ManageServicesController(),
             builder: (controller) {
-              return Column(
-                children: [
-                  CommonAppBar(
-                    backButton: false,
-                    hamburger: true,
-                    editButton: !controller.isEdit,
-                    onEdit: () {
-                      controller.isEdit = true;
-                      controller.update();
-                    },
-                    text: "Manage Services",
-                    onDrawerPressed: onPressed,
-                    hideBell: true,
-                  ),
-                  const VerticalSpacing(10),
-                  VendorRatesWidget(
-                    validator: emptyFieldValidation,
-                    controller: controller.areaController,
-                    ddList: controller.serviceNames,
-                    onChanged: (value) {
-                      controller.selectedServiceName = value;
-                      controller.update();
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        PriceWidget(
-                          isSelected: true,
-                          validator: emptyFieldValidation,
-                          readOnly: controller.isEdit,
-                          onChanged: (p0) {
-                            if (p0.isEmpty) {
-                              controller.vendorCharge = 0.00;
-                              controller.update();
-                              return;
-                            }
-                            controller.vendorCharge =
-                                (double.parse(p0) * 0.85).toPrecision(2);
-                            controller.update();
-                          },
-                          controller: controller.chargeController,
-                          color: AppColors.white,
-                        ),
-                        PriceWidget(
-                          readOnly: true,
-                          price: "${controller.vendorCharge}",
-                          color: AppColors.white,
-                          text: "You'll be Paid",
-                        ),
-                      ],
-                    ),
-                  ),
-                  const VerticalSpacing(30),
-                  if (controller.isEdit)
-                    CommonTextButton(
-                      onPressed: () {
-                        if (controller.formkey.currentState!.validate()) {
-                          controller.updateHIService();
-                        }
+              return Form(
+                key: controller.formkey,
+                child: Column(
+                  children: [
+                    CommonAppBar(
+                      backButton: false,
+                      hamburger: true,
+                      editButton: !controller.isEdit,
+                      onEdit: () {
+                        controller.isEdit = true;
+                        controller.update();
                       },
-                      text: "SAVE",
-                      color: AppColors.white,
+                      text: "Manage Services",
+                      onDrawerPressed: onPressed,
+                      hideBell: true,
                     ),
-                  const VerticalSpacing(20),
-                ],
+                    const VerticalSpacing(10),
+                    VendorRatesWidget(
+                      validator: emptyFieldValidation,
+                      controller: controller.areaController,
+                      selectedItem: controller.selectedServiceName,
+                      editable: controller.isEdit,
+                      ddList: controller.serviceNames,
+                      onChanged: (value) {
+                        controller.selectedServiceName = value;
+                        controller.update();
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          PriceWidget(
+                            isSelected: controller.isEdit,
+                            validator: emptyFieldValidation,
+                            onChanged: (p0) {
+                              if (p0.isEmpty) {
+                                controller.vendorCharge = 0.00;
+                                controller.update();
+                                return;
+                              }
+                              controller.vendorCharge =
+                                  (double.parse(p0) * 0.85).toPrecision(2);
+                              controller.update();
+                            },
+                            controller: controller.chargeController,
+                            color: AppColors.white,
+                          ),
+                          PriceWidget(
+                            readOnly: true,
+                            price: "${controller.vendorCharge}",
+                            color: AppColors.white,
+                            text: "You'll be Paid",
+                          ),
+                        ],
+                      ),
+                    ),
+                    const VerticalSpacing(30),
+                    if (controller.isEdit)
+                      CommonTextButton(
+                        onPressed: () {
+                          if (controller.formkey.currentState!.validate()) {
+                            controller.updateHIService();
+                          }
+                        },
+                        text: "SAVE",
+                        color: AppColors.white,
+                      ),
+                    const VerticalSpacing(20),
+                  ],
+                ),
               );
             }),
       ),

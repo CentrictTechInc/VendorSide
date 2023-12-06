@@ -24,6 +24,7 @@ class ManageServicesController extends GetxController {
   int selectedServiceId = 0;
   List<String> serviceNames = [];
   bool isEdit = false;
+  int vendorServiceId = 0;
   HomeImprovementServiceModel data = HomeImprovementServiceModel();
 
   @override
@@ -51,6 +52,7 @@ class ManageServicesController extends GetxController {
         areaController.text = data.vendorLocation ?? "";
         chargeController.text = data.serviceCharges.toString();
         selectedServiceName = data.serviceName ?? "";
+        vendorServiceId = data.vendorServiceId ?? 0;
       }
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
@@ -74,8 +76,6 @@ class ManageServicesController extends GetxController {
 
   Future updateHIService() async {
     isEdit = false;
-    update();
-    return;
     try {
       getSelectedServiceId();
       if (selectedServiceId == 0) {
@@ -91,17 +91,17 @@ class ManageServicesController extends GetxController {
       }
       ShowDialogBox.showDialogBoxs(true);
 
-      final res = await repo.postHIServicePricing(HomeImprovementServiceDto(
+      final res = await repo.putHIServicePricing(HomeImprovementServiceDto(
         vendorId: LocalStorageService.instance.user?.vid,
         serviceName: selectedServiceName,
         serviceCharges: double.parse(chargeController.text),
         vendorLocation: areaController.text,
         serviceId: selectedServiceId,
         serviceTypeId: VendorType.homeImprovementVendor.index,
-        vendorServiceId: 0,
+        vendorServiceId: vendorServiceId,
       ));
       print(res);
-      ToastMessage.message("Your Service has been updated!",
+      ToastMessage.message("Service Details has been updated!",
           type: ToastType.success);
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
@@ -109,6 +109,7 @@ class ManageServicesController extends GetxController {
     } catch (e) {
       ToastMessage.message(e.toString(), type: ToastType.success);
     }
+    update();
   }
 
   void getSelectedServiceId() {

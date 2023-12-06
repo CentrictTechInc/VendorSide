@@ -11,5 +11,6 @@ abstract class ServicesAmenitiesRepository {
 
   Future<String> servicePackagePricing(List<ServicePrice> data);
   Future<String> postHIServicePricing(HomeImprovementServiceDto data);
+  Future<String> putHIServicePricing(HomeImprovementServiceDto data);
   Future<HomeImprovementServiceModel> getHIServicePricing(int vendorId);
 }

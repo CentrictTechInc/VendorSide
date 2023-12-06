@@ -61,4 +61,15 @@ class ServicesAmenitiesRepositoryImpl extends ServicesAmenitiesRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<String> putHIServicePricing(HomeImprovementServiceDto data) async {
+    try {
+      final res = await ServiceAmenitiesAPI.putHIServicePricing(data).request();
+      Map<String, dynamic> result = jsonDecode(res);
+      return result['message'];
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

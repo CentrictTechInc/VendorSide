@@ -12,7 +12,8 @@ enum ServiceAmenitiesAPIType {
   trainingAndAminities,
   servicePackagePricing,
   postHIServicePricing,
-  getHIServicePricing
+  getHIServicePricing,
+  putHIServicePricing
 }
 
 class ServiceAmenitiesAPI implements APIRequestRepresentable {
@@ -48,6 +49,10 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       : this._(
             type: ServiceAmenitiesAPIType.postHIServicePricing,
             homeServiceDto: data);
+  ServiceAmenitiesAPI.putHIServicePricing(HomeImprovementServiceDto data)
+      : this._(
+            type: ServiceAmenitiesAPIType.putHIServicePricing,
+            homeServiceDto: data);
 
   ServiceAmenitiesAPI.getHIServicePricing(int id)
       : this._(type: ServiceAmenitiesAPIType.getHIServicePricing, vendorId: id);
@@ -69,6 +74,8 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       //   "servicePrices": listOfServicePrice?.map((e) => e.toJson()).toList()
       // });
       case ServiceAmenitiesAPIType.postHIServicePricing:
+      case ServiceAmenitiesAPIType.putHIServicePricing:
+        print(homeServiceDto?.toRawJson());
         return homeServiceDto?.toRawJson();
       case ServiceAmenitiesAPIType.getHIServicePricing:
         return {};
@@ -86,6 +93,7 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       case ServiceAmenitiesAPIType.getHIServicePricing:
       case ServiceAmenitiesAPIType.servicePackagePricing:
       case ServiceAmenitiesAPIType.postHIServicePricing:
+      case ServiceAmenitiesAPIType.putHIServicePricing:
         return {"Content-Type": "application/json"};
       // return {};
     }
@@ -99,6 +107,8 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       case ServiceAmenitiesAPIType.servicePackagePricing:
       case ServiceAmenitiesAPIType.postHIServicePricing:
         return HTTPMethod.post;
+      case ServiceAmenitiesAPIType.putHIServicePricing:
+        return HTTPMethod.put;
       case ServiceAmenitiesAPIType.getHIServicePricing:
         return HTTPMethod.get;
     }
@@ -112,6 +122,7 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       case ServiceAmenitiesAPIType.servicePackagePricing:
         return APIEndpoint.servicePackagePricingUrl;
       case ServiceAmenitiesAPIType.postHIServicePricing:
+      case ServiceAmenitiesAPIType.putHIServicePricing:
         return APIEndpoint.hIAddServiceUrl;
       case ServiceAmenitiesAPIType.getHIServicePricing:
         return APIEndpoint.getHIServiceUrl;
@@ -134,6 +145,7 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       case ServiceAmenitiesAPIType.trainingAndAminities:
       case ServiceAmenitiesAPIType.servicePackagePricing:
       case ServiceAmenitiesAPIType.postHIServicePricing:
+      case ServiceAmenitiesAPIType.putHIServicePricing:
         return {};
       case ServiceAmenitiesAPIType.getHIServicePricing:
         return {"vendorId": vendorId.toString()};
