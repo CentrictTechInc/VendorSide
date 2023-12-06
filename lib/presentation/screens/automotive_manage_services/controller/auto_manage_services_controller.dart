@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:vendor_app/app/app_router.dart';
 import 'package:vendor_app/app/services/get_all_services.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
-import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/data/dto/a_services_dto.dart';
 import 'package:vendor_app/data/dto/service_pricing_dto.dart';
@@ -29,7 +29,6 @@ class ManageAmServicesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // amList = Get.find<GetAllServices>().autoMotiveServiceList;
     amList = Get.find<GetAllServices>().autoMotiveServiceList.map((service) {
       service.isSelected = false;
       for (var subService in service.listSubServiceName) {
@@ -43,7 +42,6 @@ class ManageAmServicesController extends GetxController {
   Future<void> onReady() async {
     super.onReady();
     await getVendorAmServices();
-    print("object");
   }
 
   Future getVendorAmServices() async {
@@ -75,9 +73,37 @@ class ManageAmServicesController extends GetxController {
     }
   }
 
-  Future postServicePackagePricing() async {
+  Future<void> addAmServices() async {
     try {
-      print(servicePriceList);
+      for (int i = 0; i < amList.length; i++) {
+        amList[i].listSubServiceName.map((subItem) {
+          if (subItem?.isSelected == true) {
+            if (!servicePriceList.any(
+                (element) => element.subServiceId == subItem!.subServiceId)) {
+              servicePriceList.add(
+                ServicePrice(
+                  serviceId: amList[i].serviceId,
+                  vendorId: LocalStorageService.instance.user!.vid,
+                  serviceTypeId: 1,
+                  subServiceId: subItem!.subServiceId,
+                  subServiceName: subItem.subServiceName,
+                  serviceName: amList[i].serviceName,
+                  registerDate: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                  serviceCharges: subItem.serviceCharges!.text.isEmpty
+                      ? 0
+                      : double.parse(subItem.serviceCharges!.text),
+                  isSelected: subItem.isSelected,
+                ),
+              );
+            }
+            ;
+          } else {
+            servicePriceList.removeWhere(
+                (element) => element.subServiceId == subItem?.subServiceId);
+          }
+        }).toList();
+      }
+      print("Length: ${servicePriceList.length}");
       if (servicePriceList.isEmpty) {
         ToastMessage.message("Please Select At Least One Service",
             type: ToastType.info);
@@ -85,25 +111,29 @@ class ManageAmServicesController extends GetxController {
       } else {
         for (var element in servicePriceList) {
           if (element.serviceCharges == 0) {
+            print(element.toJson());
             ToastMessage.message("Please Enter Service Charges Of Services",
                 type: ToastType.warn);
             return;
           }
         }
-        // return;
       }
+      update();
+    } catch (e) {}
+  }
+
+  Future postServicePackagePricing() async {
+    try {
       ShowDialogBox.showDialogBoxs(true);
-      print(servicePriceList);
       final res = await priceRepo.servicePackagePricing(servicePriceList);
 
       await Future.delayed(const Duration(seconds: 1));
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-      ToastMessage.message("$res", type: ToastType.success);
-      onReady();
+      ToastMessage.message(res, type: ToastType.success);
+      await getVendorAmServices();
       update();
-      // globalContext?.go(PagePath.reviewInProcess);
     } catch (e) {
       ToastMessage.message(e.toString());
       if (ShowDialogBox.isOpen) {

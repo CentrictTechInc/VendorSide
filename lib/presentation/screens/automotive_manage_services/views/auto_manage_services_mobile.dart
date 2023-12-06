@@ -17,9 +17,10 @@ class ManageAmServicesMobileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      // constraints: BoxConstraints(maxHeight: context.height / 1.6),
       child: GetBuilder<ManageAmServicesController>(
           init: ManageAmServicesController(),
+          //TODO: remove autoRemove: false
+          autoRemove: false,
           builder: (controller) {
             return Column(
               children: [
@@ -78,6 +79,7 @@ class ManageAmServicesMobileScreen extends StatelessWidget {
                 CommonTextButton(
                   onPressed: () async {
                     if (controller.tabIndex == 1) {
+                      await controller.addAmServices();
                       await controller.postServicePackagePricing();
                     } else if (context.mounted && controller.tabIndex == 0) {}
                     controller.update();
