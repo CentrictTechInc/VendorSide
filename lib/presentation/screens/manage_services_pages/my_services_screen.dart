@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
-import 'package:vendor_app/app/utils/common_dropdown.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
-import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/domain/entity/a_services_model.dart';
 import 'package:vendor_app/presentation/screens/automotive_manage_services/controller/auto_manage_services_controller.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/components/common_text_icon_row.dart';
 import 'package:vendor_app/presentation/screens/handyman_warranty/components/radio_text_widget.dart';
-import 'package:vendor_app/presentation/screens/manage_services/controller/manage_services_controller.dart';
-import 'package:vendor_app/presentation/screens/manage_services_pages/all_services_screen.dart';
 import 'package:vendor_app/presentation/screens/manage_services_pages/components/price_widget.dart';
 
 class MyAmServicesScreen extends StatelessWidget with FieldsValidation {
@@ -36,28 +31,85 @@ class MyAmServicesScreen extends StatelessWidget with FieldsValidation {
           Expanded(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: cntrl.amvsList.length,
+              itemCount: cntrl.groupedServiceList.length,
               itemBuilder: (context, i) {
-                return Column(
+                return ExpansionTile(
+                  shape: Border.all(color: Colors.transparent, width: 0),
+                  collapsedShape:
+                      Border.all(color: Colors.transparent, width: 0),
+                  tilePadding: EdgeInsets.zero,
+                  childrenPadding: EdgeInsets.zero,
+                  title: CommonTextRow(
+                    text: cntrl.groupedServiceList[i].serviceName ?? '',
+                    icon:
+                        "${ServiceIcons.serviceIconUrl}service_${cntrl.groupedServiceList[i].serviceId}.png",
+                  ),
                   children: [
-                    CommonTextRow(
-                      text: cntrl.amvsList[i].serviceName ?? '',
-                      icon:
-                          "${ServiceIcons.serviceIconUrl}service_${cntrl.amvsList[i].serviceId}.png",
+                    Column(
+                      children:
+                          cntrl.groupedServiceList[i].services!.map((subItem) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RadioTextWidget(
+                              isCheckBox: true,
+                              isChanged: (p0) {
+                                subItem.isSelected = p0;
+                                cntrl.update();
+                              },
+                              checkBoxvalue: subItem!.isSelected ?? false,
+                              selectedValue: subItem.subServiceId.toString(),
+                              text:
+                                  "${subItem.subServiceId.toString()}. ${subItem.subServiceName}",
+                            ),
+                            const VerticalSpacing(10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                PriceWidget(
+                                  isSelected: subItem.isSelected ?? false,
+                                  validator: subItem.isSelected!
+                                      ? emptyFieldValidation
+                                      : (p0) {
+                                          return null;
+                                        },
+                                  onChanged: (p0) {
+                                    if (p0.isEmpty) {
+                                      subItem.serviceCharges = 0;
+                                      cntrl.update();
+                                      return;
+                                    }
+                                    subItem.serviceCharges =
+                                        (double.parse(p0) * 0.85)
+                                            .toPrecision(2);
+                                    print(subItem.serviceCharges);
+
+                                    cntrl.update();
+                                  },
+                                  controller: TextEditingController(
+                                      text:
+                                          subItem.serviceCharges?.toString() ??
+                                              ''),
+                                ),
+                                PriceWidget(
+                                  readOnly: true,
+                                  price: ((subItem.serviceCharges!) * 0.85)
+                                      .toStringAsFixed(2),
+                                  text: "You'll be Paid",
+                                ),
+                              ],
+                            ),
+                            const VerticalSpacing(15),
+                          ],
+                        );
+                      }).toList(),
                     ),
-                    // Column(
-                    //   children:
-                    //       cntrl.amVendorServiceList[i].listSubServiceName.map((subItem) {
-                    //     return CommonText(
-                    //       text: subItem?.subServiceName ?? '',
-                    //     );
-                    //   }).toList(),
-                    // )
+                    const VerticalSpacing(15),
                   ],
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );

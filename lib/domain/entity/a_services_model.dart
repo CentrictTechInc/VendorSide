@@ -8,6 +8,7 @@ class AutoServicesModel {
   int? serviceTypeId;
   int? subServiceId;
   String? subServiceName;
+  bool? isSelected;
 
   AutoServicesModel({
     this.vendorServiceId,
@@ -19,6 +20,7 @@ class AutoServicesModel {
     this.serviceTypeId,
     this.subServiceId,
     this.subServiceName,
+    this.isSelected = false,
   });
 
   Map<String, dynamic> toJson() => {

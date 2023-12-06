@@ -14,6 +14,15 @@ import 'package:vendor_app/domain/entity/a_services_model.dart';
 import 'package:vendor_app/domain/entity/services_model.dart';
 import 'package:vendor_app/domain/repository/a_services_reposotory.dart';
 import 'package:vendor_app/domain/repository/services_amenities_repository.dart';
+import 'package:collection/collection.dart';
+
+class GroupedService {
+  final int? serviceId;
+  final String? serviceName;
+  final List<AutoServicesModel>? services;
+
+  GroupedService({this.serviceId, this.services, this.serviceName});
+}
 
 class ManageAmServicesController extends GetxController {
   AutoServiceRepository repo = AutoServiceRepositoryImp();
@@ -25,6 +34,8 @@ class ManageAmServicesController extends GetxController {
   List<AutoServicesModel> amvsList = [];
   List<AutoServicesDto> amvsPrice = [];
   List<ServicePrice> servicePriceList = [];
+  List<ServicePrice> updateServicePriceList = [];
+  List<GroupedService> groupedServiceList = [];
 
   @override
   void onInit() {
@@ -44,6 +55,20 @@ class ManageAmServicesController extends GetxController {
     await getVendorAmServices();
   }
 
+  List<GroupedService> convertToGroupedServices(
+      List<AutoServicesModel> amvsList) {
+    var grouped = groupBy(amvsList, (AutoServicesModel obj) => obj.serviceId);
+
+    return grouped.entries.map((entry) {
+      return GroupedService(
+        serviceId: entry.key,
+        serviceName: entry.value.first
+            .serviceName, // Assuming all services in the group have the same name
+        services: entry.value,
+      );
+    }).toList();
+  }
+
   Future getVendorAmServices() async {
     try {
       if (amvsList.isNotEmpty) {
@@ -52,7 +77,7 @@ class ManageAmServicesController extends GetxController {
         // return;
       }
       amvsList = await repo.getAutoServices();
-
+      groupedServiceList = convertToGroupedServices(amvsList);
       // In this code, Set<int> amvsSubServiceIds = amvsList.map((autoService) => autoService.subServiceId).toSet();
       // creates a Set of subServiceIds from amvsList.
       // !amvsSubServiceIds.contains(subService?.subServiceId) checks if the subServiceId
@@ -126,6 +151,26 @@ class ManageAmServicesController extends GetxController {
     try {
       ShowDialogBox.showDialogBoxs(true);
       final res = await priceRepo.servicePackagePricing(servicePriceList);
+
+      await Future.delayed(const Duration(seconds: 1));
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
+      ToastMessage.message(res, type: ToastType.success);
+      await getVendorAmServices();
+      update();
+    } catch (e) {
+      ToastMessage.message(e.toString());
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
+    }
+  }
+
+  Future updateAmServices() async {
+    try {
+      ShowDialogBox.showDialogBoxs(true);
+      final res = await repo.updateAutoServices(updateServicePriceList);
 
       await Future.delayed(const Duration(seconds: 1));
       if (ShowDialogBox.isOpen) {

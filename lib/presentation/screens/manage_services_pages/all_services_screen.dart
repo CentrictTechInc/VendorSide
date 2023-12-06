@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
-import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
-import 'package:vendor_app/data/dto/service_pricing_dto.dart';
 import 'package:vendor_app/presentation/screens/automotive_manage_services/controller/auto_manage_services_controller.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/components/common_text_icon_row.dart';
 import 'package:vendor_app/presentation/screens/handyman_warranty/components/radio_text_widget.dart';

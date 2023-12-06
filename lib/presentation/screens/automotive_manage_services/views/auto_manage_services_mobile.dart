@@ -81,7 +81,9 @@ class ManageAmServicesMobileScreen extends StatelessWidget {
                     if (controller.tabIndex == 1) {
                       await controller.addAmServices();
                       await controller.postServicePackagePricing();
-                    } else if (context.mounted && controller.tabIndex == 0) {}
+                    } else if (context.mounted && controller.tabIndex == 0) {
+                      await controller.updateAmServices();
+                    }
                     controller.update();
                   },
                   text: "SAVE",
