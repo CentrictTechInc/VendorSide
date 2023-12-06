@@ -9,6 +9,7 @@ class UserModel {
   bool? emailVerified;
   String? vendoraddress;
   int? step;
+  int? vendorType;
   // String? longitude;
   // String? latitude;
 
@@ -23,6 +24,7 @@ class UserModel {
     this.firstName,
     this.lastName,
     this.step,
+    this.vendorType = 1,
     // this.longitude,
     // this.latitude,
   });

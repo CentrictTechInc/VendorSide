@@ -18,7 +18,7 @@ class PriceWidget extends StatelessWidget with FieldsValidation {
       this.isSelected = false,
       this.onChanged,
       this.validator,
-      this.color});
+      this.color = Colors.white});
   TextEditingController? controller;
   bool readOnly;
   bool isSelected;
@@ -48,8 +48,7 @@ class PriceWidget extends StatelessWidget with FieldsValidation {
               width: 35.w,
               height: 50,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: color ?? Colors.white),
+                  borderRadius: BorderRadius.circular(10), color: color),
               child: Center(
                 child: readOnly
                     ? CommonText(
@@ -75,6 +74,8 @@ class PriceWidget extends StatelessWidget with FieldsValidation {
                         borderColor: AppColors.white,
                         disableBorder: AppColors.white,
                         enableBorder: AppColors.white,
+
+                        // isFilledColor: true,
                         hintText: price ?? "50",
                         hintSize: 14,
                         hintweight: FontWeight.w600,

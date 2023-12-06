@@ -15,13 +15,13 @@ import 'package:vendor_app/domain/repository/auth_repositpory.dart';
 import 'package:vendor_app/presentation/screens/chat/controllers/fb_msg_service.dart';
 
 class LoginController extends GetxController {
-  // @override
-  // void onReady() {
-  //   super.onReady();
-  //   if (LocalStorageService.instance.user != null) {
-  //     globalContext?.go(PagePath.slash);
-  //   }
-  // }
+  @override
+  void onReady() {
+    super.onReady();
+    if (LocalStorageService.instance.user != null) {
+      globalContext?.go(PagePath.slash);
+    }
+  }
 
   final passToggle = false.obs;
   final AuthRepository _repo = AuthRepositoryImpl();
