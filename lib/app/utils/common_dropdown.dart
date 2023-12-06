@@ -148,7 +148,7 @@ class DropDownWidget<T> extends StatelessWidget {
                   hintText: "Search here..",
                   hintStyle: TextStyle(
                       fontSize: Responsive.isDesktop(context) ? 16 : 14,
-                      fontFamily: "Roboto"),
+                      fontFamily: "Sora"),
                   contentPadding: EdgeInsets.symmetric(
                       vertical: 5.0,
                       horizontal: Responsive.isDesktop(context)
@@ -168,7 +168,7 @@ class DropDownWidget<T> extends StatelessWidget {
             onChanged: onChanged,
             dropdownDecoratorProps: DropDownDecoratorProps(
               baseStyle:
-                  TextStyle(fontFamily: "Roboto", fontSize: selectedItemHeight),
+                  TextStyle(fontFamily: "Sora", fontSize: selectedItemHeight),
               dropdownSearchDecoration: InputDecoration(
                 fillColor: fillColor,
                 filled: isFilledColor,

@@ -41,8 +41,7 @@ class APIEndpoint {
 
   //------------Home Improvement Service----------------
   static String get hIAddServiceUrl => '/api/Service/Handyman/Services';
-  static String get hIUpdateServiceUrl => '/api/Service/Handyman/Services';
-  static String get getHIServiceUrl =>
+    static String get getHIServiceUrl =>
       '/api/Service/Handyman/ServicesByVendorId';
 
   //-----------------Aotomotive Service by ID -----------------
