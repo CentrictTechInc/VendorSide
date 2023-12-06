@@ -79,8 +79,6 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                         splashRadius: 20,
                         onChanged: (p0) {
                           service.isSelected = p0;
-                          print("count  ${service.isSelected} $p0");
-                          print(service.listSubServiceName.length);
                           if (service.isSelected == true) {
                             controller.servicePriceList.addAll(
                               service.listSubServiceName
@@ -103,8 +101,6 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                           } else {
                             controller.servicePriceList.removeWhere((element) =>
                                 element.serviceId == service.serviceId);
-                            // element.subServiceId ==
-                            // service.listSubServiceName[0]!.subServiceId);
                           }
                           print(controller.servicePriceList.length);
                           for (var i = 0;
@@ -152,11 +148,6 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                           text:
                               "${controller.alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
                         ),
-                        // CommonText(
-                        //   text:
-                        //       "${controller.alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
-                        //   fontSize: 14,
-                        // ),
                         const VerticalSpacing(10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -175,19 +166,12 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                                   controller.update();
                                   return;
                                 }
-                                // controller.servicePriceList.where((element) =>
-                                // element.serviceId == service.serviceId
 
-                                // );
                                 controller.servicePriceList =
                                     controller.servicePriceList.map((element) {
                                   if (element.subServiceId ==
-                                          service.listSubServiceName[index]!
-                                              .subServiceId
-                                      //  &&
-                                      // element.subServiceId == service.listSubServiceName[index]!.subServiceId
-
-                                      ) {
+                                      service.listSubServiceName[index]!
+                                          .subServiceId) {
                                     element.serviceCharges = (double.parse(p0))
                                         .toPrecision(
                                             2); // replace with the new value

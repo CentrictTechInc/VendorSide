@@ -75,7 +75,7 @@ class ManageServicesMobileScreen extends StatelessWidget with FieldsValidation {
                     ),
                   ),
                   const VerticalSpacing(30),
-                  if (controller.isEdit) 
+                  if (controller.isEdit)
                     CommonTextButton(
                       onPressed: () {
                         if (controller.formkey.currentState!.validate()) {

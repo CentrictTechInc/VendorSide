@@ -46,7 +46,9 @@ class APIEndpoint {
       '/api/Service/Handyman/ServicesByVendorId';
 
   //-----------------Aotomotive Service by ID -----------------
-  static String get getAutomotiveServiceByIdUrl =>
+  static String get getAutoServiceByIdUrl =>
+      '/api/Service/Automotive/ServicesByVendorId';
+  static String get updateAutoServiceByIdUrl =>
       '/api/Service/Automotive/ServicesByVendorId';
 
   //---------------Schedule-----------------------
