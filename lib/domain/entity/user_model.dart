@@ -24,7 +24,7 @@ class UserModel {
     this.firstName,
     this.lastName,
     this.step,
-    this.vendorType = 1,
+    this.vendorType = 2,
     // this.longitude,
     // this.latitude,
   });

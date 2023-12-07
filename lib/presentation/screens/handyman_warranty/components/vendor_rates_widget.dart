@@ -13,12 +13,16 @@ class VendorRatesWidget extends StatelessWidget with FieldsValidation {
       this.controller,
       this.ddList,
       this.validator,
+      this.selectedItem,
+      this.editable = true,
       required this.child});
   final dynamic Function(dynamic)? onChanged;
   final TextEditingController? controller;
   final List<dynamic>? ddList;
   final String? Function(String?)? validator;
+  final String? selectedItem;
   final Widget child;
+  final bool editable;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,6 +35,7 @@ class VendorRatesWidget extends StatelessWidget with FieldsValidation {
           fontSize: 14,
         ),
         const VerticalSpacing(10),
+        // TODO: area dropdown might become a search dropdown in future
         // DropDownWidget(
         //   dropDownHeight: 50,
         //   validator: validateTextOnlyDropdown,
@@ -51,14 +56,13 @@ class VendorRatesWidget extends StatelessWidget with FieldsValidation {
         TextFormField(
           controller: controller,
           validator: validator,
+          readOnly: !editable,
           decoration: const InputDecoration(
             filled: true,
             fillColor: AppColors.white,
             hintText: "Enter Your Working Location",
             hintStyle: TextStyle(
-              color: AppColors.grey,
-              fontSize: 14,
-            ),
+                color: AppColors.grey, fontSize: 14, fontFamily: 'Sora'),
           ),
           onChanged: (value) {
             // Handle the change
@@ -73,6 +77,7 @@ class VendorRatesWidget extends StatelessWidget with FieldsValidation {
         DropDownWidget(
           dropDownHeight: 58,
           maxHeight: 250,
+          enabled: editable,
           validator: validateTextOnlyDropdown,
           arryList: ddList ?? [],
           showSearchBox: true,
@@ -86,6 +91,7 @@ class VendorRatesWidget extends StatelessWidget with FieldsValidation {
           fillColor: AppColors.white,
           isFilledColor: true,
           onChanged: onChanged,
+          selectedItem: selectedItem,
           suffixSearchIcon: RGIcons.search,
           hintText: "Select Your Category",
         ),
