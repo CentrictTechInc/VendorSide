@@ -143,8 +143,55 @@ class ManageAmServicesController extends GetxController {
           }
         }
       }
-      update();
+      await postServicePackagePricing();
     } catch (e) {}
+  }
+
+  Future addUpdateAmvsService() async {
+    for (var element in groupedServiceList) {
+      // print(element.serviceId);
+      for (var item in element.services!) {
+        if (item.isSelected == true) {
+          if (!updateServicePriceList.any((existingServicePrice) =>
+              existingServicePrice.serviceId == item.serviceId)) {
+            updateServicePriceList.add(ServicePrice(
+              serviceId: item.serviceId,
+              vendorId: LocalStorageService.instance.user!.vid,
+              serviceTypeId: 1,
+              subServiceId: item.subServiceId,
+              subServiceName: item.subServiceName,
+              serviceName: element.serviceName,
+              registerDate: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+              serviceCharges: item.serviceCharges!.text.isEmpty
+                  ? 0
+                  : double.parse(item.serviceCharges!.text),
+              isSelected: item.isSelected,
+              vendorServiceId: item.vendorServiceId,
+            ));
+          }
+        } else {
+          updateServicePriceList.removeWhere(
+              (element) => element.subServiceId == item.subServiceId);
+        }
+      }
+    }
+    print(updateServicePriceList.length);
+    if (updateServicePriceList.isEmpty) {
+      ToastMessage.message("Please Select At Least One Service",
+          type: ToastType.info);
+      return;
+    } else {
+      for (var element in updateServicePriceList) {
+        if (element.serviceCharges == 0) {
+          print(element.toJson());
+          ToastMessage.message("Please Enter Service Charges Of Services",
+              type: ToastType.warn);
+          return;
+        }
+      }
+    }
+    // update();
+    await updateAmServices();
   }
 
   Future postServicePackagePricing() async {
@@ -172,7 +219,6 @@ class ManageAmServicesController extends GetxController {
       ShowDialogBox.showDialogBoxs(true);
       final res = await repo.updateAutoServices(updateServicePriceList);
 
-      await Future.delayed(const Duration(seconds: 1));
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
@@ -188,10 +234,9 @@ class ManageAmServicesController extends GetxController {
   }
 
   int tabIndex = 0;
+  bool isEdit = false;
   changeIndex(i) {
     tabIndex = i;
     update();
   }
-
-  double vendorCharge = 0.0;
 }

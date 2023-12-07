@@ -46,7 +46,7 @@ class AutoServiceAPI extends APIRequestRepresentable {
   HTTPMethod get method {
     switch (type) {
       case AutoServiceAPIType.updateAutoServices:
-        return HTTPMethod.post;
+        return HTTPMethod.put;
 
       case AutoServiceAPIType.getAutoServices:
         return HTTPMethod.get;
@@ -57,7 +57,7 @@ class AutoServiceAPI extends APIRequestRepresentable {
   String get path {
     switch (type) {
       case AutoServiceAPIType.updateAutoServices:
-        return APIEndpoint.updateScheduleUrl;
+        return APIEndpoint.updateAutoServicePriceByIdUrl;
 
       case AutoServiceAPIType.getAutoServices:
         return APIEndpoint.getAutoServiceByIdUrl;

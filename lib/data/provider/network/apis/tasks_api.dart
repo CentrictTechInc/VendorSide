@@ -1,14 +1,17 @@
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
 import 'package:vendor_app/data/provider/network/api_provider.dart';
 import 'package:vendor_app/data/provider/network/api_request_representable.dart';
 
-enum ServiceAPIType { getAllServices }
+enum TasksAPIType { getTasks }
 
-class ServiceAPI extends APIRequestRepresentable {
-  ServiceAPIType type;
+class TasksAPI extends APIRequestRepresentable {
+  TasksAPIType type;
+  String? status;
 
-  ServiceAPI._({required this.type});
-  ServiceAPI.getAllServices() : this._(type: ServiceAPIType.getAllServices);
+  TasksAPI._({required this.type, this.status});
+  TasksAPI.getTasks(String status)
+      : this._(type: TasksAPIType.getTasks, status: status);
 
   @override
   get body {}
@@ -24,7 +27,7 @@ class ServiceAPI extends APIRequestRepresentable {
   @override
   HTTPMethod get method {
     switch (type) {
-      case ServiceAPIType.getAllServices:
+      case TasksAPIType.getTasks:
         return HTTPMethod.get;
     }
   }
@@ -32,8 +35,8 @@ class ServiceAPI extends APIRequestRepresentable {
   @override
   String get path {
     switch (type) {
-      case ServiceAPIType.getAllServices:
-        return APIEndpoint.getAllServicesUrl;
+      case TasksAPIType.getTasks:
+        return APIEndpoint.getTasksUrl;
     }
   }
 
@@ -48,8 +51,11 @@ class ServiceAPI extends APIRequestRepresentable {
   @override
   Map<String, String>? get urlParams {
     switch (type) {
-      case ServiceAPIType.getAllServices:
-        return {};
+      case TasksAPIType.getTasks:
+        return {
+          'VendorId': LocalStorageService.instance.user?.vid.toString() ?? '',
+          'Status': status ?? '',
+        };
     }
   }
 }

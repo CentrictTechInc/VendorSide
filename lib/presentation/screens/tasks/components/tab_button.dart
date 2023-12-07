@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 
+// ignore: must_be_immutable
 class TabButton extends StatelessWidget {
   final String name;
   bool highlighted;
@@ -14,7 +15,7 @@ class TabButton extends StatelessWidget {
   Color color;
   TabButton(
       {super.key,
-      this.fontSize,
+      this.fontSize = 13,
       this.height,
       this.padding,
       required this.name,
@@ -42,7 +43,7 @@ class TabButton extends StatelessWidget {
         onPressed: onPressed,
         child: CommonText(
           text: name.toString(),
-          fontSize: fontSize ?? 13,
+          fontSize: fontSize,
           weight: FontWeight.w500,
           color: highlighted ? AppColors.white : AppColors.grey,
         ),

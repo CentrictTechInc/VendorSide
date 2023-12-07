@@ -41,17 +41,21 @@ class APIEndpoint {
 
   //------------Home Improvement Service----------------
   static String get hIAddServiceUrl => '/api/Service/Handyman/Services';
-    static String get getHIServiceUrl =>
+  static String get getHIServiceUrl =>
       '/api/Service/Handyman/ServicesByVendorId';
 
   //-----------------Aotomotive Service by ID -----------------
   static String get getAutoServiceByIdUrl =>
       '/api/Service/Automotive/ServicesByVendorId';
-  static String get updateAutoServiceByIdUrl =>
-      '/api/Service/Automotive/ServicesByVendorId';
+  static String get updateAutoServicePriceByIdUrl =>
+      '/api/Service/Automotive/ServicePackagePricing';
 
   //---------------Schedule-----------------------
   static String get updateScheduleUrl => '/api/Vendor/Vendor/VendorSchedule';
   static String get getScheduleUrl =>
       '/api/Vendor/Vendor/VendorScheduleByVendorId';
+
+  //--------------- Tasks -----------------------\
+  static String get getTasksUrl =>
+      '/api/Appointment/api/Appointment/GetAppointmentBookingByVendorService';
 }

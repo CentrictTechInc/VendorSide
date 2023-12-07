@@ -45,6 +45,7 @@ class TasksMobileScreen extends StatelessWidget {
                             Expanded(
                               child: TabButton(
                                 name: "Requests",
+                                fontSize: 11,
                                 highlighted: controller.tabIndex == 0,
                                 onPressed: () => controller.changeIndex(0),
                               ),
@@ -52,6 +53,7 @@ class TasksMobileScreen extends StatelessWidget {
                             Expanded(
                               child: TabButton(
                                 name: "Current",
+                                fontSize: 11,
                                 highlighted: controller.tabIndex == 1,
                                 onPressed: () => controller.changeIndex(1),
                               ),
@@ -59,8 +61,17 @@ class TasksMobileScreen extends StatelessWidget {
                             Expanded(
                               child: TabButton(
                                 name: "Past",
+                                fontSize: 11,
                                 highlighted: controller.tabIndex == 2,
                                 onPressed: () => controller.changeIndex(2),
+                              ),
+                            ),
+                            Expanded(
+                              child: TabButton(
+                                name: "Cancelled",
+                                fontSize: 10,
+                                highlighted: controller.tabIndex == 3,
+                                onPressed: () => controller.changeIndex(3),
                               ),
                             ),
                           ],

@@ -53,11 +53,13 @@ class MyAmServicesScreen extends StatelessWidget with FieldsValidation {
                           children: [
                             RadioTextWidget(
                               isCheckBox: true,
-                              isChanged: (p0) {
-                                subItem.isSelected = p0;
-                                cntrl.update();
-                              },
-                              checkBoxvalue: subItem!.isSelected ?? false,
+                              isChanged: cntrl.isEdit
+                                  ? (p0) {
+                                      subItem.isSelected = p0;
+                                      cntrl.update();
+                                    }
+                                  : (p0) {},
+                              checkBoxvalue: subItem.isSelected ?? false,
                               selectedValue: subItem.subServiceId.toString(),
                               text:
                                   "${subItem.subServiceId.toString()}. ${subItem.subServiceName}",
@@ -75,26 +77,27 @@ class MyAmServicesScreen extends StatelessWidget with FieldsValidation {
                                         },
                                   onChanged: (p0) {
                                     if (p0.isEmpty) {
-                                      subItem.serviceCharges = 0;
+                                      subItem.vendorPercentage = 0;
                                       cntrl.update();
                                       return;
                                     }
-                                    subItem.serviceCharges =
+                                    subItem.vendorPercentage =
                                         (double.parse(p0) * 0.85)
                                             .toPrecision(2);
                                     print(subItem.serviceCharges);
 
                                     cntrl.update();
                                   },
-                                  controller: TextEditingController(
-                                      text:
-                                          subItem.serviceCharges?.toString() ??
-                                              ''),
+                                  controller: subItem.serviceCharges,
                                 ),
                                 PriceWidget(
                                   readOnly: true,
-                                  price: ((subItem.serviceCharges!) * 0.85)
-                                      .toStringAsFixed(2),
+                                  price: subItem.serviceCharges!.text.isEmpty
+                                      ? "0"
+                                      : (double.parse(subItem
+                                                  .serviceCharges!.text) *
+                                              0.85)
+                                          .toStringAsFixed(2),
                                   text: "You'll be Paid",
                                 ),
                               ],

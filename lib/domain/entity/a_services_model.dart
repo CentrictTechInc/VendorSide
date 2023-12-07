@@ -1,14 +1,17 @@
+import 'package:flutter/material.dart';
+
 class AutoServicesModel {
   int? vendorServiceId;
   int? vendorId;
   int? serviceId;
-  double? serviceCharges;
+  TextEditingController? serviceCharges;
   String? vendorLocation;
   String? serviceName;
   int? serviceTypeId;
   int? subServiceId;
   String? subServiceName;
   bool? isSelected;
+  double? vendorPercentage;
 
   AutoServicesModel({
     this.vendorServiceId,
@@ -21,6 +24,7 @@ class AutoServicesModel {
     this.subServiceId,
     this.subServiceName,
     this.isSelected = false,
+    this.vendorPercentage = 0,
   });
 
   Map<String, dynamic> toJson() => {

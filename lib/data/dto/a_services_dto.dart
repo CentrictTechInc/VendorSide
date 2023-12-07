@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:vendor_app/domain/entity/a_services_model.dart';
 
 class AutoServicesDto extends AutoServicesModel {
@@ -25,7 +26,8 @@ class AutoServicesDto extends AutoServicesModel {
         vendorServiceId: json["vendorServiceId"],
         vendorId: json["vendorId"],
         serviceId: json["serviceId"],
-        serviceCharges: json["serviceCharges"].toDouble(),
+        serviceCharges:
+            TextEditingController(text: json["serviceCharges"].toString()),
         vendorLocation: json["vendorLocation"] ?? "",
         serviceName: json["serviceName"],
         serviceTypeId: json["serviceTypeId"],
