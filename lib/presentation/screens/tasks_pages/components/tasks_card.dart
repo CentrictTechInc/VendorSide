@@ -5,7 +5,6 @@ import 'package:vendor_app/app/utils/network_image_with_initials.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
-import 'package:vendor_app/data/dto/tasks_dto.dart';
 import 'package:vendor_app/domain/entity/tasks_model.dart';
 import 'package:vendor_app/presentation/screens/tasks_pages/task_details_screen.dart';
 
@@ -17,17 +16,18 @@ class TasksCard extends StatelessWidget {
     required this.task,
     required this.icon,
     this.isPending = false,
+    this.isgrey = false,
   });
   final String type;
   final IconData icon;
   bool isPending;
   TasksStatusResponseModel task;
+  bool isgrey;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Get.toNamed(Routes.taskDetailsScreen, arguments: task);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -39,7 +39,7 @@ class TasksCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: isgrey ? AppColors.whiteGreyish : AppColors.white,
           boxShadow: [
             BoxShadow(color: AppColors.grey.withOpacity(0.2), blurRadius: 2.0),
           ],
@@ -85,17 +85,21 @@ class TasksCard extends StatelessWidget {
                           child: NetWorkImageWithInitials(
                             imageUrl: Drawables.personUrl,
                             name: task.username?[0].toString(),
-                            backgroundColor: AppColors.whiteGreyish,
+                            backgroundColor: isgrey
+                                ? AppColors.white
+                                : AppColors.whiteGreyish,
                             textColor: AppColors.black,
                             fontSize: 36,
                           ),
                         ),
                       ),
                       const HorizontalSpacing(10),
-                      CommonText(
-                        text: task.username ?? '',
-                        fontSize: 12.sp,
-                        weight: FontWeight.bold,
+                      Expanded(
+                        child: CommonText(
+                          text: task.username ?? '',
+                          fontSize: 12.sp,
+                          weight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -130,11 +134,13 @@ class TasksCard extends StatelessWidget {
                         size: 24,
                       ),
                       const SizedBox(width: 5),
-                      CommonText(
-                        text: task.location ?? '',
-                        fontSize: 10.sp,
-                        letterSpacing: 0.7,
-                        color: AppColors.grey,
+                      Expanded(
+                        child: CommonText(
+                          text: task.location ?? '',
+                          fontSize: 10.sp,
+                          letterSpacing: 0.7,
+                          color: AppColors.grey,
+                        ),
                       )
                     ],
                   ),
@@ -152,17 +158,18 @@ class TasksCard extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
                         color: AppColors.primary),
-                    child: const Column(
+                    child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          CommonText(
+                          const CommonText(
                             text: "Wed",
                             fontSize: 12,
                             color: AppColors.white,
                             weight: FontWeight.w500,
                           ),
                           CommonText(
-                            text: "20",
+                            text:
+                                "${(DateTime.parse(task.appointmentDate ?? '').day)}",
                             fontSize: 18,
                             color: AppColors.white,
                             weight: FontWeight.w600,
@@ -171,7 +178,7 @@ class TasksCard extends StatelessWidget {
                   ),
                   const VerticalSpacing(10),
                   CommonText(
-                    text: " 6:00 \n   PM",
+                    text: " ${task.time} \n    PM",
                     fontSize: 16,
                     weight: FontWeight.w600,
                   ),

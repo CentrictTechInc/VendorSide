@@ -12,6 +12,10 @@ class TasksStatusResponseDto extends TasksStatusResponseModel {
     super.vehicleMake,
     super.vehicleModel,
     super.status,
+    super.description,
+    super.price,
+    super.time,
+    super.vehicleYear,
   });
 
   factory TasksStatusResponseDto.fromRawJson(String str) =>

@@ -76,7 +76,7 @@ class TaskDetailScreen extends StatelessWidget {
                             const VerticalSpacing(10),
                             CommonText(
                               text:
-                                  "2019 ${tasks.vehicleMake} ${tasks.vehicleModel}",
+                                  "${tasks.vehicleYear} ${tasks.vehicleMake} ${tasks.vehicleModel}",
                               fontSize: 16,
                               weight: FontWeight.w600,
                             ),
@@ -157,16 +157,16 @@ class TaskDetailScreen extends StatelessWidget {
                               ],
                             ),
                             const VerticalSpacing(10),
-                            const Row(
+                            Row(
                               children: [
-                                CommonText(
+                                const CommonText(
                                   text: "Price",
                                   fontSize: 16,
                                   weight: FontWeight.w500,
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 CommonText(
-                                  text: "\$50.00",
+                                  text: "\$${tasks.price}",
                                   fontSize: 16,
                                   weight: FontWeight.w600,
                                 ),
@@ -189,16 +189,17 @@ class TaskDetailScreen extends StatelessWidget {
                               ],
                             ),
                             const VerticalSpacing(10),
-                            const Row(
+                            Row(
                               children: [
-                                CommonText(
+                                const CommonText(
                                   text: "Amount Payable",
                                   fontSize: 16,
                                   weight: FontWeight.w500,
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 CommonText(
-                                  text: "\$43.50",
+                                  text:
+                                      "\$${(double.parse(tasks.price!) * .85).toStringAsPrecision(2)}",
                                   fontSize: 16,
                                   weight: FontWeight.w600,
                                 ),

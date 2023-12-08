@@ -18,7 +18,22 @@ class HomeScreenMobile extends StatelessWidget {
   HomeScreenMobile({
     super.key,
   });
-  List<TasksStatusResponseDto> appointmentList = [TasksStatusResponseDto()];
+  List<TasksStatusResponseDto> appointmentList = [
+    TasksStatusResponseDto(
+      username: 'Chris Johnson',
+      appointmentDate: '10:00 AM',
+      location: '509 Unit 10, New Haven, CT 06530',
+      serviceName: "Brakes",
+      status: "Current",
+      subServiceName: "Brake Pad Replacement",
+      vehicleMake: "Toyota",
+      vehicleModel: "Camry",
+      vehicleYear: "2010",
+      time: "10:00",
+      description: "I need the Brake pad replacement and also fuild checking",
+      price: "100",
+    )
+  ];
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -66,7 +81,7 @@ class HomeScreenMobile extends StatelessWidget {
                           bottom: MediaQuery.of(context).viewInsets.bottom),
                       child: SingleChildScrollView(
                         child: Container(
-                          height: 500,
+                          // height: 500,
                           decoration: BoxDecoration(
                             color: AppColors.background,
                             borderRadius: const BorderRadius.only(
@@ -111,46 +126,34 @@ class HomeScreenMobile extends StatelessWidget {
                                 ],
                               ),
                               Container(
-                                height: 200,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 40),
-                                // color: AppColors.green,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
                                 child: TasksCard(
+                                  isgrey: true,
                                   type: "Completed:",
                                   task: appointmentList[0],
                                   icon: Icons.alarm,
                                 ),
                               ),
                               const VerticalSpacing(20),
-                              CommonText(
+                              const CommonText(
                                 text: "Your Offer",
-                                fontSize: 18,
-                                weight: FontWeight.bold,
+                                fontSize: 20,
                               ),
                               SizedBox(
                                 width: context.width - 70,
                                 child: CommonTextField(
-                                  hintText: "Enter Offer",
+                                  hintText: "Estimated Cost: \$50.00",
                                   controller: TextEditingController(),
                                 ),
                               ),
                               const VerticalSpacing(20),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: CommonTextButton(
-                                        onPressed: () {},
-                                        color: AppColors.white,
-                                        text: "Accept"),
-                                  ),
-                                  Expanded(
-                                    child: CommonTextButton(
-                                        onPressed: () {},
-                                        color: AppColors.white,
-                                        text: "Decline"),
-                                  )
-                                ],
-                              )
+                              CommonTextButton(
+                                  onPressed: () {},
+                                  color: AppColors.white,
+                                  width: 60,
+                                  text: "Place Offer"),
+                              const VerticalSpacing(20),
                             ],
                           ),
                         ),

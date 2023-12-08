@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:vendor_app/data/dto/tasks_dto.dart';
-import 'package:vendor_app/data/provider/network/apis/tasks_api.dart';
 import 'package:vendor_app/domain/repository/tasks_repository.dart';
 
 class TasksRepositoryImpl extends TasksRepository {
@@ -17,62 +14,66 @@ class TasksRepositoryImpl extends TasksRepository {
     // } catch (e) {
     //   rethrow;
     // }
-    try {
-      // dynamic json = jsonDecode(dummyData);
-      // List<dynamic> res = json['appointmentvendor'];
-      List<TasksStatusResponseDto> allTasks = dummyData
-          .map((data) => TasksStatusResponseDto.fromJson(data))
-          .toList();
-      print(allTasks);
-      // if (status != null) {
-      //   allTasks = allTasks.where((task) => task.status == status).toList();
-      // }
-      return allTasks;
-    } catch (e) {
-      rethrow;
-    }
+    Future.delayed(const Duration(seconds: 2), () {});
+    return dummyData;
   }
 }
 
-List<Map<String, dynamic>> dummyData = [
-  {
-    "username": "John",
-    "serviceName": "Brakes",
-    "subServiceName": "Shoe replacement",
-    "location": "Location 1",
-    "appointmentDate": "2022-01-01",
-    "vehicleMake": "Make 1",
-    "vehicleModel": "Model 1",
-    "status": "request"
-  },
-  {
-    "username": "Jane",
-    "serviceName": "Engine",
-    "subServiceName": "Oil change",
-    "location": "Location 2",
-    "appointmentDate": "2022-01-02",
-    "vehicleMake": "Make 2",
-    "vehicleModel": "Model 2",
-    "status": "completed"
-  },
-  {
-    "username": "Doe",
-    "serviceName": "Tires",
-    "subServiceName": "Rotation",
-    "location": "Location 3",
-    "appointmentDate": "2022-01-03",
-    "vehicleMake": "Make 3",
-    "vehicleModel": "Model 3",
-    "status": "past"
-  },
-  {
-    "username": "Smith",
-    "serviceName": "Transmission",
-    "subServiceName": "Fluid change",
-    "location": "Location 4",
-    "appointmentDate": "2022-01-04",
-    "vehicleMake": "Make 4",
-    "vehicleModel": "Model 4",
-    "status": "current"
-  },
+List<TasksStatusResponseDto> dummyData = [
+  TasksStatusResponseDto(
+    username: "John",
+    serviceName: "Brakes",
+    subServiceName: "Shoe replacement",
+    location: "Location 1",
+    appointmentDate: "2022-01-22",
+    vehicleMake: "Toyota",
+    vehicleModel: "Corolla",
+    status: "Requested",
+    time: "10:00",
+    vehicleYear: "2010",
+    description: "Brake shoe replacement",
+    price: "100",
+  ),
+  TasksStatusResponseDto(
+    username: "Jane",
+    serviceName: "Engine",
+    subServiceName: "Oil change",
+    location: "Location 2",
+    appointmentDate: "2022-01-09",
+    vehicleMake: "Honda",
+    vehicleModel: "Civic",
+    status: "Completed",
+    time: "11:00",
+    vehicleYear: "2011",
+    description: "Engine oil change",
+    price: "200",
+  ),
+  TasksStatusResponseDto(
+    username: "Doe",
+    serviceName: "Tires",
+    subServiceName: "Rotation",
+    location: "Location 3",
+    appointmentDate: "2022-01-03",
+    vehicleMake: "Ford",
+    vehicleModel: "Mustang",
+    status: "Past",
+    time: "12:00",
+    vehicleYear: "2012",
+    description: "Tire rotation",
+    price: "300",
+  ),
+  TasksStatusResponseDto(
+    username: "Smith",
+    serviceName: "Transmission",
+    subServiceName: "Fluid change",
+    location: "Location 4",
+    appointmentDate: "2022-01-19",
+    vehicleMake: "Chevrolet",
+    vehicleModel: "Camaro",
+    status: "Current",
+    time: "13:00",
+    vehicleYear: "2013",
+    description: "Transmission fluid change",
+    price: "400",
+  ),
 ];

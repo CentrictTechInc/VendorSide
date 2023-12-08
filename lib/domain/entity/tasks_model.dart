@@ -7,6 +7,10 @@ class TasksStatusResponseModel {
   String? vehicleMake;
   String? vehicleModel;
   String? status;
+  String? time;
+  String? vehicleYear;
+  String? description;
+  String? price;
 
   TasksStatusResponseModel({
     this.username,
@@ -17,10 +21,9 @@ class TasksStatusResponseModel {
     this.vehicleMake,
     this.vehicleModel,
     this.status,
+    this.time,
+    this.vehicleYear,
+    this.description,
+    this.price,
   });
-}
-
-class TasksModel {
-  TasksModel({required this.tasks});
-  String tasks;
 }
