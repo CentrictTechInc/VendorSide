@@ -5,6 +5,7 @@ import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/presentation/screens/tasks/components/tab_button.dart';
 import 'package:vendor_app/presentation/screens/tasks/controller/tasks_controller.dart';
+import 'package:vendor_app/presentation/screens/tasks_pages/cancelled_tasks_screen.dart';
 import 'package:vendor_app/presentation/screens/tasks_pages/current_task_screen.dart';
 import 'package:vendor_app/presentation/screens/tasks_pages/past_task_screen.dart';
 import 'package:vendor_app/presentation/screens/tasks_pages/request_task_screen.dart';
@@ -45,6 +46,7 @@ class TasksMobileScreen extends StatelessWidget {
                             Expanded(
                               child: TabButton(
                                 name: "Requests",
+                                fontSize: 11,
                                 highlighted: controller.tabIndex == 0,
                                 onPressed: () => controller.changeIndex(0),
                               ),
@@ -52,6 +54,7 @@ class TasksMobileScreen extends StatelessWidget {
                             Expanded(
                               child: TabButton(
                                 name: "Current",
+                                fontSize: 11,
                                 highlighted: controller.tabIndex == 1,
                                 onPressed: () => controller.changeIndex(1),
                               ),
@@ -59,8 +62,17 @@ class TasksMobileScreen extends StatelessWidget {
                             Expanded(
                               child: TabButton(
                                 name: "Past",
+                                fontSize: 11,
                                 highlighted: controller.tabIndex == 2,
                                 onPressed: () => controller.changeIndex(2),
+                              ),
+                            ),
+                            Expanded(
+                              child: TabButton(
+                                name: "Cancelled",
+                                fontSize: 10,
+                                highlighted: controller.tabIndex == 3,
+                                onPressed: () => controller.changeIndex(3),
                               ),
                             ),
                           ],
@@ -75,6 +87,7 @@ class TasksMobileScreen extends StatelessWidget {
                       RequestsTaskScreen(),
                       CurrentTasks(),
                       PastTasksScreen(),
+                      CancelledTasksScreen(),
                     ],
                   ),
                 ),

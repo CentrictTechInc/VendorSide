@@ -17,6 +17,8 @@ class ServiceIcons {
 }
 
 class RGIcons {
+  static const note = "assets/icons/note.png";
+  static const estimatedPrice = "assets/icons/estimated_price.png";
   static const route = "assets/icons/alt_route.png";
   static const building = "assets/icons/building.png";
   static const mailBox = "assets/icons/mailbox.png";

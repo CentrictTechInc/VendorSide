@@ -9,15 +9,16 @@ import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
-import 'package:vendor_app/domain/entity/tasks_model.dart';
+import 'package:vendor_app/data/dto/tasks_dto.dart';
 import 'package:vendor_app/presentation/screens/home/components/vendor_details_card.dart';
 import 'package:vendor_app/presentation/screens/tasks_pages/components/tasks_card.dart';
 
+// ignore: must_be_immutable
 class HomeScreenMobile extends StatelessWidget {
   HomeScreenMobile({
     super.key,
   });
-  List<TasksModel> appointmentList = [TasksModel(tasks: 'tasks')];
+  List<TasksStatusResponseDto> appointmentList = [TasksStatusResponseDto()];
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -116,7 +117,7 @@ class HomeScreenMobile extends StatelessWidget {
                                 // color: AppColors.green,
                                 child: TasksCard(
                                   type: "Completed:",
-                                  data: appointmentList[0],
+                                  task: appointmentList[0],
                                   icon: Icons.alarm,
                                 ),
                               ),

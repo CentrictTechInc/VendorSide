@@ -14,6 +14,15 @@ import 'package:vendor_app/domain/entity/a_services_model.dart';
 import 'package:vendor_app/domain/entity/services_model.dart';
 import 'package:vendor_app/domain/repository/a_services_reposotory.dart';
 import 'package:vendor_app/domain/repository/services_amenities_repository.dart';
+import 'package:collection/collection.dart';
+
+class GroupedService {
+  final int? serviceId;
+  final String? serviceName;
+  final List<AutoServicesModel>? services;
+
+  GroupedService({this.serviceId, this.services, this.serviceName});
+}
 
 class ManageAmServicesController extends GetxController {
   AutoServiceRepository repo = AutoServiceRepositoryImp();
@@ -25,6 +34,8 @@ class ManageAmServicesController extends GetxController {
   List<AutoServicesModel> amvsList = [];
   List<AutoServicesDto> amvsPrice = [];
   List<ServicePrice> servicePriceList = [];
+  List<ServicePrice> updateServicePriceList = [];
+  List<GroupedService> groupedServiceList = [];
 
   @override
   void onInit() {
@@ -44,6 +55,20 @@ class ManageAmServicesController extends GetxController {
     await getVendorAmServices();
   }
 
+  List<GroupedService> convertToGroupedServices(
+      List<AutoServicesModel> amvsList) {
+    var grouped = groupBy(amvsList, (AutoServicesModel obj) => obj.serviceId);
+
+    return grouped.entries.map((entry) {
+      return GroupedService(
+        serviceId: entry.key,
+        serviceName: entry.value.first
+            .serviceName, // Assuming all services in the group have the same name
+        services: entry.value,
+      );
+    }).toList();
+  }
+
   Future getVendorAmServices() async {
     try {
       if (amvsList.isNotEmpty) {
@@ -52,7 +77,7 @@ class ManageAmServicesController extends GetxController {
         // return;
       }
       amvsList = await repo.getAutoServices();
-
+      groupedServiceList = convertToGroupedServices(amvsList);
       // In this code, Set<int> amvsSubServiceIds = amvsList.map((autoService) => autoService.subServiceId).toSet();
       // creates a Set of subServiceIds from amvsList.
       // !amvsSubServiceIds.contains(subService?.subServiceId) checks if the subServiceId
@@ -118,8 +143,55 @@ class ManageAmServicesController extends GetxController {
           }
         }
       }
-      update();
+      await postServicePackagePricing();
     } catch (e) {}
+  }
+
+  Future addUpdateAmvsService() async {
+    for (var element in groupedServiceList) {
+      // print(element.serviceId);
+      for (var item in element.services!) {
+        if (item.isSelected == true) {
+          if (!updateServicePriceList.any((existingServicePrice) =>
+              existingServicePrice.serviceId == item.serviceId)) {
+            updateServicePriceList.add(ServicePrice(
+              serviceId: item.serviceId,
+              vendorId: LocalStorageService.instance.user!.vid,
+              serviceTypeId: 1,
+              subServiceId: item.subServiceId,
+              subServiceName: item.subServiceName,
+              serviceName: element.serviceName,
+              registerDate: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+              serviceCharges: item.serviceCharges!.text.isEmpty
+                  ? 0
+                  : double.parse(item.serviceCharges!.text),
+              isSelected: item.isSelected,
+              vendorServiceId: item.vendorServiceId,
+            ));
+          }
+        } else {
+          updateServicePriceList.removeWhere(
+              (element) => element.subServiceId == item.subServiceId);
+        }
+      }
+    }
+    print(updateServicePriceList.length);
+    if (updateServicePriceList.isEmpty) {
+      ToastMessage.message("Please Select At Least One Service",
+          type: ToastType.info);
+      return;
+    } else {
+      for (var element in updateServicePriceList) {
+        if (element.serviceCharges == 0) {
+          print(element.toJson());
+          ToastMessage.message("Please Enter Service Charges Of Services",
+              type: ToastType.warn);
+          return;
+        }
+      }
+    }
+    // update();
+    await updateAmServices();
   }
 
   Future postServicePackagePricing() async {
@@ -142,11 +214,29 @@ class ManageAmServicesController extends GetxController {
     }
   }
 
+  Future updateAmServices() async {
+    try {
+      ShowDialogBox.showDialogBoxs(true);
+      final res = await repo.updateAutoServices(updateServicePriceList);
+
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
+      ToastMessage.message(res, type: ToastType.success);
+      await getVendorAmServices();
+      update();
+    } catch (e) {
+      ToastMessage.message(e.toString());
+      if (ShowDialogBox.isOpen) {
+        globalContext?.pop();
+      }
+    }
+  }
+
   int tabIndex = 0;
+  bool isEdit = false;
   changeIndex(i) {
     tabIndex = i;
     update();
   }
-
-  double vendorCharge = 0.0;
 }

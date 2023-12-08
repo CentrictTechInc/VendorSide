@@ -20,7 +20,7 @@ class ManageAmServicesMobileScreen extends StatelessWidget {
       child: GetBuilder<ManageAmServicesController>(
           init: ManageAmServicesController(),
           //TODO: remove autoRemove: false
-          autoRemove: false,
+          // autoRemove: false,
           builder: (controller) {
             return Column(
               children: [
@@ -30,6 +30,11 @@ class ManageAmServicesMobileScreen extends StatelessWidget {
                   text: "Manage Services",
                   onDrawerPressed: onPressed,
                   hideBell: true,
+                  editButton: !controller.isEdit,
+                  onEdit: () {
+                    controller.isEdit = true;
+                    controller.update();
+                  },
                 ),
                 const VerticalSpacing(10),
                 Container(
@@ -76,18 +81,23 @@ class ManageAmServicesMobileScreen extends StatelessWidget {
                       : AllAmServicesScreen(),
                 ),
                 const VerticalSpacing(15),
-                CommonTextButton(
-                  onPressed: () async {
-                    if (controller.tabIndex == 1) {
-                      await controller.addAmServices();
-                      await controller.postServicePackagePricing();
-                    } else if (context.mounted && controller.tabIndex == 0) {}
-                    controller.update();
-                  },
-                  text: "SAVE",
-                  width: 30,
-                  color: AppColors.white,
-                ),
+                controller.isEdit
+                    ? CommonTextButton(
+                        onPressed: () async {
+                          if (controller.tabIndex == 1) {
+                            await controller.addAmServices();
+                          } else if (context.mounted &&
+                              controller.tabIndex == 0) {
+                            await controller.addUpdateAmvsService();
+                          }
+                          controller.isEdit = false;
+                          controller.update();
+                        },
+                        text: "SAVE",
+                        width: 30,
+                        color: AppColors.white,
+                      )
+                    : const SizedBox(),
                 const VerticalSpacing(20),
               ],
             );

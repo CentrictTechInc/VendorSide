@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/utils/custom_drawer.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
+import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/presentation/screens/tasks/views/tasks_mobile.dart';
 
 class TasksScreen extends StatelessWidget {
@@ -10,6 +11,7 @@ class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       key: scaffoldKey,
       drawer: CustomDrawer(),
       body: SafeArea(
