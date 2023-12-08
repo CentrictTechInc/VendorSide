@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/app/utils/common_text_button.dart';
@@ -21,10 +22,10 @@ class HomeScreenMobile extends StatelessWidget {
   List<TasksStatusResponseDto> appointmentList = [
     TasksStatusResponseDto(
       username: 'Chris Johnson',
-      appointmentDate: '10:00 AM',
+      appointmentDate: '2023-01-11',
       location: '509 Unit 10, New Haven, CT 06530',
       serviceName: "Brakes",
-      status: "Current",
+      status: "Request",
       subServiceName: "Brake Pad Replacement",
       vehicleMake: "Toyota",
       vehicleModel: "Camry",
@@ -48,17 +49,21 @@ class HomeScreenMobile extends StatelessWidget {
                 size: 24,
               ),
               const SizedBox(width: 5),
-              CommonText(
-                text: "New York",
-                fontSize: 10.sp,
-                letterSpacing: 0.7,
-                color: AppColors.grey,
+              Expanded(
+                child: CommonText(
+                  text:
+                      "${LocalStorageService.instance.user?.vendoraddress ?? ''}",
+                  fontSize: 10.sp,
+                  letterSpacing: 0.5,
+                  color: AppColors.grey,
+                ),
               )
             ],
           ),
           const VerticalSpacing(15),
-          const CommonText(
-            text: "Hello, Demo Admin",
+          CommonText(
+            text:
+                "Hello, ${LocalStorageService.instance.user?.firstName ?? ''}",
             fontSize: 16,
             weight: FontWeight.w600,
           ),
@@ -236,14 +241,14 @@ class HomeScreenMobile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CommonText(
-                            text: "Muhammad Saqib",
+                            text: appointmentList[0].username ?? "",
                             fontSize: 11.sp,
                             color: AppColors.white,
                             weight: FontWeight.w600,
                           ),
                           const VerticalSpacing(15.0),
                           CommonText(
-                            text: "509 Unit 10, New Haven, CT 06530",
+                            text: appointmentList[0].location ?? "",
                             fontSize: 8.sp,
                             color: AppColors.white,
                             weight: FontWeight.w300,
@@ -263,7 +268,7 @@ class HomeScreenMobile extends StatelessWidget {
                                 border: Border.all(color: AppColors.white),
                               ),
                               child: CommonText(
-                                text: "10: 00 AM",
+                                text: "${appointmentList[0].time ?? ""} PM",
                                 fontSize: 10.sp,
                                 weight: FontWeight.w600,
                                 color: AppColors.white,
@@ -295,11 +300,18 @@ class HomeScreenMobile extends StatelessWidget {
                 ),
                 const VerticalSpacing(5.0),
                 CommonText(
-                  text: "Check engine light is on (general diagnosis)",
+                  text: appointmentList[0].subServiceName ?? "",
                   fontSize: 8.sp,
                   color: AppColors.white,
                   weight: FontWeight.w400,
-                )
+                ),
+                // const VerticalSpacing(5.0),
+                // CommonText(
+                //   text: appointmentList[0].subServiceName ?? "",
+                //   fontSize: 8.sp,
+                //   color: AppColors.white,
+                //   weight: FontWeight.w400,
+                // )
               ],
             ),
           ),

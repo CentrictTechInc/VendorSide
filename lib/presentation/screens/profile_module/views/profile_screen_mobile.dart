@@ -78,7 +78,7 @@ class ProfileScreenMobile extends StatelessWidget {
                     const VerticalSpacing(20),
                     ProfileItem(
                         heading: "Vendor Shop",
-                        text: c.user?.vendoraddress ?? "",
+                        text: c.user?.vendorCompanyName ?? "",
                         icon: RGIcons.storeIcon),
                     const VerticalSpacing(20),
                     ProfileItem(

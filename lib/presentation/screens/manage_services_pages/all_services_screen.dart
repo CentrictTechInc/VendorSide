@@ -52,10 +52,12 @@ class AllAmServicesScreen extends StatelessWidget with FieldsValidation {
                               children: [
                                 RadioTextWidget(
                                   isCheckBox: true,
-                                  isChanged: (p0) {
-                                    subItem.isSelected = p0;
-                                    cntrl.update();
-                                  },
+                                  isChanged: cntrl.isEdit
+                                      ? (p0) {
+                                          subItem?.isSelected = p0;
+                                          cntrl.update();
+                                        }
+                                      : (p0) {},
                                   checkBoxvalue: subItem!.isSelected ?? false,
                                   selectedValue:
                                       subItem.subServiceId.toString(),

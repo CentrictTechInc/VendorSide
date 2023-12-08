@@ -17,24 +17,28 @@ class TasksCard extends StatelessWidget {
     required this.icon,
     this.isPending = false,
     this.isgrey = false,
+    this.hasDetails = true,
   });
   final String type;
   final IconData icon;
   bool isPending;
   TasksStatusResponseModel task;
   bool isgrey;
+  bool hasDetails;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => TaskDetailScreen(
-                      tasks: task,
-                    )));
-      },
+      onTap: hasDetails
+          ? () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TaskDetailScreen(
+                            tasks: task,
+                          )));
+            }
+          : () {},
       splashColor: Colors.transparent,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),

@@ -36,6 +36,7 @@ class TaskDetailScreen extends StatelessWidget {
                   children: [
                     TasksCard(
                       type: "Completed:",
+                      hasDetails: false,
                       task: tasks,
                       icon: Icons.alarm,
                       isPending: true,
@@ -199,7 +200,7 @@ class TaskDetailScreen extends StatelessWidget {
                                 const Spacer(),
                                 CommonText(
                                   text:
-                                      "\$${(double.parse(tasks.price!) * .85).toStringAsPrecision(2)}",
+                                      "\$${(double.parse(tasks.price!) * .85).toStringAsFixed(2)}",
                                   fontSize: 16,
                                   weight: FontWeight.w600,
                                 ),

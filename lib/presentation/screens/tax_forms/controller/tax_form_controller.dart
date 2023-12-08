@@ -19,9 +19,9 @@ class TaxFromController extends GetxController {
   Future<int> uploadTaxForm() async {
     try {
       TaxFromDto data = TaxFromDto(
-        fileName: "EIN(W9 Form)",
-        vendorId: LocalStorageService.instance.user!.vid!,
-      );
+          fileName: "EIN(W9 Form)",
+          // vendorId: LocalStorageService.instance.user!.vid ?? 0,
+          vendorId: 1);
       final res = await repo.uploadTaxForm(data, taxImage);
       return res.certificateid;
     } catch (e) {
@@ -41,7 +41,8 @@ class TaxFromController extends GetxController {
       PLIFormDto? pliData = PLIFormDto(
         certificateId: certificateId,
         fileName: "Insurance Form",
-        vendorId: LocalStorageService.instance.user!.vid!,
+        // vendorId: LocalStorageService.instance.user!.vid ?? 0,
+        vendorId: 1,
       );
       final res = await repo.uploadPLIForm(pliData, pliImage);
       if (ShowDialogBox.isOpen) {
