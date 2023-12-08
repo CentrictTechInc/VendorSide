@@ -37,13 +37,13 @@ class RequestsTaskScreen extends StatelessWidget {
                       separatorBuilder: (context, index) {
                         return const VerticalSpacing(10.0);
                       },
-                      itemCount: appointmentList.length,
+                      itemCount: cntrl.tasksList.length,
                       padding: const EdgeInsets.symmetric(
                           vertical: 5, horizontal: 0),
                       itemBuilder: (builder, index) {
                         return TasksCard(
-                          type: "Completed:",
-                          data: appointmentList[index],
+                          type: cntrl.tasksList[index].status!,
+                          task: cntrl.tasksList[index],
                           icon: Icons.alarm,
                         );
                       })

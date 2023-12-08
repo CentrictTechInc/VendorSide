@@ -5,6 +5,7 @@ import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/presentation/screens/tasks/components/tab_button.dart';
 import 'package:vendor_app/presentation/screens/tasks/controller/tasks_controller.dart';
+import 'package:vendor_app/presentation/screens/tasks_pages/cancelled_tasks_screen.dart';
 import 'package:vendor_app/presentation/screens/tasks_pages/current_task_screen.dart';
 import 'package:vendor_app/presentation/screens/tasks_pages/past_task_screen.dart';
 import 'package:vendor_app/presentation/screens/tasks_pages/request_task_screen.dart';
@@ -86,6 +87,7 @@ class TasksMobileScreen extends StatelessWidget {
                       RequestsTaskScreen(),
                       CurrentTasks(),
                       PastTasksScreen(),
+                      CancelledTasksScreen(),
                     ],
                   ),
                 ),
