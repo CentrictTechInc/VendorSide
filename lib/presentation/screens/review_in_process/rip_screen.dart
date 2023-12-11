@@ -4,11 +4,11 @@ import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/presentation/screens/review_in_process/views/rip_mobile.dart';
 
 class ReviewInProcessScreen extends StatelessWidget {
-  ReviewInProcessScreen({super.key});
+  const ReviewInProcessScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: AppColors.white,
       body: SafeArea(
           child: Responsive(

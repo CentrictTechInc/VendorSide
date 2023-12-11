@@ -11,8 +11,8 @@ import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:sizer/sizer.dart';
-import 'package:vendor_app/presentation/screens/bottom_nav/Main_screen.dart';
-import 'package:vendor_app/presentation/screens/bottom_nav/controller/botton_nav_controller.dart';
+import 'package:vendor_app/presentation/screens/dashboard/main_dashboard.dart';
+import 'package:vendor_app/presentation/screens/dashboard/controller/botton_nav_controller.dart';
 import 'drawer_item.dart';
 
 class CustomDrawer extends StatelessWidget {

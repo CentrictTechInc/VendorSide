@@ -79,7 +79,6 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
                           onPressed: () {
                             {
                               controller.steps = 1;
-                              cntrl.getAllServices();
                             }
                             controller.update();
                           },
@@ -92,8 +91,6 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
                           onPressed: () async {
                             if (controller.steps == 1) {
                               await controller.postWarrantyAndAmenitiesInfo();
-                              controller.steps = 2;
-                              cntrl.getAllServices();
                             } else if (context.mounted &&
                                 controller.steps == 2) {
                               await cntrl.postServicePackagePricing();

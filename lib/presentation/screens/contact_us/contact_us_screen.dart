@@ -20,8 +20,8 @@ class ContactUsScreen extends StatelessWidget {
                   scaffoldKey.currentState!.openDrawer();
                 },
               ),
-              tablet: ContactUsMobile(),
-              desktop: ContactUsMobile())),
+              tablet: const ContactUsMobile(),
+              desktop: const ContactUsMobile())),
     );
   }
 }

@@ -6,8 +6,8 @@ import 'package:vendor_app/app/utils/custom_drawer.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
-import 'package:vendor_app/presentation/screens/bottom_nav/components/bottom_navigation_bar.dart';
-import 'package:vendor_app/presentation/screens/bottom_nav/controller/botton_nav_controller.dart';
+import 'package:vendor_app/presentation/screens/dashboard/components/bottom_navigation_bar.dart';
+import 'package:vendor_app/presentation/screens/dashboard/controller/botton_nav_controller.dart';
 import 'package:vendor_app/presentation/screens/business/business_screen.dart';
 import 'package:vendor_app/presentation/screens/chat/inbox_screen.dart';
 import 'package:vendor_app/presentation/screens/home/components/confirmation_dialogue.dart';
@@ -104,7 +104,7 @@ class MainBottomNavScreen extends StatelessWidget {
                               child: PageView(
                                 controller: controller.pageController,
                                 physics: const NeverScrollableScrollPhysics(),
-                                children: [
+                                children: const [
                                   HomeScreen(),
                                   BusinessScreen(),
                                   InboxScreen(),

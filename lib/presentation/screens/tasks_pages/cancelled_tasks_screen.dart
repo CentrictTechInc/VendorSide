@@ -47,7 +47,7 @@ class CancelledTasksScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 0),
                           itemBuilder: (builder, index) {
-                            return PastTasksCard();
+                            return const PastTasksCard();
                           }),
                     ),
                   ],

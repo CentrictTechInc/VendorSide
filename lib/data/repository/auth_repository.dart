@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'package:vendor_app/app/services/local_storage_service.dart';
+import 'package:vendor_app/data/dto/register_response_dto.dart';
 import 'package:vendor_app/data/dto/registration_dto.dart';
 import 'package:vendor_app/data/dto/user_dto.dart';
 import 'package:vendor_app/data/provider/network/apis/auth_api.dart';
+import 'package:vendor_app/domain/entity/register_model.dart';
 import 'package:vendor_app/domain/entity/user_model.dart';
 import 'package:vendor_app/domain/repository/auth_repositpory.dart';
 
@@ -54,8 +57,14 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<String> register(VendorRegistrationDto registerDto) async {
     try {
       final response = await AuthAPI.register(registerDto).request();
-      Map<String, dynamic> res = jsonDecode(response);
-      return res["message"];
+      RegisterResponseModel res = RegisterResponseDto.fromRawJson(response);
+      final user = UserDto(
+        vid: res.vid,
+        firstName: res.firstName,
+        vendoremail: res.vendoremail,
+      );
+      LocalStorageService.instance.user = user;
+      return res.message ?? 'response not found';
     } catch (e) {
       rethrow;
     }

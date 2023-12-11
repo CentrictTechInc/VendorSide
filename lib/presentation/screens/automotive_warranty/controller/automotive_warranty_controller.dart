@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
+import 'package:vendor_app/app/services/get_all_services.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
@@ -59,17 +60,15 @@ class AutomotiveWarrantyController extends GetxController {
   Future postWarrantyAndAmenitiesInfo() async {
     try {
       ShowDialogBox.showDialogBoxs(true);
-      print("warranty Duration: $selectedValue");
-      print("Amenities: $amenitiesCheckedList");
-      print("Image Files: ${files}");
       TrainingAmenitiesDto data = TrainingAmenitiesDto(
           certificateName:
               "Automotive Warranty of, ${LocalStorageService.instance.user?.firstName ?? ''}",
-          vid: LocalStorageService.instance.user!.vid!,
+          vid: LocalStorageService.instance.user?.vid ?? 0,
           serviceWarranty: selectedValue,
           amenities: amenitiesCheckedList);
 
-      final res = await repo.uploadTrainingAmenitiesForm(data, files!);
+      final res = await repo.uploadTrainingAmenitiesForm(data, files ?? []);
+      steps = 2;
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
@@ -87,7 +86,6 @@ class ServiceController extends GetxController {
   final ServicesAmenitiesRepository _repo = ServicesAmenitiesRepositoryImpl();
   List<ServicesModel> autoMotiveServiceList = [];
   List<ServicesModel> homeImprovementServiceList = [];
-  double animatedHeight = 130;
   List<ServicePrice> servicePriceList = [];
   List<String> alphabet = [
     "A",
@@ -117,6 +115,20 @@ class ServiceController extends GetxController {
     "Y",
     "Z",
   ];
+  @override
+  void onInit() {
+    super.onInit();
+    autoMotiveServiceList =
+        Get.find<GetAllServices>().autoMotiveServiceList.map((service) {
+      service.isSelected = false;
+      for (var subService in service.listSubServiceName) {
+        subService?.isSelected = false;
+      }
+      return service;
+    }).toList();
+    homeImprovementServiceList =
+        Get.find<GetAllServices>().homeImprovementServiceList;
+  }
 
   ServiceRepository repo = ServiceRepositoryImpl();
   Future postServicePackagePricing() async {
@@ -148,48 +160,6 @@ class ServiceController extends GetxController {
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-    }
-  }
-
-  Future getAllServices() async {
-    if (autoMotiveServiceList.isNotEmpty) {
-      return;
-    }
-    try {
-      ShowDialogBox.showDialogBoxs(true);
-      final services = await repo.getAllServices();
-      if (ShowDialogBox.isOpen) {
-        globalContext?.pop();
-      }
-
-      for (var entry in services) {
-        addService(entry);
-      }
-      update();
-    } catch (e) {
-      if (ShowDialogBox.isOpen) {
-        globalContext?.pop();
-      }
-      ToastMessage.message(e.toString());
-    }
-  }
-
-  void addService(ServicesModel entry) {
-    if (entry.serviceTypeId == 1) {
-      if (autoMotiveServiceList
-          .where((element) => entry.serviceId == element.serviceId)
-          .toList()
-          .isEmpty) {
-        autoMotiveServiceList.add(entry);
-      } else {
-        autoMotiveServiceList
-            .where((element) => entry.serviceId == element.serviceId)
-            .firstOrNull
-            ?.listSubServiceName
-            .add(entry.listSubServiceName.first);
-      }
-    } else if (entry.serviceTypeId == 2) {
-      homeImprovementServiceList.add(entry);
     }
   }
 }

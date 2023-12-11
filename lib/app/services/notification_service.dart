@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/data/dto/notification_dto.dart';
 import 'package:vendor_app/data/repository/notification_repository.dart';
@@ -18,7 +19,7 @@ class NotificationService {
       );
       await _repo.sendNotification(data);
     } catch (e) {
-      print('Error sending notification:');
+      debugPrint('Error sending notification:');
     }
   }
 }

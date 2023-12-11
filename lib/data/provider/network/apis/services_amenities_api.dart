@@ -75,7 +75,6 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       // });
       case ServiceAmenitiesAPIType.postHIServicePricing:
       case ServiceAmenitiesAPIType.putHIServicePricing:
-        print(homeServiceDto?.toRawJson());
         return homeServiceDto?.toRawJson();
       case ServiceAmenitiesAPIType.getHIServicePricing:
         return {};

@@ -51,8 +51,7 @@ class HomeScreenMobile extends StatelessWidget {
               const SizedBox(width: 5),
               Expanded(
                 child: CommonText(
-                  text:
-                      "${LocalStorageService.instance.user?.vendoraddress ?? ''}",
+                  text: LocalStorageService.instance.user?.vendoraddress ?? '',
                   fontSize: 10.sp,
                   letterSpacing: 0.5,
                   color: AppColors.grey,

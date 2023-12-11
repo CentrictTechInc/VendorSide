@@ -41,7 +41,7 @@ class CategoryContainer extends StatelessWidget {
                       color: AppColors.black.withOpacity(.1),
                       blurRadius: 2.0,
                       spreadRadius: 0.0,
-                      offset: Offset(2.0, 2.0),
+                      offset: const Offset(2.0, 2.0),
                     )
                   ],
                 ),

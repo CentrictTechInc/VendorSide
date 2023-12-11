@@ -23,7 +23,6 @@ class TasksController extends GetxController {
     try {
       final response = await repo.getTasks(status: status);
       tasksList = response;
-      print("taskslist: $tasksList");
     } catch (e) {
       ToastMessage.message(e.toString());
       rethrow;

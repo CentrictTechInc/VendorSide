@@ -41,7 +41,7 @@ class _NumberOtpScreenState extends State<NumberOtpScreen> {
   @override
   initState() {
     super.initState();
-    timer = Timer.periodic(Duration(seconds: 1), (_) {
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (secondsRemaining != 0) {
         setState(() {
           secondsRemaining--;
@@ -152,7 +152,7 @@ class _NumberOtpScreenState extends State<NumberOtpScreen> {
                 RichText(
                   text: TextSpan(
                       text: 'Didn\'t recieve any code? ',
-                      style: TextStyle(color: AppColors.grey),
+                      style: const TextStyle(color: AppColors.grey),
                       children: [
                         TextSpan(
                           text: enableResend ? 'Resend' : '($secondsRemaining)',

@@ -7,7 +7,7 @@ import 'package:vendor_app/presentation/screens/review/components/review_item.da
 class ReviewMobile extends StatefulWidget {
   final VoidCallback? onPressed;
 
-  ReviewMobile({super.key, this.onPressed});
+  const ReviewMobile({super.key, this.onPressed});
 
   @override
   State<ReviewMobile> createState() => _ReviewMobileState();

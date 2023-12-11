@@ -81,7 +81,7 @@ class BusinessScreenMobile extends StatelessWidget {
                         width: 1,
                         color: AppColors.black,
                       ),
-                      HorizontalSpacing(10),
+                      const HorizontalSpacing(10),
                       const Expanded(
                         child: Column(
                           children: [
@@ -100,7 +100,7 @@ class BusinessScreenMobile extends StatelessWidget {
                           ],
                         ),
                       ),
-                      HorizontalSpacing(10),
+                      const HorizontalSpacing(10),
                       Container(
                         height: 40,
                         width: 1,
@@ -134,7 +134,7 @@ class BusinessScreenMobile extends StatelessWidget {
                     Image.asset(
                       RGIcons.smiley,
                     ),
-                    HorizontalSpacing(3.5),
+                    const HorizontalSpacing(3.5),
                     CommonText(
                       text: "Excellent work keeping your clients happy!",
                       fontSize: 9.sp,
@@ -177,7 +177,7 @@ class BusinessScreenMobile extends StatelessWidget {
                     itemBuilder: (context, i) {
                       return bottomCards[i];
                     }),
-                VerticalSpacing(20),
+                const VerticalSpacing(20),
               ],
             ),
           ),

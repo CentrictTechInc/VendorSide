@@ -31,7 +31,6 @@ class HandymanWarrantyController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    await cntrl.getAllServices();
     getServiceName();
   }
 
@@ -71,7 +70,7 @@ class HandymanWarrantyController extends GetxController {
       }
       ShowDialogBox.showDialogBoxs(true);
 
-      final res = await repo.postHIServicePricing(HomeImprovementServiceDto(
+      await repo.postHIServicePricing(HomeImprovementServiceDto(
         vendorId: LocalStorageService.instance.user?.vid,
         serviceName: selectedServiceName,
         serviceCharges: double.parse(chargeController.text),

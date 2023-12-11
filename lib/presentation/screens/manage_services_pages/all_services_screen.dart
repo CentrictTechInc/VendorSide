@@ -85,7 +85,6 @@ class AllAmServicesScreen extends StatelessWidget with FieldsValidation {
                                         subItem.vendorCharge =
                                             (double.parse(p0) * 0.85)
                                                 .toPrecision(2);
-                                        print(subItem.serviceCharges!.text);
 
                                         cntrl.update();
                                       },

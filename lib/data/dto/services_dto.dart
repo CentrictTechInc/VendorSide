@@ -26,6 +26,7 @@ class ServicesDto extends ServicesModel {
                 .map((x) => x == null ? null : ListSubServiceDto.fromJson(x))),
       );
 
+  @override
   Map<String, dynamic> toJson() => {
         "serviceId": serviceId,
         "serviceTypeId": serviceTypeId,

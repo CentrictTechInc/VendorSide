@@ -9,7 +9,7 @@ import 'package:sizer/sizer.dart';
 class NoficationScreenMobile extends StatelessWidget {
   // final RemoteMessage? message; // to display notification on screen
 
-  NoficationScreenMobile({
+  const NoficationScreenMobile({
     super.key,
   });
   @override

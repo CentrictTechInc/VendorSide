@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
@@ -20,9 +21,9 @@ class FirebaseApi {
   final _localNotifications = FlutterLocalNotificationsPlugin();
 
   static Future<void> handleBackgroundMessage(RemoteMessage message) async {
-    print('Title: ${message.notification?.title}');
-    print('body: ${message.notification?.body}');
-    print('Payload: ${message.data}');
+    debugPrint('Title: ${message.notification?.title}');
+    debugPrint('body: ${message.notification?.body}');
+    debugPrint('Payload: ${message.data}');
     // return
   }
 
@@ -143,12 +144,12 @@ class FirebaseApi {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
+      debugPrint('User granted permission');
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      print('User granted provisional permission');
+      debugPrint('User granted provisional permission');
     } else {
-      print('User declined or has not accepted permission');
+      debugPrint('User declined or has not accepted permission');
     }
   }
 
@@ -166,7 +167,7 @@ class FirebaseApi {
 
     /// save to sharedPreferences
     LocalStorageService.instance.fcmToken = token;
-    print("storage: ${LocalStorageService.instance.fcmToken}");
+    debugPrint("storage: ${LocalStorageService.instance.fcmToken}");
 
     ///send to BackEnd API
     ///Specific User
@@ -174,9 +175,9 @@ class FirebaseApi {
 
   void handleMessage(RemoteMessage? message) {
     if (message == null) return;
-    print(
+    debugPrint(
         'inside handleMessage with the message ${message.notification?.title}');
-    print(
+    debugPrint(
         'inside handleMessage with the message ${message.notification?.body}');
     globalContext?.go(PagePath.slash, extra: message);
   }

@@ -21,8 +21,8 @@ class ScheduleScreen extends StatelessWidget {
                   scaffoldKey.currentState!.openDrawer();
                 },
               ),
-              tablet: ScheduleMobileScreen(),
-              desktop: ScheduleMobileScreen())),
+              tablet: const ScheduleMobileScreen(),
+              desktop: const ScheduleMobileScreen())),
     );
   }
 }

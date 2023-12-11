@@ -32,7 +32,7 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
     final result = (await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowMultiple: false,
-      onFileLoading: (FilePickerStatus status) => print(status),
+      onFileLoading: (FilePickerStatus status) {},
       allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
     ))
         ?.files;

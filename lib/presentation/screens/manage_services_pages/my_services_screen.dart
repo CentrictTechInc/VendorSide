@@ -84,7 +84,6 @@ class MyAmServicesScreen extends StatelessWidget with FieldsValidation {
                                     subItem.vendorPercentage =
                                         (double.parse(p0) * 0.85)
                                             .toPrecision(2);
-                                    print(subItem.serviceCharges);
 
                                     cntrl.update();
                                   },

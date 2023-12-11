@@ -12,7 +12,7 @@ import 'package:vendor_app/presentation/screens/contact_us/controller/contact_us
 import 'package:vendor_app/presentation/screens/profile_module/components/profile_item.dart';
 
 class ContactUsMobile extends StatefulWidget {
-  ContactUsMobile({super.key, this.onPressed});
+  const ContactUsMobile({super.key, this.onPressed});
   final VoidCallback? onPressed;
 
   @override
@@ -68,8 +68,7 @@ class _ContactUsMobileState extends State<ContactUsMobile>
                     ProfileItem(
                         ishighLight: false,
                         heading: "Name",
-                        text:
-                            "${user?.firstName} ${user?.lastName}" ?? "vendor",
+                        text: "${user?.firstName} ${user?.lastName}",
                         icon: RGIcons.profile),
                     const VerticalSpacing(20),
                     ProfileItem(

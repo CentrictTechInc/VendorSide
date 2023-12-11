@@ -10,7 +10,7 @@ import 'package:vendor_app/presentation/screens/manage_services_pages/my_service
 import 'package:vendor_app/presentation/screens/tasks/components/tab_button.dart';
 
 class ManageAmServicesMobileScreen extends StatelessWidget {
-  ManageAmServicesMobileScreen({super.key, this.onPressed});
+  const ManageAmServicesMobileScreen({super.key, this.onPressed});
   final VoidCallback? onPressed;
 
   @override
@@ -19,7 +19,7 @@ class ManageAmServicesMobileScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: GetBuilder<ManageAmServicesController>(
           init: ManageAmServicesController(),
-          //TODO: remove autoRemove: false
+          //todo: remove autoRemove: false
           // autoRemove: false,
           builder: (controller) {
             return Column(

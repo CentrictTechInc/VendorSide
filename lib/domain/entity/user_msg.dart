@@ -1,8 +1,11 @@
+import 'package:vendor_app/app/services/local_storage_service.dart';
+
 class UserMessageModel {
   final int uid;
   final String email;
   final String userName;
   final String userType;
+  final String fcmToken = LocalStorageService.instance.fcmToken ?? "";
 
   UserMessageModel({
     required this.uid,
@@ -17,6 +20,7 @@ class UserMessageModel {
       'email': email,
       'userName': userName,
       'userType': userType,
+      'fcmToken': fcmToken,
     };
   }
 

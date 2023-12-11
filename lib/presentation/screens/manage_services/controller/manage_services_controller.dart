@@ -37,7 +37,6 @@ class ManageServicesController extends GetxController {
 
   @override
   void onReady() async {
-    await serviceController?.getAllServices();
     await getServiceName();
     await getVendorServicePricing();
     super.onReady();
@@ -91,7 +90,7 @@ class ManageServicesController extends GetxController {
       }
       ShowDialogBox.showDialogBoxs(true);
 
-      final res = await repo.putHIServicePricing(HomeImprovementServiceDto(
+      await repo.putHIServicePricing(HomeImprovementServiceDto(
         vendorId: LocalStorageService.instance.user?.vid,
         serviceName: selectedServiceName,
         serviceCharges: double.parse(chargeController.text),
@@ -100,7 +99,6 @@ class ManageServicesController extends GetxController {
         serviceTypeId: VendorType.homeImprovementVendor.index,
         vendorServiceId: vendorServiceId,
       ));
-      print(res);
       ToastMessage.message("Service Details has been updated!",
           type: ToastType.success);
       if (ShowDialogBox.isOpen) {

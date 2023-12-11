@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
-import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/toast_message.dart';

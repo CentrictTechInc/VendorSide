@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:vendor_app/app/app.dart';
-import 'package:vendor_app/common/resources/colors.dart';
 
 enum ToastType { warn, error, info, success }
 

@@ -21,8 +21,8 @@ class TasksScreen extends StatelessWidget {
                   scaffoldKey.currentState!.openDrawer();
                 },
               ),
-              tablet: TasksMobileScreen(),
-              desktop: TasksMobileScreen())),
+              tablet: const TasksMobileScreen(),
+              desktop: const TasksMobileScreen())),
     );
   }
 }

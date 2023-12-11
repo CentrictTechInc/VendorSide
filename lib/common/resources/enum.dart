@@ -1,11 +1,11 @@
-enum RequestStatus { LOADING, SUCESS, ERROR }
+enum RequestStatus { loading, sucess, error }
 
 enum VendorStatusEnum {
-  Approved, // = 0
-  Registered, // = 1
-  Paid, // = 2
-  Certified, // = 3
-  UnderReview // = 4
+  approved, // = 0
+  registered, // = 1
+  paid, // = 2
+  certified, // = 3
+  underReview // = 4
 }
 
 enum VendorType {

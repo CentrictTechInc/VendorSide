@@ -5,7 +5,6 @@ import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/app/utils/empty_list.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
-import 'package:vendor_app/domain/entity/tasks_model.dart';
 import 'package:vendor_app/presentation/screens/tasks/controller/tasks_controller.dart';
 import 'package:vendor_app/presentation/screens/tasks_pages/components/past_tasks_card.dart';
 
@@ -42,7 +41,11 @@ class PastTasksScreen extends StatelessWidget {
   final cntrl = Get.find<TasksController>();
 
   // List of items in our dropdown menu
-  List<SortItems> items = <SortItems>[SortItems(), SortItems(), SortItems()];
+  List<SortItems> items = <SortItems>[
+    const SortItems(),
+    const SortItems(),
+    const SortItems()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +72,7 @@ class PastTasksScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        CommonText(
+                        const CommonText(
                           text: "May 2023",
                           fontSize: 16,
                           color: AppColors.black,
@@ -77,14 +80,14 @@ class PastTasksScreen extends StatelessWidget {
                         ),
                         const Spacer(),
                         DropdownButton<SortItems>(
-                          hint: CommonText(
+                          hint: const CommonText(
                             text: "Sort by  ",
                             fontSize: 12,
                             color: AppColors.black,
                           ),
-                          underline: SizedBox(),
+                          underline: const SizedBox(),
                           // underline: ,
-                          icon: ImageIcon(AssetImage(RGIcons.sortIcon)),
+                          icon: const ImageIcon(AssetImage(RGIcons.sortIcon)),
                           items: items.map((item) {
                             return DropdownMenuItem<SortItems>(
                               value: item,
@@ -107,7 +110,7 @@ class PastTasksScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 0),
                           itemBuilder: (builder, index) {
-                            return PastTasksCard();
+                            return const PastTasksCard();
                           }),
                     ),
                   ],

@@ -102,17 +102,7 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                             controller.servicePriceList.removeWhere((element) =>
                                 element.serviceId == service.serviceId);
                           }
-                          print(controller.servicePriceList.length);
-                          for (var i = 0;
-                              i < controller.servicePriceList.length;
-                              i++) {
-                            print(controller.servicePriceList[i].toJson());
-                          }
-                          // print(controller.servicePriceList[0].toJson());
 
-                          // service.isSelected == true
-                          //     ? controller.animatedHeight = 150
-                          //     : controller.animatedHeight = 0;
                           controller.update();
                         },
                       ),
@@ -182,13 +172,7 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                                 service.listSubServiceName[index]!
                                         .vendorCharge =
                                     (double.parse(p0) * 0.85).toPrecision(2);
-                                print(controller.servicePriceList.length);
-                                for (var i = 0;
-                                    i < controller.servicePriceList.length;
-                                    i++) {
-                                  print(
-                                      controller.servicePriceList[i].toJson());
-                                }
+
                                 controller.update();
                               },
                               controller: service
