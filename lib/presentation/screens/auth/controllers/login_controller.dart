@@ -29,6 +29,8 @@ class LoginController extends GetxController {
       TextEditingController(text: "tedimib710@scubalm.com");
   //second email
   //wokepej604@dpsols.com
+  //test email
+  // sedefi1737@hupoi.com
 
   final TextEditingController passController =
       TextEditingController(text: "Test@123");
