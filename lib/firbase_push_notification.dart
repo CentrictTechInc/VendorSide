@@ -179,6 +179,8 @@ class FirebaseApi {
         'inside handleMessage with the message ${message.notification?.title}');
     debugPrint(
         'inside handleMessage with the message ${message.notification?.body}');
+    debugPrint(
+        'inside handleMessage with the message ${message.data['appointmentId']}');
     globalContext?.go(PagePath.slash, extra: message);
   }
 }

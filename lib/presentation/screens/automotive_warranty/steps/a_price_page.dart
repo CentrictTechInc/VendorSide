@@ -102,6 +102,20 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                           isCheckBox: true,
                           isChanged: (p0) {
                             service.listSubServiceName[index]?.isSelected = p0;
+
+                            print(
+                                service.listSubServiceName[index]?.isSelected);
+                            if (p0 == false) {
+                              controller.servicePriceList
+                                  .removeWhere((element) {
+                                print(element.toJson());
+
+                                return element.subServiceId ==
+                                    service.listSubServiceName[index]
+                                        ?.subServiceId;
+                              });
+                            }
+                            print(controller.servicePriceList.length);
                             controller.update();
                           },
                           checkBoxvalue:
@@ -116,7 +130,9 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             PriceWidget(
-                              isSelected: service.isSelected ?? false,
+                              isSelected: service
+                                      .listSubServiceName[index]?.isSelected ??
+                                  false,
                               validator: service.isSelected!
                                   ? emptyFieldValidation
                                   : (p0) {
@@ -129,10 +145,6 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                                   controller.update();
                                   return;
                                 }
-                                // service.listSubServiceName[index]!
-                                //   .serviceCharges.text = (double.parse(p0))
-                                //     .toPrecision(
-                                //         2); // replace with the new value
                                 service.listSubServiceName[index]!
                                         .vendorCharge =
                                     (double.parse(p0) * 0.85).toPrecision(2);

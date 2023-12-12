@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -49,7 +50,10 @@ class AppRouter {
             parentNavigatorKey: _rootNavigatorKey,
             builder: (context, state) {
               Get.lazyPut<BottomNavController>(() => BottomNavController());
-              return const MainBottomNavScreen();
+              RemoteMessage message = state.extra as RemoteMessage;
+              return MainBottomNavScreen(
+                message: message,
+              );
             },
             routes: [
               GoRoute(

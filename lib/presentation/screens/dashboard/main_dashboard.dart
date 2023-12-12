@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -18,11 +19,24 @@ final GlobalKey<ScaffoldState> globalScaffoldKey = GlobalKey<ScaffoldState>();
 
 class MainBottomNavScreen extends StatelessWidget {
   const MainBottomNavScreen({
+    this.message,
     super.key,
   });
+  final RemoteMessage? message;
 
   @override
   Widget build(BuildContext context) {
+    if (message != null) {
+      showModalBottomSheet(
+        context: context,
+        builder: (globalScaffoldKey) {
+          return Container(
+            child: Text(message?.data[
+                'appointmentId']), // Display the message data in the bottom sheet
+          );
+        },
+      );
+    }
     return WillPopScope(
         onWillPop: () async {
           final controller = Get.find<BottomNavController>();

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:vendor_app/app/app_router.dart';
 import 'package:vendor_app/app/services/get_all_services.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
@@ -87,34 +88,6 @@ class ServiceController extends GetxController {
   List<ServicesModel> autoMotiveServiceList = [];
   List<ServicesModel> homeImprovementServiceList = [];
   List<ServicePrice> servicePriceList = [];
-  List<String> alphabet = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z",
-  ];
 
   @override
   void onReady() {
@@ -132,21 +105,73 @@ class ServiceController extends GetxController {
   }
 
   ServiceRepository repo = ServiceRepositoryImpl();
-  Future postServicePackagePricing() async {
+
+  Future<void> addAmServices() async {
     try {
+      for (int i = 0; i < autoMotiveServiceList.length; i++) {
+        autoMotiveServiceList[i].listSubServiceName.map((subItem) {
+          if (subItem?.isSelected == true) {
+            if (!servicePriceList.any(
+                (element) => element.subServiceId == subItem!.subServiceId)) {
+              print("servicePriceList.add 1 where ${subItem?.isSelected}");
+              servicePriceList.add(
+                ServicePrice(
+                  serviceId: autoMotiveServiceList[i].serviceId,
+                  vendorId: LocalStorageService.instance.user!.vid,
+                  serviceTypeId: 1,
+                  subServiceId: subItem!.subServiceId,
+                  subServiceName: subItem.subServiceName,
+                  serviceName: autoMotiveServiceList[i].serviceName,
+                  registerDate: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                  serviceCharges: subItem.serviceCharges!.text.isEmpty
+                      ? 0
+                      : double.parse(subItem.serviceCharges!.text),
+                  isSelected: subItem.isSelected,
+                ),
+              );
+            }
+            print(servicePriceList[0].toJson());
+          } else {
+            servicePriceList.removeWhere((element) {
+              print(element.toJson());
+
+              return element.subServiceId == subItem?.subServiceId;
+            });
+          }
+        }).toList();
+      }
       if (servicePriceList.isEmpty) {
         ToastMessage.message("Please Select At Least One Service",
             type: ToastType.info);
         return;
-      } else {
-        for (var element in servicePriceList) {
-          if (element.serviceCharges == 0) {
-            ToastMessage.message("Please Enter Service Charges Of All Services",
-                type: ToastType.warn);
-            return;
-          }
-        }
+      } else if (servicePriceList
+          .any((element) => element.serviceCharges == 0)) {
+        ToastMessage.message("Please Enter Service Charges Of Services",
+            type: ToastType.warn);
+        return;
       }
+      print(servicePriceList.toList());
+      await postServicePackagePricing();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future postServicePackagePricing() async {
+    try {
+      // if (servicePriceList.isEmpty) {
+      //   ToastMessage.message("Please Select At Least One Service",
+      //       type: ToastType.info);
+      //   return;
+      // } else {
+      //   for (var element in servicePriceList) {
+      //     if (element.serviceCharges == 0) {
+      //       ToastMessage.message("Please Enter Service Charges Of All Services",
+      //           type: ToastType.warn);
+      //       return;
+      //     }
+      //   }
+      // }
       ShowDialogBox.showDialogBoxs(true);
 
       final res = await _repo.servicePackagePricing(servicePriceList);
