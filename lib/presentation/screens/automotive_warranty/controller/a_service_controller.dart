@@ -115,9 +115,10 @@ class ServiceController extends GetxController {
     "Y",
     "Z",
   ];
+
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
     autoMotiveServiceList =
         Get.find<GetAllServices>().autoMotiveServiceList.map((service) {
       service.isSelected = false;

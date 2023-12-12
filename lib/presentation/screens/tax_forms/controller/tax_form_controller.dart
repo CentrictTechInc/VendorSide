@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/app_router.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/toast_message.dart';
@@ -11,16 +12,15 @@ import 'package:vendor_app/data/repository/tax_repository.dart';
 import 'package:vendor_app/domain/repository/tax_repository.dart';
 
 class TaxFromController extends GetxController {
-  // TaxFromDto? taxData;
   late File taxImage;
   late File pliImage;
   TaxRepository repo = TaxRepositoryImpl();
   Future<int> uploadTaxForm() async {
     try {
       TaxFromDto data = TaxFromDto(
-          fileName: "EIN(W9 Form)",
-          // vendorId: LocalStorageService.instance.user!.vid ?? 0,
-          vendorId: 1);
+        fileName: "EIN(W9 Form)",
+        vendorId: LocalStorageService.instance.user?.vid ?? 0,
+      );
       final res = await repo.uploadTaxForm(data, taxImage);
       return res.certificateid;
     } catch (e) {
@@ -40,8 +40,7 @@ class TaxFromController extends GetxController {
       PLIFormDto? pliData = PLIFormDto(
         certificateId: certificateId,
         fileName: "Insurance Form",
-        // vendorId: LocalStorageService.instance.user!.vid ?? 0,
-        vendorId: 1,
+        vendorId: LocalStorageService.instance.user?.vid ?? 0,
       );
       final res = await repo.uploadPLIForm(pliData, pliImage);
       if (ShowDialogBox.isOpen) {

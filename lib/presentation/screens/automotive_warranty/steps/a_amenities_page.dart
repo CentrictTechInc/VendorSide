@@ -10,7 +10,7 @@ import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/strings.dart';
 import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/components/common_text_icon_row.dart';
-import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/controller/a_service_controller.dart';
 import 'package:vendor_app/presentation/screens/handyman_warranty/components/radio_text_widget.dart';
 
 class AutomotiveWarrantyStep extends StatelessWidget {

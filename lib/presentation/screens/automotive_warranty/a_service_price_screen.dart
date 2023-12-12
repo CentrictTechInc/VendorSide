@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
 import 'package:vendor_app/common/resources/colors.dart';
-import 'package:vendor_app/presentation/screens/automotive_warranty/views/automotive_warranty_mobile.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/views/a_service_price_mobile.dart';
 import 'package:vendor_app/presentation/screens/home/components/confirmation_dialogue.dart';
 
 class AutomotiveWarrantyScreen extends StatelessWidget {

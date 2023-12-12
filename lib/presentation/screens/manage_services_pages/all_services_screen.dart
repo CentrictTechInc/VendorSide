@@ -44,64 +44,68 @@ class AllAmServicesScreen extends StatelessWidget with FieldsValidation {
                             "${ServiceIcons.serviceIconUrl}service_${cntrl.amList[i].serviceId}.png",
                       ),
                       children: [
-                        Column(
-                          children:
-                              cntrl.amList[i].listSubServiceName.map((subItem) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                RadioTextWidget(
-                                  isCheckBox: true,
-                                  isChanged: cntrl.isEdit
-                                      ? (p0) {
-                                          subItem?.isSelected = p0;
-                                          cntrl.update();
-                                        }
-                                      : (p0) {},
-                                  checkBoxvalue: subItem!.isSelected ?? false,
-                                  selectedValue:
-                                      subItem.subServiceId.toString(),
-                                  text:
-                                      "${subItem.subServiceId.toString()}. ${subItem.subServiceName}",
-                                ),
-                                const VerticalSpacing(10),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    PriceWidget(
-                                      isSelected: subItem.isSelected ?? false,
-                                      validator: subItem.isSelected!
-                                          ? emptyFieldValidation
-                                          : (p0) {
-                                              return null;
-                                            },
-                                      onChanged: (p0) {
-                                        if (p0.isEmpty) {
-                                          subItem.vendorCharge = 0;
-                                          cntrl.update();
-                                          return;
-                                        }
-                                        subItem.vendorCharge =
-                                            (double.parse(p0) * 0.85)
-                                                .toPrecision(2);
+                        for (int i = 1;
+                            i <= cntrl.amList[i].listSubServiceName.length;
+                            i++)
+                          Column(
+                            children: cntrl.amList[i].listSubServiceName
+                                .map((subItem) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  RadioTextWidget(
+                                    isCheckBox: true,
+                                    isChanged: cntrl.isEdit
+                                        ? (p0) {
+                                            subItem?.isSelected = p0;
+                                            cntrl.update();
+                                          }
+                                        : (p0) {},
+                                    checkBoxvalue: subItem!.isSelected ?? false,
+                                    selectedValue:
+                                        subItem.subServiceId.toString(),
+                                    text:
+                                        "${i.toString()}. ${subItem.subServiceName}",
+                                  ),
+                                  const VerticalSpacing(10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      PriceWidget(
+                                        isSelected: subItem.isSelected ?? false,
+                                        validator: subItem.isSelected!
+                                            ? emptyFieldValidation
+                                            : (p0) {
+                                                return null;
+                                              },
+                                        onChanged: (p0) {
+                                          if (p0.isEmpty) {
+                                            subItem.vendorCharge = 0;
+                                            cntrl.update();
+                                            return;
+                                          }
+                                          subItem.vendorCharge =
+                                              (double.parse(p0) * 0.85)
+                                                  .toPrecision(2);
 
-                                        cntrl.update();
-                                      },
-                                      controller: subItem.serviceCharges,
-                                    ),
-                                    PriceWidget(
-                                      readOnly: true,
-                                      price: "${subItem.vendorCharge ?? 0.00}",
-                                      text: "You'll be Paid",
-                                    ),
-                                  ],
-                                ),
-                                const VerticalSpacing(15),
-                              ],
-                            );
-                          }).toList(),
-                        )
+                                          cntrl.update();
+                                        },
+                                        controller: subItem.serviceCharges,
+                                      ),
+                                      PriceWidget(
+                                        readOnly: true,
+                                        price:
+                                            "${subItem.vendorCharge ?? 0.00}",
+                                        text: "You'll be Paid",
+                                      ),
+                                    ],
+                                  ),
+                                  const VerticalSpacing(15),
+                                ],
+                              );
+                            }).toList(),
+                          )
                       ],
                     ),
                     const VerticalSpacing(10),

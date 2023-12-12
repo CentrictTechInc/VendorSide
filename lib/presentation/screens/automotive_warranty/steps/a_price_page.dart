@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
-import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/strings.dart';
-import 'package:vendor_app/data/dto/service_pricing_dto.dart';
 import 'package:vendor_app/domain/entity/services_model.dart';
 import 'package:vendor_app/presentation/screens/automotive_warranty/components/common_text_icon_row.dart';
-import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/controller/a_service_controller.dart';
 import 'package:vendor_app/presentation/screens/handyman_warranty/components/radio_text_widget.dart';
 import 'package:vendor_app/presentation/screens/manage_services_pages/components/price_widget.dart';
 
@@ -79,30 +76,6 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                         splashRadius: 20,
                         onChanged: (p0) {
                           service.isSelected = p0;
-                          if (service.isSelected == true) {
-                            controller.servicePriceList.addAll(
-                              service.listSubServiceName
-                                  .map(
-                                    (e) => ServicePrice(
-                                      serviceId: service.serviceId,
-                                      vendorId: LocalStorageService
-                                          .instance.user!.vid,
-                                      serviceTypeId: 1,
-                                      subServiceId: e!.subServiceId,
-                                      subServiceName: e.subServiceName,
-                                      serviceName: service.serviceName,
-                                      registerDate: DateFormat('yyyy-MM-dd')
-                                          .format(DateTime.now()),
-                                      serviceCharges: e.vendorCharge,
-                                    ),
-                                  )
-                                  .toList(),
-                            );
-                          } else {
-                            controller.servicePriceList.removeWhere((element) =>
-                                element.serviceId == service.serviceId);
-                          }
-
                           controller.update();
                         },
                       ),
@@ -136,7 +109,7 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                                   false,
                           selectedValue: index.toString(),
                           text:
-                              "${controller.alphabet[index]}. ${service.listSubServiceName[index]!.subServiceName}",
+                              "${index + 1}. ${service.listSubServiceName[index]!.subServiceName}",
                         ),
                         const VerticalSpacing(10),
                         Row(
@@ -156,19 +129,10 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                                   controller.update();
                                   return;
                                 }
-
-                                controller.servicePriceList =
-                                    controller.servicePriceList.map((element) {
-                                  if (element.subServiceId ==
-                                      service.listSubServiceName[index]!
-                                          .subServiceId) {
-                                    element.serviceCharges = (double.parse(p0))
-                                        .toPrecision(
-                                            2); // replace with the new value
-                                  }
-                                  return element;
-                                }).toList();
-
+                                // service.listSubServiceName[index]!
+                                //   .serviceCharges.text = (double.parse(p0))
+                                //     .toPrecision(
+                                //         2); // replace with the new value
                                 service.listSubServiceName[index]!
                                         .vendorCharge =
                                     (double.parse(p0) * 0.85).toPrecision(2);

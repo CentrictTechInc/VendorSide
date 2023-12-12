@@ -7,9 +7,9 @@ import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
-import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
-import 'package:vendor_app/presentation/screens/automotive_warranty/steps/automotive_service_pricing.dart';
-import 'package:vendor_app/presentation/screens/automotive_warranty/steps/warranty_amenities_step.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/controller/a_service_controller.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/steps/a_price_page.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/steps/a_amenities_page.dart';
 
 class AutomotiveWarantyMobileScreen extends StatelessWidget
     with FieldsValidation {

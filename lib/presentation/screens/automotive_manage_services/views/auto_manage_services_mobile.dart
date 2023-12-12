@@ -19,8 +19,6 @@ class ManageAmServicesMobileScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: GetBuilder<ManageAmServicesController>(
           init: ManageAmServicesController(),
-          //todo: remove autoRemove: false
-          // autoRemove: false,
           builder: (controller) {
             return Column(
               children: [
@@ -75,7 +73,6 @@ class ManageAmServicesMobileScreen extends StatelessWidget {
                       ),
                     )),
                 Expanded(
-                  // flex: 10,
                   child: controller.tabIndex == 0
                       ? MyAmServicesScreen()
                       : AllAmServicesScreen(),

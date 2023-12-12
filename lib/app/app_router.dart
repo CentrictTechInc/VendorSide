@@ -10,8 +10,8 @@ import 'package:vendor_app/presentation/screens/auth/otp/register_otp_verificati
 import 'package:vendor_app/presentation/screens/auth/controllers/register_controller.dart';
 import 'package:vendor_app/presentation/screens/automotive_manage_services/auto_manage_services_screen.dart';
 import 'package:vendor_app/presentation/screens/automotive_manage_services/controller/auto_manage_services_controller.dart';
-import 'package:vendor_app/presentation/screens/automotive_warranty/automotive_warranty_screen.dart';
-import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/a_service_price_screen.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/controller/a_service_controller.dart';
 import 'package:vendor_app/presentation/screens/dashboard/main_dashboard.dart';
 import 'package:vendor_app/presentation/screens/dashboard/controller/botton_nav_controller.dart';
 import 'package:vendor_app/presentation/screens/contact_us/contact_us_screen.dart';
