@@ -2,11 +2,17 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
+import 'package:vendor_app/app/utils/common_spacing.dart';
+import 'package:vendor_app/app/utils/common_text.dart';
+import 'package:vendor_app/app/utils/common_text_button.dart';
+import 'package:vendor_app/app/utils/common_text_field.dart';
 import 'package:vendor_app/app/utils/custom_drawer.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
+import 'package:vendor_app/data/dto/tasks_dto.dart';
 import 'package:vendor_app/presentation/screens/dashboard/components/bottom_navigation_bar.dart';
 import 'package:vendor_app/presentation/screens/dashboard/controller/botton_nav_controller.dart';
 import 'package:vendor_app/presentation/screens/business/business_screen.dart';
@@ -14,29 +20,39 @@ import 'package:vendor_app/presentation/screens/chat/inbox_screen.dart';
 import 'package:vendor_app/presentation/screens/home/components/confirmation_dialogue.dart';
 import 'package:vendor_app/presentation/screens/home/home_screen.dart';
 import 'package:vendor_app/presentation/screens/notification/notification_screen.dart';
+import 'package:vendor_app/presentation/screens/tasks_pages/components/tasks_card.dart';
 
 final GlobalKey<ScaffoldState> globalScaffoldKey = GlobalKey<ScaffoldState>();
 
 class MainBottomNavScreen extends StatelessWidget {
-  const MainBottomNavScreen({
+  MainBottomNavScreen({
     this.message,
     super.key,
   });
   final RemoteMessage? message;
-
+  final List<TasksStatusResponseDto> appointmentList = [
+    TasksStatusResponseDto(
+      username: 'Chris Johnson',
+      appointmentDate: '2023-01-11',
+      location: '509 Unit 10, New Haven, CT 06530',
+      serviceName: "Brakes",
+      status: "Request",
+      subServiceName: "Brake Pad Replacement",
+      vehicleMake: "Toyota",
+      vehicleModel: "Camry",
+      vehicleYear: "2010",
+      time: "10:00",
+      description: "I need the Brake pad replacement and also fuild checking",
+      price: "100",
+    )
+  ];
   @override
   Widget build(BuildContext context) {
-    if (message != null) {
-      showModalBottomSheet(
-        context: context,
-        builder: (globalScaffoldKey) {
-          return Container(
-            child: Text(message?.data[
-                'appointmentId']), // Display the message data in the bottom sheet
-          );
-        },
-      );
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // if (message != null) {
+      //   ;
+      // }
+    });
     return WillPopScope(
         onWillPop: () async {
           final controller = Get.find<BottomNavController>();

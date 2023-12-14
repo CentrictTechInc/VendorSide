@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:vendor_app/data/dto/tasks_dto.dart';
+import 'package:vendor_app/data/provider/network/apis/tasks_api.dart';
 import 'package:vendor_app/domain/repository/tasks_repository.dart';
 
 class TasksRepositoryImpl extends TasksRepository {
@@ -16,6 +19,22 @@ class TasksRepositoryImpl extends TasksRepository {
     // }
     Future.delayed(const Duration(seconds: 2), () {});
     return dummyData;
+  }
+
+  @override
+  Future<TasksStatusResponseDto> getAppointmentbyId({String? id}) async {
+    try {
+      final response = await TasksAPI.getAppointmentbyId(id ?? '').request();
+      dynamic json = jsonDecode(response);
+      // List<dynamic> res = json['appointmentvendor'];
+      TasksStatusResponseDto allTasks = TasksStatusResponseDto.fromJson(json);
+      return allTasks;
+    } catch (e) {
+      rethrow;
+    }
+
+    Future.delayed(const Duration(seconds: 2), () {});
+    return Future.value(dummyData[0]);
   }
 }
 

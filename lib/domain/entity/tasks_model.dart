@@ -1,6 +1,8 @@
 class TasksStatusResponseModel {
   String? username;
   String? serviceName;
+  int? serviceId;
+  int? subServiceId;
   String? subServiceName;
   String? location;
   String? appointmentDate;
@@ -11,6 +13,7 @@ class TasksStatusResponseModel {
   String? vehicleYear;
   String? description;
   String? price;
+  String? vinNumber;
 
   TasksStatusResponseModel({
     this.username,
@@ -25,5 +28,8 @@ class TasksStatusResponseModel {
     this.vehicleYear,
     this.description,
     this.price,
+    this.vinNumber,
+    this.serviceId,
+    this.subServiceId,
   });
 }

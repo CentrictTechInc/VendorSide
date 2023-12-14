@@ -7,6 +7,7 @@ class Drawables {
   static const person = "assets/images/personPic.png";
   static const noDataIcon = "assets/images/empty_box.gif";
   static const timeScaleGif = "assets/images/time_scale_gif.gif";
+  static const addedGif = "assets/images/added_gif.gif";
 
   static const personUrl =
       "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1600";

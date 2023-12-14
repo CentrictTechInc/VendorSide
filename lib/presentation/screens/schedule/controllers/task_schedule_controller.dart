@@ -225,11 +225,11 @@ class TaskScheduleController extends GetxController {
             .toList();
       }
       //for start time
-      var startTimeParts = response.startTime?.split(" ") ?? ["", ""];
+      var startTimeParts = response.startTime?.split(" ") ?? ["01:00", ""];
       getStartTime.value = startTimeParts[0];
       timeStartFormat.value = timeFormat(startTimeParts[1]);
       //for end time
-      var endTimeParts = response.endTime?.split(" ") ?? ["", ""];
+      var endTimeParts = response.endTime?.split(" ") ?? ["01:00", ""];
       getEndTime.value = endTimeParts[0];
       timeEndFormat.value = timeFormat(endTimeParts[1]);
       //for time zone

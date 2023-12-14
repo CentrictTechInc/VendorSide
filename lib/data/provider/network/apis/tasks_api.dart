@@ -3,15 +3,18 @@ import 'package:vendor_app/data/provider/network/api_endpoints.dart';
 import 'package:vendor_app/data/provider/network/api_provider.dart';
 import 'package:vendor_app/data/provider/network/api_request_representable.dart';
 
-enum TasksAPIType { getTasks }
+enum TasksAPIType { getTasks, getAutoAppointmentbyId }
 
 class TasksAPI extends APIRequestRepresentable {
   TasksAPIType type;
   String? status;
+  String? appointmentId;
 
-  TasksAPI._({required this.type, this.status});
+  TasksAPI._({required this.type, this.status, this.appointmentId});
   TasksAPI.getTasks(String status)
       : this._(type: TasksAPIType.getTasks, status: status);
+  TasksAPI.getAppointmentbyId(String id)
+      : this._(type: TasksAPIType.getAutoAppointmentbyId, appointmentId: id);
 
   @override
   get body {}
@@ -28,6 +31,7 @@ class TasksAPI extends APIRequestRepresentable {
   HTTPMethod get method {
     switch (type) {
       case TasksAPIType.getTasks:
+      case TasksAPIType.getAutoAppointmentbyId:
         return HTTPMethod.get;
     }
   }
@@ -37,6 +41,8 @@ class TasksAPI extends APIRequestRepresentable {
     switch (type) {
       case TasksAPIType.getTasks:
         return APIEndpoint.getTasksUrl;
+      case TasksAPIType.getAutoAppointmentbyId:
+        return APIEndpoint.getAutomotiveAppointmentbyIdUrl;
     }
   }
 
@@ -55,6 +61,10 @@ class TasksAPI extends APIRequestRepresentable {
         return {
           'VendorId': LocalStorageService.instance.user?.vid.toString() ?? '',
           'Status': status ?? '',
+        };
+      case TasksAPIType.getAutoAppointmentbyId:
+        return {
+          'appointmentId': appointmentId ?? '',
         };
     }
   }
