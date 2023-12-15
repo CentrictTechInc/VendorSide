@@ -11,6 +11,7 @@ import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/data/dto/tasks_dto.dart';
+import 'package:vendor_app/domain/entity/tasks_model.dart';
 import 'package:vendor_app/presentation/screens/home/components/vendor_details_card.dart';
 import 'package:vendor_app/presentation/screens/tasks_pages/components/tasks_card.dart';
 
@@ -19,8 +20,8 @@ class HomeScreenMobile extends StatelessWidget {
   HomeScreenMobile({
     super.key,
   });
-  List<TasksStatusResponseDto> appointmentList = [
-    TasksStatusResponseDto(
+  List<TasksStatusResponseModel> appointmentList = [
+    TasksStatusResponseModel(
       username: 'Chris Johnson',
       appointmentDate: '2023-01-11',
       location: '509 Unit 10, New Haven, CT 06530',
@@ -30,9 +31,12 @@ class HomeScreenMobile extends StatelessWidget {
       vehicleMake: "Toyota",
       vehicleModel: "Camry",
       vehicleYear: "2010",
-      time: "10:00",
+      time: "10:00 PM",
       description: "I need the Brake pad replacement and also fuild checking",
       price: "100",
+      serviceId: 1,
+      subServiceId: 1,
+      vinNumber: "123456789",
     )
   ];
   @override
@@ -85,7 +89,7 @@ class HomeScreenMobile extends StatelessWidget {
                           bottom: MediaQuery.of(context).viewInsets.bottom),
                       child: SingleChildScrollView(
                         child: Container(
-                          // height: 500,
+                          height: 500,
                           decoration: BoxDecoration(
                             color: AppColors.background,
                             borderRadius: const BorderRadius.only(

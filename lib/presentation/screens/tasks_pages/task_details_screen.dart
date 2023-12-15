@@ -116,9 +116,8 @@ class TaskDetailScreen extends StatelessWidget {
                               ],
                             ),
                             const VerticalSpacing(10),
-                            const CommonText(
-                              text:
-                                  "Along with the tire service, please inspect the brakes for any necessary repairs. Additionally, I'd like to request lug nut covers for all the wheels. and I'd like to request lug nut covers for all the wheels. and readmore",
+                            CommonText(
+                              text: tasks.description ?? 'No description',
                               fontSize: 10,
                               lineHeight: 1.4,
                               weight: FontWeight.w500,
@@ -199,8 +198,9 @@ class TaskDetailScreen extends StatelessWidget {
                                 ),
                                 const Spacer(),
                                 CommonText(
+                                  // text: "\$${tasks.price}",
                                   text:
-                                      "\$${(double.parse(tasks.price!) * .85).toStringAsFixed(2)}",
+                                      "\$${(double.parse(tasks.price ?? '12.') * .85).toStringAsFixed(2)}",
                                   fontSize: 16,
                                   weight: FontWeight.w600,
                                 ),

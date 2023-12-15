@@ -60,4 +60,5 @@ class APIEndpoint {
       '/api/Appointment/api/Appointment/GetAppointmentBookingByVendorService';
   static String get getAutomotiveAppointmentbyIdUrl =>
       '/api/Appointment/Automotive/GetAppointmentById';
+  static String get postBiddingUrl => '/api/Appointment/Bidding';
 }

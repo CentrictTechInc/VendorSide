@@ -19,6 +19,28 @@ class TasksCard extends StatelessWidget {
     this.isgrey = false,
     this.hasDetails = true,
   });
+
+  dayOfWeek(DateTime date) {
+    switch (date.weekday) {
+      case 1:
+        return "Mon";
+      case 2:
+        return "Tue";
+      case 3:
+        return "Wed";
+      case 4:
+        return "Thur";
+      case 5:
+        return "Fri";
+      case 6:
+        return "Sat";
+      case 7:
+        return "Sun";
+      default:
+        return "";
+    }
+  }
+
   final String type;
   final IconData icon;
   bool isPending;
@@ -28,6 +50,7 @@ class TasksCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime date = DateTime.parse(task.appointmentDate ?? '2022-01-01');
     return InkWell(
       onTap: hasDetails
           ? () {
@@ -126,7 +149,7 @@ class TasksCard extends StatelessWidget {
                   ),
                   CommonText(
                     text: task.subServiceName ?? '',
-                    fontSize: 16,
+                    fontSize: 15,
                     weight: FontWeight.w600,
                   ),
                   const VerticalSpacing(15),
@@ -153,7 +176,7 @@ class TasksCard extends StatelessWidget {
             ),
             Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                // mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
@@ -165,15 +188,14 @@ class TasksCard extends StatelessWidget {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const CommonText(
-                            text: "Wed",
+                          CommonText(
+                            text: " ${dayOfWeek(date)}",
                             fontSize: 12,
                             color: AppColors.white,
                             weight: FontWeight.w500,
                           ),
                           CommonText(
-                            text:
-                                "${(DateTime.parse(task.appointmentDate ?? '').day)}",
+                            text: date.day.toString().padLeft(2, '0'),
                             fontSize: 18,
                             color: AppColors.white,
                             weight: FontWeight.w600,
@@ -182,7 +204,8 @@ class TasksCard extends StatelessWidget {
                   ),
                   const VerticalSpacing(10),
                   CommonText(
-                    text: " ${task.time} \n    PM",
+                    text:
+                        "${task.time?.split(" ")[0]}\n    ${task.time?.split(" ")[1]}",
                     fontSize: 16,
                     weight: FontWeight.w600,
                   ),

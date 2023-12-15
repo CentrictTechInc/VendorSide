@@ -41,7 +41,7 @@ class TasksStatusResponseDto extends TasksStatusResponseModel {
         time: json["time"],
         vehicleYear: json["vehicleYear"],
         description: json["description"],
-        price: json["price"] ?? '',
+        price: json["price"] ?? '0.',
         vinNumber: json["vinNumber"] ?? '',
       );
 
@@ -61,6 +61,5 @@ class TasksStatusResponseDto extends TasksStatusResponseModel {
         "vinNumber": vinNumber,
         "serviceId": serviceId,
         "subServiceId": subServiceId,
-        
       };
 }
