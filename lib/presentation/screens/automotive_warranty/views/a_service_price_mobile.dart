@@ -93,9 +93,7 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
                               await controller.postWarrantyAndAmenitiesInfo();
                             } else if (context.mounted &&
                                 controller.steps == 2) {
-                              print(cntrl.servicePriceList.length);
                               await cntrl.addAmServices();
-                              print(cntrl.servicePriceList.length);
                             }
                             controller.update();
                           },

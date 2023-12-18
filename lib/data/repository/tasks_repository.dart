@@ -2,11 +2,12 @@ import 'dart:convert';
 import 'package:vendor_app/data/dto/tasks_bidding_dto.dart';
 import 'package:vendor_app/data/dto/tasks_dto.dart';
 import 'package:vendor_app/data/provider/network/apis/tasks_api.dart';
+import 'package:vendor_app/domain/entity/tasks_model.dart';
 import 'package:vendor_app/domain/repository/tasks_repository.dart';
 
 class TasksRepositoryImpl extends TasksRepository {
   @override
-  Future<List<TasksStatusResponseDto>> getTasks({String? status}) async {
+  Future<List<TasksStatusResponseModel>> getTasks({String? status}) async {
     // try {
     //   final response = await TasksAPI.getTasks(status ?? '').request();
     //   dynamic json = jsonDecode(response);
@@ -17,7 +18,7 @@ class TasksRepositoryImpl extends TasksRepository {
     // } catch (e) {
     //   rethrow;
     // }
-    Future.delayed(const Duration(seconds: 2), () {});
+    await Future.delayed(const Duration(seconds: 1), () {});
     return dummyData;
   }
 
@@ -53,11 +54,14 @@ List<TasksStatusResponseDto> dummyData = [
     appointmentDate: "2022-01-22",
     vehicleMake: "Toyota",
     vehicleModel: "Corolla",
-    status: "Requested",
-    time: "10:00",
+    status: "Request",
+    time: "11:00 PM",
     vehicleYear: "2010",
     description: "Brake shoe replacement",
     price: "100",
+    serviceId: 1,
+    subServiceId: 1,
+    vinNumber: "1234567890",
   ),
   TasksStatusResponseDto(
     username: "Jane",
@@ -67,11 +71,14 @@ List<TasksStatusResponseDto> dummyData = [
     appointmentDate: "2022-01-09",
     vehicleMake: "Honda",
     vehicleModel: "Civic",
-    status: "Completed",
-    time: "11:00",
+    status: "Request",
+    time: "10:00 PM",
     vehicleYear: "2011",
     description: "Engine oil change",
     price: "200",
+    serviceId: 1,
+    subServiceId: 1,
+    vinNumber: "1234567890",
   ),
   TasksStatusResponseDto(
     username: "Doe",
@@ -81,11 +88,14 @@ List<TasksStatusResponseDto> dummyData = [
     appointmentDate: "2022-01-03",
     vehicleMake: "Ford",
     vehicleModel: "Mustang",
-    status: "Past",
-    time: "12:00",
+    status: "Request",
+    time: "10:00 PM",
     vehicleYear: "2012",
     description: "Tire rotation",
     price: "300",
+    serviceId: 1,
+    subServiceId: 1,
+    vinNumber: "1234567890",
   ),
   TasksStatusResponseDto(
     username: "Smith",
@@ -95,10 +105,32 @@ List<TasksStatusResponseDto> dummyData = [
     appointmentDate: "2022-01-19",
     vehicleMake: "Chevrolet",
     vehicleModel: "Camaro",
-    status: "Current",
-    time: "13:00",
+    status: "Request",
+    time: "10:00 PM",
     vehicleYear: "2013",
     description: "Transmission fluid change",
     price: "400",
+    serviceId: 1,
+    subServiceId: 1,
+    vinNumber: "1234567890",
   ),
+];
+List<TasksStatusResponseModel> appointmentList = [
+  TasksStatusResponseModel(
+    username: 'Chris Johnson',
+    appointmentDate: '2023-01-11',
+    location: '509 Unit 10, New Haven, CT 06530',
+    serviceName: "Brakes",
+    status: "Request",
+    subServiceName: "Brake Pad Replacement",
+    vehicleMake: "Toyota",
+    vehicleModel: "Camry",
+    vehicleYear: "2010",
+    time: "10:00 PM",
+    description: "I need the Brake pad replacement and also fuild checking",
+    price: "100",
+    serviceId: 1,
+    subServiceId: 1,
+    vinNumber: "123456789",
+  )
 ];

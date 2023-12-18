@@ -10,7 +10,6 @@ import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
-import 'package:vendor_app/data/dto/tasks_dto.dart';
 import 'package:vendor_app/domain/entity/tasks_model.dart';
 import 'package:vendor_app/presentation/screens/home/components/vendor_details_card.dart';
 import 'package:vendor_app/presentation/screens/tasks_pages/components/tasks_card.dart';

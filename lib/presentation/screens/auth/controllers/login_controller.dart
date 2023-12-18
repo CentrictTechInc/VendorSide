@@ -70,11 +70,13 @@ class LoginController extends GetxController {
         await NotificationService.intance.sendNotification(
           "Repair Guru - Login Alert",
           "Dear ${res.firstName ?? "Vendor"}, you have successfully logged into RG Vendor App at  $formattedDate",
+          LocalStorageService.instance.fcmToken ?? "",
         );
       } else {
         await NotificationService.intance.sendNotification(
           "Repair Guru - Login Alert",
           "Dear ${res.firstName ?? "Vendor"}, your registration is still pending. Please complete your registration.",
+          LocalStorageService.instance.fcmToken ?? "",
         );
       }
 

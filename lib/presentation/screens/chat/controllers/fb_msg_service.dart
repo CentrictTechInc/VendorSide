@@ -20,6 +20,7 @@ class FirebaseMessagingService {
       final user = LocalStorageService.instance.user;
 
       UserMessageModel userData = UserMessageModel(
+        fcmToken: LocalStorageService.instance.fcmToken ?? "",
         uid: user!.vid!,
         email: user.vendoremail!,
         userName: user.firstName ?? "Vendor",
@@ -29,7 +30,6 @@ class FirebaseMessagingService {
           .collection('users')
           .doc(user.vid.toString())
           .set(userData.toMap());
-      // ToastMessage.message("success fcm message", type: ToastType.success);
     } catch (e) {
       ToastMessage.message(e.toString());
     }

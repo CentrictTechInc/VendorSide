@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
-import 'package:vendor_app/app/utils/network_image_with_initials.dart';
+import 'package:vendor_app/app/utils/skeleton_loader.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
@@ -24,6 +24,7 @@ class ProfileScreenMobile extends StatelessWidget {
       child: SingleChildScrollView(
           child: GetBuilder<ProfileController>(
               init: ProfileController(),
+              autoRemove: false,
               builder: (c) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +40,6 @@ class ProfileScreenMobile extends StatelessWidget {
                             PagePath.profileEdit.toRoute);
                       },
                     ),
-                    // const VerticalSpacing(10),
                     Center(
                       child: Container(
                         width: 115,
@@ -60,18 +60,20 @@ class ProfileScreenMobile extends StatelessWidget {
                               )
                             : ClipRRect(
                                 borderRadius: BorderRadius.circular(70),
-                                child: NetWorkImageWithInitials(
-                                  imageUrl: Drawables.personUrl,
-                                  name:
-                                      "${LocalStorageService.instance.user?.firstName?[0]}}",
-                                ),
+                                child: const SkeletonLoader(size: 115),
+                                // child: NetWorkImageWithInitials(
+                                //   imageUrl: Drawables.personUrl,
+                                //   name:
+                                //       "${LocalStorageService.instance.user?.firstName?[0]}",
+                                // ),
                               ),
                       ),
                     ),
                     const VerticalSpacing(20),
                     ProfileItem(
                         heading: "UserName",
-                        text: "${c.user?.firstName} ${c.user?.lastName}",
+                        text:
+                            "${c.user?.firstName ?? ""} ${c.user?.lastName ?? ""}",
                         icon: RGIcons.profile),
                     const VerticalSpacing(20),
                     ProfileItem(

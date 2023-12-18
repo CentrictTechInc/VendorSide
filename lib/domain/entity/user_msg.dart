@@ -1,17 +1,16 @@
-import 'package:vendor_app/app/services/local_storage_service.dart';
-
 class UserMessageModel {
   final int uid;
   final String email;
   final String userName;
   final String userType;
-  final String fcmToken = LocalStorageService.instance.fcmToken ?? "";
+  final String fcmToken;
 
   UserMessageModel({
     required this.uid,
     required this.email,
     required this.userName,
     this.userType = 'vendor',
+    required this.fcmToken,
   });
 
   Map<String, dynamic> toMap() {
@@ -30,6 +29,7 @@ class UserMessageModel {
       email: map['email'],
       userName: map['userName'],
       userType: map['userType'],
+      fcmToken: map['fcmToken'],
     );
   }
 }

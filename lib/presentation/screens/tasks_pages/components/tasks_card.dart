@@ -99,8 +99,8 @@ class TasksCard extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        width: 70,
-                        height: 70,
+                        width: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                             border: Border.all(
                               color: AppColors.grey.withOpacity(0.5),
@@ -130,7 +130,7 @@ class TasksCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const VerticalSpacing(10),
+                  const VerticalSpacing(15),
                   Row(
                     children: [
                       const ImageIcon(
@@ -141,7 +141,7 @@ class TasksCard extends StatelessWidget {
                       Expanded(
                         child: CommonText(
                           text: task.serviceName ?? '',
-                          fontSize: 12,
+                          fontSize: 11.sp,
                           weight: FontWeight.w500,
                         ),
                       ),
@@ -205,7 +205,7 @@ class TasksCard extends StatelessWidget {
                   const VerticalSpacing(10),
                   CommonText(
                     text:
-                        "${task.time?.split(" ")[0]}\n    ${task.time?.split(" ")[1]}",
+                        "${task.time?.split(" ")[0] ?? ""}\n    ${task.time?.split(" ")[1] ?? ""}",
                     fontSize: 16,
                     weight: FontWeight.w600,
                   ),

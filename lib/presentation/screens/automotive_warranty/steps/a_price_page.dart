@@ -103,19 +103,14 @@ class ServicePricingWidget extends StatelessWidget with FieldsValidation {
                           isChanged: (p0) {
                             service.listSubServiceName[index]?.isSelected = p0;
 
-                            print(
-                                service.listSubServiceName[index]?.isSelected);
                             if (p0 == false) {
                               controller.servicePriceList
                                   .removeWhere((element) {
-                                print(element.toJson());
-
                                 return element.subServiceId ==
                                     service.listSubServiceName[index]
                                         ?.subServiceId;
                               });
                             }
-                            print(controller.servicePriceList.length);
                             controller.update();
                           },
                           checkBoxvalue:

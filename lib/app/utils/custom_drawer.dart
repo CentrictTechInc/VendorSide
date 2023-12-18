@@ -1,12 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
-import 'package:vendor_app/app/utils/network_image_with_initials.dart';
+import 'package:vendor_app/app/utils/skeleton_loader.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
@@ -64,14 +63,15 @@ class CustomDrawer extends StatelessWidget {
                             )
                           : ClipRRect(
                               borderRadius: BorderRadius.circular(70),
-                              child: const NetWorkImageWithInitials(
-                                imageUrl: Drawables.personUrl,
-                                name: "a",
-                                backgroundColor: AppColors.whiteGreyish,
-                                textColor: AppColors.black,
-                                fontSize: 36,
+                              child: const SkeletonLoader(size: 115)
+                              // const NetWorkImageWithInitials(
+                              //   imageUrl: Drawables.personUrl,
+                              //   name: "a",
+                              //   backgroundColor: AppColors.whiteGreyish,
+                              //   textColor: AppColors.black,
+                              //   fontSize: 36,
+                              // ),
                               ),
-                            ),
                     ),
                     const VerticalSpacing(15),
                     CommonText(

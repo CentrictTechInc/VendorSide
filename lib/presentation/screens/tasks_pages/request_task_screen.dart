@@ -12,6 +12,7 @@ class RequestsTaskScreen extends StatelessWidget {
     super.key,
   });
   final cntrl = Get.find<TasksController>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +40,7 @@ class RequestsTaskScreen extends StatelessWidget {
                           vertical: 5, horizontal: 0),
                       itemBuilder: (builder, index) {
                         return TasksCard(
-                          type: cntrl.tasksList[index].status!,
+                          type: cntrl.tasksList[index].status ?? '',
                           task: cntrl.tasksList[index],
                           icon: Icons.alarm,
                         );

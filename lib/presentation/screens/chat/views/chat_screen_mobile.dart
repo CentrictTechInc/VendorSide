@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
+import 'package:vendor_app/app/services/notification_service.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
@@ -33,7 +34,11 @@ class _ChatMobileScreenState extends State<ChatMobileScreen> {
         textMsg = messageController.text.trimLeft().trimRight();
 
         messageController.clear();
-
+        await NotificationService.intance.sendNotification(
+          "${data.userName}:",
+          textMsg,
+          data.fcmToken,
+        );
         FirebaseMessagingService.instance
             .sendMessage(data.uid.toString(), textMsg, data.email);
         _scrollController.animateTo(

@@ -2,12 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
-import 'package:vendor_app/app/utils/common_spacing.dart';
-import 'package:vendor_app/app/utils/common_text.dart';
-import 'package:vendor_app/app/utils/common_text_button.dart';
-import 'package:vendor_app/app/utils/common_text_field.dart';
 import 'package:vendor_app/app/utils/custom_drawer.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
@@ -20,7 +15,6 @@ import 'package:vendor_app/presentation/screens/chat/inbox_screen.dart';
 import 'package:vendor_app/presentation/screens/home/components/confirmation_dialogue.dart';
 import 'package:vendor_app/presentation/screens/home/home_screen.dart';
 import 'package:vendor_app/presentation/screens/notification/notification_screen.dart';
-import 'package:vendor_app/presentation/screens/tasks_pages/components/tasks_card.dart';
 
 final GlobalKey<ScaffoldState> globalScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -48,11 +42,7 @@ class MainBottomNavScreen extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // if (message != null) {
-      //   ;
-      // }
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
     return WillPopScope(
         onWillPop: () async {
           final controller = Get.find<BottomNavController>();

@@ -113,7 +113,6 @@ class ServiceController extends GetxController {
           if (subItem?.isSelected == true) {
             if (!servicePriceList.any(
                 (element) => element.subServiceId == subItem!.subServiceId)) {
-              print("servicePriceList.add 1 where ${subItem?.isSelected}");
               servicePriceList.add(
                 ServicePrice(
                   serviceId: autoMotiveServiceList[i].serviceId,
@@ -130,11 +129,8 @@ class ServiceController extends GetxController {
                 ),
               );
             }
-            print(servicePriceList[0].toJson());
           } else {
             servicePriceList.removeWhere((element) {
-              print(element.toJson());
-
               return element.subServiceId == subItem?.subServiceId;
             });
           }
@@ -150,7 +146,6 @@ class ServiceController extends GetxController {
             type: ToastType.warn);
         return;
       }
-      print(servicePriceList.toList());
       await postServicePackagePricing();
     } catch (e) {
       rethrow;
@@ -159,19 +154,6 @@ class ServiceController extends GetxController {
 
   Future postServicePackagePricing() async {
     try {
-      // if (servicePriceList.isEmpty) {
-      //   ToastMessage.message("Please Select At Least One Service",
-      //       type: ToastType.info);
-      //   return;
-      // } else {
-      //   for (var element in servicePriceList) {
-      //     if (element.serviceCharges == 0) {
-      //       ToastMessage.message("Please Enter Service Charges Of All Services",
-      //           type: ToastType.warn);
-      //       return;
-      //     }
-      //   }
-      // }
       ShowDialogBox.showDialogBoxs(true);
 
       final res = await _repo.servicePackagePricing(servicePriceList);

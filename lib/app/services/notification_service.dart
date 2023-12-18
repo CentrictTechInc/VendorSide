@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/data/dto/notification_dto.dart';
 import 'package:vendor_app/data/repository/notification_repository.dart';
 import 'package:vendor_app/domain/repository/notification_repository.dart';
@@ -10,12 +9,13 @@ class NotificationService {
 
   final NotificationRepository _repo = NotificationRepositoryImpl();
 
-  Future<void> sendNotification(String title, String message) async {
+  Future<void> sendNotification(
+      String title, String message, String deviceToken) async {
     try {
       NotificatioDto data = NotificatioDto(
         title: title,
         body: message,
-        deviceToken: LocalStorageService.instance.fcmToken,
+        deviceToken: deviceToken,
       );
       await _repo.sendNotification(data);
     } catch (e) {
