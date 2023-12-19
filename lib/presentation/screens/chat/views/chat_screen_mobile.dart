@@ -34,13 +34,14 @@ class _ChatMobileScreenState extends State<ChatMobileScreen> {
         textMsg = messageController.text.trimLeft().trimRight();
 
         messageController.clear();
+
+        FirebaseMessagingService.instance
+            .sendMessage(data.uid.toString(), textMsg, data.email);
         await NotificationService.intance.sendNotification(
           "${data.userName}:",
           textMsg,
           data.fcmToken,
         );
-        FirebaseMessagingService.instance
-            .sendMessage(data.uid.toString(), textMsg, data.email);
         _scrollController.animateTo(
           0.0,
           curve: Curves.easeOut,
