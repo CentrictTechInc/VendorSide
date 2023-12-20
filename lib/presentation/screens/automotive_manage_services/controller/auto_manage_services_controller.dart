@@ -45,6 +45,7 @@ class ManageAmServicesController extends GetxController {
       for (var subService in service.listSubServiceName) {
         subService?.isSelected = false;
       }
+      print(service.listSubServiceName);
       return service;
     }).toList();
   }
@@ -53,6 +54,16 @@ class ManageAmServicesController extends GetxController {
   Future<void> onReady() async {
     super.onReady();
     await getVendorAmServices();
+  }
+
+  @override
+  onClose() {
+    super.onClose();
+    amList.clear();
+    amvsList.clear();
+    servicePriceList.clear();
+    updateServicePriceList.clear();
+    groupedServiceList.clear();
   }
 
   List<GroupedService> convertToGroupedServices(

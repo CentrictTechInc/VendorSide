@@ -26,7 +26,7 @@ class LoginController extends GetxController {
   final passToggle = false.obs;
   final AuthRepository _repo = AuthRepositoryImpl();
   final TextEditingController emailController =
-      TextEditingController(text: "tedimib710@scubalm.com");
+      TextEditingController(text: "sedefi1737@hupoi.com");
   //second email
   //wokepej604@dpsols.com
   //test email

@@ -183,7 +183,7 @@ class FirebaseApi {
     debugPrint("storage: ${LocalStorageService.instance.fcmToken}");
 
     ///send to BackEnd API
-    ///Specific User
+    ///
   }
 
   void handleMessage(RemoteMessage? message) {
@@ -194,6 +194,7 @@ class FirebaseApi {
         'inside handleMessage with the message ${message.notification?.body}');
     debugPrint(
         'inside handleMessage with the message appointmentId ${message.data['appointmentId']}');
+    debugPrint('inside handleMessage with the message  ${message.data}');
     // globalContext?.go(PagePath.slash, extra: message);
     if (message.data['appointmentId'] != null) {
       notificationSheet.showNotification(
