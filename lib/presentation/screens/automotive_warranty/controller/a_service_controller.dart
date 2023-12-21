@@ -51,7 +51,6 @@ class AutomotiveWarrantyController extends GetxController {
     "Loyalty / Rewards Program",
     "Restrooms",
     "Roadside Assistance",
-    "Shuttle Service",
     "State Inspection",
     "Towing",
     "TV",

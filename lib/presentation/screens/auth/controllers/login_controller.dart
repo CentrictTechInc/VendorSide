@@ -27,11 +27,10 @@ class LoginController extends GetxController {
   final AuthRepository _repo = AuthRepositoryImpl();
   final TextEditingController emailController =
       TextEditingController(text: "sedefi1737@hupoi.com");
-  //second email
-  //wokepej604@dpsols.com
   //test email
+  //wokepej604@dpsols.com
   // sedefi1737@hupoi.com
-  //  "tedimib710@scubalm.com"
+  // tedimib710@scubalm.com
 
   final TextEditingController passController =
       TextEditingController(text: "Test@123");

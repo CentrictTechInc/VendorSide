@@ -58,9 +58,10 @@ class _ContactUsMobileState extends State<ContactUsMobile>
                           borderRadius: BorderRadius.circular(70)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(70),
-                        child: const NetWorkImageWithInitials(
+                        child: NetWorkImageWithInitials(
                           imageUrl: Drawables.personUrl,
-                          name: "Shaheer",
+                          imageData: LocalStorageService.instance.userPic,
+                          name: LocalStorageService.instance.user?.vendoremail,
                         ),
                       ),
                     ),

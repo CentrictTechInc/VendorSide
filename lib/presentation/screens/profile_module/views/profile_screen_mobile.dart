@@ -1,11 +1,10 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
-import 'package:vendor_app/app/utils/skeleton_loader.dart';
+import 'package:vendor_app/app/utils/network_image_with_initials.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
@@ -50,23 +49,15 @@ class ProfileScreenMobile extends StatelessWidget {
                               width: 0.25,
                             ),
                             borderRadius: BorderRadius.circular(70)),
-                        child: c.user?.pictureData != null
-                            ? CircleAvatar(
-                                backgroundImage: c.user?.pictureData == null
-                                    ? null
-                                    : MemoryImage(
-                                        base64Decode(c.user?.pictureData ?? ""),
-                                      ),
-                              )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(70),
-                                child: const SkeletonLoader(size: 115),
-                                // child: NetWorkImageWithInitials(
-                                //   imageUrl: Drawables.personUrl,
-                                //   name:
-                                //       "${LocalStorageService.instance.user?.firstName?[0]}",
-                                // ),
-                              ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(70),
+                          child: NetWorkImageWithInitials(
+                            imageUrl: Drawables.personUrl,
+                            imageData: LocalStorageService.instance.userPic,
+                            name:
+                                LocalStorageService.instance.user?.vendoremail,
+                          ),
+                        ),
                       ),
                     ),
                     const VerticalSpacing(20),

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,7 @@ import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text_button.dart';
-import 'package:vendor_app/app/utils/skeleton_loader.dart';
+import 'package:vendor_app/app/utils/network_image_with_initials.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/data/dto/user_details_dto.dart';
@@ -27,7 +26,6 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController shopNameController = TextEditingController();
 
-  bool isSelected = false;
   String base64Image = '';
   void pickFile(ProfileController c) async {
     final result = (await FilePicker.platform.pickFiles(
@@ -40,7 +38,6 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
     c.file = File(result!.first.path!);
 
     c.update();
-    isSelected = true;
   }
 
   final String? pic = LocalStorageService.instance.userPic;
@@ -85,15 +82,12 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(70),
                           child: c.file == null
-                              ? (c.user?.pictureData == null
-                                  ? const SkeletonLoader(size: 115)
-                                  // NetWorkImageWithInitials(
-                                  //     imageUrl: Drawables.personUrl,
-                                  //     name:
-                                  //         "${LocalStorageService.instance.user?.firstName}",
-                                  //   )
-                                  : Image.memory(
-                                      base64Decode(c.user!.pictureData!)))
+                              ? NetWorkImageWithInitials(
+                                  imageUrl: Drawables.personUrl,
+                                  imageData: c.user?.pictureData,
+                                  name: LocalStorageService
+                                      .instance.user?.vendoremail,
+                                )
                               : Image.file(
                                   c.file!,
                                 ),
@@ -149,16 +143,6 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
                   controller: addressController,
                 ),
                 const VerticalSpacing(20),
-                // ProfileItem(
-                //   heading: "Email",
-                //   icon: RGIcons.email,
-                //   isTextFields: true,
-                //   hintText: "email@email",
-                //   validator: validateEmail,
-                //   controller: emailController,
-                //   readOnly: true,
-                // ),
-                // const VerticalSpacing(20),
                 ProfileItem(
                   heading: "Phone",
                   icon: RGIcons.phone,
@@ -186,8 +170,6 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
                           vendoraddress: addressController.text,
                           vendorCompanyName: shopNameController.text,
                         );
-                        LocalStorageService.instance.userPicture =
-                            "${c.file?.path}";
 
                         c.postUserDetails(data2);
                       }

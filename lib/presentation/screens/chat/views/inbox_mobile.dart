@@ -65,8 +65,7 @@ class InboxMobileScreen extends StatelessWidget {
                                 messageText: "hi",
                                 imageUrl: "",
                                 time: "",
-                                isRead:
-                                    (index == 0 || index == 3) ? true : false,
+                                isRead: true,
                               );
                             } else {
                               return const SizedBox.shrink();

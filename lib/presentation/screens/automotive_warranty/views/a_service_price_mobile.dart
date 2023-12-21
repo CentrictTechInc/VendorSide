@@ -27,7 +27,7 @@ class AutomotiveWarantyMobileScreen extends StatelessWidget
                 children: [
                   CommonAppBar(
                     text: controller.steps == 1
-                        ? "Tell Us About Your Warranty, Certifications, Training, Amenities"
+                        ? "Tell Us About Your Warranty, Certifications & Amenities"
                         : "Service Package Pricing",
                     hideBell: true,
                     headFontSize: 15,

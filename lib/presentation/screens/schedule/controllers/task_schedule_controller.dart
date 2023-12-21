@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:vendor_app/app/app_router.dart';
+import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
 import 'package:vendor_app/common/toast_message.dart';
@@ -184,7 +185,7 @@ class TaskScheduleController extends GetxController {
       ShowDialogBox.showDialogBoxs(true);
 
       List<String> selectedDatesStrings =
-          selectedDates.map((date) => date.toIso8601String()).toList();
+          selectedDates.map((date) => date.toNewFormat()).toList();
       setTimeStandart(timeStandard);
       String startTimeFormat =
           "${getStartTime.value} ${setTimeAmPm(timeStartFormat.value)}";
