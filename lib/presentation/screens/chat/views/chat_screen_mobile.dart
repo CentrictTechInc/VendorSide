@@ -7,6 +7,7 @@ import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
+import 'package:vendor_app/common/resources/profanity.dart';
 import 'package:vendor_app/domain/entity/message_model.dart';
 import 'package:vendor_app/domain/entity/user_msg.dart';
 import 'package:sizer/sizer.dart';
@@ -23,23 +24,25 @@ class ChatMobileScreen extends StatefulWidget {
 class _ChatMobileScreenState extends State<ChatMobileScreen> {
   final ScrollController _scrollController = ScrollController();
 
+  final filter = CustomProfanityFilter();
   @override
   Widget build(BuildContext context) {
     UserMessageModel data = UserMessageModel.fromMap(
         widget.document?.data() as Map<String, dynamic>);
     final TextEditingController messageController = TextEditingController();
     String textMsg;
+
     Future sendMessage() async {
       if (messageController.text.trim() != '') {
         textMsg = messageController.text.trimLeft().trimRight();
-
         messageController.clear();
-
+        //Censor the string - returns a 'cleaned' string.
+        String cleanString = filter.censor(textMsg);
         FirebaseMessagingService.instance
-            .sendMessage(data.uid.toString(), textMsg, data.email);
+            .sendMessage(data.uid.toString(), cleanString, data.email);
         await NotificationService.intance.sendNotification(
           "${data.userName}:",
-          textMsg,
+          cleanString,
           data.fcmToken,
         );
         _scrollController.animateTo(

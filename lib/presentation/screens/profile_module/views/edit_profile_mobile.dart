@@ -83,10 +83,12 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
                           borderRadius: BorderRadius.circular(70),
                           child: c.file == null
                               ? NetWorkImageWithInitials(
+                                  backgroundColor: AppColors.grey,
+                                  fontSize: 30.sp,
                                   imageUrl: Drawables.personUrl,
                                   imageData: c.user?.pictureData,
                                   name: LocalStorageService
-                                      .instance.user?.vendoremail,
+                                      .instance.user?.firstName,
                                 )
                               : Image.file(
                                   c.file!,

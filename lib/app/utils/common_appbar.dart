@@ -18,7 +18,6 @@ class CommonAppBar extends StatelessWidget {
       this.showProfile = false,
       this.onDrawerPressed,
       this.onEdit,
-      // this.isText = false,
       this.hideBell = false,
       this.onNotificationPressed,
       this.text = '',
@@ -30,7 +29,6 @@ class CommonAppBar extends StatelessWidget {
   final bool showProfile;
   final bool editButton;
   final bool hideBell;
-  // final bool isText;
   final String text;
   final VoidCallback? onDrawerPressed;
   final VoidCallback? onEdit;
@@ -121,22 +119,12 @@ class CommonAppBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(70)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(70),
-                  child:
-                      // LocalStorageService.instance.userPic != null
-                      //     ? CircleAvatar(
-                      //         backgroundImage: LocalStorageService
-                      //                     .instance.userPic ==
-                      //                 null
-                      //             ? null
-                      //             : FileImage(
-                      //                 File(LocalStorageService.instance.userPic!),
-                      //               ),
-                      //       )
-                      //     :
-                      NetWorkImageWithInitials(
+                  child: NetWorkImageWithInitials(
+                    backgroundColor: AppColors.grey,
+                    fontSize: 15.sp,
                     imageUrl: Drawables.personUrl,
                     imageData: LocalStorageService.instance.userPic,
-                    name: LocalStorageService.instance.user?.vendoremail,
+                    name: LocalStorageService.instance.user?.firstName,
                   ),
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
@@ -52,10 +53,11 @@ class ProfileScreenMobile extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(70),
                           child: NetWorkImageWithInitials(
+                            backgroundColor: AppColors.grey,
+                            fontSize: 30.sp,
                             imageUrl: Drawables.personUrl,
                             imageData: LocalStorageService.instance.userPic,
-                            name:
-                                LocalStorageService.instance.user?.vendoremail,
+                            name: LocalStorageService.instance.user?.firstName,
                           ),
                         ),
                       ),

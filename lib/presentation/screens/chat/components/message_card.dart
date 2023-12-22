@@ -57,7 +57,7 @@ class MessageCard extends StatelessWidget {
                   backgroundColor: AppColors.whiteGreyish,
                   textColor: AppColors.primaryText,
                   imageUrl: imageUrl,
-                  name: name[0],
+                  name: data['userName'],
                   cacheHeight: 60,
                   fromMemory: true,
                   imageData: LocalStorageService.instance.userPic,
