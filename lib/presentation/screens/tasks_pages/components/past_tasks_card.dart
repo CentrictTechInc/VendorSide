@@ -7,7 +7,7 @@ import 'package:sizer/sizer.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 
 class PastTasksCard extends StatelessWidget {
-  PastTasksCard({
+  const PastTasksCard({
     super.key,
   });
 
@@ -32,11 +32,11 @@ class PastTasksCard extends StatelessWidget {
               children: [
                 const Row(
                   children: [
-                    const ImageIcon(
+                    ImageIcon(
                       AssetImage(RGIcons.serviceBuild),
                       size: 20,
                     ),
-                    const HorizontalSpacing(8),
+                    HorizontalSpacing(8),
                     Expanded(
                       child: CommonText(
                         text: "Services",
@@ -47,7 +47,7 @@ class PastTasksCard extends StatelessWidget {
                   ],
                 ),
                 const VerticalSpacing(10),
-                CommonText(
+                const CommonText(
                   text: "Service Name Here",
                   fontSize: 16,
                   weight: FontWeight.w600,

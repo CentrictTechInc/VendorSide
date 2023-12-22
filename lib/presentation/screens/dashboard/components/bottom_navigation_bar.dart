@@ -5,7 +5,7 @@ import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
-import 'package:vendor_app/presentation/screens/bottom_nav/controller/botton_nav_controller.dart';
+import 'package:vendor_app/presentation/screens/dashboard/controller/botton_nav_controller.dart';
 
 class HomeBottomNavBar extends StatelessWidget {
   HomeBottomNavBar({super.key});

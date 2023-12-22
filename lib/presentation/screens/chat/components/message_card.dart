@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/app/utils/network_image_with_initials.dart';
@@ -47,16 +48,20 @@ class MessageCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: NetWorkImageWithInitials(
-                backgroundColor: AppColors.whiteGreyish,
-                textColor: AppColors.primaryText,
-                imageUrl: imageUrl,
-                name: name[0],
-                cacheHeight: 65,
-                radius: 1,
-                fit: BoxFit.scaleDown,
+            SizedBox(
+              width: 60,
+              height: 60,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(70),
+                child: NetWorkImageWithInitials(
+                  backgroundColor: AppColors.whiteGreyish,
+                  textColor: AppColors.primaryText,
+                  imageUrl: imageUrl,
+                  name: data['userName'],
+                  cacheHeight: 60,
+                  fromMemory: true,
+                  imageData: LocalStorageService.instance.userPic,
+                ),
               ),
             ),
             const HorizontalSpacing(16),

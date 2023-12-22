@@ -3,12 +3,14 @@ class UserMessageModel {
   final String email;
   final String userName;
   final String userType;
+  final String fcmToken;
 
   UserMessageModel({
     required this.uid,
     required this.email,
     required this.userName,
     this.userType = 'vendor',
+    required this.fcmToken,
   });
 
   Map<String, dynamic> toMap() {
@@ -17,6 +19,7 @@ class UserMessageModel {
       'email': email,
       'userName': userName,
       'userType': userType,
+      'fcmToken': fcmToken,
     };
   }
 
@@ -26,6 +29,7 @@ class UserMessageModel {
       email: map['email'],
       userName: map['userName'],
       userType: map['userType'],
+      fcmToken: map['fcmToken'],
     );
   }
 }

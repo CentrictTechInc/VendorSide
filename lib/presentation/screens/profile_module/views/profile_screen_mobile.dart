@@ -1,9 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
@@ -26,6 +24,7 @@ class ProfileScreenMobile extends StatelessWidget {
       child: SingleChildScrollView(
           child: GetBuilder<ProfileController>(
               init: ProfileController(),
+              autoRemove: false,
               builder: (c) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +40,6 @@ class ProfileScreenMobile extends StatelessWidget {
                             PagePath.profileEdit.toRoute);
                       },
                     ),
-                    // const VerticalSpacing(10),
                     Center(
                       child: Container(
                         width: 115,
@@ -52,33 +50,28 @@ class ProfileScreenMobile extends StatelessWidget {
                               width: 0.25,
                             ),
                             borderRadius: BorderRadius.circular(70)),
-                        child: c.user?.pictureData != null
-                            ? CircleAvatar(
-                                backgroundImage: c.user?.pictureData == null
-                                    ? null
-                                    : MemoryImage(
-                                        base64Decode(c.user?.pictureData ?? ""),
-                                      ),
-                              )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(70),
-                                child: NetWorkImageWithInitials(
-                                  imageUrl: Drawables.personUrl,
-                                  name:
-                                      "${LocalStorageService.instance.user?.firstName?[0]}}",
-                                ),
-                              ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(70),
+                          child: NetWorkImageWithInitials(
+                            backgroundColor: AppColors.grey,
+                            fontSize: 30.sp,
+                            imageUrl: Drawables.personUrl,
+                            imageData: LocalStorageService.instance.userPic,
+                            name: LocalStorageService.instance.user?.firstName,
+                          ),
+                        ),
                       ),
                     ),
                     const VerticalSpacing(20),
                     ProfileItem(
                         heading: "UserName",
-                        text: "${c.user?.firstName} ${c.user?.lastName}",
+                        text:
+                            "${c.user?.firstName ?? ""} ${c.user?.lastName ?? ""}",
                         icon: RGIcons.profile),
                     const VerticalSpacing(20),
                     ProfileItem(
                         heading: "Vendor Shop",
-                        text: c.user?.vendoraddress ?? "",
+                        text: c.user?.vendorCompanyName ?? "",
                         icon: RGIcons.storeIcon),
                     const VerticalSpacing(20),
                     ProfileItem(

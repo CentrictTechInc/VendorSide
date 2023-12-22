@@ -1,12 +1,13 @@
 import 'dart:convert';
-
+import 'package:vendor_app/data/dto/tasks_bidding_dto.dart';
 import 'package:vendor_app/data/dto/tasks_dto.dart';
 import 'package:vendor_app/data/provider/network/apis/tasks_api.dart';
+import 'package:vendor_app/domain/entity/tasks_model.dart';
 import 'package:vendor_app/domain/repository/tasks_repository.dart';
 
 class TasksRepositoryImpl extends TasksRepository {
   @override
-  Future<List<TasksStatusResponseDto>> getTasks({String? status}) async {
+  Future<List<TasksStatusResponseModel>> getTasks({String? status}) async {
     // try {
     //   final response = await TasksAPI.getTasks(status ?? '').request();
     //   dynamic json = jsonDecode(response);
@@ -17,62 +18,119 @@ class TasksRepositoryImpl extends TasksRepository {
     // } catch (e) {
     //   rethrow;
     // }
+    await Future.delayed(const Duration(seconds: 1), () {});
+    return dummyData;
+  }
+
+  @override
+  Future<TasksStatusResponseDto> getAppointmentbyId({String? id}) async {
     try {
-      // dynamic json = jsonDecode(dummyData);
-      // List<dynamic> res = json['appointmentvendor'];
-      List<TasksStatusResponseDto> allTasks = dummyData
-          .map((data) => TasksStatusResponseDto.fromJson(data))
-          .toList();
-      print(allTasks);
-      // if (status != null) {
-      //   allTasks = allTasks.where((task) => task.status == status).toList();
-      // }
+      final response = await TasksAPI.getAppointmentbyId(id ?? '').request();
+      dynamic json = jsonDecode(response);
+      TasksStatusResponseDto allTasks = TasksStatusResponseDto.fromJson(json);
       return allTasks;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> postBidding(TasksBiddingDto biddingTask) async {
+    try {
+      final response = await TasksAPI.postBidding(biddingTask).request();
+      return response;
     } catch (e) {
       rethrow;
     }
   }
 }
 
-List<Map<String, dynamic>> dummyData = [
-  {
-    "username": "John",
-    "serviceName": "Brakes",
-    "subServiceName": "Shoe replacement",
-    "location": "Location 1",
-    "appointmentDate": "2022-01-01",
-    "vehicleMake": "Make 1",
-    "vehicleModel": "Model 1",
-    "status": "request"
-  },
-  {
-    "username": "Jane",
-    "serviceName": "Engine",
-    "subServiceName": "Oil change",
-    "location": "Location 2",
-    "appointmentDate": "2022-01-02",
-    "vehicleMake": "Make 2",
-    "vehicleModel": "Model 2",
-    "status": "completed"
-  },
-  {
-    "username": "Doe",
-    "serviceName": "Tires",
-    "subServiceName": "Rotation",
-    "location": "Location 3",
-    "appointmentDate": "2022-01-03",
-    "vehicleMake": "Make 3",
-    "vehicleModel": "Model 3",
-    "status": "past"
-  },
-  {
-    "username": "Smith",
-    "serviceName": "Transmission",
-    "subServiceName": "Fluid change",
-    "location": "Location 4",
-    "appointmentDate": "2022-01-04",
-    "vehicleMake": "Make 4",
-    "vehicleModel": "Model 4",
-    "status": "current"
-  },
+List<TasksStatusResponseDto> dummyData = [
+  TasksStatusResponseDto(
+    username: "John",
+    serviceName: "Brakes",
+    subServiceName: "Shoe replacement",
+    location: "Location 1",
+    appointmentDate: "2022-01-22",
+    vehicleMake: "Toyota",
+    vehicleModel: "Corolla",
+    status: "Request",
+    time: "11:00 PM",
+    vehicleYear: "2010",
+    description: "Brake shoe replacement",
+    price: "100",
+    serviceId: 1,
+    subServiceId: 1,
+    vinNumber: "1234567890",
+  ),
+  TasksStatusResponseDto(
+    username: "Jane",
+    serviceName: "Engine",
+    subServiceName: "Oil change",
+    location: "Location 2",
+    appointmentDate: "2022-01-09",
+    vehicleMake: "Honda",
+    vehicleModel: "Civic",
+    status: "Request",
+    time: "10:00 PM",
+    vehicleYear: "2011",
+    description: "Engine oil change",
+    price: "200",
+    serviceId: 1,
+    subServiceId: 1,
+    vinNumber: "1234567890",
+  ),
+  TasksStatusResponseDto(
+    username: "Doe",
+    serviceName: "Tires",
+    subServiceName: "Rotation",
+    location: "Location 3",
+    appointmentDate: "2022-01-03",
+    vehicleMake: "Ford",
+    vehicleModel: "Mustang",
+    status: "Request",
+    time: "10:00 PM",
+    vehicleYear: "2012",
+    description: "Tire rotation",
+    price: "300",
+    serviceId: 1,
+    subServiceId: 1,
+    vinNumber: "1234567890",
+  ),
+  TasksStatusResponseDto(
+    username: "Smith",
+    serviceName: "Transmission",
+    subServiceName: "Fluid change",
+    location: "Location 4",
+    appointmentDate: "2022-01-19",
+    vehicleMake: "Chevrolet",
+    vehicleModel: "Camaro",
+    status: "Request",
+    time: "10:00 PM",
+    vehicleYear: "2013",
+    description: "Transmission fluid change",
+    price: "400",
+    serviceId: 1,
+    subServiceId: 1,
+    vinNumber: "1234567890",
+  ),
+];
+List<TasksStatusResponseModel> appointmentList = [
+  TasksStatusResponseModel(
+    username: 'Chris Johnson',
+    appointmentDate: '2023-01-11',
+    location: '509 Unit 10, New Haven, CT 06530',
+    serviceName: "Brakes",
+    status: "Request",
+    subServiceName: "Brake Pad Replacement",
+    vehicleMake: "Toyota",
+    vehicleModel: "Camry",
+    vehicleYear: "2010",
+    time: "10:00 PM",
+    description: "I need the Brake pad replacement and also fuild checking",
+    price: "100",
+    serviceId: 1,
+    subServiceId: 1,
+    vinNumber: "123456789",
+  )
 ];

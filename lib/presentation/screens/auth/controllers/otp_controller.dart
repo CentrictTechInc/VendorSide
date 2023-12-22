@@ -27,7 +27,6 @@ class OtpController extends GetxController {
   }
 
   void initializeTimer() {
-    print("object");
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (secondsRemaining != 0) {
         secondsRemaining--;

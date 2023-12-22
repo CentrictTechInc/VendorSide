@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
@@ -10,7 +9,7 @@ import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/common/resources/strings.dart';
-import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/controller/a_service_controller.dart';
 import 'package:vendor_app/presentation/screens/handyman_warranty/handyman_warranty_screen.dart';
 import 'package:vendor_app/presentation/screens/vendor_category/components/category_container.dart';
 

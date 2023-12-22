@@ -32,7 +32,7 @@ class LocalStorageService {
     }
   }
 
-  set userPicture(String? path) {
+  set userPic(String? path) {
     if (path != null) {
       _prefs?.setString(Key.pic.name, path);
     } else {

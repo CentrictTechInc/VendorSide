@@ -21,7 +21,6 @@ class ScheduleAPI extends APIRequestRepresentable {
   get body {
     switch (type) {
       case ScheduleAPIType.updateSchedule:
-        print(jsonEncode(data?.toJson()));
         return jsonEncode(data?.toJson());
       case ScheduleAPIType.getSchedule:
         return {};

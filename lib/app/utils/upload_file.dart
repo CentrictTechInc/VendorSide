@@ -5,6 +5,7 @@ import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 
+// ignore: must_be_immutable
 class UploadButtonWithFile extends StatelessWidget {
   UploadButtonWithFile(
       {super.key,
@@ -151,7 +152,7 @@ class UploadButtonWithFile extends StatelessWidget {
                                     text: imageLink,
                                   ),
                                 )
-                              : SizedBox(),
+                              : const SizedBox(),
                         ],
                       ),
                     )))

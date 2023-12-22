@@ -11,7 +11,7 @@ import 'package:vendor_app/data/repository/services_amenities_repository.dart';
 import 'package:vendor_app/domain/entity/h_service_warranty_model.dart';
 import 'package:vendor_app/domain/entity/services_model.dart';
 import 'package:vendor_app/domain/repository/services_amenities_repository.dart';
-import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/controller/a_service_controller.dart';
 
 class ManageServicesController extends GetxController {
   ServicesAmenitiesRepository repo = ServicesAmenitiesRepositoryImpl();
@@ -37,7 +37,6 @@ class ManageServicesController extends GetxController {
 
   @override
   void onReady() async {
-    await serviceController?.getAllServices();
     await getServiceName();
     await getVendorServicePricing();
     super.onReady();
@@ -91,7 +90,7 @@ class ManageServicesController extends GetxController {
       }
       ShowDialogBox.showDialogBoxs(true);
 
-      final res = await repo.putHIServicePricing(HomeImprovementServiceDto(
+      await repo.putHIServicePricing(HomeImprovementServiceDto(
         vendorId: LocalStorageService.instance.user?.vid,
         serviceName: selectedServiceName,
         serviceCharges: double.parse(chargeController.text),
@@ -100,7 +99,6 @@ class ManageServicesController extends GetxController {
         serviceTypeId: VendorType.homeImprovementVendor.index,
         vendorServiceId: vendorServiceId,
       ));
-      print(res);
       ToastMessage.message("Service Details has been updated!",
           type: ToastType.success);
       if (ShowDialogBox.isOpen) {

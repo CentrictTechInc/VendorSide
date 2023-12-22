@@ -21,8 +21,8 @@ class ReviewScreen extends StatelessWidget {
                   scaffoldKey.currentState!.openDrawer();
                 },
               ),
-              tablet: ReviewMobile(),
-              desktop: ReviewMobile())),
+              tablet: const ReviewMobile(),
+              desktop: const ReviewMobile())),
     );
   }
 }

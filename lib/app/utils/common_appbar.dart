@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
@@ -20,7 +18,6 @@ class CommonAppBar extends StatelessWidget {
       this.showProfile = false,
       this.onDrawerPressed,
       this.onEdit,
-      // this.isText = false,
       this.hideBell = false,
       this.onNotificationPressed,
       this.text = '',
@@ -32,7 +29,6 @@ class CommonAppBar extends StatelessWidget {
   final bool showProfile;
   final bool editButton;
   final bool hideBell;
-  // final bool isText;
   final String text;
   final VoidCallback? onDrawerPressed;
   final VoidCallback? onEdit;
@@ -68,7 +64,6 @@ class CommonAppBar extends StatelessWidget {
                   ))
               : const SizedBox(),
           if (text.isNotEmpty) ...[
-            // const Spacer(),
             Expanded(
               flex: 4,
               child: CommonText(
@@ -124,20 +119,13 @@ class CommonAppBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(70)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(70),
-                  child: LocalStorageService.instance.userPic != null
-                      ? CircleAvatar(
-                          backgroundImage: LocalStorageService
-                                      .instance.userPic ==
-                                  null
-                              ? null
-                              : FileImage(
-                                  File(LocalStorageService.instance.userPic!),
-                                ),
-                        )
-                      : NetWorkImageWithInitials(
-                          imageUrl: Drawables.personUrl,
-                          name: LocalStorageService.instance.user?.vendoremail,
-                        ),
+                  child: NetWorkImageWithInitials(
+                    backgroundColor: AppColors.grey,
+                    fontSize: 15.sp,
+                    imageUrl: Drawables.personUrl,
+                    imageData: LocalStorageService.instance.userPic,
+                    name: LocalStorageService.instance.user?.firstName,
+                  ),
                 ),
               ),
             )

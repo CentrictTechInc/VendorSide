@@ -9,14 +9,21 @@ import 'package:vendor_app/firbase_push_notification.dart';
 import 'package:vendor_app/firebase_options.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  LocalStorageService.instance.init();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  HttpOverrides.global = MyHttpOverrides();
-  await FirebaseApi().initNotifications();
-  Get.put(GetAllServices());
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const RepairGuruVendor());
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+
+    HttpOverrides.global = MyHttpOverrides();
+    LocalStorageService.instance.init();
+    Get.put(GetAllServices());
+    await FirebaseApi().initNotifications();
+
+    runApp(const RepairGuruVendor());
+  } catch (e) {
+    debugPrint(e.toString());
+  }
 }
 
 // Flutter Certificate Verification

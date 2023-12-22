@@ -35,7 +35,7 @@ class VendorRatesWidget extends StatelessWidget with FieldsValidation {
           fontSize: 14,
         ),
         const VerticalSpacing(10),
-        // TODO: area dropdown might become a search dropdown in future
+        // todo: area dropdown might become a search dropdown in future
         // DropDownWidget(
         //   dropDownHeight: 50,
         //   validator: validateTextOnlyDropdown,

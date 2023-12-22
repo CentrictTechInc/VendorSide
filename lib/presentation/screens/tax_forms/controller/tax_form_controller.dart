@@ -12,7 +12,6 @@ import 'package:vendor_app/data/repository/tax_repository.dart';
 import 'package:vendor_app/domain/repository/tax_repository.dart';
 
 class TaxFromController extends GetxController {
-  // TaxFromDto? taxData;
   late File taxImage;
   late File pliImage;
   TaxRepository repo = TaxRepositoryImpl();
@@ -20,7 +19,7 @@ class TaxFromController extends GetxController {
     try {
       TaxFromDto data = TaxFromDto(
         fileName: "EIN(W9 Form)",
-        vendorId: LocalStorageService.instance.user!.vid!,
+        vendorId: LocalStorageService.instance.user?.vid ?? 0,
       );
       final res = await repo.uploadTaxForm(data, taxImage);
       return res.certificateid;
@@ -41,7 +40,7 @@ class TaxFromController extends GetxController {
       PLIFormDto? pliData = PLIFormDto(
         certificateId: certificateId,
         fileName: "Insurance Form",
-        vendorId: LocalStorageService.instance.user!.vid!,
+        vendorId: LocalStorageService.instance.user?.vid ?? 0,
       );
       final res = await repo.uploadPLIForm(pliData, pliImage);
       if (ShowDialogBox.isOpen) {

@@ -14,7 +14,7 @@ import 'package:vendor_app/presentation/screens/auth/controllers/otp_controller.
 import 'package:vendor_app/presentation/screens/password_screens/controllers/pass_controller.dart';
 
 class EmailOtpScreen extends StatefulWidget {
-  EmailOtpScreen({required this.email});
+  const EmailOtpScreen({super.key, required this.email});
   final String email;
   @override
   State<EmailOtpScreen> createState() => _EmailOtpScreenState();

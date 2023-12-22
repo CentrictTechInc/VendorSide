@@ -10,6 +10,7 @@ class UserModel {
   String? vendoraddress;
   int? step;
   int? vendorType;
+  String? profileImage;
   // String? longitude;
   // String? latitude;
 
@@ -24,7 +25,8 @@ class UserModel {
     this.firstName,
     this.lastName,
     this.step,
-    this.vendorType = 1,
+    this.vendorType,
+    this.profileImage,
     // this.longitude,
     // this.latitude,
   });

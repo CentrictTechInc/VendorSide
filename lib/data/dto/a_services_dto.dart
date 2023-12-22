@@ -35,6 +35,7 @@ class AutoServicesDto extends AutoServicesModel {
         subServiceName: json["subServiceName"],
       );
 
+  @override
   Map<String, dynamic> toJson() => {
         "vendorServiceId": vendorServiceId,
         "vendorId": vendorId,

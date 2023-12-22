@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:vendor_app/app/app_router.dart';
+import 'package:vendor_app/app/services/get_all_services.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/common/common_loader.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
@@ -49,7 +51,6 @@ class AutomotiveWarrantyController extends GetxController {
     "Loyalty / Rewards Program",
     "Restrooms",
     "Roadside Assistance",
-    "Shuttle Service",
     "State Inspection",
     "Towing",
     "TV",
@@ -59,17 +60,15 @@ class AutomotiveWarrantyController extends GetxController {
   Future postWarrantyAndAmenitiesInfo() async {
     try {
       ShowDialogBox.showDialogBoxs(true);
-      print("warranty Duration: $selectedValue");
-      print("Amenities: $amenitiesCheckedList");
-      print("Image Files: ${files}");
       TrainingAmenitiesDto data = TrainingAmenitiesDto(
           certificateName:
               "Automotive Warranty of, ${LocalStorageService.instance.user?.firstName ?? ''}",
-          vid: LocalStorageService.instance.user!.vid!,
+          vid: LocalStorageService.instance.user?.vid ?? 0,
           serviceWarranty: selectedValue,
           amenities: amenitiesCheckedList);
 
-      final res = await repo.uploadTrainingAmenitiesForm(data, files!);
+      final res = await repo.uploadTrainingAmenitiesForm(data, files ?? []);
+      steps = 2;
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
@@ -87,53 +86,73 @@ class ServiceController extends GetxController {
   final ServicesAmenitiesRepository _repo = ServicesAmenitiesRepositoryImpl();
   List<ServicesModel> autoMotiveServiceList = [];
   List<ServicesModel> homeImprovementServiceList = [];
-  double animatedHeight = 130;
   List<ServicePrice> servicePriceList = [];
-  List<String> alphabet = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z",
-  ];
+
+  @override
+  void onReady() {
+    super.onReady();
+    autoMotiveServiceList =
+        Get.find<GetAllServices>().autoMotiveServiceList.map((service) {
+      service.isSelected = false;
+      for (var subService in service.listSubServiceName) {
+        subService?.isSelected = false;
+      }
+      return service;
+    }).toList();
+    homeImprovementServiceList =
+        Get.find<GetAllServices>().homeImprovementServiceList;
+  }
 
   ServiceRepository repo = ServiceRepositoryImpl();
-  Future postServicePackagePricing() async {
+
+  Future<void> addAmServices() async {
     try {
+      for (int i = 0; i < autoMotiveServiceList.length; i++) {
+        autoMotiveServiceList[i].listSubServiceName.map((subItem) {
+          if (subItem?.isSelected == true) {
+            if (!servicePriceList.any(
+                (element) => element.subServiceId == subItem!.subServiceId)) {
+              servicePriceList.add(
+                ServicePrice(
+                  serviceId: autoMotiveServiceList[i].serviceId,
+                  vendorId: LocalStorageService.instance.user!.vid,
+                  serviceTypeId: 1,
+                  subServiceId: subItem!.subServiceId,
+                  subServiceName: subItem.subServiceName,
+                  serviceName: autoMotiveServiceList[i].serviceName,
+                  registerDate: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                  serviceCharges: subItem.serviceCharges!.text.isEmpty
+                      ? 0
+                      : double.parse(subItem.serviceCharges!.text),
+                  isSelected: subItem.isSelected,
+                ),
+              );
+            }
+          } else {
+            servicePriceList.removeWhere((element) {
+              return element.subServiceId == subItem?.subServiceId;
+            });
+          }
+        }).toList();
+      }
       if (servicePriceList.isEmpty) {
         ToastMessage.message("Please Select At Least One Service",
             type: ToastType.info);
         return;
-      } else {
-        for (var element in servicePriceList) {
-          if (element.serviceCharges == 0) {
-            ToastMessage.message("Please Enter Service Charges Of All Services",
-                type: ToastType.warn);
-            return;
-          }
-        }
+      } else if (servicePriceList
+          .any((element) => element.serviceCharges == 0)) {
+        ToastMessage.message("Please Enter Service Charges Of Services",
+            type: ToastType.warn);
+        return;
       }
+      await postServicePackagePricing();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future postServicePackagePricing() async {
+    try {
       ShowDialogBox.showDialogBoxs(true);
 
       final res = await _repo.servicePackagePricing(servicePriceList);
@@ -148,48 +167,6 @@ class ServiceController extends GetxController {
       if (ShowDialogBox.isOpen) {
         globalContext?.pop();
       }
-    }
-  }
-
-  Future getAllServices() async {
-    if (autoMotiveServiceList.isNotEmpty) {
-      return;
-    }
-    try {
-      ShowDialogBox.showDialogBoxs(true);
-      final services = await repo.getAllServices();
-      if (ShowDialogBox.isOpen) {
-        globalContext?.pop();
-      }
-
-      for (var entry in services) {
-        addService(entry);
-      }
-      update();
-    } catch (e) {
-      if (ShowDialogBox.isOpen) {
-        globalContext?.pop();
-      }
-      ToastMessage.message(e.toString());
-    }
-  }
-
-  void addService(ServicesModel entry) {
-    if (entry.serviceTypeId == 1) {
-      if (autoMotiveServiceList
-          .where((element) => entry.serviceId == element.serviceId)
-          .toList()
-          .isEmpty) {
-        autoMotiveServiceList.add(entry);
-      } else {
-        autoMotiveServiceList
-            .where((element) => entry.serviceId == element.serviceId)
-            .firstOrNull
-            ?.listSubServiceName
-            .add(entry.listSubServiceName.first);
-      }
-    } else if (entry.serviceTypeId == 2) {
-      homeImprovementServiceList.add(entry);
     }
   }
 }

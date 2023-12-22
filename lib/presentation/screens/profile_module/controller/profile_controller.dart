@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -59,11 +60,12 @@ class ProfileController extends GetxController {
   Future postUserDetails(ProfileDetailsDto data) async {
     try {
       ShowDialogBox.showDialogBoxs(true);
-      final String res;
-      if (file == null) {
-        res = await repo.postUserDetails(data);
-      } else {
-        res = await repo.postUserDetails(data, userPic: file);
+
+      final res = await repo.postUserDetails(data, userPic: file);
+      if (file!.path.isNotEmpty) {
+        List<int> fileBytes = file!.readAsBytesSync();
+        String base64String = base64Encode(fileBytes);
+        LocalStorageService.instance.userPic = base64String;
       }
       update();
       globalContext?.pop();

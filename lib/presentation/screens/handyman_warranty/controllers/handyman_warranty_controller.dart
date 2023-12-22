@@ -11,7 +11,7 @@ import 'package:vendor_app/data/dto/h_service_warranty_dto.dart';
 import 'package:vendor_app/data/repository/services_amenities_repository.dart';
 import 'package:vendor_app/domain/entity/services_model.dart';
 import 'package:vendor_app/domain/repository/services_amenities_repository.dart';
-import 'package:vendor_app/presentation/screens/automotive_warranty/controller/automotive_warranty_controller.dart';
+import 'package:vendor_app/presentation/screens/automotive_warranty/controller/a_service_controller.dart';
 
 class HandymanWarrantyController extends GetxController {
   ServicesAmenitiesRepository repo = ServicesAmenitiesRepositoryImpl();
@@ -31,7 +31,6 @@ class HandymanWarrantyController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    await cntrl.getAllServices();
     getServiceName();
   }
 
@@ -71,7 +70,7 @@ class HandymanWarrantyController extends GetxController {
       }
       ShowDialogBox.showDialogBoxs(true);
 
-      final res = await repo.postHIServicePricing(HomeImprovementServiceDto(
+      await repo.postHIServicePricing(HomeImprovementServiceDto(
         vendorId: LocalStorageService.instance.user?.vid,
         serviceName: selectedServiceName,
         serviceCharges: double.parse(chargeController.text),

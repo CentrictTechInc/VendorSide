@@ -118,7 +118,7 @@ class ScheduleMobileScreen extends StatelessWidget {
                                     margin: const EdgeInsets.only(
                                         bottom: 5, right: 5, top: 5),
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
+                                      borderRadius: BorderRadius.circular(35),
                                       color: controller.selectedDates
                                                   .contains(date) &&
                                               isCurrentMonth
@@ -189,19 +189,17 @@ class ScheduleMobileScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Expanded(
-                                  child: IconButton(
-                                    icon: const Icon(
-                                      Icons.keyboard_arrow_down,
-                                      size: 20,
-                                      color: AppColors.grey,
-                                    ),
-                                    onPressed: controller.canEdit
-                                        ? () {
-                                            controller.decrementStartTime();
-                                          }
-                                        : null,
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down,
+                                    size: 20,
+                                    color: AppColors.grey,
                                   ),
+                                  onPressed: controller.canEdit
+                                      ? () {
+                                          controller.decrementStartTime();
+                                        }
+                                      : null,
                                 ),
                                 const HorizontalSpacing(10),
                                 Expanded(child: Obx(() {
@@ -211,19 +209,17 @@ class ScheduleMobileScreen extends StatelessWidget {
                                   );
                                 })),
                                 const HorizontalSpacing(10),
-                                Expanded(
-                                  child: IconButton(
-                                    icon: const Icon(
-                                      Icons.keyboard_arrow_up,
-                                      size: 20,
-                                      color: AppColors.grey,
-                                    ),
-                                    onPressed: controller.canEdit
-                                        ? () {
-                                            controller.incrementStartTime();
-                                          }
-                                        : null,
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_up,
+                                    size: 20,
+                                    color: AppColors.grey,
                                   ),
+                                  onPressed: controller.canEdit
+                                      ? () {
+                                          controller.incrementStartTime();
+                                        }
+                                      : null,
                                 ),
                               ],
                             ),
@@ -294,19 +290,17 @@ class ScheduleMobileScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Expanded(
-                                  child: IconButton(
-                                    icon: const Icon(
-                                      Icons.keyboard_arrow_down,
-                                      size: 20,
-                                      color: AppColors.grey,
-                                    ),
-                                    onPressed: controller.canEdit
-                                        ? () {
-                                            controller.decrementEndTime();
-                                          }
-                                        : null,
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down,
+                                    size: 20,
+                                    color: AppColors.grey,
                                   ),
+                                  onPressed: controller.canEdit
+                                      ? () {
+                                          controller.decrementEndTime();
+                                        }
+                                      : null,
                                 ),
                                 const HorizontalSpacing(10),
                                 Expanded(child: Obx(() {
@@ -316,19 +310,17 @@ class ScheduleMobileScreen extends StatelessWidget {
                                   );
                                 })),
                                 const HorizontalSpacing(10),
-                                Expanded(
-                                  child: IconButton(
-                                    icon: const Icon(
-                                      Icons.keyboard_arrow_up,
-                                      size: 20,
-                                      color: AppColors.grey,
-                                    ),
-                                    onPressed: controller.canEdit
-                                        ? () {
-                                            controller.incrementEndTime();
-                                          }
-                                        : null,
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_up,
+                                    size: 20,
+                                    color: AppColors.grey,
                                   ),
+                                  onPressed: controller.canEdit
+                                      ? () {
+                                          controller.incrementEndTime();
+                                        }
+                                      : null,
                                 ),
                               ],
                             ),

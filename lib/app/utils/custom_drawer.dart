@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -11,8 +9,8 @@ import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:sizer/sizer.dart';
-import 'package:vendor_app/presentation/screens/bottom_nav/Main_screen.dart';
-import 'package:vendor_app/presentation/screens/bottom_nav/controller/botton_nav_controller.dart';
+import 'package:vendor_app/presentation/screens/dashboard/main_dashboard.dart';
+import 'package:vendor_app/presentation/screens/dashboard/controller/botton_nav_controller.dart';
 import 'drawer_item.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -54,24 +52,17 @@ class CustomDrawer extends StatelessWidget {
                             width: 0.25,
                           ),
                           borderRadius: BorderRadius.circular(70)),
-                      child: pic != null
-                          ? CircleAvatar(
-                              backgroundImage: pic == null
-                                  ? null
-                                  : FileImage(
-                                      File(pic!),
-                                    ),
-                            )
-                          : ClipRRect(
-                              borderRadius: BorderRadius.circular(70),
-                              child: const NetWorkImageWithInitials(
-                                imageUrl: Drawables.personUrl,
-                                name: "a",
-                                backgroundColor: AppColors.whiteGreyish,
-                                textColor: AppColors.black,
-                                fontSize: 36,
-                              ),
-                            ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(70),
+                        child: NetWorkImageWithInitials(
+                          imageData: LocalStorageService.instance.userPic,
+                          imageUrl: Drawables.personUrl,
+                          name: "a",
+                          backgroundColor: AppColors.whiteGreyish,
+                          textColor: AppColors.black,
+                          fontSize: 36,
+                        ),
+                      ),
                     ),
                     const VerticalSpacing(15),
                     CommonText(

@@ -11,6 +11,8 @@ import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 
 class RIPMobile extends StatelessWidget {
+  const RIPMobile({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(

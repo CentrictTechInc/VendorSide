@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
+import 'package:vendor_app/app/utils/empty_list.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:vendor_app/domain/entity/a_services_model.dart';
@@ -29,89 +30,96 @@ class MyAmServicesScreen extends StatelessWidget with FieldsValidation {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: cntrl.groupedServiceList.length,
-              itemBuilder: (context, i) {
-                return ExpansionTile(
-                  shape: Border.all(color: Colors.transparent, width: 0),
-                  collapsedShape:
-                      Border.all(color: Colors.transparent, width: 0),
-                  tilePadding: EdgeInsets.zero,
-                  childrenPadding: EdgeInsets.zero,
-                  title: CommonTextRow(
-                    text: cntrl.groupedServiceList[i].serviceName ?? '',
-                    icon:
-                        "${ServiceIcons.serviceIconUrl}service_${cntrl.groupedServiceList[i].serviceId}.png",
-                  ),
-                  children: [
-                    Column(
-                      children:
-                          cntrl.groupedServiceList[i].services!.map((subItem) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RadioTextWidget(
-                              isCheckBox: true,
-                              isChanged: cntrl.isEdit
-                                  ? (p0) {
-                                      subItem.isSelected = p0;
-                                      cntrl.update();
-                                    }
-                                  : (p0) {},
-                              checkBoxvalue: subItem.isSelected ?? false,
-                              selectedValue: subItem.subServiceId.toString(),
-                              text:
-                                  "${subItem.subServiceId.toString()}. ${subItem.subServiceName}",
-                            ),
-                            const VerticalSpacing(10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                PriceWidget(
-                                  isSelected: subItem.isSelected ?? false,
-                                  validator: subItem.isSelected!
-                                      ? emptyFieldValidation
-                                      : (p0) {
-                                          return null;
-                                        },
-                                  onChanged: (p0) {
-                                    if (p0.isEmpty) {
-                                      subItem.vendorPercentage = 0;
-                                      cntrl.update();
-                                      return;
-                                    }
-                                    subItem.vendorPercentage =
-                                        (double.parse(p0) * 0.85)
-                                            .toPrecision(2);
-                                    print(subItem.serviceCharges);
+            child: cntrl.groupedServiceList.isEmpty
+                ? const EmptyListWidget(
+                    title: "No Services Added Yet",
+                  )
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: cntrl.groupedServiceList.length,
+                    itemBuilder: (context, i) {
+                      return ExpansionTile(
+                        shape: Border.all(color: Colors.transparent, width: 0),
+                        collapsedShape:
+                            Border.all(color: Colors.transparent, width: 0),
+                        tilePadding: EdgeInsets.zero,
+                        childrenPadding: EdgeInsets.zero,
+                        title: CommonTextRow(
+                          text: cntrl.groupedServiceList[i].serviceName ?? '',
+                          icon:
+                              "${ServiceIcons.serviceIconUrl}service_${cntrl.groupedServiceList[i].serviceId}.png",
+                        ),
+                        children: [
+                          Column(
+                            children: cntrl.groupedServiceList[i].services!
+                                .map((subItem) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  RadioTextWidget(
+                                    isCheckBox: true,
+                                    isChanged: cntrl.isEdit
+                                        ? (p0) {
+                                            subItem.isSelected = p0;
+                                            cntrl.update();
+                                          }
+                                        : (p0) {},
+                                    checkBoxvalue: subItem.isSelected ?? false,
+                                    selectedValue:
+                                        subItem.subServiceId.toString(),
+                                    text:
+                                        "${subItem.subServiceId.toString()}. ${subItem.subServiceName}",
+                                  ),
+                                  const VerticalSpacing(10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      PriceWidget(
+                                        isSelected: subItem.isSelected ?? false,
+                                        validator: subItem.isSelected!
+                                            ? emptyFieldValidation
+                                            : (p0) {
+                                                return null;
+                                              },
+                                        onChanged: (p0) {
+                                          if (p0.isEmpty) {
+                                            subItem.vendorPercentage = 0;
+                                            cntrl.update();
+                                            return;
+                                          }
+                                          subItem.vendorPercentage =
+                                              (double.parse(p0) * 0.85)
+                                                  .toPrecision(2);
 
-                                    cntrl.update();
-                                  },
-                                  controller: subItem.serviceCharges,
-                                ),
-                                PriceWidget(
-                                  readOnly: true,
-                                  price: subItem.serviceCharges!.text.isEmpty
-                                      ? "0"
-                                      : (double.parse(subItem
-                                                  .serviceCharges!.text) *
-                                              0.85)
-                                          .toStringAsFixed(2),
-                                  text: "You'll be Paid",
-                                ),
-                              ],
-                            ),
-                            const VerticalSpacing(15),
-                          ],
-                        );
-                      }).toList(),
-                    ),
-                    const VerticalSpacing(15),
-                  ],
-                );
-              },
-            ),
+                                          cntrl.update();
+                                        },
+                                        controller: subItem.serviceCharges,
+                                      ),
+                                      PriceWidget(
+                                        readOnly: true,
+                                        price:
+                                            subItem.serviceCharges!.text.isEmpty
+                                                ? "0"
+                                                : (double.parse(subItem
+                                                            .serviceCharges!
+                                                            .text) *
+                                                        0.85)
+                                                    .toStringAsFixed(2),
+                                        text: "You'll be Paid",
+                                      ),
+                                    ],
+                                  ),
+                                  const VerticalSpacing(15),
+                                ],
+                              );
+                            }).toList(),
+                          ),
+                          const VerticalSpacing(15),
+                        ],
+                      );
+                    },
+                  ),
           ),
         ],
       ),

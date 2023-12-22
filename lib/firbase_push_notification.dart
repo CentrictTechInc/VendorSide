@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:go_router/go_router.dart';
-import 'package:vendor_app/app/app_router.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
-import 'package:vendor_app/common/resources/page_path.dart';
+import 'package:vendor_app/common/notification_bottom_sheet.dart';
 
 class FirebaseApi {
+  static NotificationBottomSheet notificationSheet = NotificationBottomSheet();
+
   FirebaseApi();
 
   var myDeviceToken = '';
@@ -14,16 +15,15 @@ class FirebaseApi {
     'high_importance_channel',
     'High Importance Notifications',
     description: 'This channel is used for important notifications',
-    importance: Importance.defaultImportance,
+    importance: Importance.max,
   );
 
   final _localNotifications = FlutterLocalNotificationsPlugin();
 
   static Future<void> handleBackgroundMessage(RemoteMessage message) async {
-    print('Title: ${message.notification?.title}');
-    print('body: ${message.notification?.body}');
-    print('Payload: ${message.data}');
-    // return
+    debugPrint('Title: ${message.notification?.title}');
+    debugPrint('body: ${message.notification?.body}');
+    debugPrint('Payload: ${message.data}');
   }
 
   Future initPushNotifications() async {
@@ -70,6 +70,7 @@ class FirebaseApi {
           payload: jsonEncode(
             message.toMap(),
           ));
+      // handleMessage(message);
     });
   }
 
@@ -88,7 +89,11 @@ class FirebaseApi {
     handleMessage(message);
   }
 
-  Future onSelectNotification(String payload) async {}
+  Future onSelectNotification(String payload) async {
+    // if (payload == null) return;
+    final message = RemoteMessage.fromMap(jsonDecode(payload));
+    handleMessage(message);
+  }
 
   Future initLocalNotifications() async {
     // Initialization settings for Android
@@ -127,6 +132,15 @@ class FirebaseApi {
 
     ///Initialize Android and iOS Local Notifications for showing notification in foreground.
     initLocalNotifications();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      // Handle the message data here
+      handleMessage(message);
+
+      if (message.notification != null) {
+        debugPrint(
+            'Message also contained a notification: ${message.notification}');
+      }
+    });
   }
 
   Future<void> requestPermission() async {
@@ -143,12 +157,12 @@ class FirebaseApi {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
+      debugPrint('User granted permission');
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      print('User granted provisional permission');
+      debugPrint('User granted provisional permission');
     } else {
-      print('User declined or has not accepted permission');
+      debugPrint('User declined or has not accepted permission');
     }
   }
 
@@ -166,18 +180,26 @@ class FirebaseApi {
 
     /// save to sharedPreferences
     LocalStorageService.instance.fcmToken = token;
-    print("storage: ${LocalStorageService.instance.fcmToken}");
+    debugPrint("storage: ${LocalStorageService.instance.fcmToken}");
 
     ///send to BackEnd API
-    ///Specific User
+    ///
   }
 
   void handleMessage(RemoteMessage? message) {
     if (message == null) return;
-    print(
+    debugPrint(
         'inside handleMessage with the message ${message.notification?.title}');
-    print(
+    debugPrint(
         'inside handleMessage with the message ${message.notification?.body}');
-    globalContext?.go(PagePath.slash, extra: message);
+    debugPrint(
+        'inside handleMessage with the message appointmentId ${message.data['appointmentId']}');
+    debugPrint('inside handleMessage with the message  ${message.data}');
+    // globalContext?.go(PagePath.slash, extra: message);
+    if (message.data['appointmentId'] != null) {
+      notificationSheet.showNotification(
+        message.data['appointmentId'],
+      );
+    }
   }
 }

@@ -14,6 +14,8 @@ class UserDto extends UserModel {
     super.emailVerified,
     super.vendoraddress,
     super.step,
+    super.vendorType,
+    super.profileImage,
     // super.longitude,
     // super.latitude,
   });
@@ -25,14 +27,16 @@ class UserDto extends UserModel {
   factory UserDto.fromJson(Map<String, dynamic> json) => UserDto(
         vid: json["vid"],
         vendoremail: json["vendoremail"],
-        firstName: json["firstName"],
-        lastName: json["lastName"],
+        firstName: json["firstName"] ?? "",
+        lastName: json["lastName"] ?? "",
         token: json["token"],
         jobTitle: json["jobTitle"],
         vendorMobileDetail: json["vendorMobileDetail"],
         emailVerified: json["emailVerified"],
         vendoraddress: json["vendoraddress"],
         step: json["vendorStatus"],
+        vendorType: json["vendorType"] ?? 1,
+        profileImage: json["profileImage"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {

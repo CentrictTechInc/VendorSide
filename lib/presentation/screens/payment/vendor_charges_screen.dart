@@ -14,7 +14,7 @@ class VendorChargesScreen extends StatelessWidget {
         context.pop();
         return true;
       },
-      child: Scaffold(
+      child: const Scaffold(
         backgroundColor: AppColors.secondary,
         body: SafeArea(
           child: Responsive(

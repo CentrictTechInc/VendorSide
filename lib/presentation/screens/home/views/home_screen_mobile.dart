@@ -1,24 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
-import 'package:vendor_app/app/utils/common_text_button.dart';
-import 'package:vendor_app/app/utils/common_text_field.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
-import 'package:vendor_app/data/dto/tasks_dto.dart';
+import 'package:vendor_app/domain/entity/tasks_model.dart';
 import 'package:vendor_app/presentation/screens/home/components/vendor_details_card.dart';
-import 'package:vendor_app/presentation/screens/tasks_pages/components/tasks_card.dart';
 
 // ignore: must_be_immutable
 class HomeScreenMobile extends StatelessWidget {
   HomeScreenMobile({
     super.key,
   });
-  List<TasksStatusResponseDto> appointmentList = [TasksStatusResponseDto()];
+  List<TasksStatusResponseModel> appointmentList = [
+    TasksStatusResponseModel(
+      username: 'Chris Johnson',
+      appointmentDate: '2023-01-11',
+      location: '509 Unit 10, New Haven, CT 06530',
+      serviceName: "Brakes",
+      status: "Request",
+      subServiceName: "Brake Pad Replacement",
+      vehicleMake: "Toyota",
+      vehicleModel: "Camry",
+      vehicleYear: "2010",
+      time: "10:00 PM",
+      description: "I need the Brake pad replacement and also fuild checking",
+      price: "100",
+      serviceId: 1,
+      subServiceId: 1,
+      vinNumber: "123456789",
+    )
+  ];
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -33,136 +48,28 @@ class HomeScreenMobile extends StatelessWidget {
                 size: 24,
               ),
               const SizedBox(width: 5),
-              CommonText(
-                text: "New York",
-                fontSize: 10.sp,
-                letterSpacing: 0.7,
-                color: AppColors.grey,
+              Expanded(
+                child: CommonText(
+                  text: LocalStorageService.instance.user?.vendoraddress ?? '',
+                  fontSize: 10.sp,
+                  letterSpacing: 0.5,
+                  color: AppColors.grey,
+                ),
               )
             ],
           ),
           const VerticalSpacing(15),
-          const CommonText(
-            text: "Hello, Demo Admin",
+          CommonText(
+            text:
+                "Hello, ${LocalStorageService.instance.user?.firstName ?? ''}",
             fontSize: 16,
             weight: FontWeight.w600,
           ),
           const VerticalSpacing(5),
-          InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                  isScrollControlled: true,
-                  isDismissible: false,
-                  backgroundColor: AppColors.grey,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)),
-                  ),
-                  context: context,
-                  builder: (context) {
-                    return Padding(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: SingleChildScrollView(
-                        child: Container(
-                          height: 500,
-                          decoration: BoxDecoration(
-                            color: AppColors.background,
-                            borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(20),
-                              topLeft: Radius.circular(20),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: AppColors.grey.withOpacity(0.2),
-                                  blurRadius: 5.0),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              const VerticalSpacing(20),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      icon: const Icon(
-                                        Icons.close,
-                                        color: AppColors.grey,
-                                      )),
-                                  CommonText(
-                                    text: "Appointment Details",
-                                    fontSize: 12.sp,
-                                    weight: FontWeight.w600,
-                                    color: AppColors.primaryText,
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        // Navigator.pop(context);
-                                      },
-                                      icon: const Icon(
-                                        Icons.more_vert,
-                                        color: AppColors.grey,
-                                      )),
-                                ],
-                              ),
-                              Container(
-                                height: 200,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 40),
-                                // color: AppColors.green,
-                                child: TasksCard(
-                                  type: "Completed:",
-                                  task: appointmentList[0],
-                                  icon: Icons.alarm,
-                                ),
-                              ),
-                              const VerticalSpacing(20),
-                              CommonText(
-                                text: "Your Offer",
-                                fontSize: 18,
-                                weight: FontWeight.bold,
-                              ),
-                              SizedBox(
-                                width: context.width - 70,
-                                child: CommonTextField(
-                                  hintText: "Enter Offer",
-                                  controller: TextEditingController(),
-                                ),
-                              ),
-                              const VerticalSpacing(20),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: CommonTextButton(
-                                        onPressed: () {},
-                                        color: AppColors.white,
-                                        text: "Accept"),
-                                  ),
-                                  Expanded(
-                                    child: CommonTextButton(
-                                        onPressed: () {},
-                                        color: AppColors.white,
-                                        text: "Decline"),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  });
-            },
-            child: const CommonText(
-              text: "Welcome back!",
-              fontSize: 12,
-              color: AppColors.grey,
-            ),
+          const CommonText(
+            text: "Welcome back!",
+            fontSize: 12,
+            color: AppColors.grey,
           ),
           const VerticalSpacing(15),
           Container(
@@ -233,14 +140,14 @@ class HomeScreenMobile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CommonText(
-                            text: "Muhammad Saqib",
+                            text: appointmentList[0].username ?? "",
                             fontSize: 11.sp,
                             color: AppColors.white,
                             weight: FontWeight.w600,
                           ),
                           const VerticalSpacing(15.0),
                           CommonText(
-                            text: "509 Unit 10, New Haven, CT 06530",
+                            text: appointmentList[0].location ?? "",
                             fontSize: 8.sp,
                             color: AppColors.white,
                             weight: FontWeight.w300,
@@ -260,7 +167,7 @@ class HomeScreenMobile extends StatelessWidget {
                                 border: Border.all(color: AppColors.white),
                               ),
                               child: CommonText(
-                                text: "10: 00 AM",
+                                text: "${appointmentList[0].time ?? ""} PM",
                                 fontSize: 10.sp,
                                 weight: FontWeight.w600,
                                 color: AppColors.white,
@@ -292,11 +199,11 @@ class HomeScreenMobile extends StatelessWidget {
                 ),
                 const VerticalSpacing(5.0),
                 CommonText(
-                  text: "Check engine light is on (general diagnosis)",
+                  text: appointmentList[0].subServiceName ?? "",
                   fontSize: 8.sp,
                   color: AppColors.white,
                   weight: FontWeight.w400,
-                )
+                ),
               ],
             ),
           ),
@@ -352,7 +259,6 @@ class HomeScreenMobile extends StatelessWidget {
       ),
     );
   }
-  // list<VendorDetailsCard> = [
 
   final List<VendorDetailsCard> cards = [
     VendorDetailsCard(

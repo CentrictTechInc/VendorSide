@@ -26,9 +26,11 @@ class LoginController extends GetxController {
   final passToggle = false.obs;
   final AuthRepository _repo = AuthRepositoryImpl();
   final TextEditingController emailController =
-      TextEditingController(text: "tedimib710@scubalm.com");
-  //second email
+      TextEditingController(text: "sedefi1737@hupoi.com");
+  //test email
   //wokepej604@dpsols.com
+  // sedefi1737@hupoi.com
+  // tedimib710@scubalm.com
 
   final TextEditingController passController =
       TextEditingController(text: "Test@123");
@@ -67,11 +69,13 @@ class LoginController extends GetxController {
         await NotificationService.intance.sendNotification(
           "Repair Guru - Login Alert",
           "Dear ${res.firstName ?? "Vendor"}, you have successfully logged into RG Vendor App at  $formattedDate",
+          LocalStorageService.instance.fcmToken ?? "",
         );
       } else {
         await NotificationService.intance.sendNotification(
           "Repair Guru - Login Alert",
           "Dear ${res.firstName ?? "Vendor"}, your registration is still pending. Please complete your registration.",
+          LocalStorageService.instance.fcmToken ?? "",
         );
       }
 

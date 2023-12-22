@@ -19,8 +19,8 @@ class ManageAmServicesScreen extends StatelessWidget {
                   scaffoldKey.currentState!.openDrawer();
                 },
               ),
-              tablet: ManageAmServicesMobileScreen(),
-              desktop: ManageAmServicesMobileScreen())),
+              tablet: const ManageAmServicesMobileScreen(),
+              desktop: const ManageAmServicesMobileScreen())),
     );
   }
 }

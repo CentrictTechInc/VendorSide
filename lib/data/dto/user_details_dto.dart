@@ -37,14 +37,14 @@ class ProfileDetailsDto extends ProfileDetailsModel {
         vendorRegion: json["vendorRegion"],
         vendorPostalcode: json["vendorPostalcode"],
         vendorMobileDetail: json["vendorMobileDetail"],
-        firstName: json["firstName"],
-        lastName: json["lastName"],
-        jobTitle: json["jobTitle"],
-        vendoremail: json["vendoremail"],
+        firstName: json["firstName"] ?? "",
+        lastName: json["lastName"] ?? "",
+        jobTitle: json["jobTitle"] ?? "",
+        vendoremail: json["vendoremail"] ?? "",
         isActive: json["isActive"],
         serviceTypeId: json["serviceTypeId"],
         excludedDates: json["excludedDates"],
-        pictureData: json["pictureData"],
+        pictureData: json["pictureData"] ?? "",
       );
 
   Map<String, String> toJson() => {

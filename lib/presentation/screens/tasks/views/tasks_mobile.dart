@@ -11,7 +11,7 @@ import 'package:vendor_app/presentation/screens/tasks_pages/past_task_screen.dar
 import 'package:vendor_app/presentation/screens/tasks_pages/request_task_screen.dart';
 
 class TasksMobileScreen extends StatelessWidget {
-  TasksMobileScreen({super.key, this.onPressed});
+  const TasksMobileScreen({super.key, this.onPressed});
   final VoidCallback? onPressed;
 
   @override

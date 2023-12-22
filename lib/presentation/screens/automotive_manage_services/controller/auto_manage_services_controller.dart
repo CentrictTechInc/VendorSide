@@ -45,6 +45,7 @@ class ManageAmServicesController extends GetxController {
       for (var subService in service.listSubServiceName) {
         subService?.isSelected = false;
       }
+      print(service.listSubServiceName);
       return service;
     }).toList();
   }
@@ -53,6 +54,16 @@ class ManageAmServicesController extends GetxController {
   Future<void> onReady() async {
     super.onReady();
     await getVendorAmServices();
+  }
+
+  @override
+  onClose() {
+    super.onClose();
+    amList.clear();
+    amvsList.clear();
+    servicePriceList.clear();
+    updateServicePriceList.clear();
+    groupedServiceList.clear();
   }
 
   List<GroupedService> convertToGroupedServices(
@@ -121,14 +132,12 @@ class ManageAmServicesController extends GetxController {
                 ),
               );
             }
-            ;
           } else {
             servicePriceList.removeWhere(
                 (element) => element.subServiceId == subItem?.subServiceId);
           }
         }).toList();
       }
-      print("Length: ${servicePriceList.length}");
       if (servicePriceList.isEmpty) {
         ToastMessage.message("Please Select At Least One Service",
             type: ToastType.info);
@@ -136,7 +145,6 @@ class ManageAmServicesController extends GetxController {
       } else {
         for (var element in servicePriceList) {
           if (element.serviceCharges == 0) {
-            print(element.toJson());
             ToastMessage.message("Please Enter Service Charges Of Services",
                 type: ToastType.warn);
             return;
@@ -144,7 +152,9 @@ class ManageAmServicesController extends GetxController {
         }
       }
       await postServicePackagePricing();
-    } catch (e) {}
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future addUpdateAmvsService() async {
@@ -175,7 +185,6 @@ class ManageAmServicesController extends GetxController {
         }
       }
     }
-    print(updateServicePriceList.length);
     if (updateServicePriceList.isEmpty) {
       ToastMessage.message("Please Select At Least One Service",
           type: ToastType.info);
@@ -183,7 +192,6 @@ class ManageAmServicesController extends GetxController {
     } else {
       for (var element in updateServicePriceList) {
         if (element.serviceCharges == 0) {
-          print(element.toJson());
           ToastMessage.message("Please Enter Service Charges Of Services",
               type: ToastType.warn);
           return;

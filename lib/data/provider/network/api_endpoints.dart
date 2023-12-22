@@ -1,6 +1,6 @@
 class APIEndpoint {
   static String get baseUrl =>
-      'ec2-3-109-59-224.ap-south-1.compute.amazonaws.com';
+      'ec2-43-204-97-62.ap-south-1.compute.amazonaws.com';
   // ---------------- Authorization --------------------
   static String get loginUrl => '/api/Vendor/VendorLogin';
   static String get registerUrl => '/api/Vendor/vendor/Registration';
@@ -58,4 +58,7 @@ class APIEndpoint {
   //--------------- Tasks -----------------------\
   static String get getTasksUrl =>
       '/api/Appointment/api/Appointment/GetAppointmentBookingByVendorService';
+  static String get getAutomotiveAppointmentbyIdUrl =>
+      '/api/Appointment/Automotive/GetAppointmentById';
+  static String get postBiddingUrl => '/api/Appointment/Bidding';
 }

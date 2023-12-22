@@ -36,11 +36,11 @@ class CurrentTasks extends StatelessWidget {
                 return Column(
                   children: [
                     const VerticalSpacing(15),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         ImageIcon(AssetImage(RGIcons.tasksNextIcon)),
-                        const HorizontalSpacing(20),
+                        HorizontalSpacing(20),
                         CommonText(
                           text: "Scheduled Tasks",
                           fontSize: 16,

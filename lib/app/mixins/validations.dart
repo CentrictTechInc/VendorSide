@@ -20,7 +20,7 @@ mixin FieldsValidation {
         int.parse(startDateString.split('-')[1]),
         int.parse(startDateString.split('-')[0]));
     if (endDate.isAfter(startDate)) {
-      String formattedDate = DateFormat('dd-MM-yyyy').format(endDate);
+      String formattedDate = DateFormat('yyyy-MM-dd').format(endDate);
       return formattedDate;
     } else {
       return "To date should be greater than or equal to from date.";
@@ -33,7 +33,7 @@ mixin FieldsValidation {
         int.parse(startDateString.split('-')[1]),
         int.parse(startDateString.split('-')[0]));
     if (endDate.isAfter(startDate)) {
-      String formattedDate = DateFormat('dd-MM-yyyy').format(endDate);
+      String formattedDate = DateFormat('yyyy-MM-dd').format(endDate);
       return formattedDate;
     } else {
       return "End date should be greater than start date";

@@ -5,7 +5,6 @@ import 'package:vendor_app/app/utils/network_image_with_initials.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
-import 'package:vendor_app/data/dto/tasks_dto.dart';
 import 'package:vendor_app/domain/entity/tasks_model.dart';
 import 'package:vendor_app/presentation/screens/tasks_pages/task_details_screen.dart';
 
@@ -17,29 +16,57 @@ class TasksCard extends StatelessWidget {
     required this.task,
     required this.icon,
     this.isPending = false,
+    this.isgrey = false,
+    this.hasDetails = true,
   });
+
+  dayOfWeek(DateTime date) {
+    switch (date.weekday) {
+      case 1:
+        return "Mon";
+      case 2:
+        return "Tue";
+      case 3:
+        return "Wed";
+      case 4:
+        return "Thur";
+      case 5:
+        return "Fri";
+      case 6:
+        return "Sat";
+      case 7:
+        return "Sun";
+      default:
+        return "";
+    }
+  }
+
   final String type;
   final IconData icon;
   bool isPending;
   TasksStatusResponseModel task;
+  bool isgrey;
+  bool hasDetails;
 
   @override
   Widget build(BuildContext context) {
+    DateTime date = DateTime.parse(task.appointmentDate ?? '2022-01-01');
     return InkWell(
-      onTap: () {
-        // Get.toNamed(Routes.taskDetailsScreen, arguments: task);
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => TaskDetailScreen(
-                      tasks: task,
-                    )));
-      },
+      onTap: hasDetails
+          ? () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TaskDetailScreen(
+                            tasks: task,
+                          )));
+            }
+          : () {},
       splashColor: Colors.transparent,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: isgrey ? AppColors.whiteGreyish : AppColors.white,
           boxShadow: [
             BoxShadow(color: AppColors.grey.withOpacity(0.2), blurRadius: 2.0),
           ],
@@ -72,8 +99,8 @@ class TasksCard extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        width: 70,
-                        height: 70,
+                        width: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                             border: Border.all(
                               color: AppColors.grey.withOpacity(0.5),
@@ -85,21 +112,25 @@ class TasksCard extends StatelessWidget {
                           child: NetWorkImageWithInitials(
                             imageUrl: Drawables.personUrl,
                             name: task.username?[0].toString(),
-                            backgroundColor: AppColors.whiteGreyish,
+                            backgroundColor: isgrey
+                                ? AppColors.white
+                                : AppColors.whiteGreyish,
                             textColor: AppColors.black,
                             fontSize: 36,
                           ),
                         ),
                       ),
                       const HorizontalSpacing(10),
-                      CommonText(
-                        text: task.username ?? '',
-                        fontSize: 12.sp,
-                        weight: FontWeight.bold,
+                      Expanded(
+                        child: CommonText(
+                          text: task.username ?? '',
+                          fontSize: 12.sp,
+                          weight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
-                  const VerticalSpacing(10),
+                  const VerticalSpacing(15),
                   Row(
                     children: [
                       const ImageIcon(
@@ -110,7 +141,7 @@ class TasksCard extends StatelessWidget {
                       Expanded(
                         child: CommonText(
                           text: task.serviceName ?? '',
-                          fontSize: 12,
+                          fontSize: 11.sp,
                           weight: FontWeight.w500,
                         ),
                       ),
@@ -118,7 +149,7 @@ class TasksCard extends StatelessWidget {
                   ),
                   CommonText(
                     text: task.subServiceName ?? '',
-                    fontSize: 16,
+                    fontSize: 15,
                     weight: FontWeight.w600,
                   ),
                   const VerticalSpacing(15),
@@ -130,11 +161,13 @@ class TasksCard extends StatelessWidget {
                         size: 24,
                       ),
                       const SizedBox(width: 5),
-                      CommonText(
-                        text: task.location ?? '',
-                        fontSize: 10.sp,
-                        letterSpacing: 0.7,
-                        color: AppColors.grey,
+                      Expanded(
+                        child: CommonText(
+                          text: task.location ?? '',
+                          fontSize: 10.sp,
+                          letterSpacing: 0.7,
+                          color: AppColors.grey,
+                        ),
                       )
                     ],
                   ),
@@ -143,7 +176,7 @@ class TasksCard extends StatelessWidget {
             ),
             Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                // mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
@@ -152,17 +185,17 @@ class TasksCard extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
                         color: AppColors.primary),
-                    child: const Column(
+                    child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           CommonText(
-                            text: "Wed",
+                            text: " ${dayOfWeek(date)}",
                             fontSize: 12,
                             color: AppColors.white,
                             weight: FontWeight.w500,
                           ),
                           CommonText(
-                            text: "20",
+                            text: date.day.toString().padLeft(2, '0'),
                             fontSize: 18,
                             color: AppColors.white,
                             weight: FontWeight.w600,
@@ -171,7 +204,8 @@ class TasksCard extends StatelessWidget {
                   ),
                   const VerticalSpacing(10),
                   CommonText(
-                    text: " 6:00 \n   PM",
+                    text:
+                        "${task.time?.split(" ")[0] ?? ""}\n    ${task.time?.split(" ")[1] ?? ""}",
                     fontSize: 16,
                     weight: FontWeight.w600,
                   ),

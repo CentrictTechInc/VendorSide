@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 class ServicePricingDto {
   List<ServicePrice>? servicePrices;
 
@@ -78,6 +80,6 @@ class ServicePrice {
         "serviceName": serviceName,
         "registerDate": registerDate,
         "serviceCharges": serviceCharges,
-        "modificationDate": DateTime.now().toIso8601String(),
+        "modificationDate": DateFormat('yyyy-MM-dd').format(DateTime.now()),
       };
 }
