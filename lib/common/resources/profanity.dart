@@ -16,7 +16,6 @@ class CustomProfanityFilter {
       ...defaultWordsToFilterOutList,
       ...words,
     ];
-    // return allWordsToFilter;
   }
 
   String censor(String stringToCensor) {

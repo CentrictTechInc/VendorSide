@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/common/resources/colors.dart';
@@ -29,14 +30,12 @@ class InboxMobileScreen extends StatelessWidget {
         children: [
           const VerticalSpacing(10),
           Expanded(
-            child: SingleChildScrollView(
-              child: Container(
-                constraints: BoxConstraints(maxHeight: context.height),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(7),
-                    color: AppColors.greyish),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7),
+                  color: AppColors.greyish),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              child: SingleChildScrollView(
                 child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('users')
@@ -75,6 +74,7 @@ class InboxMobileScreen extends StatelessWidget {
               ),
             ),
           ),
+          VerticalSpacing(10.h),
         ],
       ),
     );

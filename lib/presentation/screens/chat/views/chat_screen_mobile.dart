@@ -23,14 +23,14 @@ class ChatMobileScreen extends StatefulWidget {
 
 class _ChatMobileScreenState extends State<ChatMobileScreen> {
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController messageController = TextEditingController();
 
+  String textMsg = '';
   final filter = CustomProfanityFilter();
   @override
   Widget build(BuildContext context) {
     UserMessageModel data = UserMessageModel.fromMap(
         widget.document?.data() as Map<String, dynamic>);
-    final TextEditingController messageController = TextEditingController();
-    String textMsg;
 
     Future sendMessage() async {
       if (messageController.text.trim() != '') {
