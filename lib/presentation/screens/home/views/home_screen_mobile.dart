@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
-import 'package:vendor_app/app/utils/common_text_button.dart';
-import 'package:vendor_app/app/utils/common_text_field.dart';
 import 'package:vendor_app/common/resources/colors.dart';
 import 'package:vendor_app/common/resources/drawables.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/domain/entity/tasks_model.dart';
 import 'package:vendor_app/presentation/screens/home/components/vendor_details_card.dart';
-import 'package:vendor_app/presentation/screens/tasks_pages/components/tasks_card.dart';
 
 // ignore: must_be_immutable
 class HomeScreenMobile extends StatelessWidget {
@@ -70,109 +66,10 @@ class HomeScreenMobile extends StatelessWidget {
             weight: FontWeight.w600,
           ),
           const VerticalSpacing(5),
-          InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                  isScrollControlled: true,
-                  isDismissible: false,
-                  backgroundColor: AppColors.grey,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)),
-                  ),
-                  context: context,
-                  builder: (context) {
-                    return Padding(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: SingleChildScrollView(
-                        child: Container(
-                          height: 500,
-                          decoration: BoxDecoration(
-                            color: AppColors.background,
-                            borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(20),
-                              topLeft: Radius.circular(20),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: AppColors.grey.withOpacity(0.2),
-                                  blurRadius: 5.0),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              const VerticalSpacing(20),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      icon: const Icon(
-                                        Icons.close,
-                                        color: AppColors.grey,
-                                      )),
-                                  CommonText(
-                                    text: "Appointment Details",
-                                    fontSize: 12.sp,
-                                    weight: FontWeight.w600,
-                                    color: AppColors.primaryText,
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        // Navigator.pop(context);
-                                      },
-                                      icon: const Icon(
-                                        Icons.more_vert,
-                                        color: AppColors.grey,
-                                      )),
-                                ],
-                              ),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 15),
-                                child: TasksCard(
-                                  isgrey: true,
-                                  type: "Completed:",
-                                  task: appointmentList[0],
-                                  icon: Icons.alarm,
-                                ),
-                              ),
-                              const VerticalSpacing(20),
-                              const CommonText(
-                                text: "Your Offer",
-                                fontSize: 20,
-                              ),
-                              SizedBox(
-                                width: context.width - 70,
-                                child: CommonTextField(
-                                  hintText: "Estimated Cost: \$50.00",
-                                  controller: TextEditingController(),
-                                ),
-                              ),
-                              const VerticalSpacing(20),
-                              CommonTextButton(
-                                  onPressed: () {},
-                                  color: AppColors.white,
-                                  width: 60,
-                                  text: "Place Offer"),
-                              const VerticalSpacing(20),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  });
-            },
-            child: const CommonText(
-              text: "Welcome back!",
-              fontSize: 12,
-              color: AppColors.grey,
-            ),
+          const CommonText(
+            text: "Welcome back!",
+            fontSize: 12,
+            color: AppColors.grey,
           ),
           const VerticalSpacing(15),
           Container(
@@ -307,13 +204,6 @@ class HomeScreenMobile extends StatelessWidget {
                   color: AppColors.white,
                   weight: FontWeight.w400,
                 ),
-                // const VerticalSpacing(5.0),
-                // CommonText(
-                //   text: appointmentList[0].subServiceName ?? "",
-                //   fontSize: 8.sp,
-                //   color: AppColors.white,
-                //   weight: FontWeight.w400,
-                // )
               ],
             ),
           ),
@@ -369,7 +259,6 @@ class HomeScreenMobile extends StatelessWidget {
       ),
     );
   }
-  // list<VendorDetailsCard> = [
 
   final List<VendorDetailsCard> cards = [
     VendorDetailsCard(

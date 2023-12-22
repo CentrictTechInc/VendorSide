@@ -198,7 +198,6 @@ class TaskDetailScreen extends StatelessWidget {
                                 ),
                                 const Spacer(),
                                 CommonText(
-                                  // text: "\$${tasks.price}",
                                   text:
                                       "\$${(double.parse(tasks.price ?? '12.') * .85).toStringAsFixed(2)}",
                                   fontSize: 16,

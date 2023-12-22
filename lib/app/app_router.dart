@@ -49,10 +49,7 @@ class AppRouter {
             parentNavigatorKey: _rootNavigatorKey,
             builder: (context, state) {
               Get.lazyPut<BottomNavController>(() => BottomNavController());
-              // RemoteMessage message = state.extra as RemoteMessage;
-              return MainBottomNavScreen(
-                  // message: message,
-                  );
+              return MainBottomNavScreen();
             },
             routes: [
               GoRoute(

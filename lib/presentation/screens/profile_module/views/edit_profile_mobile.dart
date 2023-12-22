@@ -48,15 +48,12 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
       child: SingleChildScrollView(
         child: Form(
           key: editForm,
-          child: GetBuilder<ProfileController>(
-              // init: ProfileController(),
-              builder: (c) {
+          child: GetBuilder<ProfileController>(builder: (c) {
             nameController.text = "${c.user?.firstName} ${c.user?.lastName}";
             emailController.text = "${c.user?.vendoremail}";
             phoneController.text = "${c.user?.vendorMobileDetail}";
             addressController.text = "${c.user?.vendoraddress}";
             shopNameController.text = "${c.user?.vendorCompanyName}";
-            // c.file = c.file!.writeAsBytes(base64Decode(c.user!.pictureData));
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
