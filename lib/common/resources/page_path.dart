@@ -43,3 +43,7 @@ class PagePath {
 extension ContextExtensionss on String {
   String get toRoute => '/$this';
 }
+
+extension toHome on String {
+  String get tohome => '/homeScreen$this';
+}

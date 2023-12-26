@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:vendor_app/app/services/mixpanel_service.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/common/resources/colors.dart';
@@ -29,6 +30,9 @@ class HomeBottomNavBar extends StatelessWidget {
       rightCornerRadius: 12,
       onTap: (index) {
         controller.changeTabIndex(index);
+        MixpanelManager.instance
+            .track('going to ${controller.titleList[index]}');
+        print('going to ${controller.titleList[index]}');
       },
       itemCount: controller.iconList.length,
       tabBuilder: (int index, bool isActive) {

@@ -17,7 +17,7 @@ extension StringFormatting on String {
 }
 
 extension DateTimeFormatting on DateTime {
-  String toNewFormat() {
+  String toDateFormat() {
     final newFormat = DateFormat('yyyy-MM-dd');
     return newFormat.format(this);
   }

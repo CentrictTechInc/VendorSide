@@ -24,12 +24,6 @@ class ProfileController extends GetxController {
     super.onReady();
   }
 
-  // @override
-  // void onInit() async {
-  //   await getUserDetails();
-  //   super.onInit();
-  // }
-
   Future getUserDetails() async {
     try {
       ShowDialogBox.showDialogBoxs(true);
@@ -47,6 +41,7 @@ class ProfileController extends GetxController {
         firstName: user.firstName,
         lastName: user.lastName,
       );
+      LocalStorageService.instance.userPic = user.pictureData ?? '';
 
       update();
     } catch (e) {

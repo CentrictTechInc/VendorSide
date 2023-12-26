@@ -185,7 +185,7 @@ class TaskScheduleController extends GetxController {
       ShowDialogBox.showDialogBoxs(true);
 
       List<String> selectedDatesStrings =
-          selectedDates.map((date) => date.toNewFormat()).toList();
+          selectedDates.map((date) => date.toDateFormat()).toList();
       setTimeStandart(timeStandard);
       String startTimeFormat =
           "${getStartTime.value} ${setTimeAmPm(timeStartFormat.value)}";

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vendor_app/app/utils/custom_drawer.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
 import 'package:vendor_app/common/resources/colors.dart';
+import 'package:vendor_app/presentation/screens/dashboard/main_dashboard.dart';
 import 'package:vendor_app/presentation/screens/schedule/views/schedule_mobile_screen.dart';
 
 class ScheduleScreen extends StatelessWidget {

@@ -82,7 +82,17 @@ class CustomDrawer extends StatelessWidget {
                         icon: const Icon(Icons.close_rounded),
                         color: AppColors.white,
                         onPressed: () {
-                          context.pop();
+                          if (GoRouterState.of(context).uri.toString() !=
+                              PagePath.homeScreen) {
+                            if (globalScaffoldKey.currentState!.isDrawerOpen) {
+                              globalScaffoldKey.currentState!.closeDrawer();
+                            }
+                          } else {
+                            context.pop();
+                          }
+                          // if (context.canPop()) {
+                          //   context.pop();
+                          // }
                         },
                       )),
                 ),
@@ -105,9 +115,16 @@ class CustomDrawer extends StatelessWidget {
                 final controller = Get.find<BottomNavController>();
                 if (GoRouterState.of(context).uri.toString() !=
                     drawer[index].location) {
-                  context.pop();
+                  // if (context.canPop()) {
+                  //   context.pop();
+                  // }
                   if (context.mounted) {
+                    // if (GoRouterState.of(context).uri.toString() ==
+                    //     PagePath.slash) {
+                    //   context.push(drawer[index].location);
+                    // } else {
                     context.go(drawer[index].location);
+                    // }
                   }
                   await Future.delayed(const Duration(milliseconds: 250));
                   controller.changeTabIndex(0);
@@ -149,32 +166,32 @@ class CustomDrawer extends StatelessWidget {
 
   final List<DrawerItem> drawer = [
     DrawerItem(
-      location: PagePath.slash,
+      location: PagePath.homeScreen,
       text: "Home",
       icon: RGIcons.home,
     ),
     DrawerItem(
-      location: PagePath.profile.toRoute,
+      location: PagePath.profile.toRoute.tohome,
       text: "My Profile",
       icon: RGIcons.profile,
     ),
     DrawerItem(
-      location: PagePath.review.toRoute,
+      location: PagePath.review.toRoute.tohome,
       text: "Customer Reviews",
       icon: RGIcons.review,
     ),
     DrawerItem(
-      location: PagePath.tasks.toRoute,
+      location: PagePath.tasks.toRoute.tohome,
       text: "My Tasks",
       icon: RGIcons.tasks,
     ),
     DrawerItem(
-      location: PagePath.contact.toRoute,
+      location: PagePath.contact.toRoute.tohome,
       text: "Contact Us",
       icon: RGIcons.callIcon,
     ),
     DrawerItem(
-      location: PagePath.schedule.toRoute,
+      location: PagePath.schedule.toRoute.tohome,
       text: "Schedule",
       icon: RGIcons.calendarMonth,
     ),

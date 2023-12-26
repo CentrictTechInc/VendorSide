@@ -82,6 +82,7 @@ class TasksAPI extends APIRequestRepresentable {
       case TasksAPIType.getAutoAppointmentbyId:
         return {
           'appointmentId': appointmentId ?? '',
+          'VendorId': LocalStorageService.instance.user?.vid.toString() ?? '',
         };
       case TasksAPIType.postBidding:
         return {};

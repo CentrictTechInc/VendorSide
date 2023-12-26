@@ -5,22 +5,22 @@ import 'package:get/get.dart';
 import 'package:vendor_app/app/app.dart';
 import 'package:vendor_app/app/services/get_all_services.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
+import 'package:vendor_app/app/services/mixpanel_service.dart';
 import 'package:vendor_app/firbase_push_notification.dart';
 import 'package:vendor_app/firebase_options.dart';
 
 Future<void> main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
-
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
-
     HttpOverrides.global = MyHttpOverrides();
     LocalStorageService.instance.init();
     Get.put(GetAllServices());
-    await FirebaseApi().initNotifications();
+    await MixpanelManager.initMixpanel();
 
     runApp(const RepairGuruVendor());
+    await FirebaseApi().initNotifications();
   } catch (e) {
     debugPrint(e.toString());
   }

@@ -19,7 +19,7 @@ class LoginController extends GetxController {
   void onReady() {
     super.onReady();
     if (LocalStorageService.instance.user != null) {
-      globalContext?.go(PagePath.slash);
+      globalContext?.go(PagePath.homeScreen);
     }
   }
 
@@ -38,7 +38,7 @@ class LoginController extends GetxController {
   redirectStepper(int step) {
     switch (step) {
       case 0:
-        globalContext?.go(PagePath.slash);
+        globalContext?.go(PagePath.homeScreen);
       case 1:
         globalContext?.go(PagePath.category);
         break;
@@ -63,6 +63,7 @@ class LoginController extends GetxController {
       UserModel res =
           await _repo.login(emailController.text, passController.text);
       LocalStorageService.instance.user = res;
+      LocalStorageService.instance.userPic = res.profileImage ?? "";
       await FirebaseMessagingService.instance.addUserToFirebase();
 
       if (res.step == 0) {

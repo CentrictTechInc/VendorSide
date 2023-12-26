@@ -36,7 +36,7 @@ class UserDto extends UserModel {
         vendoraddress: json["vendoraddress"],
         step: json["vendorStatus"],
         vendorType: json["vendorType"] ?? 1,
-        profileImage: json["profileImage"] ?? "",
+        profileImage: json["pictureData"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
