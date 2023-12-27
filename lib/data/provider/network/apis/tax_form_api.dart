@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:vendor_app/data/dto/pli_form_dto.dart';
 import 'package:vendor_app/data/dto/tax_form_dto.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
@@ -42,7 +41,6 @@ class TaxFromAPI implements APIRequestRepresentable {
   get body {
     switch (type) {
       case TaxFromApiType.vendorTaxForm:
-        // return {'FileName': 'q', 'VendorId': '2', 'TaxForm': 'cbimage'};
         return {
           "data": taxFromData!.toJson(),
           "TaxForm": taxFormImage,
@@ -68,7 +66,6 @@ class TaxFromAPI implements APIRequestRepresentable {
       case TaxFromApiType.vendorTaxForm:
       case TaxFromApiType.vendorPLIForm:
         return {'Content-Type': 'multipart/form-data'};
-      // return {'Content-Type': 'application/json; charset=utf-8'};
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
@@ -89,7 +90,7 @@ class HomeScreenMobile extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  context.push(PagePath.tasks.toRoute);
+                  context.push(PagePath.tasks.tohome);
                 },
                 splashColor: Colors.transparent,
                 child: Material(

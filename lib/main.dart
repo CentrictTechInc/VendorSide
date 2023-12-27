@@ -12,14 +12,17 @@ import 'package:vendor_app/firebase_options.dart';
 Future<void> main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
+
     HttpOverrides.global = MyHttpOverrides();
     LocalStorageService.instance.init();
     Get.put(GetAllServices());
+    // await Future.delayed(const Duration(seconds: 10));
+    // await Firebase.initializeApp(
+    //     options: DefaultFirebaseOptions.currentPlatform);
     await MixpanelManager.initMixpanel();
 
     runApp(const RepairGuruVendor());
+
     await FirebaseApi().initNotifications();
   } catch (e) {
     debugPrint(e.toString());

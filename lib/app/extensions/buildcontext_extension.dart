@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-extension ContextExtension on BuildContext {
+extension ContextExtensionOn on BuildContext {
   Size get mediaQuery => MediaQuery.of(this).size;
   double get height => mediaQuery.height;
   double get width => mediaQuery.width;

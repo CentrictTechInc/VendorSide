@@ -16,6 +16,8 @@ import 'package:vendor_app/presentation/screens/dashboard/main_dashboard.dart';
 import 'package:vendor_app/presentation/screens/dashboard/controller/botton_nav_controller.dart';
 import 'package:vendor_app/presentation/screens/contact_us/contact_us_screen.dart';
 import 'package:vendor_app/presentation/screens/contact_us/controller/contact_us_controller.dart';
+import 'package:vendor_app/presentation/screens/manage_accounts/controller/manage_accounts_controller.dart';
+import 'package:vendor_app/presentation/screens/manage_accounts/manage_accounts_screen.dart';
 import 'package:vendor_app/presentation/screens/manage_services/controller/manage_services_controller.dart';
 import 'package:vendor_app/presentation/screens/manage_services/manage_services_screen.dart';
 import 'package:vendor_app/presentation/screens/password_screens/controllers/pass_controller.dart';
@@ -69,6 +71,13 @@ class AppRouter {
                         return ContactUsScreen();
                       }),
                   GoRoute(
+                      path: PagePath.manageAccount,
+                      builder: (context, state) {
+                        Get.lazyPut<ManageAccountsController>(
+                            () => ManageAccountsController());
+                        return ManageAccountsScreen();
+                      }),
+                  GoRoute(
                       path: PagePath.review,
                       builder: (context, state) {
                         return ReviewScreen();
@@ -95,7 +104,7 @@ class AppRouter {
                   GoRoute(
                     path: PagePath.tasks,
                     builder: (context, state) {
-                      Get.lazyPut<TasksController>(() => TasksController());
+                      Get.put<TasksController>(TasksController());
                       return TasksScreen();
                     },
                   ),

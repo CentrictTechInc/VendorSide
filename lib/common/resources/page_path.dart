@@ -8,6 +8,7 @@ class PagePath {
 
   static const String schedule = 'schedule';
   static const String contact = 'contactUs';
+  static const String manageAccount = 'manageAccounts';
 
   static const String inbox = '/messages';
   static const String notification = '/notification';
@@ -40,10 +41,10 @@ class PagePath {
   static const String reviewInProcess = '/reviewInProcess';
 }
 
-extension ContextExtensionss on String {
+extension StringRouteExtension on String {
   String get toRoute => '/$this';
 }
 
-extension toHome on String {
-  String get tohome => '/homeScreen$this';
+extension RouteExtension on String {
+  String get tohome => '/homeScreen/$this';
 }

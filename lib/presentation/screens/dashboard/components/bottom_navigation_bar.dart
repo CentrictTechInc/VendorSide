@@ -32,7 +32,6 @@ class HomeBottomNavBar extends StatelessWidget {
         controller.changeTabIndex(index);
         MixpanelManager.instance
             .track('going to ${controller.titleList[index]}');
-        print('going to ${controller.titleList[index]}');
       },
       itemCount: controller.iconList.length,
       tabBuilder: (int index, bool isActive) {

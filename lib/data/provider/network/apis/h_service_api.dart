@@ -1,3 +1,4 @@
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/data/dto/h_service_warranty_dto.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
 import 'package:vendor_app/data/provider/network/api_provider.dart';
@@ -26,7 +27,10 @@ class HIServiceAPI extends APIRequestRepresentable {
 
   @override
   Map<String, String>? get headers {
-    return {'Content-Type': 'application/json'};
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${LocalStorageService.instance.user?.token}'
+    };
   }
 
   @override

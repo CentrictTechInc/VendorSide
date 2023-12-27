@@ -1,3 +1,4 @@
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
 import 'package:vendor_app/data/provider/network/api_provider.dart';
 import 'package:vendor_app/data/provider/network/api_request_representable.dart';
@@ -18,7 +19,10 @@ class ServiceAPI extends APIRequestRepresentable {
 
   @override
   Map<String, String>? get headers {
-    return {'Content-Type': 'application/json; charset=utf-8'};
+    return {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Authorization': 'Bearer ${LocalStorageService.instance.user?.token}'
+    };
   }
 
   @override

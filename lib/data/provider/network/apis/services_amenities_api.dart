@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/data/dto/h_service_warranty_dto.dart';
 import 'package:vendor_app/data/dto/service_pricing_dto.dart';
 import 'package:vendor_app/data/dto/training_amenities_dto.dart';
@@ -93,8 +94,10 @@ class ServiceAmenitiesAPI implements APIRequestRepresentable {
       case ServiceAmenitiesAPIType.servicePackagePricing:
       case ServiceAmenitiesAPIType.postHIServicePricing:
       case ServiceAmenitiesAPIType.putHIServicePricing:
-        return {"Content-Type": "application/json"};
-      // return {};
+        return {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ${LocalStorageService.instance.user?.token}'
+        };
     }
   }
 

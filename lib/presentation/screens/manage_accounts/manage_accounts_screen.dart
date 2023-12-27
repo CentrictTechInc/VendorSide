@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:vendor_app/app/utils/custom_drawer.dart';
 import 'package:vendor_app/app/utils/responsive_builder.dart';
 import 'package:vendor_app/common/resources/colors.dart';
-import 'package:vendor_app/presentation/screens/schedule/views/schedule_mobile_screen.dart';
+import 'package:vendor_app/presentation/screens/manage_accounts/views/manage_accounts_mobile.dart';
 
-class ScheduleScreen extends StatelessWidget {
-  ScheduleScreen({super.key});
+class ManageAccountsScreen extends StatelessWidget {
+  ManageAccountsScreen({super.key});
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -16,13 +16,13 @@ class ScheduleScreen extends StatelessWidget {
       drawer: CustomDrawer(),
       body: SafeArea(
           child: Responsive(
-              mobile: ScheduleMobileScreen(
+              mobile: ManageAccountsMobile(
                 onPressed: () {
                   scaffoldKey.currentState!.openDrawer();
                 },
               ),
-              tablet: const ScheduleMobileScreen(),
-              desktop: const ScheduleMobileScreen())),
+              tablet: const ManageAccountsMobile(),
+              desktop: const ManageAccountsMobile())),
     );
   }
 }

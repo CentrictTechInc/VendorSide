@@ -4,7 +4,11 @@ import 'package:vendor_app/data/provider/network/api_endpoints.dart';
 import 'package:vendor_app/data/provider/network/api_provider.dart';
 import 'package:vendor_app/data/provider/network/api_request_representable.dart';
 
-enum TasksAPIType { getTasks, getAutoAppointmentbyId, postBidding }
+enum TasksAPIType {
+  getAutoTasks,
+  getAutoAppointmentbyId,
+  postBidding,
+}
 
 class TasksAPI extends APIRequestRepresentable {
   TasksAPIType type;
@@ -15,7 +19,7 @@ class TasksAPI extends APIRequestRepresentable {
   TasksAPI._(
       {required this.type, this.status, this.appointmentId, this.biddingTask});
   TasksAPI.getTasks(String status)
-      : this._(type: TasksAPIType.getTasks, status: status);
+      : this._(type: TasksAPIType.getAutoTasks, status: status);
   TasksAPI.getAppointmentbyId(String id)
       : this._(type: TasksAPIType.getAutoAppointmentbyId, appointmentId: id);
   TasksAPI.postBidding(TasksBiddingDto biddingTask)
@@ -24,7 +28,7 @@ class TasksAPI extends APIRequestRepresentable {
   @override
   get body {
     switch (type) {
-      case TasksAPIType.getTasks:
+      case TasksAPIType.getAutoTasks:
       case TasksAPIType.getAutoAppointmentbyId:
         return {};
       case TasksAPIType.postBidding:
@@ -37,13 +41,16 @@ class TasksAPI extends APIRequestRepresentable {
 
   @override
   Map<String, String>? get headers {
-    return {'Content-Type': 'application/json; charset=utf-8'};
+    return {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Authorization': 'Bearer ${LocalStorageService.instance.user?.token}'
+    };
   }
 
   @override
   HTTPMethod get method {
     switch (type) {
-      case TasksAPIType.getTasks:
+      case TasksAPIType.getAutoTasks:
       case TasksAPIType.getAutoAppointmentbyId:
         return HTTPMethod.get;
       case TasksAPIType.postBidding:
@@ -54,10 +61,10 @@ class TasksAPI extends APIRequestRepresentable {
   @override
   String get path {
     switch (type) {
-      case TasksAPIType.getTasks:
-        return APIEndpoint.getTasksUrl;
+      case TasksAPIType.getAutoTasks:
+        return APIEndpoint.getAutoTasksUrl;
       case TasksAPIType.getAutoAppointmentbyId:
-        return APIEndpoint.getAutomotiveAppointmentbyIdUrl;
+        return APIEndpoint.getAutoTaskByAppointmentIdUrl;
       case TasksAPIType.postBidding:
         return APIEndpoint.postBiddingUrl;
     }
@@ -74,7 +81,7 @@ class TasksAPI extends APIRequestRepresentable {
   @override
   Map<String, String>? get urlParams {
     switch (type) {
-      case TasksAPIType.getTasks:
+      case TasksAPIType.getAutoTasks:
         return {
           'VendorId': LocalStorageService.instance.user?.vid.toString() ?? '',
           'Status': status ?? '',

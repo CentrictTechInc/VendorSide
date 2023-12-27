@@ -1,6 +1,10 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
+import 'package:vendor_app/app/app_router.dart';
+import 'package:vendor_app/app/services/local_storage_service.dart';
+import 'package:vendor_app/common/resources/page_path.dart';
 import 'package:vendor_app/data/provider/network/api_request_representable.dart';
 
 class APIProvider {
@@ -100,7 +104,9 @@ class APIProvider {
         throw BadRequestException(response.body.toString());
       case 401:
       case 403:
-        throw UnauthorisedException(response.body.toString());
+        LocalStorageService.instance.logoutUser();
+        globalContext?.go(PagePath.login);
+        throw UnauthorisedException("Not Authorised!");
       case 404:
         throw BadRequestException('Not found');
       case 500:
