@@ -7,28 +7,26 @@ import 'package:vendor_app/domain/repository/tasks_repository.dart';
 
 class TasksRepositoryImpl extends TasksRepository {
   @override
-  Future<List<TasksStatusResponseModel>> getTasks({String? status}) async {
-    // try {
-    //   final response = await TasksAPI.getTasks(status ?? '').request();
-    //   dynamic json = jsonDecode(response);
-    //   List<dynamic> res = json['appointmentvendor'];
-    //   List<TasksStatusResponseDto> allTasks =
-    //       res.map((data) => TasksStatusResponseDto.fromJson(data)).toList();
-    //   return allTasks;
-    // } catch (e) {
-    //   rethrow;
-    // }
-    await Future.delayed(const Duration(seconds: 1), () {});
-    return dummyData;
+  Future<List<TasksStatusResponseModel>> getAutoTasks({String? status}) async {
+    try {
+      final response = await TasksAPI.getTasks(status ?? '').request();
+      List<dynamic> json = jsonDecode(response);
+      List<TasksStatusResponseDto> allTasks =
+          json.map((data) => TasksStatusResponseDto.fromJson(data)).toList();
+      return allTasks;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
-  Future<TasksStatusResponseDto> getAppointmentbyId({String? id}) async {
+  Future<TasksStatusResponseDto> getAutoAppointmentbyId({String? id}) async {
     try {
-      final response = await TasksAPI.getAppointmentbyId(id ?? '').request();
+      final response =
+          await TasksAPI.getAutoAppointmentbyId(id ?? '').request();
       dynamic json = jsonDecode(response);
-      TasksStatusResponseDto allTasks = TasksStatusResponseDto.fromJson(json);
-      return allTasks;
+      TasksStatusResponseDto task = TasksStatusResponseDto.fromJson(json);
+      return task;
     } catch (e) {
       rethrow;
     }
@@ -39,6 +37,87 @@ class TasksRepositoryImpl extends TasksRepository {
     try {
       final response = await TasksAPI.postBidding(biddingTask).request();
       return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> completeAutoTask({String? appointmentId}) async {
+    try {
+      final response =
+          await TasksAPI.completeAutoTask(appointmentId: appointmentId)
+              .request();
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> completeHandyTask({String? appointmentId}) async {
+    try {
+      final response =
+          await TasksAPI.completeHandyTask(appointmentId: appointmentId)
+              .request();
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<TasksStatusResponseModel>> getHandyTasks({String? status}) async {
+    try {
+      final response = await TasksAPI.getHandyTasks(status ?? '').request();
+      List<dynamic> json = jsonDecode(response);
+
+      List<TasksStatusResponseDto> allTasks =
+          json.map((data) => TasksStatusResponseDto.fromJson(data)).toList();
+      return allTasks;
+    } catch (e) {
+      rethrow;
+    }
+    // await Future.delayed(const Duration(seconds: 1), () {});
+    // return dummyData;
+  }
+
+  @override
+  Future<List<TasksStatusResponseModel>> pendingAutoTask() async {
+    try {
+      final response = await TasksAPI.pendingAutoTask().request();
+      List<dynamic> json = jsonDecode(response);
+
+      List<TasksStatusResponseDto> allTasks =
+          json.map((data) => TasksStatusResponseDto.fromJson(data)).toList();
+      return allTasks;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<TasksStatusResponseModel>> pendingHandyTask() async {
+    try {
+      final response = await TasksAPI.pendingHandyTask().request();
+      List<dynamic> json = jsonDecode(response);
+
+      List<TasksStatusResponseDto> allTasks =
+          json.map((data) => TasksStatusResponseDto.fromJson(data)).toList();
+      return allTasks;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<TasksStatusResponseDto> getHandyAppointmentbyId({String? id}) async {
+    try {
+      final response =
+          await TasksAPI.getHandyAppointmentbyId(id ?? '').request();
+      dynamic json = jsonDecode(response);
+      TasksStatusResponseDto task = TasksStatusResponseDto.fromJson(json);
+      return task;
     } catch (e) {
       rethrow;
     }

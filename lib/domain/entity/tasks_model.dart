@@ -1,4 +1,5 @@
 class TasksStatusResponseModel {
+  int? appointmentId;
   String? username;
   String? serviceName;
   int? serviceId;
@@ -8,12 +9,13 @@ class TasksStatusResponseModel {
   String? appointmentDate;
   String? vehicleMake;
   String? vehicleModel;
+  String? vehicleYear;
   String? status;
   String? time;
-  String? vehicleYear;
   String? description;
   String? price;
   String? vinNumber;
+  List<QuestionsList>? questionsList;
 
   TasksStatusResponseModel({
     this.username,
@@ -31,5 +33,17 @@ class TasksStatusResponseModel {
     this.vinNumber,
     this.serviceId,
     this.subServiceId,
+    this.appointmentId,
+    this.questionsList,
+  });
+}
+
+class QuestionsList {
+  String? question;
+  String? answer;
+
+  QuestionsList({
+    this.question,
+    this.answer,
   });
 }

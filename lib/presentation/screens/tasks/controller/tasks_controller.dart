@@ -9,6 +9,8 @@ class TasksController extends GetxController {
   TasksRepository repo = TasksRepositoryImpl();
   int tabIndex = 0;
   List<TasksStatusResponseModel> tasksList = [];
+  List<TasksStatusResponseModel> pendindTasksList = [];
+  List<TasksStatusResponseModel> pastTasksList = [];
   changeIndex(i) {
     tabIndex = i;
     pageController.jumpToPage(i);
@@ -19,10 +21,31 @@ class TasksController extends GetxController {
     initialPage: 0,
   );
 
-  Future getTasks({String? status}) async {
+  Future getAutoTasks({String? status}) async {
+    if (tasksList.isNotEmpty) {
+      tasksList.clear();
+    }
     try {
-      final response = await repo.getTasks(status: status);
-      tasksList = response;
+      final response = await repo.getAutoTasks(status: status);
+      if (status == 'pending') {
+        {
+          tasksList = response;
+          return;
+        }
+      } else if (status == 'past') {
+        pastTasksList = response;
+        return;
+      }
+    } catch (e) {
+      ToastMessage.message(e.toString());
+      rethrow;
+    }
+  }
+
+  Future getAutoPendingTasks() async {
+    try {
+      final response = await repo.pendingAutoTask();
+      pendindTasksList = response;
     } catch (e) {
       ToastMessage.message(e.toString());
       rethrow;

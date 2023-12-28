@@ -56,7 +56,7 @@ class PastTasksScreen extends StatelessWidget {
           color: AppColors.whiteGreyish),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: FutureBuilder(
-          future: cntrl.getTasks(status: 'past'),
+          future: cntrl.getAutoTasks(status: 'past'),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -106,7 +106,7 @@ class PastTasksScreen extends StatelessWidget {
                             return const VerticalSpacing(10.0);
                           },
                           shrinkWrap: true,
-                          itemCount: cntrl.tasksList.length,
+                          itemCount: cntrl.pastTasksList.length,
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 0),
                           itemBuilder: (builder, index) {
