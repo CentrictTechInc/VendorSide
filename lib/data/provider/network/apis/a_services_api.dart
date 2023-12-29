@@ -39,7 +39,10 @@ class AutoServiceAPI extends APIRequestRepresentable {
 
   @override
   Map<String, String>? get headers {
-    return {'Content-Type': 'application/json'};
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${LocalStorageService.instance.user?.token}'
+    };
   }
 
   @override

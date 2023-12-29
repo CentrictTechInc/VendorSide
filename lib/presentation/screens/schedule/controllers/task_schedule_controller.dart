@@ -18,6 +18,23 @@ class TaskScheduleController extends GetxController {
   final timeEndFormat = false.obs;
   int timeStandard = 0;
   String? timeZone;
+  String getEndTime = "01:00";
+  final List<String> timings = [
+    "01:00",
+    "02:00",
+    "03:00",
+    "04:00",
+    "05:00",
+    "06:00",
+    "07:00",
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+  ];
+  String getStartTime = "01:00";
+
   final ValueNotifier<DateTime> focusedDay = ValueNotifier(DateTime.now());
   List<DateTime> selectedDates = [];
   Map<String, List<DateTime>> daysOfWeek = {
@@ -134,50 +151,22 @@ class TaskScheduleController extends GetxController {
     update();
   }
 
-  final List<String> timings = [
-    "01:00",
-    "02:00",
-    "03:00",
-    "04:00",
-    "05:00",
-    "06:00",
-    "07:00",
-    "08:00",
-    "09:00",
-    "10:00",
-    "11:00",
-    "12:00",
-  ];
-  final getStartTime = "01:00".obs;
-  final i = 0.obs;
-  incrementStartTime() {
+  String incrementTime(String time) {
+    int i = timings.indexOf(time);
     if (i < timings.length - 1) {
-      timings[i.value++];
-      getStartTime.value = timings[i.value];
+      timings[i++];
+      time = timings[i];
     }
+    return time;
   }
 
-  decrementStartTime() {
-    if (i.value != 0) {
-      timings[i.value--];
-      getStartTime.value = timings[i.value];
+  decrementTime(String time) {
+    int i = timings.indexOf(time);
+    if (i != 0) {
+      timings[i--];
+      time = timings[i];
     }
-  }
-
-  final getEndTime = "01:00".obs;
-  final j = 0.obs;
-  incrementEndTime() {
-    if (j < timings.length - 1) {
-      timings[j.value++];
-      getEndTime.value = timings[j.value];
-    }
-  }
-
-  decrementEndTime() {
-    if (j.value != 0) {
-      timings[j.value--];
-      getEndTime.value = timings[j.value];
-    }
+    return time;
   }
 
   Future updateSchedule() async {
@@ -185,12 +174,11 @@ class TaskScheduleController extends GetxController {
       ShowDialogBox.showDialogBoxs(true);
 
       List<String> selectedDatesStrings =
-          selectedDates.map((date) => date.toNewFormat()).toList();
+          selectedDates.map((date) => date.toDateFormat()).toList();
       setTimeStandart(timeStandard);
       String startTimeFormat =
-          "${getStartTime.value} ${setTimeAmPm(timeStartFormat.value)}";
-      String endTimeFormat =
-          "${getEndTime.value} ${setTimeAmPm(timeEndFormat.value)}";
+          "$getStartTime ${setTimeAmPm(timeStartFormat.value)}";
+      String endTimeFormat = "$getEndTime ${setTimeAmPm(timeEndFormat.value)}";
       ScheduleDto scheduleModel = ScheduleDto(
         vid: LocalStorageService.instance.user?.vid,
         excludedDatesList: selectedDatesStrings,
@@ -227,11 +215,11 @@ class TaskScheduleController extends GetxController {
       }
       //for start time
       var startTimeParts = response.startTime?.split(" ") ?? ["01:00", ""];
-      getStartTime.value = startTimeParts[0];
+      getStartTime = startTimeParts[0];
       timeStartFormat.value = timeFormat(startTimeParts[1]);
       //for end time
       var endTimeParts = response.endTime?.split(" ") ?? ["01:00", ""];
-      getEndTime.value = endTimeParts[0];
+      getEndTime = endTimeParts[0];
       timeEndFormat.value = timeFormat(endTimeParts[1]);
       //for time zone
       setTimeZone(response.timeZone);

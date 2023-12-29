@@ -82,7 +82,14 @@ class CustomDrawer extends StatelessWidget {
                         icon: const Icon(Icons.close_rounded),
                         color: AppColors.white,
                         onPressed: () {
-                          context.pop();
+                          if (GoRouterState.of(context).uri.toString() ==
+                              PagePath.homeScreen) {
+                            if (globalScaffoldKey.currentState!.isDrawerOpen) {
+                              globalScaffoldKey.currentState!.closeDrawer();
+                            }
+                          } else {
+                            context.pop();
+                          }
                         },
                       )),
                 ),
@@ -91,103 +98,122 @@ class CustomDrawer extends StatelessWidget {
           ),
         ),
         Expanded(
-            child: ListView.separated(
-          separatorBuilder: (context, index) =>
-              const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-          shrinkWrap: true,
-          itemCount: drawer.length,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            return drawer[index]
-              ..highlighted = GoRouterState.of(context).uri.toString() ==
-                  drawer[index].location
-              ..onTap = () async {
-                final controller = Get.find<BottomNavController>();
-                if (GoRouterState.of(context).uri.toString() !=
-                    drawer[index].location) {
-                  context.pop();
-                  if (context.mounted) {
-                    context.go(drawer[index].location);
-                  }
-                  await Future.delayed(const Duration(milliseconds: 250));
-                  controller.changeTabIndex(0);
-                } else if (controller.tabIndex.value != 0) {
-                  controller.changeTabIndex(0);
-                  if (context.mounted) {
-                    globalScaffoldKey.currentState!.closeDrawer();
-                  }
-                }
-              };
-          },
-        )),
-        InkWell(
-          onTap: () async => {
-            await LocalStorageService.instance.logoutUser(),
-            if (context.mounted) {context.go(PagePath.login)}
-          },
-          child: Row(
-            children: [
-              const HorizontalSpacing(15),
-              const ImageIcon(
-                AssetImage(RGIcons.logout),
-                color: AppColors.red,
-                size: 30,
+          child: Container(
+            constraints: BoxConstraints(maxHeight: context.height),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ListView.separated(
+                    separatorBuilder: (context, index) => const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 5)),
+                    shrinkWrap: true,
+                    itemCount: drawer.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return drawer[index]
+                        ..highlighted =
+                            GoRouterState.of(context).uri.toString() ==
+                                drawer[index].location
+                        ..onTap = () async {
+                          final controller = Get.find<BottomNavController>();
+                          controller.changeTabIndex(0);
+                          context.pop();
+                          if (GoRouterState.of(context).uri.toString() !=
+                              drawer[index].location) {
+                            if (context.mounted) {
+                              context.go(drawer[index].location);
+                            }
+                            await Future.delayed(
+                                const Duration(milliseconds: 250));
+                            controller.changeTabIndex(0);
+                          } else if (controller.tabIndex.value != 0) {
+                            controller.changeTabIndex(0);
+                            if (context.mounted) {
+                              globalScaffoldKey.currentState!.closeDrawer();
+                            }
+                          }
+                        };
+                    },
+                  ),
+                  const VerticalSpacing(20),
+                  InkWell(
+                    onTap: () async => {
+                      await LocalStorageService.instance.logoutUser(),
+                      if (context.mounted) {context.go(PagePath.login)}
+                    },
+                    child: Row(
+                      children: [
+                        const HorizontalSpacing(15),
+                        const ImageIcon(
+                          AssetImage(RGIcons.logout),
+                          color: AppColors.red,
+                          size: 30,
+                        ),
+                        const HorizontalSpacing(15),
+                        CommonText(
+                          text: "Logout",
+                          fontSize: 12.sp,
+                          color: AppColors.black,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const VerticalSpacing(20)
+                ],
               ),
-              const HorizontalSpacing(15),
-              CommonText(
-                text: "Logout",
-                fontSize: 12.sp,
-                color: AppColors.black,
-              ),
-            ],
+            ),
           ),
         ),
-        const VerticalSpacing(20)
       ]),
     );
   }
 
   final List<DrawerItem> drawer = [
     DrawerItem(
-      location: PagePath.slash,
+      location: PagePath.homeScreen,
       text: "Home",
-      icon: RGIcons.home,
+      icon: RGIcons.homeIcon,
     ),
     DrawerItem(
-      location: PagePath.profile.toRoute,
+      location: PagePath.profile.tohome,
       text: "My Profile",
-      icon: RGIcons.profile,
+      icon: RGIcons.profileIcon,
     ),
     DrawerItem(
-      location: PagePath.review.toRoute,
+      location: PagePath.review.tohome,
       text: "Customer Reviews",
       icon: RGIcons.review,
     ),
     DrawerItem(
-      location: PagePath.tasks.toRoute,
+      location: PagePath.tasks.tohome,
       text: "My Tasks",
       icon: RGIcons.tasks,
     ),
     DrawerItem(
-      location: PagePath.contact.toRoute,
+      location: PagePath.contact.tohome,
       text: "Contact Us",
       icon: RGIcons.callIcon,
     ),
     DrawerItem(
-      location: PagePath.schedule.toRoute,
+      location: PagePath.schedule.tohome,
       text: "Schedule",
       icon: RGIcons.calendarMonth,
     ),
     LocalStorageService.instance.user?.vendorType == 2
         ? DrawerItem(
-            location: PagePath.manageServices.toRoute,
+            location: PagePath.manageServices.tohome,
             text: "Manage Services 1",
             icon: RGIcons.dollar,
           )
         : DrawerItem(
-            location: PagePath.automotiveManageServices.toRoute,
+            location: PagePath.automotiveManageServices.tohome,
             text: "Manage Services 2",
             icon: RGIcons.dollar,
           ),
+    DrawerItem(
+      location: PagePath.manageAccount.tohome,
+      text: "Manage Accounts",
+      icon: RGIcons.accountTabIcon,
+    ),
   ];
 }

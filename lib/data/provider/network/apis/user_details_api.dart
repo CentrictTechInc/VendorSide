@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/data/dto/user_details_dto.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
 import 'package:vendor_app/data/provider/network/api_provider.dart';
@@ -41,9 +42,15 @@ class UserDetailAPI implements APIRequestRepresentable {
   Map<String, String>? get headers {
     switch (type) {
       case UserAPIType.getUserDetail:
-        return {"Content-Type": "application/json"};
+        return {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ${LocalStorageService.instance.user?.token}'
+        };
       case UserAPIType.updateUserDetail:
-        return {'Content-Type': 'multipart/form-data'};
+        return {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': 'Bearer ${LocalStorageService.instance.user?.token}'
+        };
     }
   }
 

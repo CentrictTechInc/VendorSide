@@ -19,6 +19,8 @@ class TasksStatusResponseDto extends TasksStatusResponseModel {
     super.vinNumber,
     super.serviceId,
     super.subServiceId,
+    super.appointmentId,
+    super.questionsList,
   });
 
   factory TasksStatusResponseDto.fromRawJson(String str) =>
@@ -38,11 +40,16 @@ class TasksStatusResponseDto extends TasksStatusResponseModel {
         vehicleMake: json["vehicleMake"],
         vehicleModel: json["vehicleModel"],
         status: json["status"],
-        time: json["time"],
+        time: json["appointmentTime"],
         vehicleYear: json["vehicleYear"],
-        description: json["description"],
-        price: json["price"] ?? '0.',
+        description: json["noteFromCustomer"],
+        price: json["estimatedCharges"].toString() ?? '0.',
         vinNumber: json["vinNumber"] ?? '',
+        appointmentId: json["appointmentId"],
+        questionsList: json["questionsList"] == null
+            ? null
+            : List<QuestionsListDto>.from(
+                json["questionsList"].map((x) => QuestionsListDto.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -61,5 +68,28 @@ class TasksStatusResponseDto extends TasksStatusResponseModel {
         "vinNumber": vinNumber,
         "serviceId": serviceId,
         "subServiceId": subServiceId,
+      };
+}
+
+class QuestionsListDto extends QuestionsList {
+  QuestionsListDto({
+    super.question,
+    super.answer,
+  });
+
+  factory QuestionsListDto.fromRawJson(String str) =>
+      QuestionsListDto.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory QuestionsListDto.fromJson(Map<String, dynamic> json) =>
+      QuestionsListDto(
+        question: json["question"],
+        answer: json["answer"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "question": question,
+        "answer": answer,
       };
 }

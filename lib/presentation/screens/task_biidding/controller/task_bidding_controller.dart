@@ -25,7 +25,7 @@ class TaskBiddingController extends GetxController {
 
   Future getAutoAppointments(String id) async {
     try {
-      tasks = await repo.getAppointmentbyId(id: id);
+      tasks = await repo.getAutoAppointmentbyId(id: id);
       update();
     } catch (e) {
       rethrow;

@@ -23,7 +23,7 @@ class CurrentTasks extends StatelessWidget {
           color: AppColors.whiteGreyish),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: FutureBuilder(
-          future: null,
+          future: cntrl.getAutoTasks(status: 'pending'),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(

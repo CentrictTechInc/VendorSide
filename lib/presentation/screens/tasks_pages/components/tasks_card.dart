@@ -50,7 +50,8 @@ class TasksCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime date = DateTime.parse(task.appointmentDate ?? '2022-01-01');
+    DateTime date =
+        DateTime.tryParse(task.appointmentDate ?? '') ?? DateTime.now();
     return InkWell(
       onTap: hasDetails
           ? () {

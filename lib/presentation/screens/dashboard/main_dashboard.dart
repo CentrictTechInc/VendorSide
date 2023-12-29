@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/custom_drawer.dart';
 import 'package:vendor_app/common/resources/colors.dart';
@@ -73,7 +74,7 @@ class MainBottomNavScreen extends StatelessWidget {
               bottomNavigationBar: HomeBottomNavBar(),
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
-                  context.go(PagePath.tasks.toRoute);
+                  context.go(PagePath.tasks.tohome);
                 },
                 backgroundColor: AppColors.primary,
                 shape: const CircleBorder(eccentricity: .9),

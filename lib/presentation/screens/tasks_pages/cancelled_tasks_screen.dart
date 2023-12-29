@@ -24,7 +24,7 @@ class CancelledTasksScreen extends StatelessWidget {
           color: AppColors.whiteGreyish),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: FutureBuilder(
-          future: cntrl.getTasks(status: 'cancelled'),
+          future: cntrl.getAutoTasks(status: 'cancelled'),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -9,7 +10,7 @@ class FirebaseApi {
   static NotificationBottomSheet notificationSheet = NotificationBottomSheet();
 
   FirebaseApi();
-
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
   var myDeviceToken = '';
   final _androidChannel = const AndroidNotificationChannel(
     'high_importance_channel',
@@ -20,7 +21,9 @@ class FirebaseApi {
 
   final _localNotifications = FlutterLocalNotificationsPlugin();
 
+  @pragma('vm:entry-point')
   static Future<void> handleBackgroundMessage(RemoteMessage message) async {
+    await Firebase.initializeApp();
     debugPrint('Title: ${message.notification?.title}');
     debugPrint('body: ${message.notification?.body}');
     debugPrint('Payload: ${message.data}');
@@ -28,8 +31,7 @@ class FirebaseApi {
 
   Future initPushNotifications() async {
     ///This is important for iOS Foreground notifications
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
+    await messaging.setForegroundNotificationPresentationOptions(
       alert: true,
       badge: true,
       sound: true,
@@ -39,7 +41,7 @@ class FirebaseApi {
     ///terminated state via a notification.
     ///we pass handle msg function meaning we want it to execute that method
     ///when app is opened from notification.
-    FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
+    messaging.getInitialMessage().then(handleMessage);
 
     ///This is responsible when app is in background when a notification comes.
     FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
@@ -144,8 +146,6 @@ class FirebaseApi {
   }
 
   Future<void> requestPermission() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
       announcement: false,
@@ -167,7 +167,7 @@ class FirebaseApi {
   }
 
   Future<void> getToken() async {
-    await FirebaseMessaging.instance.getToken().then((token) {
+    await messaging.getToken().then((token) {
       myDeviceToken = token!;
       saveToken(token: myDeviceToken);
     });

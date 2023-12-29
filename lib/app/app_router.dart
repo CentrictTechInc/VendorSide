@@ -16,6 +16,8 @@ import 'package:vendor_app/presentation/screens/dashboard/main_dashboard.dart';
 import 'package:vendor_app/presentation/screens/dashboard/controller/botton_nav_controller.dart';
 import 'package:vendor_app/presentation/screens/contact_us/contact_us_screen.dart';
 import 'package:vendor_app/presentation/screens/contact_us/controller/contact_us_controller.dart';
+import 'package:vendor_app/presentation/screens/manage_accounts/controller/manage_accounts_controller.dart';
+import 'package:vendor_app/presentation/screens/manage_accounts/manage_accounts_screen.dart';
 import 'package:vendor_app/presentation/screens/manage_services/controller/manage_services_controller.dart';
 import 'package:vendor_app/presentation/screens/manage_services/manage_services_screen.dart';
 import 'package:vendor_app/presentation/screens/password_screens/controllers/pass_controller.dart';
@@ -37,83 +39,98 @@ import 'package:vendor_app/presentation/screens/auth/register/vendor_register_sc
 import 'package:vendor_app/presentation/screens/tax_forms/tax_forms_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey<NavigatorState>();
 final globalContext = _rootNavigatorKey.currentContext;
 
 class AppRouter {
   static final router = GoRouter(
       navigatorKey: _rootNavigatorKey,
       initialLocation: PagePath.login,
+      debugLogDiagnostics: true,
       routes: [
-        GoRoute(
-            path: PagePath.slash,
-            parentNavigatorKey: _rootNavigatorKey,
-            builder: (context, state) {
-              Get.lazyPut<BottomNavController>(() => BottomNavController());
-              return MainBottomNavScreen();
-            },
+        ShellRoute(
+            navigatorKey: _shellNavigatorKey,
+            builder: ((context, state, child) {
+              return child;
+            }),
             routes: [
               GoRoute(
-                  path: PagePath.contact,
-                  builder: (context, state) {
-                    Get.lazyPut<ContactUsContoller>(() => ContactUsContoller());
-
-                    return ContactUsScreen();
-                  }),
-              GoRoute(
-                  path: PagePath.review,
-                  builder: (context, state) {
-                    return ReviewScreen();
-                  }),
-              GoRoute(
-                  path: PagePath.schedule,
-                  builder: (context, state) {
-                    return ScheduleScreen();
-                  }),
-              GoRoute(
-                  path: PagePath.profile,
-                  builder: (context, state) {
-                    Get.lazyPut<ProfileController>(() => ProfileController());
-
-                    return ProfileScreen();
-                  },
-                  routes: [
-                    GoRoute(
-                        path: PagePath.profileEdit,
-                        builder: (context, state) {
-                          Get.lazyPut<ProfileController>(
-                              () => ProfileController());
-
-                          return const EditProfileScreen();
-                        }),
-                  ]),
-              GoRoute(
-                path: PagePath.tasks,
+                path: PagePath.homeScreen,
+                parentNavigatorKey: _shellNavigatorKey,
                 builder: (context, state) {
-                  Get.lazyPut<TasksController>(() => TasksController());
-                  return TasksScreen();
+                  Get.lazyPut<BottomNavController>(() => BottomNavController());
+                  return MainBottomNavScreen();
                 },
+                routes: [
+                  GoRoute(
+                      path: PagePath.contact,
+                      builder: (context, state) {
+                        Get.lazyPut<ContactUsContoller>(
+                            () => ContactUsContoller());
+                        return ContactUsScreen();
+                      }),
+                  GoRoute(
+                      path: PagePath.manageAccount,
+                      builder: (context, state) {
+                        Get.lazyPut<ManageAccountsController>(
+                            () => ManageAccountsController());
+                        return ManageAccountsScreen();
+                      }),
+                  GoRoute(
+                      path: PagePath.review,
+                      builder: (context, state) {
+                        return ReviewScreen();
+                      }),
+                  GoRoute(
+                      path: PagePath.schedule,
+                      builder: (context, state) {
+                        return ScheduleScreen();
+                      }),
+                  GoRoute(
+                      path: PagePath.profile,
+                      builder: (context, state) {
+                        Get.lazyPut<ProfileController>(
+                            () => ProfileController());
+                        return ProfileScreen();
+                      },
+                      routes: [
+                        GoRoute(
+                            path: PagePath.profileEdit,
+                            builder: (context, state) {
+                              return const EditProfileScreen();
+                            }),
+                      ]),
+                  GoRoute(
+                    path: PagePath.tasks,
+                    builder: (context, state) {
+                      Get.put<TasksController>(TasksController());
+                      return TasksScreen();
+                    },
+                  ),
+                  GoRoute(
+                      path: PagePath.schedule,
+                      builder: (context, state) {
+                        return ScheduleScreen();
+                      }),
+                  GoRoute(
+                      path: PagePath.manageServices,
+                      builder: (context, state) {
+                        Get.lazyPut<ManageServicesController>(
+                            () => ManageServicesController());
+
+                        return ManageServicesScreen();
+                      }),
+                  GoRoute(
+                      path: PagePath.automotiveManageServices,
+                      builder: (context, state) {
+                        Get.lazyPut<ManageAmServicesController>(
+                            () => ManageAmServicesController());
+
+                        return ManageAmServicesScreen();
+                      }),
+                ],
               ),
-              GoRoute(
-                  path: PagePath.schedule,
-                  builder: (context, state) {
-                    return ScheduleScreen();
-                  }),
-              GoRoute(
-                  path: PagePath.manageServices,
-                  builder: (context, state) {
-                    Get.lazyPut<ManageServicesController>(
-                        () => ManageServicesController());
-
-                    return ManageServicesScreen();
-                  }),
-              GoRoute(
-                  path: PagePath.automotiveManageServices,
-                  builder: (context, state) {
-                    Get.lazyPut<ManageAmServicesController>(
-                        () => ManageAmServicesController());
-
-                    return ManageAmServicesScreen();
-                  }),
             ]),
         GoRoute(
             path: PagePath.login,

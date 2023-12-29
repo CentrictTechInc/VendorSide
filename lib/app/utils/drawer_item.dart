@@ -28,14 +28,16 @@ class DrawerItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: InkWell(
         onTap: onTap,
         child: Row(
           children: [
             const HorizontalSpacing(5),
             ImageIcon(
-              AssetImage(icon),
+              AssetImage(
+                icon,
+              ),
               color:
                   highlighted ? AppColors.primaryText : AppColors.primaryText,
               size: 25,

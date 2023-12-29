@@ -8,6 +8,9 @@ class Drawables {
   static const noDataIcon = "assets/images/empty_box.gif";
   static const timeScaleGif = "assets/images/time_scale_gif.gif";
   static const addedGif = "assets/images/added_gif.gif";
+  static const squareAcc = "assets/images/square_acc.png";
+  static const paypalAcc = "assets/images/paypal_acc.png";
+  static const payoneerAcc = "assets/images/payoneer_acc.png";
 
   static const personUrl =
       "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1600";
@@ -25,8 +28,8 @@ class RGIcons {
   static const mailBox = "assets/icons/mailbox.png";
   static const suitcase = "assets/icons/suit_case.png";
   static const upload = "assets/icons/upload_icon.png";
-  static const tasks = "assets/icons/tasks_icon.png";
-  static const dollar = "assets/icons/dollar_icon.png";
+  static const tasks = "assets/icons/tasks.png";
+  static const dollar = "assets/icons/manage_services.png";
   static const calendarMonth = "assets/icons/calendar_month.png";
   static const calendarDay = "assets/icons/calendar_day.png";
   static const serviceIcon = "assets/icons/service_icon.png";
@@ -44,6 +47,9 @@ class RGIcons {
   static const hub = "assets/icons/hub.png";
   static const oilBarrel = "assets/icons/oil_barrel.png";
   static const delete = "assets/icons/delete_forever.png";
+  static const accountTabIcon = "assets/icons/currency_exchange.png";
+  static const homeIcon = "assets/icons/home_icon.png";
+  static const profileIcon = "assets/icons/profile_icon.png";
   // -------------vendor side
   static const email = "assets/icons/alternate_email.png";
   static const lock = "assets/icons/lock.png";

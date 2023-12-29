@@ -21,7 +21,7 @@ class RequestsTaskScreen extends StatelessWidget {
           color: AppColors.whiteGreyish),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: FutureBuilder(
-          future: cntrl.getTasks(status: 'request'),
+          future: cntrl.getAutoPendingTasks(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -30,18 +30,18 @@ class RequestsTaskScreen extends StatelessWidget {
                 ),
               );
             } else {
-              return cntrl.tasksList.isNotEmpty
+              return cntrl.pendindTasksList.isNotEmpty
                   ? ListView.separated(
                       separatorBuilder: (context, index) {
                         return const VerticalSpacing(10.0);
                       },
-                      itemCount: cntrl.tasksList.length,
+                      itemCount: cntrl.pendindTasksList.length,
                       padding: const EdgeInsets.symmetric(
                           vertical: 5, horizontal: 0),
                       itemBuilder: (builder, index) {
                         return TasksCard(
-                          type: cntrl.tasksList[index].status ?? '',
-                          task: cntrl.tasksList[index],
+                          type: cntrl.pendindTasksList[index].status ?? '',
+                          task: cntrl.pendindTasksList[index],
                           icon: Icons.alarm,
                         );
                       })

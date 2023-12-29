@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-extension ContextExtension on BuildContext {
+extension ContextExtensionOn on BuildContext {
   Size get mediaQuery => MediaQuery.of(this).size;
   double get height => mediaQuery.height;
   double get width => mediaQuery.width;
@@ -17,7 +17,7 @@ extension StringFormatting on String {
 }
 
 extension DateTimeFormatting on DateTime {
-  String toNewFormat() {
+  String toDateFormat() {
     final newFormat = DateFormat('yyyy-MM-dd');
     return newFormat.format(this);
   }

@@ -56,9 +56,19 @@ class APIEndpoint {
       '/api/Vendor/Vendor/VendorScheduleByVendorId';
 
   //--------------- Tasks -----------------------\
-  static String get getTasksUrl =>
-      '/api/Appointment/api/Appointment/GetAppointmentBookingByVendorService';
-  static String get getAutomotiveAppointmentbyIdUrl =>
-      '/api/Appointment/Automotive/GetAppointmentById';
-  static String get postBiddingUrl => '/api/Appointment/Bidding';
+  static String get getAutoTasksUrl => '/api/Appointment/Automotive/GetTask';
+  static String get getHandyTasksUrl => '/api/Appointment/Handyman/GetTask';
+  static String get getAutoTaskByAppointmentIdUrl =>
+      '/api/Appointment/Automotive/GetTaskById';
+  static String get getHandyTaskByAppointmentIdUrl =>
+      '/api/Appointment/Handyman/GetTaskById';
+  static String get postBiddingUrl => '/api/Appointment/VendorBidding';
+  static String get pendingAutoTasksUrl =>
+      '/api/Appointment/Automotive/PendingTasks';
+  static String get pendingHandymanTasksUrl =>
+      '/api/Appointment/Handyman/PendingTasks';
+  static String get completeAutoTasksUrl =>
+      '/api/Appointment/Automotive/CompleteTask';
+  static String get completeHandymanTasksUrl =>
+      '/api/Appointment/Handyman/CompleteTask';
 }

@@ -45,7 +45,6 @@ class ManageAmServicesController extends GetxController {
       for (var subService in service.listSubServiceName) {
         subService?.isSelected = false;
       }
-      print(service.listSubServiceName);
       return service;
     }).toList();
   }

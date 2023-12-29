@@ -1,3 +1,4 @@
+import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/data/dto/notification_dto.dart';
 import 'package:vendor_app/data/provider/network/api_endpoints.dart';
 import 'package:vendor_app/data/provider/network/api_provider.dart';
@@ -26,6 +27,7 @@ class NotificationAPI implements APIRequestRepresentable {
   @override
   Map<String, String>? get headers => {
         "Content-Type": "application/json",
+        'Authorization': 'Bearer ${LocalStorageService.instance.user?.token}'
       };
   @override
   HTTPMethod get method {

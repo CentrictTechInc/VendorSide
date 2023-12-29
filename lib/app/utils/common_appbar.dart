@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vendor_app/app/extensions/buildcontext_extension.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_back_button.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
@@ -107,7 +108,7 @@ class CommonAppBar extends StatelessWidget {
                       )),
           if (showProfile)
             InkWell(
-              onTap: () => context.go(PagePath.profile.toRoute),
+              onTap: () => context.go(PagePath.profile.tohome),
               child: Container(
                 width: 40,
                 height: 40,
