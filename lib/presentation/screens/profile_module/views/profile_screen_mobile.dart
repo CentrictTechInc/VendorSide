@@ -36,7 +36,7 @@ class ProfileScreenMobile extends StatelessWidget {
                       text: "My Profile",
                       editButton: true,
                       onEdit: () {
-                        context.push(PagePath.profile.toRoute +
+                        context.push(PagePath.profile.tohome +
                             PagePath.profileEdit.toRoute);
                       },
                     ),

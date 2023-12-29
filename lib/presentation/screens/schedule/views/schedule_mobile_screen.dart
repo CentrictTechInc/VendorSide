@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:sizer/sizer.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
 import 'package:vendor_app/app/utils/common_spacing.dart';
 import 'package:vendor_app/app/utils/common_text.dart';
 import 'package:vendor_app/app/utils/common_text_button.dart';
 import 'package:vendor_app/common/resources/colors.dart';
+import 'package:vendor_app/presentation/screens/schedule/components/time_container.dart';
 import 'package:vendor_app/presentation/screens/schedule/controllers/task_schedule_controller.dart';
 import 'package:vendor_app/presentation/screens/tasks/components/tab_button.dart';
 
-// ignore: must_be_immutable
 class ScheduleMobileScreen extends StatelessWidget {
   const ScheduleMobileScreen({this.onPressed, super.key});
 
@@ -113,13 +112,12 @@ class ScheduleMobileScreen extends StatelessWidget {
                                         }
                                       : null,
                                   child: Container(
-                                    constraints: const BoxConstraints(
-                                        minWidth: 40, minHeight: 45),
                                     margin: const EdgeInsets.only(
                                         bottom: 5, right: 5, top: 5),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      color: controller.selectedDates
+                                    alignment: Alignment.center,
+                                    child: CircleAvatar(
+                                      radius: 25,
+                                      backgroundColor: controller.selectedDates
                                                   .contains(date) &&
                                               isCurrentMonth
                                           ? AppColors.white
@@ -130,23 +128,26 @@ class ScheduleMobileScreen extends StatelessWidget {
                                               : !isCurrentMonth
                                                   ? AppColors.white
                                                   : AppColors.primaryLight,
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: CommonText(
-                                      textAlign: TextAlign.center,
-                                      weight: FontWeight.bold,
-                                      fontSize: 14,
-                                      text: DateFormat('d').format(date),
-                                      color: controller.selectedDates
-                                              .contains(date)
-                                          ? AppColors.grey
-                                          : isSameDay1(
-                                                  controller.focusedDay.value,
-                                                  date)
-                                              ? AppColors.white
-                                              : !isCurrentMonth
-                                                  ? AppColors.grey
-                                                  : AppColors.primary,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(40),
+                                        child: CommonText(
+                                          textAlign: TextAlign.center,
+                                          weight: FontWeight.bold,
+                                          fontSize: 14,
+                                          text: DateFormat('d').format(date),
+                                          color: controller.selectedDates
+                                                  .contains(date)
+                                              ? AppColors.grey
+                                              : isSameDay1(
+                                                      controller
+                                                          .focusedDay.value,
+                                                      date)
+                                                  ? AppColors.white
+                                                  : !isCurrentMonth
+                                                      ? AppColors.grey
+                                                      : AppColors.primary,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 );
@@ -180,49 +181,19 @@ class ScheduleMobileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            constraints: const BoxConstraints(maxWidth: 160),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              color: AppColors.greyish,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_down,
-                                    size: 20,
-                                    color: AppColors.grey,
-                                  ),
-                                  onPressed: controller.canEdit
-                                      ? () {
-                                          controller.decrementStartTime();
-                                        }
-                                      : null,
-                                ),
-                                const HorizontalSpacing(10),
-                                Expanded(child: Obx(() {
-                                  return CommonText(
-                                    text: controller.getStartTime.value,
-                                    fontSize: 9.sp,
-                                  );
-                                })),
-                                const HorizontalSpacing(10),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_up,
-                                    size: 20,
-                                    color: AppColors.grey,
-                                  ),
-                                  onPressed: controller.canEdit
-                                      ? () {
-                                          controller.incrementStartTime();
-                                        }
-                                      : null,
-                                ),
-                              ],
-                            ),
+                          TimeContainer(
+                            canEdit: controller.canEdit,
+                            onUpPressed: () {
+                              controller.getStartTime = controller
+                                  .incrementTime(controller.getStartTime);
+                              controller.update();
+                            },
+                            onDownPressed: () {
+                              controller.getStartTime = controller
+                                  .decrementTime(controller.getStartTime);
+                              controller.update();
+                            },
+                            timeText: controller.getStartTime,
                           ),
                           Container(
                               constraints: const BoxConstraints(maxWidth: 160),
@@ -281,49 +252,19 @@ class ScheduleMobileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            constraints: const BoxConstraints(maxWidth: 160),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              color: AppColors.greyish,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_down,
-                                    size: 20,
-                                    color: AppColors.grey,
-                                  ),
-                                  onPressed: controller.canEdit
-                                      ? () {
-                                          controller.decrementEndTime();
-                                        }
-                                      : null,
-                                ),
-                                const HorizontalSpacing(10),
-                                Expanded(child: Obx(() {
-                                  return CommonText(
-                                    text: controller.getEndTime.value,
-                                    fontSize: 9.sp,
-                                  );
-                                })),
-                                const HorizontalSpacing(10),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_up,
-                                    size: 20,
-                                    color: AppColors.grey,
-                                  ),
-                                  onPressed: controller.canEdit
-                                      ? () {
-                                          controller.incrementEndTime();
-                                        }
-                                      : null,
-                                ),
-                              ],
-                            ),
+                          TimeContainer(
+                            canEdit: controller.canEdit,
+                            onUpPressed: () {
+                              controller.getEndTime = controller
+                                  .incrementTime(controller.getEndTime);
+                              controller.update();
+                            },
+                            onDownPressed: () {
+                              controller.getEndTime = controller
+                                  .decrementTime(controller.getEndTime);
+                              controller.update();
+                            },
+                            timeText: controller.getEndTime,
                           ),
                           Container(
                               constraints: const BoxConstraints(maxWidth: 160),
@@ -455,52 +396,5 @@ class ScheduleMobileScreen extends StatelessWidget {
                     ]),
               );
             }));
-  }
-}
-
-class TimeGridChild extends StatelessWidget {
-  const TimeGridChild({
-    super.key,
-    required this.time,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final String time;
-  final bool selected;
-  final Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Visibility(
-      visible: selected,
-      replacement: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: AppColors.secondary),
-        child: Center(
-          child: CommonText(
-            text: time,
-            fontSize: 10.sp,
-            color: AppColors.white,
-          ),
-        ),
-      ),
-      child: Material(
-        borderRadius: BorderRadius.circular(10),
-        color: AppColors.greyish,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(10),
-          child: Center(
-            child: CommonText(
-              text: time,
-              fontSize: 10.sp,
-              color: AppColors.grey,
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }

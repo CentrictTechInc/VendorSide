@@ -91,12 +91,12 @@ class AccountsCard extends StatelessWidget {
                 color: AppColors.primaryText,
               ),
               const Spacer(),
-              const ImageIcon(
-                AssetImage(
+              ImageIcon(
+                const AssetImage(
                   RGIcons.plusIcon,
                 ),
                 color: AppColors.primaryText,
-                size: 40,
+                size: 2.5.h,
               ),
               const HorizontalSpacing(10),
             ],

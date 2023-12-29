@@ -56,7 +56,7 @@ class PastTasksScreen extends StatelessWidget {
           color: AppColors.whiteGreyish),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: FutureBuilder(
-          future: cntrl.getAutoTasks(status: 'past'),
+          future: cntrl.getAutoTasks(status: 'completed'),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(

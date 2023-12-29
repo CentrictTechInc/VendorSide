@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:vendor_app/app/mixins/validations.dart';
 import 'package:vendor_app/app/services/local_storage_service.dart';
 import 'package:vendor_app/app/utils/common_appbar.dart';
@@ -14,6 +15,7 @@ import 'package:vendor_app/data/dto/user_details_dto.dart';
 import 'package:vendor_app/presentation/screens/profile_module/components/profile_item.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vendor_app/presentation/screens/profile_module/controller/profile_controller.dart';
+import 'package:image/image.dart' as img;
 
 // ignore: must_be_immutable
 class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
@@ -31,13 +33,37 @@ class EditProfileScreenMobile extends StatelessWidget with FieldsValidation {
     final result = (await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowMultiple: false,
+      allowCompression: true,
       onFileLoading: (FilePickerStatus status) {},
       allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
     ))
         ?.files;
     c.file = File(result!.first.path!);
+    compressImage(c.file!);
+    print(c.file!.lengthSync());
+    // print(file2!.lengthSync());
 
     c.update();
+  }
+
+  void compressImage(File file) async {
+    // Read the image from the file
+    final originalImage = img.decodeImage(await file.readAsBytes());
+
+    // Compress the image
+    final compressedImage = img.copyResize(originalImage!,
+        width: 300); // You can adjust the width to your needs
+
+    // Get the temporary directory path
+    final tempDir = await getTemporaryDirectory();
+    final targetPath = '${tempDir.path}/compressed.jpg';
+
+    // Save the compressed image
+    final compressedFile = File(targetPath)
+      ..writeAsBytesSync(img.encodeJpg(compressedImage));
+
+    print('Original size: ${file.lengthSync()} bytes');
+    print('Compressed size: ${compressedFile.lengthSync()} bytes');
   }
 
   final String? pic = LocalStorageService.instance.userPic;
