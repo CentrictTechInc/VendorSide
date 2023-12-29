@@ -8,6 +8,7 @@ class RegisterResponseDto extends RegisterResponseModel {
     super.firstName,
     super.vendoremail,
     super.message,
+    super.token,
   });
 
   factory RegisterResponseDto.fromRawJson(String str) =>
@@ -21,6 +22,7 @@ class RegisterResponseDto extends RegisterResponseModel {
         firstName: json["firstName"],
         vendoremail: json["vendoremail"],
         message: json["message"],
+        token: json["token"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -28,5 +30,6 @@ class RegisterResponseDto extends RegisterResponseModel {
         "firstName": firstName,
         "vendoremail": vendoremail,
         "message": message,
+        "token": token,
       };
 }

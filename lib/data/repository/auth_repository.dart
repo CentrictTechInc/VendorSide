@@ -62,6 +62,7 @@ class AuthRepositoryImpl extends AuthRepository {
         vid: res.vid,
         firstName: res.firstName,
         vendoremail: res.vendoremail,
+        token: res.token,
       );
       LocalStorageService.instance.user = user;
       return res.message ?? 'response not found';
