@@ -16,14 +16,12 @@ Future<void> main() async {
     HttpOverrides.global = MyHttpOverrides();
     LocalStorageService.instance.init();
     Get.put(GetAllServices());
-    // await Future.delayed(const Duration(seconds: 10));
-    // await Firebase.initializeApp(
-    //     options: DefaultFirebaseOptions.currentPlatform);
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
     await MixpanelManager.initMixpanel();
+    await FirebaseApi().initNotifications();
 
     runApp(const RepairGuruVendor());
-
-    await FirebaseApi().initNotifications();
   } catch (e) {
     debugPrint(e.toString());
   }

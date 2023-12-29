@@ -12,13 +12,13 @@ import 'package:vendor_app/common/toast_message.dart';
 import 'package:vendor_app/data/repository/auth_repository.dart';
 import 'package:vendor_app/domain/entity/user_model.dart';
 import 'package:vendor_app/domain/repository/auth_repositpory.dart';
-// import 'package:vendor_app/presentation/screens/chat/controllers/fb_msg_service.dart';
+import 'package:vendor_app/presentation/screens/chat/controllers/fb_msg_service.dart';
 
 class LoginController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    if (LocalStorageService.instance.user != null) {
+    if (LocalStorageService.instance.user?.step == 0) {
       globalContext?.go(PagePath.homeScreen);
     }
   }
@@ -64,7 +64,7 @@ class LoginController extends GetxController {
           await _repo.login(emailController.text, passController.text);
       LocalStorageService.instance.user = res;
       LocalStorageService.instance.userPic = res.profileImage ?? "";
-      // await FirebaseMessagingService.instance.addUserToFirebase();
+      await FirebaseMessagingService.instance.addUserToFirebase();
 
       if (res.step == 0) {
         await NotificationService.intance.sendNotification(
